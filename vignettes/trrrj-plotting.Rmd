@@ -15,6 +15,11 @@ vignette: >
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 ---
+```{r, include = FALSE}
+library(trrrj)
+library(dplyr)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
 
 It is sometimes usefult to visually inspect flight trajectories.
 This vignette provides some examples and code snippets that show how
@@ -38,8 +43,6 @@ We now plot the ADS-B positions just for one flight,
 flight `RYR19QK` from Comiso to Malpensa:
 
 ```{r flight-matching, echo=FALSE}
-library(dplyr)
-library(trrrj)
 f_adsb <- flts %>% 
   filter(flight_id == 207752905)
 
