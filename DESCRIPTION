@@ -21,7 +21,7 @@ Depends:
 Imports: 
     assertthat,
     DBI,
-    dplyr (>= 0.7.0),
+    dplyr,
     geosphere,
     ggmap,
     ggplot2,
