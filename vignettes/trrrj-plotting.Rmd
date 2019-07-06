@@ -1,0 +1,295 @@
+---
+title: "Plotting trajectories"
+author: "Enrico Spinielli"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    fig_caption: yes
+  pdf_document:
+    highlight: null
+    number_sections: yes
+  html_document:
+    df_print: paged
+vignette: >
+  %\VignetteIndexEntry{Plotting trajectories}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+---
+
+It is sometimes usefult to visually inspect flight trajectories.
+This vignette provides some examples and code snippets that show how
+to plot trajectories from Flight Radar 24 feed.
+In fact the snippets here can be used with any dataframe of position
+reports containing at least `timestamp`, `longitude`, `latitude` and `altitude`
+fields.
+
+
+## Plotting
+
+In order to get some sample trajectory data, you can use the `trrrj` package datasets:
+
+* `flts`: 41 flights from FR24 for 2017-02-05 and 2017-02-05, check the documentation via `?flts`
+* `poss`: ADS-B positions reports for `flts`, check the documentation via `?poss`
+* `cprs`: CPR's matching `flts`, check the documentation via `?cprs`
+
+
+
+We now plot the ADS-B positions just for one flight,
+flight `RYR19QK` from Comiso to Malpensa:
+
+```{r flight-matching, echo=FALSE}
+library(dplyr)
+library(trrrj)
+f_adsb <- flts %>% 
+  filter(flight_id == 207752905)
+
+# get the flight_id from CPRs data
+f_cpr <- cprs %>%
+  filter(callsign == "RYR19QK") %>%
+  filter(row_number()==1) %>%
+  select(tact_id, callsign, adep_icao, ades_icao, timestamp_track)
+
+f <- right_join(f_adsb, f_cpr, by = "callsign") %>%
+  rename(
+    fr24_id = flight_id, nm_id = tact_id,
+    adep_iata = schd_from,
+    ades_iata = real_to
+    ) %>%
+  select(date, flight, callsign, equip, fr24_id, nm_id, adep_icao, adep_iata, ades_icao, ades_iata)
+
+knitr::kable(f)
+```
+
+We can now plot the ADS-B trajectory:
+
+```{r trj-adsb-ggmap, fig.cap = "2D plot via ggmap", fig.width = 7, fig.height = 7, warning = FALSE, message = FALSE}
+europe <- c(left = 5, bottom = 35, right = 30, top = 52)
+
+# let's just focus on 1 flight
+trj_adsb <- poss %>%
+  filter(flight_id == 207752905)
+
+trj_adsb %>%
+  trrrj::plot_flight_horizontal(europe)
+```
+
+and the one from the CPRs:
+
+```{r trj-cpr-ggmap, fig.cap = "2D plot via ggmap", fig.width = 7, fig.height = 7, warning = FALSE, message = FALSE}
+trj_cpr <- cprs %>% 
+  filter(callsign == "RYR19QK")
+
+trj_cpr %>% 
+  cpr_plot_2d(europe)
+```
+
+
+We can also see the vertical profiles vs distance (for the ADS-B trajectory):
+
+```{r vert-distance, fig.cap = "Flight's vertical profile vs. distance", fig.width = 7, fig.height = 7}
+plot_flight_vertical_distance(trj_adsb %>% cumulative_distance())
+```
+
+
+or time:
+
+```{r vert-time, fig.cap = "Flight's vertical profile vs. time", fig.width = 7, fig.height = 7}
+plot_flight_vertical_time(trj_adsb %>% cumulative_time())
+```
+
+Now let's plot all CPR trajectories (with automatic bounding box):
+
+```{r all-cprs-2d, fig.cap = "A map of all sample CPR trajectories", fig.width = 7, fig.height = 7}
+cprs %>%
+  cpr_plot_2d()
+```
+
+
+### Base map: Europe
+
+The `pruatlas` package provides a base map for Europe using a Lambert
+Azimuthal Equal-Area projection.
+It could be a useful package to further extend for plotting trajectories.
+It is on PRU's github account, [euctrl-pru/pruatlas](https://github.com/euctrl-pru/pruatlas).
+
+
+### Retrive FR24 ADS-B data from DB
+
+The `trrrj` package provides an API to retrieve FR24 data from the DB.
+The use case here is for flights around an airport.
+
+Before continuing **BE CAREFUL** about how to use it, you could get a lot of data back and
+il could take a lot of time.
+
+Let's say you want to retrieve the *arrival* flow to 
+[Stavanger airport](https://en.wikipedia.org/wiki/Stavanger_Airport,_Sola) in Norway
+for the 6th Sep 2017, then you need to issue the following command (showing the first 10 ones only):
+
+
+```{r svg-flights-sep, eval=FALSE}
+library(ROracle)
+svg20170906flt <- export_flights_at_airport_fr24("2017-09-06T00:00:00Z",
+                                                 "2017-09-07T00:00:00Z",
+                                                 "SVG",
+                                                 flow = "ARR")
+```
+
+
+```{r svg-flights-tab}
+# fake the ROracle call
+load(file = paste0(here::here(), "/data/flts.rda"))
+
+svg20170906flt <-  flts %>%
+  as_tibble() %>%
+  filter(real_to == "BRU")
+
+knitr::kable(
+  head(svg20170906flt, 10),
+  caption = "Arrival flights at Stavanger airport, Norway, on Sep 6, 2017 (10 only)")
+```
+
+To get the position reports 40 NM around the airport for those flights (showing the first 10 ones):
+```{r svg-adsb-sep, eval=FALSE}
+library(trrrj)
+# TODO: handle the case when building w/ Oracle DB
+svg20170906pos <- export_flights_at_airport_fr24(
+  "2017-09-06", "2017-09-07",
+  "SVG", 5.638, 58.877,
+  flow = "ARR",
+  radius = 40)
+# knitr::kable(head(svg20170906pos, 10))
+```
+
+Then prepare the data and then plot:
+```{r svg-around, eval=FALSE}
+svg20170906pos <- svg20170906pos %>% 
+  rename(longitude = LON, latitude = LAT) %>% 
+  mutate(longitude = as.numeric(longitude), latitude = as.numeric(latitude))
+
+svg20170906flt <- svg20170906flt %>% 
+  rename(callsign = CALLSIGN)
+
+svg20170906pos <- svg20170906pos %>% 
+  left_join(svg20170906flt)
+
+plot_flight_horizontal(svg20170906pos)
+```
+
+
+## (File) Archived Trajectories
+
+The `trrrj` package provides import facilities for FR24 archive files:
+
+```{r import-flights, message=FALSE}
+library(trrrj)
+library(dplyr)
+
+######## flights
+flights_dir <- system.file("extdata", package = "trrrj")
+flights_csvs <- dir(flights_dir, pattern = "201702.._flights\\.csv", full.names = TRUE)
+flights <- import_flights_csvs(flights_csvs)
+(pbs <- attr(flights, "problems"))
+
+# the problematic rows have truncated values after the embedded NUL,
+# so filter them out ...
+bad_rows <- pbs %>% pull(flight_id)
+flights <- flights %>%
+  filter(!(flight_id %in% bad_rows)) %>%
+  select(-reserved)
+```
+
+Here are the first 10 entries (some variables omitted):
+
+```{r table-flights, echo=FALSE, results='asis'}
+knitr::kable(head(flights %>% 
+                    select(flight_id,
+                           reg,
+                           equip,
+                           schd_from,
+                           schd_to,
+                           real_to),
+                  10))
+```
+
+
+A sample of FR24 flight data is available as `flts` dataset in the package.
+See also the relevant help page, `?flts`.
+
+
+### (File) Archived Positions
+
+#### ADS-B Positions
+
+The `trrrj` package provides helpes to read position report files from
+FR24 archive data feed.
+In order to read the ADS-B position reports for the days
+from the previous section:
+
+```{r import-positions}
+######## positions
+poss_dirs <- c("20170206_positions", "20170205_positions")
+poss_dirs <- system.file("extdata", poss_dirs, package = "trrrj")
+poss_csvs <- dir(poss_dirs, pattern = "201702.._.*\\.csv", full.names = TRUE)
+positions <- purrr::map_dfr(poss_csvs, read_positions_fr24)
+
+# augment with flight info
+positions <- positions %>%
+  left_join(flights, by = "flight_id") %>%
+  filter(!is.na(callsign), callsign != "YELLOW6")
+```
+
+The first 10 entries (some variables omitted) for flight "AIC175"
+(`flight_id` = `207507520`) are:
+
+```{r table-positions, echo=FALSE, results='asis'}
+knitr::kable(head(positions %>% 
+                    select(flight_id,
+                           timestamp,
+                           altitude,
+                           heading,
+                           latitude,
+                           longitude,
+                           speed),
+                  10))
+```
+
+A sample of FR24 ADS-B position report data is available as `poss` dataset
+in the package.
+See also the relevant help page, `?poss`.
+
+
+
+
+#### (File) Archived Correlated Position Reports (CPR's)
+
+The `trrrj` package provides facilities to read NM's archived CPR files.
+In order to import all cprs for the 2 demo days:
+
+```{r import-cprs}
+# read all 5th and 6th February 2017 CPR's files
+cprs_dirs <- system.file("extdata", package = "trrrj")
+cprs_delims <- dir(
+   cprs_dirs,
+   pattern = "1.2017020.1001tacop304ARCHIVED_OPLOG_ALL_CPR\\.gz",
+   full.names = TRUE)
+poss_cpr <- purrr::map_dfr(cprs_delims, read_cpr)
+```
+
+and then show the first 10 entries (some variables omitted)
+for the same flight, "AIC175", as for the ADS-B positions:
+
+```{r table-cprs, echo=FALSE, results='asis'}
+knitr::kable(head(poss_cpr %>% 
+                    select(tact_id,
+                           timestamp_track,
+                           callsign,
+                           flight_level,
+                           track_heading, latitude, longitude, track_speed) %>%
+                    filter(callsign == "AIC175"), 10))
+```
+
+A sample of NM's CPR's data is available as `cprs` dataset
+in the package.
+See also the relevant help page, `?cprs`.
+
+

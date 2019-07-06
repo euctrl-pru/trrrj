@@ -1,0 +1,16 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^docs$
+^pkgdown$
+^data-raw$
+^README.Rmd$
+^LICENSE\.md$
+^\.lintr$
+^data-raw$
+^tic\.R$
+^Meta$
+^codecov\.yml$
+^appveyor\.yml$
+^\.travis\.yml$
+^cran-comments\.md$
+^doc$

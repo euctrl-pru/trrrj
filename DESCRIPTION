@@ -1,0 +1,57 @@
+Type: Package
+Package: trrrj
+Title: Helper function for flight trajectories for PRU
+Version: 0.0.1.0
+Authors@R: 
+    c(person(given = "Enrico",
+             family = "Spinielli",
+             role = c("aut", "cre"),
+             email = "enrico.spinielli@eurocontrol.int",
+             comment = c(ORCID = "0000-0001-8584-9131")),
+      person(given = "EUROCONTROL",
+             role = c("cph", "fnd")))
+Maintainer: Enrico Spinielli <enrico.spinielli@eurocontrol.int>
+Description: Functions to a) read FlightRadar24's live feed JSON
+    files, archived data; b) import CPR data from NM's archived files; c)
+    Plot 2D trajectories, vertical profiles both in time and track
+    distance; d) analyse trajectories.
+License: MIT + file LICENSE
+Depends: 
+    R (>= 3.4.0)
+Imports: 
+    assertthat,
+    DBI,
+    dplyr (>= 0.7.0),
+    geosphere,
+    ggmap,
+    ggplot2,
+    glue,
+    here,
+    janitor,
+    lubridate,
+    magrittr,
+    nvctr,
+    parsedate,
+    pracma,
+    purrr,
+    readr,
+    rlang,
+    sf,
+    stringr,
+    tibble,
+    tidyr,
+    tools,
+    units,
+    withr
+Suggests: 
+    bookdown,
+    knitr,
+    lintr,
+    rmarkdown,
+    ROracle,
+    testthat
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1

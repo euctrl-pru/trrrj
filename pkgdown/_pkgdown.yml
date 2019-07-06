@@ -1,0 +1,89 @@
+destination: docs
+url: https://trrrj.ansperformance.eu
+
+authors:
+  Enrico Spinielli:
+    href: https://enrico.spinielli.net
+  EUROCONTROL:
+    href: https://www.eurocontrol.int
+    html: "<img src='https://ansperformance.eu/nvctr/reference/figures/euctrl-logo-wide.svg' height=24>"
+
+toc:
+  depth: 2
+
+development:
+  mode: release
+
+
+# as_is is needed to produce vignette output as specified in the YAML
+# (which is usually overridden by pkgdown by using `rmarkdown::html_document()` directly)
+# https://pkgdown.r-lib.org/reference/build_articles.html?q=output%20_%20format#yaml-config
+pkgdown:
+as_is: true
+
+
+home:
+  strip_header: false
+  links:
+  - text: Learn more about PRU
+    href: https://ansperformance.eu/
+  - text: Repository for this package
+    href: https://github.com/euctrl-pru/trrrj/
+
+reference:
+- title: "Plot basics"
+  desc: >
+    All trrrj plots.
+  contents:
+  - plot_flight_horizontal
+  - plot_flight_vertical_time
+  - plot_flight_vertical_distance
+
+- title: "Trajectory load: FlightRadar24 data"
+  desc: >
+    Read/export FR24 data from file/DB.
+  contents:
+  - read_flights_fr24
+
+- title: "Trajectory load: EUROCONTROL's data"
+  desc: >
+    Read/export EUROCONTROL (DDR2, NM) data from file/DB.
+  contents:
+  - export_event_so6
+  - read_cpr
+
+
+- title: "Data load: NM CPRs"
+  desc: >
+    Load trajectories (CPR based) from ALL_FT+ files as archived by NM.
+  contents:
+  - read_cpr
+
+
+- title: "Data load: DDR2 SO6"
+  desc: >
+    Load trajectories from DDR2 files in SO6 format.
+  contents:
+  - read_so6
+
+
+navbar:
+  type: default
+  left:
+  - text: Reference
+    href: reference/index.html
+  - text: Articles
+    menu:
+    - text: Plotting trajectories
+      href: articles/trrrj-plotting.html
+  - text: News
+    menu:
+    - text: "Release notes"
+    - text: "Version 0.0.1"
+      href: articles/releases/trrrj-0.0.1.html
+    - text: "------------------"
+    - text: "Change log"
+      href: news/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/euctrl-pru/trrrj/

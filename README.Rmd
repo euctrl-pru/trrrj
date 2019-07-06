@@ -1,0 +1,70 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-"
+)
+```
+
+# trrrj
+
+The `{trrrj}` package provides facilities to aid the analysis of flight trajectories.
+
+## Installation
+
+`{trrrj}` is not currently available from CRAN, but you can install the development
+version from github with:
+
+```{r, eval = FALSE}
+# install.packages("remotes")
+remotes::install_github("euctrl-pru/trrrj")
+```
+
+## Usage
+
+There are functions that allow you to:
+
+* Load trajectories from various providers/sources:
+    - archived/live feed [Flightradar24][fr24] ADS-B based (files)
+    - live feed [Flightradar24][fr24] ADS-B based (EUROCONTROL's DB)
+    - archived [Network Manager][nm-cfmu] CPR's^[Correlated Position Reports (CPR)
+      are position report provided by the ATC radar facilities.
+      They are *correlated* because they contain flight information] (files)
+    - [DDR2][ddr2] SO6 trajectories (EUROCONTROL's DB)
+
+* Plot trajectories
+    - 2D plot
+    - vertical profiles (time or distance based)
+    
+* Analyse trajectories (Under work: more to come!)
+    - extract level flight segments
+
+* Read/transform/save your day
+    - parse Longitude/Latitude in various formats
+    - determine the AIRAC^[An AIRAC (Aeronautical Information Regulation And Control) cycle
+      is the 28-day period that regulates the [pubblication of aeronautical information](https://en.wikipedia.org/wiki/Aeronautical_Information_Publication)] cyle
+      for a date or its range (ICAO or CFMU format)
+
+
+## Data
+
+The package contains small data source files in order to
+provide realistic examples and use cases for guides and vignettes.
+
+
+## Tutorials and Guides
+
+The vignette [Plotting trajectories](articles/trrrj-plotting.html) provides
+a good introduction on how to use the package.
+
+
+[fr24]: <https://www.flightradar24.com/> "Flightradar24"
+[ddr2]: <https://www.eurocontrol.int/ddr> "Demand Data Repository - EUROCONTROL"
+[nm-cfmu]: <https://www.eurocontrol.int/network-manager> "Network Manager - EUROCONTROL"
+[cpr]: <https://ansperformance.eu/acronym/cpr/> "Correlated Position Report"
