@@ -111,7 +111,7 @@ parse_lat_icao <- function(lat) {
   d <- as.integer(h[, 2])
   m <- as.integer(h[, 3])
   s <- as.integer(h[, 4])
-  ds <- ifelse(is.na(h[, 6]) || h[, 6] == "", 0, as.double(h[, 5]))
+  ds <- ifelse(is.na(h[, 6]) | h[, 6] == "", 0, as.double(h[, 5]))
   e <- ifelse(h[, 7] == "S", -1, 1)
 
   to_decimal_degrees(d, m, s + ds, e)
@@ -157,7 +157,7 @@ parse_lon_icao <- function(lon) {
   d <- as.integer(h[, 2])
   m <- as.integer(h[, 3])
   s <- as.integer(h[, 4])
-  ds <- ifelse(is.na(h[, 6]) || h[, 6] == "", 0, as.double(h[, 5]))
+  ds <- ifelse(is.na(h[, 6]) | h[, 6] == "", 0, as.double(h[, 5]))
   e <- ifelse(h[, 7] == "W", -1, 1)
 
   to_decimal_degrees(d, m, s + ds, e)
