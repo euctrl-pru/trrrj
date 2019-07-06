@@ -267,11 +267,15 @@ In order to import all cprs for the 2 demo days:
 
 ```{r import-cprs}
 # read all 5th and 6th February 2017 CPR's files
-cprs_dirs <- system.file("extdata", package = "trrrj")
-cprs_delims <- dir(
-   cprs_dirs,
-   pattern = "1.2017020.1001tacop304ARCHIVED_OPLOG_ALL_CPR\\.gz",
-   full.names = TRUE)
+# cprs_dirs <- system.file("extdata", package = "trrrj")
+# cprs_delims <- dir(
+#    cprs_dirs,
+#    pattern = "1.2017020.1001tacop304ARCHIVED_OPLOG_ALL_CPR\\.gz",
+#    full.names = TRUE)
+cprs_delims <- c(
+  trrrj_example("1.201702051001tacop304ARCHIVED_OPLOG_ALL_CPR.gz"),
+  trrrj_example("1.201702061001tacop304ARCHIVED_OPLOG_ALL_CPR.gz"))
+
 poss_cpr <- purrr::map_dfr(cprs_delims, read_cpr)
 ```
 
