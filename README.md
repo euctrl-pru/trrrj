@@ -3,12 +3,12 @@
 trrrj
 =====
 
-The `{trrrj}` package provides facilities to aid the analysis of flight trajectories.
+The `{trrrj}` package provides facilities to aid in the analysis of flight trajectories.
 
 Installation
 ------------
 
-`{trrrj}` is not currently available from CRAN, but you can install the development version from github with:
+`{trrrj}` is not yet available from CRAN, but you can install the development version from github with:
 
 ``` r
 # install.packages("remotes")
@@ -30,7 +30,7 @@ There are functions that allow you to:
     -   vertical profiles (time or distance based)
 -   Analyse trajectories (Under work: more to come!)
     -   extract level flight segments
--   Read/transform/save your day
+-   Read/transform/*save your day*
     -   parse Longitude/Latitude in various formats
     -   determine the AIRAC[2] cyle for a date or its range (ICAO or CFMU format)
 

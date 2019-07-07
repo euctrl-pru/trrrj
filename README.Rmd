@@ -14,11 +14,11 @@ knitr::opts_chunk$set(
 
 # trrrj
 
-The `{trrrj}` package provides facilities to aid the analysis of flight trajectories.
+The `{trrrj}` package provides facilities to aid in the analysis of flight trajectories.
 
 ## Installation
 
-`{trrrj}` is not currently available from CRAN, but you can install the development
+`{trrrj}` is not yet available from CRAN, but you can install the development
 version from github with:
 
 ```{r, eval = FALSE}
@@ -45,7 +45,7 @@ There are functions that allow you to:
 * Analyse trajectories (Under work: more to come!)
     - extract level flight segments
 
-* Read/transform/save your day
+* Read/transform/*save your day*
     - parse Longitude/Latitude in various formats
     - determine the AIRAC^[An AIRAC (Aeronautical Information Regulation And Control) cycle
       is the 28-day period that regulates the [pubblication of aeronautical information](https://en.wikipedia.org/wiki/Aeronautical_Information_Publication)] cyle
@@ -56,6 +56,7 @@ There are functions that allow you to:
 
 The package contains small data source files in order to
 provide realistic examples and use cases for guides and vignettes.
+
 
 
 ## Tutorials and Guides

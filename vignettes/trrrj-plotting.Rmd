@@ -83,7 +83,7 @@ trj_cpr <- cprs %>%
   filter(callsign == "RYR19QK")
 
 trj_cpr %>% 
-  cpr_plot_2d(europe)
+  cpr_plot_horizontal(europe)
 ```
 
 
@@ -104,7 +104,7 @@ Now let's plot all CPR trajectories (with automatic bounding box):
 
 ```{r all-cprs-2d, fig.cap = "A map of all sample CPR trajectories", fig.width = 7, fig.height = 7}
 cprs %>%
-  cpr_plot_2d()
+  cpr_plot_horizontal()
 ```
 
 
