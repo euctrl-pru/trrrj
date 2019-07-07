@@ -1,6 +1,8 @@
 # trrrj 0.0.1
 
 
+## Initial Release
+
 I am very please to announce the first release of trrrj.
 This is the first small step towards a reusable set of functionality to analyse flight trajectories.
 
