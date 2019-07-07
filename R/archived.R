@@ -11,7 +11,7 @@
 #'          in callsign.
 #' @export
 #'
-#' @family archive import functions
+#' @family read/export functions
 #' @examples
 #' \dontrun{
 #' # read all package February 2017 flights files
@@ -58,7 +58,7 @@ import_flights_csvs <- function(files) {
 #'         \code{20170206_flights_fixed.csv}.
 #' @export
 #'
-#' @family archive import functions
+#' @family read/export functions
 #' @examples
 #' \dontrun{
 #' # fix 6th Feb 2017 flights file
@@ -88,7 +88,7 @@ fix_nulls_in_callsign <- function(flights_csv, fixed_dir = getwd()) {
 #' @seealso \code{\link{fix_nulls_in_callsign}} for the new files naming convention.
 #' @export
 #'
-#' @family archive import functions
+#' @family read/export functions
 #' @examples
 #' \dontrun{
 #' # fix all February 2017 flights files

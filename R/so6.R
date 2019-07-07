@@ -11,6 +11,7 @@
 #'
 #' @return a data frame where date and time are combined in a single
 #'         datetime and longitude and latitude are in decimal degrees.
+#' @family read/export functions
 #' @export
 #'
 #' @examples
@@ -127,6 +128,7 @@ read_so6 <- function(filename, delim = " ") {
 #' @param til the unTIL date till when flights are selected.
 #'
 #' @return a dataframe of trajectory segments in SO6 format.
+#' @family read/export functions
 #' @export
 #'
 #' @examples
@@ -206,6 +208,7 @@ generate_so6 <- function(event_trajectory) {
 #' @param til the unTIL date till when flights are selected.
 #'
 #' @return a dataframe of trajectory points.
+#' @family read/export functions
 #' @export
 #'
 #' @examples

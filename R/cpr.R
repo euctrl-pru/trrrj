@@ -35,7 +35,7 @@
 #'         }
 #' @export
 #'
-#' @family archive import functions
+#' @family read/export functions
 #' @examples
 #' \dontrun{
 #' # read CPR's of the 20 sample flights for 5th Feb 2017

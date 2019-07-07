@@ -19,3 +19,9 @@ The interval od dates for an (ICAO) AIRAC
 airac_interval("1603")
 
 }
+\seealso{
+Other AIRAC functions: \code{\link{airac_year_epoch}},
+  \code{\link{airac}}, \code{\link{cfmu_airac_interval}},
+  \code{\link{cfmu_airac}}
+}
+\concept{AIRAC functions}

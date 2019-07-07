@@ -31,3 +31,4 @@ f <- cprs \%>\%
  extract_segment(f)
 }
 }
+\concept{analysis functions}

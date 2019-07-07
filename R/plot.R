@@ -13,6 +13,7 @@
 #' See \code{shape} in \code{\link[ggplot2]{geom_point}}.
 #'
 #' @return a \code{ggplot2} plot object.
+#' @family plot functions
 #' @export
 #'
 #' @examples
@@ -99,6 +100,7 @@ plot_flight_horizontal <- function(poss,
 #'   If NULL, the default, it will be calculated from the data.
 #'
 #' @return a ggplot2 plot
+#' @family plot functions
 #' @export
 #'
 #' @examples
@@ -125,6 +127,7 @@ cpr_plot_horizontal <- function(cprs, bb = NULL) {
 #'  `timestamp` (a date-time) and `altitude` (in feet) columns
 #'
 #' @return a \code{ggplot2} plot object.
+#' @family plot functions
 #' @export
 #'
 #' @examples
@@ -154,6 +157,7 @@ plot_flight_vertical_time <- function(poss) {
 #'  `callsign` columns
 #'
 #' @return a \code{ggplot2} plot object.
+#' @family plot functions
 #' @export
 #'
 #' @examples

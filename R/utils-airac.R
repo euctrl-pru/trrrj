@@ -19,6 +19,7 @@ cfmu_airac_epoch_number <- function() {
 #' @param date a date
 #'
 #' @return a number indicating the AIRAC cycle according to CFMU scheme
+#' @family AIRAC functions
 #' @export
 #'
 #' @examples
@@ -37,6 +38,7 @@ cfmu_airac <- function(date) {
 #' @param cfmu_airac a CFMU AIRAC number
 #'
 #' @return an interval of dates (28 days)
+#' @family AIRAC functions
 #' @export
 #'
 #' @examples
@@ -65,6 +67,7 @@ airac_epoch <- function() {
 #' @param date a date (or a ymd representation of it)
 #'
 #' @return the ICAO AIRCA id
+#' @family AIRAC functions
 #' @export
 #'
 #' @examples
@@ -86,6 +89,7 @@ airac <- function(date) {
 #' @param year a year (as integer)
 #'
 #' @return the WEF date for the first AIRAC of the year `year`
+#' @family AIRAC functions
 #' @export
 #'
 #' @examples
@@ -103,6 +107,7 @@ airac_year_epoch <- function(year) {
 #' @param airac the ICAO AIRAC, i.e. "1603" for the 3rd AIRAC of 2016
 #'
 #' @return an interval of (28) days coverad by the AIRAC `airac`
+#' @family AIRAC functions
 #' @export
 #'
 #' @examples

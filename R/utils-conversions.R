@@ -11,6 +11,7 @@ to_decimal_degrees <- function(degs, mins, secs, sgn) {
 #'              Note the escaping of double quote.
 #'
 #' @return a decimal degrees value
+#' @family coordinatetes conversion functions
 #' @export
 #'
 #' @examples
@@ -40,6 +41,7 @@ dms2dd <- function(value) {
 #'              Degree decimal Minute (DdM)), i.e. N51°28.65'
 #'
 #' @return a decimal (degrees) value
+#' @family coordinatetes conversion functions
 #' @export
 #'
 #' @examples
@@ -96,11 +98,11 @@ parse_heading_nm <- function(track_heading) {
 #' This format is used in AIP pubblications, for examples for runway threshold
 #' coordinates, stand positions, etc.
 #' This is used also in `ALL+` files from NM.
-
 #' @param lat a string representation for latitude,
 #'        i.e. \code{554718N} or \code{554718.23N}
 #'
 #' @return a latitude in decimal degrees
+#' @family coordinatetes conversion functions
 #' @export
 #'
 #' @examples
@@ -147,6 +149,7 @@ parse_lat_icao <- function(lat) {
 #' @param lon a string representation for longitude, i.e. 0114901W or 0114901.23W
 #'
 #' @return decimal degress value
+#' @family coordinatetes conversion functions
 #' @export
 #'
 #' @examples

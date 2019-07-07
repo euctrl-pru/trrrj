@@ -19,3 +19,9 @@ return the CFMU AIRAC cycle number for a date
 cfmu_airac('2019-01-30')
 
 }
+\seealso{
+Other AIRAC functions: \code{\link{airac_interval}},
+  \code{\link{airac_year_epoch}}, \code{\link{airac}},
+  \code{\link{cfmu_airac_interval}}
+}
+\concept{AIRAC functions}

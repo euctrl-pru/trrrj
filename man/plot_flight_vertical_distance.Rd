@@ -25,3 +25,9 @@ lapsed distance perspective.
 plot_flight_vertical_distance(poss)
 }
 }
+\seealso{
+Other plot functions: \code{\link{cpr_plot_horizontal}},
+  \code{\link{plot_flight_horizontal}},
+  \code{\link{plot_flight_vertical_time}}
+}
+\concept{plot functions}

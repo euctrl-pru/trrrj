@@ -25,3 +25,9 @@ europe <- c(left = 5, bottom = 35, right = 30, top = 52)
 cpr_plot_horizontal(poss, europe)
 }
 }
+\seealso{
+Other plot functions: \code{\link{plot_flight_horizontal}},
+  \code{\link{plot_flight_vertical_distance}},
+  \code{\link{plot_flight_vertical_time}}
+}
+\concept{plot functions}

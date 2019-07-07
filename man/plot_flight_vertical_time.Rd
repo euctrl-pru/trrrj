@@ -23,3 +23,9 @@ lapsed time perspective.
 plot_flight_vertical_time(poss)
 }
 }
+\seealso{
+Other plot functions: \code{\link{cpr_plot_horizontal}},
+  \code{\link{plot_flight_horizontal}},
+  \code{\link{plot_flight_vertical_distance}}
+}
+\concept{plot functions}

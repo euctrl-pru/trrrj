@@ -18,3 +18,9 @@ Return the effective date of the first AIRAC for year `year`
 \examples{
 airac_year_epoch(2018)
 }
+\seealso{
+Other AIRAC functions: \code{\link{airac_interval}},
+  \code{\link{airac}}, \code{\link{cfmu_airac_interval}},
+  \code{\link{cfmu_airac}}
+}
+\concept{AIRAC functions}

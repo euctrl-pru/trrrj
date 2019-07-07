@@ -59,3 +59,9 @@ p1 <- p \%>\% left_join(f) \%>\% filter(!is.na(callsign))
 plot_flight_horizontal(p1)
 }
 }
+\seealso{
+Other plot functions: \code{\link{cpr_plot_horizontal}},
+  \code{\link{plot_flight_vertical_distance}},
+  \code{\link{plot_flight_vertical_time}}
+}
+\concept{plot functions}

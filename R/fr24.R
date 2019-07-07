@@ -12,6 +12,7 @@
 #' @param til timestamp of TILl instant (excluded)
 #'
 #' @return a dataframe of position reports
+#' @family read/export functions
 #' @export
 #'
 #' @examples
@@ -110,6 +111,7 @@ export_positions_fr24 <- function(wef, til) {
 #'             "ALL" for both (default "ALL")
 #'
 #' @return a dataframe of flights
+#' @family read/export functions
 #' @export
 #'
 #' @examples
@@ -204,6 +206,7 @@ export_flights_at_airport_fr24 <- function(wef, til, apt, flow = "ALL") {
 #'                                  "ALL" for both (default "ALL")
 #'
 #' @return dataframe of ADS-B position reports
+#' @family read/export functions
 #' @export
 #'
 #' @examples
@@ -363,7 +366,7 @@ export_positions_at_airport_fr24 <- function(wef, til, apt, lon_apt, lat_apt, fl
 #'
 #' @export
 #'
-#' @family archive import functions
+#' @family read/export functions
 #' @examples
 #' \dontrun{
 #' read_flights_fr24("extdata/20170206_flights.csv")
@@ -447,7 +450,7 @@ read_flights_fr24 <- function(path) {
 #'
 #' @export
 #'
-#' @family archive import functions
+#' @family read/export functions
 #' @examples
 #' \dontrun{
 #' # positions for flight 207522820 on 20170206 (6th Feb 2017)
