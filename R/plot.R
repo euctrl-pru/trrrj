@@ -107,9 +107,9 @@ plot_flight_horizontal <- function(poss,
 #' \dontrun{
 #' # plot CPR tryjectories
 #' europe <- c(left = 5, bottom = 35, right = 30, top = 52)
-#' cpr_plot_horizontal(poss, europe)
+#' plot_cpr_horizontal(poss, europe)
 #' }
-cpr_plot_horizontal <- function(cprs, bb = NULL) {
+plot_cpr_horizontal <- function(cprs, bb = NULL) {
   cprs %>%
     dplyr::mutate(
       altitude = .data$flight_level * 100,

@@ -60,7 +60,7 @@ plot_flight_horizontal(p1)
 }
 }
 \seealso{
-Other plot functions: \code{\link{cpr_plot_horizontal}},
+Other plot functions: \code{\link{plot_cpr_horizontal}},
   \code{\link{plot_flight_vertical_distance}},
   \code{\link{plot_flight_vertical_time}}
 }

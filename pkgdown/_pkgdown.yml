@@ -8,6 +8,40 @@ authors:
     href: https://www.eurocontrol.int
     html: "<img src='https://ansperformance.eu/nvctr/reference/figures/euctrl-logo-wide.svg' height=24>"
 
+
+reference:
+  - title: Read/Export Functions
+    desc:  Read (from file)/Export (from DB) trajectories.
+    contents:
+    - starts_with("import_")
+    - starts_with("read_")
+    - fix_flights_csvs
+    - fix_nulls_in_callsign
+
+  - title: Plot Horizontal/Vertical Trajectories
+    contents:
+    - starts_with("plot_")
+    - starts_with("cumulative_")
+
+  - title: Geographical Coordinates Conversions
+    contents:
+    - dms2dd
+    - ddm2dd
+    - parse_lat_icao
+    - parse_lon_icao
+
+  - title: Analysis of Trajectories
+    contents:
+    - extract_segment
+
+  - title: Helpers
+    contents:
+    - airac
+    - starts_with("airac_")
+    - starts_with("cfmu_")
+
+
+
 toc:
   depth: 2
 
