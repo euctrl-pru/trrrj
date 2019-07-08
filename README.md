@@ -3,7 +3,7 @@
 trrrj
 =====
 
-[![Travis build status](https://travis-ci.org/euctrl-pru/trrrj.svg?branch=master)](https://travis-ci.org/euctrl-pru/trrrj)
+[![Travis build status](https://travis-ci.org/euctrl-pru/trrrj.svg?branch=master)](https://travis-ci.org/euctrl-pru/trrrj) [![codecov](https://codecov.io/gh/euctrl-pru/trrrj/branch/master/graph/badge.svg)](https://codecov.io/gh/euctrl-pru/trrrj)
 
 The `{trrrj}` package provides facilities to aid in the analysis of flight trajectories.
 
