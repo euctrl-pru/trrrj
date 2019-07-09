@@ -7,8 +7,7 @@
 #' @param bbox a bounding box in the format
 #'  \code{c(lowerleftlon, lowerleftlat, upperrightlon, upperrightlat)}.
 #' @param buffer number of nautical miles (NM) around the bounding box (default 40)
-#' @param type map type (default "toner-background").
-#' For possible alternatives, see \url{http://maps.stamen.com}.
+#' @param legend.position legend position as per ggplot2 (default "none", i.e. do not show it).
 #' @param shape shape of point to plot (default \code{NULL}, i.e. do not plot positions, only paths).
 #' See \code{shape} in \code{\link[ggplot2]{geom_point}}.
 #'
@@ -47,7 +46,7 @@
 plot_flight_horizontal <- function(poss,
                                    bbox = NULL,
                                    buffer = 100,
-                                   type = "toner-background",
+                                   legend.position = "none",
                                    shape = NULL) {
   stopifnot(is.numeric(buffer))
 
@@ -67,19 +66,27 @@ plot_flight_horizontal <- function(poss,
     names(bbox) <- c("left", "bottom", "right", "top")
   }
   names(bbox) <- c("left", "bottom", "right", "top")
-  zoom <- calc_zoom(bbox)
-  mp <- ggmap::get_stamenmap(bbox, maptype = type, zoom = zoom, messaging = FALSE)
-  p <- ggmap::ggmap(mp) +
+
+  world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
+
+  p <- ggplot2::ggplot(poss) +
+    ggplot2::geom_sf(data = world) +
+    ggplot2::coord_sf(xlim = c(bbox["left"], bbox["right"]),
+                      ylim = c(bbox["bottom"], bbox["top"]),
+             expand = TRUE) +
     ggplot2::geom_path(
       data = poss,
       mapping = ggplot2::aes_(
         x = quote(longitude), y = quote(latitude),
-        colour = quote(callsign), group = quote(callsign)
+        colour = quote(callsign),
+        group = quote(callsign)
       ),
-      size = 1.4, alpha = .3, lineend = "round"
-    )
+      size = 1.4, alpha = .3, lineend = "round") +
+    ggplot2::theme_minimal() +
+    ggplot2::theme(panel.background = ggplot2::element_rect(fill = "aliceblue"),
+                   legend.position = legend.position)
 
-  if (!is.null(shape))
+  if (!is.null(shape)) {
     p <- p +
     ggplot2::geom_point(
       data = poss,
@@ -89,7 +96,7 @@ plot_flight_horizontal <- function(poss,
       ),
       shape = shape
     )
-
+  }
   p
 }
 

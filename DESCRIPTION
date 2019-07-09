@@ -23,7 +23,6 @@ Imports:
     DBI,
     dplyr,
     geosphere,
-    ggmap,
     ggplot2,
     glue,
     here,

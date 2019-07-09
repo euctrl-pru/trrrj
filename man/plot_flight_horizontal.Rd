@@ -5,7 +5,7 @@
 \title{Plot the recorded positions of a flight on a map.}
 \usage{
 plot_flight_horizontal(poss, bbox = NULL, buffer = 100,
-  type = "toner-background", shape = NULL)
+  legend.position = "none", shape = NULL)
 }
 \arguments{
 \item{poss}{a dataframe of position reports with (at least)
@@ -18,8 +18,7 @@ plot_flight_horizontal(poss, bbox = NULL, buffer = 100,
 
 \item{buffer}{number of nautical miles (NM) around the bounding box (default 40)}
 
-\item{type}{map type (default "toner-background").
-For possible alternatives, see \url{http://maps.stamen.com}.}
+\item{legend.position}{legend position as per ggplot2 (default "none", i.e. do not show it).}
 
 \item{shape}{shape of point to plot (default \code{NULL}, i.e. do not plot positions, only paths).
 See \code{shape} in \code{\link[ggplot2]{geom_point}}.}

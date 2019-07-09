@@ -3,13 +3,13 @@ title: "Plotting trajectories"
 author: "Enrico Spinielli"
 date: "`r Sys.Date()`"
 output:
-  rmarkdown::html_vignette:
-    fig_caption: yes
+  html_document:
+    df_print: paged
   pdf_document:
     highlight: null
     number_sections: yes
-  html_document:
-    df_print: paged
+  rmarkdown::html_vignette:
+    fig_caption: yes
 vignette: >
   %\VignetteIndexEntry{Plotting trajectories}
   %\VignetteEncoding{UTF-8}
@@ -70,10 +70,10 @@ europe <- c(left = 5, bottom = 35, right = 30, top = 52)
 
 # let's just focus on 1 flight
 trj_adsb <- poss %>%
-  filter(flight_id == 207752905)
+  dplyr::filter(flight_id == 207752905)
 
 trj_adsb %>%
-  trrrj::plot_flight_horizontal(europe)
+  trrrj::plot_flight_horizontal(bbox = europe)
 ```
 
 and the one from the CPRs:
