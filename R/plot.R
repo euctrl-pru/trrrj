@@ -63,7 +63,6 @@ plot_flight_horizontal <- function(poss,
       #       https://shrektan.com/post/2018/04/25/human-round-round-to-nearest-ties-away-from-zero/
       # round() %>%
       as.numeric()
-    names(bbox) <- c("left", "bottom", "right", "top")
   }
   names(bbox) <- c("left", "bottom", "right", "top")
 

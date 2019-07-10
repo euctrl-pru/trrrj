@@ -72,8 +72,7 @@ europe <- c(left = 5, bottom = 35, right = 30, top = 52)
 trj_adsb <- poss %>%
   dplyr::filter(flight_id == 207752905)
 
-trj_adsb %>%
-  trrrj::plot_flight_horizontal(bbox = europe)
+trrrj::plot_flight_horizontal(trj_adsb, bbox = europe)
 ```
 
 and the one from the CPRs:

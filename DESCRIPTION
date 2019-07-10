@@ -35,6 +35,7 @@ Imports:
     purrr,
     readr,
     rlang,
+    rnaturalearth,
     sf,
     stringr,
     tibble,
