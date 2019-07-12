@@ -16,6 +16,7 @@ reference:
     - starts_with("read_")
     - starts_with("export_")
     - starts_with("import_")
+    - ends_with("_osn")
     - fix_flights_csvs
     - fix_nulls_in_callsign
 

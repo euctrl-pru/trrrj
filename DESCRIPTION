@@ -43,7 +43,9 @@ Imports:
     tidyr,
     tools,
     units,
-    withr
+    withr,
+    httr,
+    jsonlite
 Suggests: 
     bookdown,
     knitr,
