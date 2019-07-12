@@ -13,8 +13,9 @@ reference:
   - title: Read/Export Functions
     desc:  Read (from file)/Export (from DB) trajectories.
     contents:
-    - starts_with("import_")
     - starts_with("read_")
+    - starts_with("export_")
+    - starts_with("import_")
     - fix_flights_csvs
     - fix_nulls_in_callsign
 
