@@ -46,7 +46,8 @@ Imports:
     withr,
     httr,
     jsonlite,
-    ssh
+    ssh,
+    stringi
 Suggests: 
     bookdown,
     knitr,
