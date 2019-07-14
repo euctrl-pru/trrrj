@@ -13,6 +13,9 @@ arrivals_osn(apt, wef, til = NULL)
 
 \item{til}{until time [default wef + 1 day]}
 }
+\value{
+data frame of arrivals
+}
 \description{
 See \url{https://opensky-network.org/apidoc/index.html} for
 details and limitations.

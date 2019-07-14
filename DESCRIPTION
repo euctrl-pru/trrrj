@@ -45,7 +45,8 @@ Imports:
     units,
     withr,
     httr,
-    jsonlite
+    jsonlite,
+    ssh
 Suggests: 
     bookdown,
     knitr,

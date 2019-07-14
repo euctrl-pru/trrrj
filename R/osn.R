@@ -7,7 +7,7 @@
 #' @param wef starting from
 #' @param til until time [default wef + 1 day]
 #'
-#' @return
+#' @return data frame of arrivals
 #' @export
 #'
 #' @examples
