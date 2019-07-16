@@ -38,6 +38,49 @@ arrivals_impala_osn <- function(session, apt, wef, til=NULL) {
   query <- stringr::str_glue(
     "select * from flights ",
     "where ",
+    "destination like '%{APT}%' ",
+    " and firstseen >= '{WEF}' ",
+    " and firstseen <  '{TIL}';",
+    APT = apt,
+    WEF = wef,
+    TIL = til)
+
+  ssh::ssh_exec_internal(session, stringr::str_glue("-q {query}", query = query)) %>%
+    { rawToChar(.$stdout)} %>%
+    stringi::stri_split_lines() %>%
+    purrr::flatten_chr() %>%
+    # remove empty lines
+    stringr::str_subset(pattern = "^$", negate = TRUE) %>%
+    # remove delimiting lines
+    stringr::str_subset(pattern = "^\\+-", negate = TRUE) %>%
+    # remove first and last field separator, '|'
+    stringr::str_replace_all("^[|](.+)[|]$", "\\1") %>%
+    readr::read_delim(delim = "|", na = c("", "NULL"), trim_ws = TRUE) %>%
+    janitor::clean_names()
+}
+
+#' Get departures at airport
+#'
+#' @param session SSH session to OSN Impala
+#' @param apt ICAO ID of airport, i.e. "EDDF" for Frankfurt
+#' @param wef Start of period of interest
+#' @param til End of period of interest
+#'
+#' @return data frame of state vector data as for OSN docs.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' departures_impala_osn(session, "EDDF", "2019-04-22 00:00:00", til=NULL)
+#' }
+departures_impala_osn <- function(session, apt, wef, til=NULL) {
+  if (is.null(til)) {
+    til <- lubridate::ymd_hms(wef) + lubridate::days(1)
+    til <- format(til, "%Y-%m-%d %H:%M:%S")
+  }
+  query <- stringr::str_glue(
+    "select * from flights ",
+    "where ",
     "departure like '%{APT}%' ",
     " and firstseen >= '{WEF}' ",
     " and firstseen <  '{TIL}';",
@@ -58,6 +101,7 @@ arrivals_impala_osn <- function(session, apt, wef, til=NULL) {
     readr::read_delim(delim = "|", na = c("", "NULL"), trim_ws = TRUE) %>%
     janitor::clean_names()
 }
+
 
 #' Get state vectors from OSN
 #'
