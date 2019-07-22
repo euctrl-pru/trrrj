@@ -8,12 +8,28 @@
 #'
 #' @examples
 #' \dontrun{
-#' session <- session_osn("cucu", verbose = 2)
+#' session <- connect_osn("cucu", verbose = 2)
 #' }
-session_osn <- function(usr, passwd = askpass, verbose = FALSE) {
+connect_osn <- function(usr, passwd = askpass, verbose = FALSE) {
   host <- stringr::str_glue("{usr}@data.opensky-network.org:2230", usr = usr)
   ssh::ssh_connect(host, verbose = verbose)
 }
+
+#' Disconnect from OpenSky Network’s Impala shell.
+#'
+#' @inheritParams ssh::ssh_disconnect
+#'
+#' @return an SSH session
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' disconnect_osn(session)
+#' }
+disconnect_osn <- function(session) {
+  ssh::ssh_disconnect(session)
+}
+
 
 # flights_data4
 #   +----------------------------------+----------------------+
@@ -135,9 +151,7 @@ arrivals_impala_osn <- function(session, apt, wef, til=NULL) {
     session,
     stringr::str_glue("-q {query}", query = query)) %>%
     { rawToChar(.$stdout)} %>%
-    stringi::stri_split_lines()
-
-  almost_values <- lines %>%
+    stringi::stri_split_lines() %>%
     purrr::flatten_chr() %>%
     # match all lines starting w/ '|'
     stringr::str_subset(pattern = "^\\|") %>%
@@ -145,15 +159,28 @@ arrivals_impala_osn <- function(session, apt, wef, til=NULL) {
     stringr::str_replace_all("^[|](.+)[|]$", "\\1") %>%
     stringr::str_replace_all("\\s*\\|\\s*", ",") %>%
     stringr::str_trim(side = "both")
-  # remove duplicated heading (with column names)
-  values_to_parse <- almost_values[!duplicated(almost_values)]
 
+  # remove duplicated heading (with column names)
+  values_to_parse <- lines[!duplicated(lines)]
+  cols <- readr::cols(
+    icao24 = readr::col_character(),
+    callsign = readr::col_character(),
+    day = readr::col_integer(),
+    firstseen = readr::col_integer(),
+    estdepartureairport = readr::col_character(),
+    estarrivalairport = readr::col_character(),
+    item.time = readr::col_integer(),
+    item.longitude = readr::col_double(),
+    item.latitude = readr::col_double(),
+    item.altitude = readr::col_double(),
+    item.heading = readr::col_double(),
+    item.onground = readr::col_logical()
+  )
   values <- values_to_parse %>%
     readr::read_csv(
       na = c("", "NULL"),
-      trim_ws = TRUE) %>%
+      col_types = cols) %>%
     janitor::clean_names()
-
   values
 }
 
