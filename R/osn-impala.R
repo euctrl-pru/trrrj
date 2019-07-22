@@ -15,6 +15,43 @@ session_osn <- function(usr, passwd = askpass, verbose = FALSE) {
   ssh::ssh_connect(host, verbose = verbose)
 }
 
+# flights_data4
+#   +----------------------------------+----------------------+
+#   | name                             | type                 |
+#   +----------------------------------+----------------------+
+#   | icao24                           | string               |
+#   | firstseen                        | int                  |
+#   | estdepartureairport              | string               |
+#   | lastseen                         | int                  |
+#   | estarrivalairport                | string               |
+#   | callsign                         | string               |
+#   | track                            | array<struct<        |
+#   |                                  |   time:int,          |
+#   |                                  |   latitude:double,   |
+#   |                                  |   longitude:double,  |
+#   |                                  |   altitude:double,   |
+#   |                                  |   heading:float,     |
+#   |                                  |   onground:boolean   |
+#   |                                  | >>                   |
+#   | serials                          | array<int>           |
+#   | estdepartureairporthorizdistance | int                  |
+#   | estdepartureairportvertdistance  | int                  |
+#   | estarrivalairporthorizdistance   | int                  |
+#   | estarrivalairportvertdistance    | int                  |
+#   | departureairportcandidatescount  | int                  |
+#   | arrivalairportcandidatescount    | int                  |
+#   | otherdepartureairportcandidates  | array<struct<        |
+#   |                                  |   icao:string,       |
+#   |                                  |   horizdistance:int, |
+#   |                                  |   vertdistance:int   |
+#   |                                  | >>                   |
+#   | otherarrivalairportcandidates    | array<struct<        |
+#   |                                  |   icao:string,       |
+#   |                                  |   horizdistance:int, |
+#   |                                  |   vertdistance:int   |
+#   |                                  | >>                   |
+#   | day                              | int                  |
+#   +----------------------------------+----------------------+
 
 #' Get arrivals at airport
 #'
@@ -31,32 +68,93 @@ session_osn <- function(usr, passwd = askpass, verbose = FALSE) {
 #' arrivals_impala_osn(session, "EDDF", "2019-04-22 00:00:00", til=NULL)
 #' }
 arrivals_impala_osn <- function(session, apt, wef, til=NULL) {
+  wef <- lubridate::as_datetime(wef)
   if (is.null(til)) {
-    til <- lubridate::ymd_hms(wef) + lubridate::days(1)
-    til <- format(til, "%Y-%m-%d %H:%M:%S")
+    til <- wef + lubridate::days(1)
+  } else {
+    til <- lubridate::as_datetime(til)
   }
+  wef <- wef %>% as.integer()
+  til <- til %>% as.integer()
+
+  # SELECT
+  # icao24,
+  # callsign,
+  # firstseen,
+  # from_unixtime(day, 'yyyy-MM-dd') as day,
+  # estdepartureairport,
+  # estarrivalairport,
+  # track.item.time,
+  # track.item.longitude,
+  # track.item.latitude,
+  # track.item.altitude,
+  # track.item.heading,
+  # track.item.onground
+  # FROM
+  # flights_data4,
+  # flights_data4.track
+  # WHERE
+  # estarrivalairport LIKE '%EDDF%'
+  # AND ( day >= 1541894400 AND day < 1541980800)
+  # -- LIMIT 7
+  # ;
+
+  columns <- c(
+    "icao24",
+    "callsign",
+    "day",
+    "firstseen",
+    "estdepartureairport",
+    "estarrivalairport",
+    "track.item.time",
+    "track.item.longitude",
+    "track.item.latitude",
+    "track.item.altitude",
+    "track.item.heading",
+    "track.item.onground"
+  )
+
+  tables <- c(
+    "flights_data4",
+    "flights_data4.track"
+  )
   query <- stringr::str_glue(
-    "select * from flights ",
-    "where ",
-    "departure like '%{APT}%' ",
-    " and firstseen >= '{WEF}' ",
-    " and firstseen <  '{TIL}';",
+    "SELECT {COLUMNS} ",
+    "FROM {TABLES} ",
+    "WHERE ",
+    "estdepartureairport like '%{APT}%' ",
+    " and firstseen >= {WEF} ",
+    " and firstseen <  {TIL};",
+    COLUMNS = stringr::str_c(columns, collapse = ","),
+    TABLES = stringr::str_c(tables, collapse = ","),
     APT = apt,
     WEF = wef,
     TIL = til)
 
-  ssh::ssh_exec_internal(session, stringr::str_glue("-q {query}", query = query)) %>%
+  lines <- ssh::ssh_exec_internal(
+    session,
+    stringr::str_glue("-q {query}", query = query)) %>%
     { rawToChar(.$stdout)} %>%
-    stringi::stri_split_lines() %>%
+    stringi::stri_split_lines()
+
+  almost_values <- lines %>%
     purrr::flatten_chr() %>%
-    # remove empty lines
-    stringr::str_subset(pattern = "^$", negate = TRUE) %>%
-    # remove delimiting lines
-    stringr::str_subset(pattern = "^\\+-", negate = TRUE) %>%
+    # match all lines starting w/ '|'
+    stringr::str_subset(pattern = "^\\|") %>%
     # remove first and last field separator, '|'
     stringr::str_replace_all("^[|](.+)[|]$", "\\1") %>%
-    readr::read_delim(delim = "|", na = c("", "NULL"), trim_ws = TRUE) %>%
+    stringr::str_replace_all("\\s*\\|\\s*", ",") %>%
+    stringr::str_trim(side = "both")
+  # remove duplicated heading (with column names)
+  values_to_parse <- almost_values[!duplicated(almost_values)]
+
+  values <- values_to_parse %>%
+    readr::read_csv(
+      na = c("", "NULL"),
+      trim_ws = TRUE) %>%
     janitor::clean_names()
+
+  values
 }
 
 #' Get state vectors from OSN
