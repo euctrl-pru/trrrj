@@ -6,7 +6,9 @@ magrittr::`%>%`
 #' @export
 rlang::`.data`
 
-
+#' @importFrom askpass askpass
+#' @export
+askpass::askpass
 
 
 cpr_plot_time <- function(cprs) {

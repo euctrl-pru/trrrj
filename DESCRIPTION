@@ -47,7 +47,8 @@ Imports:
     httr,
     jsonlite,
     ssh,
-    stringi
+    stringi,
+    askpass
 Suggests: 
     bookdown,
     knitr,

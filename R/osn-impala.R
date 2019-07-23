@@ -76,7 +76,9 @@ disconnect_osn <- function(session) {
 #' @param wef Start of period of interest
 #' @param til End of period of interest
 #'
-#' @return data frame of state vector data as for OSN docs.
+#' @return data frame of flight and track data (see OSN docs about
+#'   \href{https://opensky-network.org/apidoc/rest.html#arrivals-by-airport}{Arrivals
+#'    by Airport}).
 #' @export
 #'
 #' @examples
@@ -97,6 +99,7 @@ arrivals_impala_osn <- function(session, apt, wef, til=NULL) {
   # icao24,
   # callsign,
   # firstseen,
+  # latseen,
   # from_unixtime(day, 'yyyy-MM-dd') as day,
   # estdepartureairport,
   # estarrivalairport,
@@ -120,6 +123,7 @@ arrivals_impala_osn <- function(session, apt, wef, til=NULL) {
     "callsign",
     "day",
     "firstseen",
+    "lastseen",
     "estdepartureairport",
     "estarrivalairport",
     "track.item.time",
@@ -150,7 +154,7 @@ arrivals_impala_osn <- function(session, apt, wef, til=NULL) {
   lines <- ssh::ssh_exec_internal(
     session,
     stringr::str_glue("-q {query}", query = query)) %>%
-    { rawToChar(.$stdout)} %>%
+    { rawToChar(.data$stdout)} %>%
     stringi::stri_split_lines() %>%
     purrr::flatten_chr() %>%
     # match all lines starting w/ '|'
@@ -167,6 +171,7 @@ arrivals_impala_osn <- function(session, apt, wef, til=NULL) {
     callsign = readr::col_character(),
     day = readr::col_integer(),
     firstseen = readr::col_integer(),
+    lastseen = readr::col_integer(),
     estdepartureairport = readr::col_character(),
     estarrivalairport = readr::col_character(),
     item.time = readr::col_integer(),
@@ -184,6 +189,104 @@ arrivals_impala_osn <- function(session, apt, wef, til=NULL) {
   values
 }
 
+#' Get departures at airport
+#'
+#' @param session SSH session to OSN Impala
+#' @param apt ICAO ID of airport, i.e. "EDDF" for Frankfurt
+#' @param wef Start of period of interest
+#' @param til End of period of interest
+#'
+#' @return data frame of flight and track data (see OSN docs about
+#'   \href{https://opensky-network.org/apidoc/rest.html#departures-by-airport}{Departures
+#'    by Airport}).
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' depurtures_impala_osn(session, "EDDF", "2019-04-22 00:00:00", til=NULL)
+#' }
+departures_impala_osn <- function(session, apt, wef, til=NULL) {
+  wef <- lubridate::as_datetime(wef)
+  if (is.null(til)) {
+    til <- wef + lubridate::days(1)
+  } else {
+    til <- lubridate::as_datetime(til)
+  }
+  wef <- wef %>% as.integer()
+  til <- til %>% as.integer()
+
+  columns <- c(
+    "icao24",
+    "callsign",
+    "day",
+    "firstseen",
+    "lastseen",
+    "estdepartureairport",
+    "estarrivalairport",
+    "track.item.time",
+    "track.item.longitude",
+    "track.item.latitude",
+    "track.item.altitude",
+    "track.item.heading",
+    "track.item.onground"
+  )
+
+  tables <- c(
+    "flights_data4",
+    "flights_data4.track"
+  )
+  query <- stringr::str_glue(
+    "SELECT {COLUMNS} ",
+    "FROM {TABLES} ",
+    "WHERE ",
+    "estdepartureairport like '%{APT}%' ",
+    " and firstseen >= {WEF} ",
+    " and firstseen <  {TIL};",
+    COLUMNS = stringr::str_c(columns, collapse = ","),
+    TABLES = stringr::str_c(tables, collapse = ","),
+    APT = apt,
+    WEF = wef,
+    TIL = til)
+
+  lines <- ssh::ssh_exec_internal(
+    session,
+    stringr::str_glue("-q {query}", query = query)) %>%
+    { rawToChar(.data$stdout)} %>%
+    stringi::stri_split_lines() %>%
+    purrr::flatten_chr() %>%
+    # match all lines starting w/ '|'
+    stringr::str_subset(pattern = "^\\|") %>%
+    # remove first and last field separator, '|'
+    stringr::str_replace_all("^[|](.+)[|]$", "\\1") %>%
+    stringr::str_replace_all("\\s*\\|\\s*", ",") %>%
+    stringr::str_trim(side = "both")
+
+  # remove duplicated heading (with column names)
+  values_to_parse <- lines[!duplicated(lines)]
+  cols <- readr::cols(
+    icao24 = readr::col_character(),
+    callsign = readr::col_character(),
+    day = readr::col_integer(),
+    firstseen = readr::col_integer(),
+    lastseen = readr::col_integer(),
+    estdepartureairport = readr::col_character(),
+    estarrivalairport = readr::col_character(),
+    item.time = readr::col_integer(),
+    item.longitude = readr::col_double(),
+    item.latitude = readr::col_double(),
+    item.altitude = readr::col_double(),
+    item.heading = readr::col_double(),
+    item.onground = readr::col_logical()
+  )
+  values <- values_to_parse %>%
+    readr::read_csv(
+      na = c("", "NULL"),
+      col_types = cols) %>%
+    janitor::clean_names()
+  values
+}
+
+
 #' Get state vectors from OSN
 #'
 #' @param session SSH session to OSN Impala
@@ -196,7 +299,12 @@ arrivals_impala_osn <- function(session, apt, wef, til=NULL) {
 #'
 #' @examples
 #' \dontrun{
-#' state_vector_impala_osn(session, icao24 = c("3c6589", "3c6757"), wef_time = "2019-04-22 00:00:00", til_time = "2019-04-22 10:00:00")
+#' state_vector_impala_osn(
+#'    session,
+#'    icao24 = c("3c6589", "3c6757"),
+#'    wef_time = "2019-04-22 00:00:00",
+#'    til_time = "2019-04-22 10:00:00"
+#' )
 #' }
 state_vector_impala_osn <- function(session, icao24, wef_time, til_time = NULL) {
   wef_time <- lubridate::ymd_hms(wef_time)
@@ -232,23 +340,23 @@ state_vector_impala_osn <- function(session, icao24, wef_time, til_time = NULL) 
     OTHER_TABLES = "",
     OTHER_PARAMS = other_params)
 
-  #   | time          | int        | Inferred from Parquet file. |
-  #   | icao24        | string     | Inferred from Parquet file. |
-  #   | lat           | double     | Inferred from Parquet file. |
-  #   | lon           | double     | Inferred from Parquet file. |
-  #   | velocity      | double     | Inferred from Parquet file. |
-  #   | heading       | double     | Inferred from Parquet file. |
-  #   | vertrate      | double     | Inferred from Parquet file. |
-  #   | callsign      | string     | Inferred from Parquet file. |
-  #   | onground      | boolean    | Inferred from Parquet file. |
-  #   | alert         | boolean    | Inferred from Parquet file. |
-  #   | spi           | boolean    | Inferred from Parquet file. |
-  #   | squawk        | string     | Inferred from Parquet file. |
-  #   | baroaltitude  | double     | Inferred from Parquet file. |
-  #   | geoaltitude   | double     | Inferred from Parquet file. |
-  #   | lastposupdate | double     | Inferred from Parquet file. |
-  #   | lastcontact   | double     | Inferred from Parquet file. |
-  #   | serials       | array<int> | Inferred from Parquet file. |
+  #   | time          | int        |
+  #   | icao24        | string     |
+  #   | lat           | double     |
+  #   | lon           | double     |
+  #   | velocity      | double     |
+  #   | heading       | double     |
+  #   | vertrate      | double     |
+  #   | callsign      | string     |
+  #   | onground      | boolean    |
+  #   | alert         | boolean    |
+  #   | spi           | boolean    |
+  #   | squawk        | string     |
+  #   | baroaltitude  | double     |
+  #   | geoaltitude   | double     |
+  #   | lastposupdate | double     |
+  #   | lastcontact   | double     |
+  #   | serials       | array<int> |
   #   | hour          | int        |                             |
 
   cols <- readr::cols(
@@ -271,8 +379,9 @@ state_vector_impala_osn <- function(session, icao24, wef_time, til_time = NULL) 
     lastcontact = readr::col_double(),
     hour = readr::col_integer()
   )
-  lines <- ssh::ssh_exec_internal(session, stringr::str_glue("-q {query}", query = query)) %>%
-    { rawToChar(.$stdout) } %>%
+  lines <- ssh::ssh_exec_internal(session,
+                                  stringr::str_glue("-q {query}", query = query)) %>%
+    { rawToChar(.data$stdout) } %>%
     stringi::stri_split_lines() %>%
     purrr::flatten_chr() %>%
     # remove empty lines
