@@ -154,7 +154,7 @@ arrivals_impala_osn <- function(session, apt, wef, til=NULL) {
   lines <- ssh::ssh_exec_internal(
     session,
     stringr::str_glue("-q {query}", query = query)) %>%
-    { rawToChar(.data$stdout)} %>%
+    { rawToChar(.$stdout)} %>%
     stringi::stri_split_lines() %>%
     purrr::flatten_chr() %>%
     # match all lines starting w/ '|'
@@ -189,7 +189,7 @@ arrivals_impala_osn <- function(session, apt, wef, til=NULL) {
   values
 }
 
-#' Get departures at airport
+#' Get departures from airport
 #'
 #' @param session SSH session to OSN Impala
 #' @param apt ICAO ID of airport, i.e. "EDDF" for Frankfurt
@@ -251,7 +251,7 @@ departures_impala_osn <- function(session, apt, wef, til=NULL) {
   lines <- ssh::ssh_exec_internal(
     session,
     stringr::str_glue("-q {query}", query = query)) %>%
-    { rawToChar(.data$stdout)} %>%
+    { rawToChar(.$stdout)} %>%
     stringi::stri_split_lines() %>%
     purrr::flatten_chr() %>%
     # match all lines starting w/ '|'
