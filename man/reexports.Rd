@@ -5,6 +5,7 @@
 \alias{reexports}
 \alias{\%>\%}
 \alias{.data}
+\alias{askpass}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -12,6 +13,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
+  \item{askpass}{\code{\link[askpass]{askpass}}}
+
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 
   \item{rlang}{\code{\link[rlang]{.data}}}

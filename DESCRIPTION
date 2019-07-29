@@ -34,14 +34,21 @@ Imports:
     pracma,
     purrr,
     readr,
+    rgeos,
     rlang,
+    rnaturalearth,
     sf,
     stringr,
     tibble,
     tidyr,
     tools,
     units,
-    withr
+    withr,
+    httr,
+    jsonlite,
+    ssh,
+    stringi,
+    askpass
 Suggests: 
     bookdown,
     knitr,
@@ -54,3 +61,5 @@ VignetteBuilder:
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
+URL: https://github.com/euctrl-pru/trrrj
+BugReports: https://github.com/euctrl-pru/trrrj/issues

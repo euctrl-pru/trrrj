@@ -318,7 +318,7 @@ export_event_trajectory <- function(wef, til) {
       longitude = .data$lon,
       latitude  = .data$lat,
       flight_id = .data$gid
-    ) %>%
+    )
 
   pnts
 }

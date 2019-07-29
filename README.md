@@ -27,6 +27,7 @@ There are functions that allow you to:
     -   live feed [Flightradar24](https://www.flightradar24.com/ "Flightradar24") ADS-B based (EUROCONTROL's DB)
     -   archived [Network Manager](https://www.eurocontrol.int/network-manager "Network Manager - EUROCONTROL") CPR's[1] (files)
     -   [DDR2](https://www.eurocontrol.int/ddr "Demand Data Repository - EUROCONTROL") SO6 trajectories (EUROCONTROL's DB)
+    -   historical data from [OpenSky Network](https://opensky-network.org/ "OpenSky Network")
 -   Plot trajectories
     -   2D plot
     -   vertical profiles (time or distance based)
@@ -45,6 +46,8 @@ Tutorials and Guides
 --------------------
 
 The vignette [Plotting trajectories](articles/trrrj-plotting.html) provides a good introduction on how to use the package.
+
+The vignette [How to Access OpenSky Network Data](articles/osn-access.html) details a simple session for retrieving data from OSN.
 
 [1] Correlated Position Reports (CPR) are position report provided by the ATC radar facilities. They are *correlated* because they contain flight information
 
