@@ -11,14 +11,12 @@ authors:
 
 reference:
   - title: Read/Export Functions
-    desc:  Read (from file)/Export (from DB) trajectories.
+    desc:  Read (from file)/Export (from DB/API) trajectories.
     contents:
     - starts_with("read_")
     - starts_with("export_")
     - starts_with("import_")
     - ends_with("_osn")
-    - fix_flights_csvs
-    - fix_nulls_in_callsign
 
   - title: Plot Horizontal/Vertical Trajectories
     contents:
@@ -41,6 +39,8 @@ reference:
     - airac
     - starts_with("airac_")
     - starts_with("cfmu_")
+    - fix_flights_csvs
+    - fix_nulls_in_callsign
 
 
 

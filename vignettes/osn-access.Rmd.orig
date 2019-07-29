@@ -42,7 +42,7 @@ has to be passed to all function when retrieving historical data.
 We assume your credentials are store in the environment variables
 `OSN_IMPALA_USR` for the user name and `OSN_IMPALA_PWD` for the password.
 
-```{r ssh-connect, eval=FALSE}
+```{r ssh-connect}
 session <- connect_osn(usr    = Sys.getenv("OSN_IMPALA_USR"),
                        passwd = Sys.getenv("OSN_IMPALA_PWD"))
 session
@@ -58,14 +58,15 @@ Note that this time interval is NOT the one for the scheduled flight departures,
 the interval within which OSN network has first seen those flights.
 
 
-```{r historical-data, eval=FALSE}
+```{r historical-data}
 wef <- "2019-04-22 10:00:00"
 til <- "2019-04-22 12:00:00"
 
 # ICAO ID for Frankfurt Airport
 apt <- "EDDF"
 
-(dd <- departures_impala_osn(session, "EDDF", wef, til))
+dd <- departures_impala_osn(session, "EDDF", wef, til)
+head(dd)
 ```
 
 
@@ -75,15 +76,6 @@ apt <- "EDDF"
 Once finished working it is good practice to disconnect from the OSN infrastructure
 via the `disconnect_osn` function. This simply closes the underlying SSH session.
 
-```{r disconnect-osn, eval=FALSE}
+```{r disconnect-osn}
 disconnect_osn(session)
 ```
-
-
-
-
-
-
-
-
-
