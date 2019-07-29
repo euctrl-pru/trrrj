@@ -37,21 +37,25 @@ library(stringr)
 
 # Introduction
 
-The aim of this vignette is to describes a way to identifying the runway an approaching aircraft
-is landing on from flight trajectory data.
-The solution [Example 11][ex11] in `nvctr` package is used as the basis for the implementation.
+For airports with multiple runways, can you identify the landing runway
+of an approaching aircraft?
+The poition reports from either CPR or ADS-B can be used to guess it.
+
+The idea is to calculate the runway off-track distance and see whether it converges
+to one of the runway directions in the proximity of the threshold.
+
+The [Example 11][ex11] in `nvctr` package is used for the implementation.
  
 
-
-The arrivals to Londow Heathrow airport (EGLL), which has two parallel runways, on 2nd Aug 2017
-between 08:00 and 09:00 have been selected for this use case.
+The arrivals to Londow Heathrow airport (EGLL), which has two parallel runways,
+on 2nd Aug 2017 between 08:00 and 09:00 have been selected for this use case.
 
 **TODO**: check [runway alternation][rwy-alternation] and [2017 plan][rwy-alternation-2017]
-and pick flights around runway alternation time tipically 15:00 local time so to spot
-and better validate the technique.
+and pick flights around runway alternation time tipically 15:00 local time so to
+spot and better validate the technique.
 
-**TODO**: get APDF runway data in order to see how well this algorithms matches reported
-landing runways (which could have errors too...)
+**TODO**: get APDF runway data in order to see how well this algorithms matches
+reported landing runways (which could have errors too...)
 
 ```{r egll-satellite,fig.cap="Satellite view of London Heathrow (EGLL) runways", out.width="100%",echo=FALSE}
 knitr::include_graphics("figures/egll-satellite.png")
