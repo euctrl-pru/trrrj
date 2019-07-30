@@ -160,6 +160,7 @@ The Figure below shows the sample arrival trajectories to EGLL.
 ```{r flights-2d,echo=FALSE,out.width = "75%"}
 data("egll_rw_sf", package = "trrrj")
 data("egll-positions-fr24", package = "trrrj")
+data("egll-positions-rt", package = "trrrj")
 
 egll_strips <- egll_rw_sf %>% 
   sf::st_transform(3857) %>%
@@ -168,7 +169,10 @@ egll_strips <- egll_rw_sf %>%
 
 bbox <- c(xmin = -0.6, xmax = 0.2, ymin = 51.2, ymax = 51.6)
 
-g_arr <- egll_positions_fr24 %>%
+p <- egll_positions_fr24
+# p <- egll-positions-rt %>% 
+#   trrrj::smooth_positions(n = 3)
+g_arr <- p %>%
   dplyr::left_join(egll_flights_fr24, by = "flight_id") %>% 
   dplyr::group_by(flight_id) %>% 
   tidyr::nest() %>% 
@@ -190,9 +194,9 @@ g_arr +
 ```
 
 
+Visualize what hapens for 1 flight:
 
-
-```{r plot-single, echo=FALSE,out.width = "75%", eval=FALSE}
+```{r plot-single, echo=FALSE,out.width = "75%"}
 data("egll-positions-fr24", package = "trrrj")
 # Here is a single (spiky?) flight:
 f <- egll_positions_fr24 %>%
@@ -209,25 +213,51 @@ f <- egll_positions_fr24 %>%
 fff <- egll_positions_fr24 %>%
   dplyr::left_join(egll_flights_fr24)
 
+data("egll_apt", package = "trrrj")
+egll_09L <- egll_apt %>% 
+  dplyr::filter(name == "Runway 09L")
+egll_09R <- egll_apt %>% 
+  dplyr::filter(name == "Runway 09R")
+egll_27L <- egll_apt %>% 
+  dplyr::filter(name == "Runway 27L")
+egll_27R <- egll_apt %>% 
+  dplyr::filter(name == "Runway 27R")
+
 
 fff <- fff %>% 
   dplyr::mutate(distance_arp = geosphere::distGeo(
     cbind(longitude, latitude),
     cbind(egll_arp$longitude, egll_arp$latitude))) %>% 
-  dplyr::mutate(distance_09L27R = 0) %>% 
-  dplyr::mutate(distance_09R27L = 0) %>% 
+  dplyr::mutate(distance_09L = geosphere::distGeo(
+    cbind(longitude, latitude),
+    cbind(egll_09L$longitude, egll_09L$latitude))) %>% 
+  dplyr::mutate(distance_09R = geosphere::distGeo(
+    cbind(longitude, latitude),
+    cbind(egll_09R$longitude, egll_09R$latitude))) %>% 
+  dplyr::mutate(distance_27L = geosphere::distGeo(
+    cbind(longitude, latitude),
+    cbind(egll_27L$longitude, egll_27L$latitude))) %>% 
+  dplyr::mutate(distance_27R = geosphere::distGeo(
+    cbind(longitude, latitude),
+    cbind(egll_27R$longitude, egll_27R$latitude))) %>% 
   dplyr::group_by(flight_id) %>% 
+  dplyr::arrange(event_time) %>% 
   dplyr::mutate(sequence_number = dplyr::row_number()) %>% 
   dplyr::ungroup()
   
 
 # keep only last x NM to ARP
 wef_nm <- 8
+
+# take one flight (row_number() == 1)
+# NOTE: forced filter!!!!!
 wef <- fff %>% 
-  dplyr::filter(distance_09L27R < wef_nm * 1852) %>%
+  dplyr::filter(0 < wef_nm * 1852) %>%
   dplyr::arrange(dplyr::desc(distance_arp), sequence_number) %>%
   dplyr::filter(dplyr::row_number() == 1) %>%
   dplyr::select(flight_id, sequence_number)
+
+cs <- "GFA003"
 
 # keep only up to x NM to the middle of the runway
 # TODO
@@ -246,16 +276,25 @@ buf <- 3
 # fid <- fids[n]
 
 fid <- fff %>%
-  filter(callsign == "BAW347") %>%
-  filter(row_number() == 1) %>%
-  pull(flight_id)
+  dplyr::filter(callsign == cs) %>%
+  dplyr::filter(dplyr::row_number() == 1) %>%
+  dplyr::pull(flight_id)
 
 f <- fff %>% 
-  filter(flight_id == fid)
+  dplyr::filter(flight_id == fid) %>% 
+  dplyr::arrange(event_time)
+
+
+bbox <- c(xmin = -0.6, xmax = 0.8, ymin = 52, ymax = 51.4)
+bbox <- sf::st_bbox(bbox, crs = sf::st_crs(4326))
 
 f %>%
-  plot_flight_2d(type = "toner-lite", buffer = buf) +
-  theme(legend.position = "none")
+  trrrj::plot_flight_horizontal(bbox = bbox, buffer = buf, shape = 4) + 
+  ggplot2::geom_sf(data = egll_rw_sf) +
+  ggplot2::coord_sf(xlim = c(bbox["xmin"], bbox["xmax"]),
+                  ylim = c(bbox["ymin"], bbox["ymax"]),
+                  expand = TRUE) +
+  ggplot2::theme(legend.position = "none")
 
 
 # 
