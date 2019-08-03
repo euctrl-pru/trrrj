@@ -142,7 +142,6 @@ export_event_so6 <- function(wef, til) {
 
 generate_so6 <- function(event_trajectory) {
   event_trajectory %>%
-    dplyr::mutate(adep = "ZZZZ", ades = "ZZZZ") %>%
     dplyr::group_by(.data$flight_id) %>%
     dplyr::arrange(.data$time_over) %>%
     dplyr::mutate(
@@ -166,7 +165,7 @@ generate_so6 <- function(event_trajectory) {
         (.data$XX7 <  .data$XX8) ~ 0,
         (.data$XX7 == .data$XX8) ~ 2,
         TRUE ~ 1),
-      XX10 = "XXX",
+      XX10 = .data$callsign,
       XX11 = format(.data$time_over, "%y%m%d"),
       XX12 = ifelse(.data$n == 1,
                     .data$XX11,
@@ -278,6 +277,7 @@ export_event_trajectory <- function(wef, til) {
               f.ID                     AS GID,
               t.pos_lon / 60           AS LON,
               t.pos_lat / 60           AS LAT,
+              f.aircraft_id            AS CALLSIGN,
               t.altitude               AS FL,
               t.event_time             AS TIME_OVER,
               t.data_1                 AS POINT_ID,
