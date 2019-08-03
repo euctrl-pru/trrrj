@@ -165,7 +165,7 @@ generate_so6 <- function(event_trajectory) {
         (.data$XX7 <  .data$XX8) ~ 0,
         (.data$XX7 == .data$XX8) ~ 2,
         TRUE ~ 1),
-      XX10 = callsign,
+      XX10 = .data$callsign,
       XX11 = format(.data$time_over, "%y%m%d"),
       XX12 = ifelse(.data$n == 1,
                     .data$XX11,
