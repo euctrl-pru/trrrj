@@ -278,7 +278,7 @@ export_event_trajectory <- function(wef, til) {
               f.ID                     AS GID,
               t.pos_lon / 60           AS LON,
               t.pos_lat / 60           AS LAT,
-              f.AIRCRAFT_ID            AS CALLSIGN,
+              f.aircraft_id            AS CALLSIGN,
               t.altitude               AS FL,
               t.event_time             AS TIME_OVER,
               t.data_1                 AS POINT_ID,
