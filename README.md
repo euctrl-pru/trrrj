@@ -7,6 +7,10 @@ trrrj
 
 The `{trrrj}` package provides facilities to aid in the analysis of flight trajectories.
 
+It is in contiuous flux both because new features are added but also because of how people in the work together and collaborate.
+
+If you want to contribute but you feel overwhelmed by the git/github scaffolding, please have a look at the `usethis` vignette "[Pull request helpers](https://usethis.r-lib.org/articles/articles/pr-functions.html)". It marvellously describes a nice workflow and would make collaboration very easy and fruitful.
+
 Installation
 ------------
 
