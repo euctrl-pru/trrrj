@@ -142,7 +142,6 @@ export_event_so6 <- function(wef, til) {
 
 generate_so6 <- function(event_trajectory) {
   event_trajectory %>%
-    #dplyr::mutate(adep = "ZZZZ", ades = "ZZZZ") %>%
     dplyr::group_by(.data$flight_id) %>%
     dplyr::arrange(.data$time_over) %>%
     dplyr::mutate(
