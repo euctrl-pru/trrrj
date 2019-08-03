@@ -59,7 +59,8 @@ til <- "2019-04-22 12:00:00"
 # ICAO ID for Frankfurt Airport
 apt <- "EDDF"
 
-(dd <- departures_impala_osn(session, "EDDF", wef, til))
+dd <- departures_impala_osn(session, "EDDF", wef, til)
+head(dd)
 ```
 
 
@@ -73,12 +74,3 @@ via the `disconnect_osn` function. This simply closes the underlying SSH session
 ```r
 disconnect_osn(session)
 ```
-
-
-
-
-
-
-
-
-
