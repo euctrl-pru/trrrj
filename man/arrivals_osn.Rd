@@ -4,7 +4,7 @@
 \alias{arrivals_osn}
 \title{Get arrival at airport from Opensky Network}
 \usage{
-arrivals_osn(apt, wef, til = NULL)
+arrivals_osn(apt, wef, til = NULL, usr = NULL, pwd = NULL)
 }
 \arguments{
 \item{apt}{ICAO airport ID}
@@ -12,16 +12,23 @@ arrivals_osn(apt, wef, til = NULL)
 \item{wef}{starting from}
 
 \item{til}{until time [default wef + 1 day]}
+
+\item{usr}{(optional) user account}
+
+\item{pwd}{(optional) user password}
 }
 \value{
 data frame of arrivals
 }
 \description{
+Authenticated requests can result in less limitations on the retrieval of data.
+}
+\details{
 See \url{https://opensky-network.org/apidoc/index.html} for
 details and limitations.
 }
 \examples{
 \dontrun{
-fligts_eddf <- arrivals_osn("EDDF", "2019-07-11")
+flights_eddf <- arrivals_osn("EDDF", "2019-07-11")
 }
 }

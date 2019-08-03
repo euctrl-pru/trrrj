@@ -4,12 +4,16 @@
 \alias{track_osn}
 \title{Extract track for flight.}
 \usage{
-track_osn(icao24, sometime = 0)
+track_osn(icao24, sometime = 0, usr = NULL, pwd = NULL)
 }
 \arguments{
 \item{icao24}{ICAO 24 bit address of the aircraft}
 
 \item{sometime}{some time during the track}
+
+\item{usr}{(optional) user account}
+
+\item{pwd}{(optional) user password}
 }
 \value{
 a dataframe of positions

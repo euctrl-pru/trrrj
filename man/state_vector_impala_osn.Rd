@@ -23,6 +23,11 @@ Get state vectors from OSN
 }
 \examples{
 \dontrun{
-state_vector_impala_osn(session, icao24 = c("3c6589", "3c6757"), wef_time = "2019-04-22 00:00:00", til_time = "2019-04-22 10:00:00")
+state_vector_impala_osn(
+   session,
+   icao24 = c("3c6589", "3c6757"),
+   wef_time = "2019-04-22 00:00:00",
+   til_time = "2019-04-22 10:00:00"
+)
 }
 }
