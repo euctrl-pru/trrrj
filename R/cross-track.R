@@ -1,5 +1,24 @@
 # from `nvctr` example 11
+#' Find the cross track intersection between a point and an arc
+#'
+#' Given an arc represented by two points A1 and A2, return the cross track
+#' intersection for point B.
+#' This is a helper function incorporating the code from example 11 of the
+#' nvctr package
+#'
+#' @param B  Point from where to calculate the cross track intersection
+#' @param A1 First point of the arc
+#' @param A2 Second point of the arc
+#'
+#' @return A geographic coordinate representing the intersection point
+#' @export
+#'
+#' @examples
+#' # from example 11 of nvctr's vignette
+#' cross_track_intersection(c(-1, -1), c(0, 3), c(0, 10))
+#'
 cross_track_intersection <- function(B, A1, A2) {
+  # TODO: check that A1 and A2 are distinct
   # TODO: input should use lon/lat, but below assume lat/lon
   A1_lat <- A1[1]
   A1_lon <- A1[2]
