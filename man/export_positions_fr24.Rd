@@ -25,16 +25,14 @@ the following environment variables:
 }
 \examples{
 \dontrun{
-library(ROracle)
-export_flights_at_airport_fr24("2017-09-01T00:00:00Z", "2017-09-02T00:00:00Z",
-            "SVG",
-            flow = "ARR")
+export_positions_fr24("2017-09-01T00:00:00Z", "2017-09-01T06:00:00Z")
 }
 }
 \seealso{
 Other read/export functions: \code{\link{export_event_so6}},
   \code{\link{export_event_trajectory}},
   \code{\link{export_flights_at_airport_fr24}},
+  \code{\link{export_flights_fr24}},
   \code{\link{export_positions_at_airport_fr24}},
   \code{\link{import_flights_csvs}},
   \code{\link{read_cpr}}, \code{\link{read_flights_fr24}},
