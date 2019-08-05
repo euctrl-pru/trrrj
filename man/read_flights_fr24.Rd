@@ -39,7 +39,11 @@ the bounding box as contractually agreed.
 }
 \examples{
 \dontrun{
-read_flights_fr24("extdata/20170206_flights.csv")
+# flights, as recorded by FR24, on 20170205 (5th Feb 2017)
+flt_fr24_file <- system.file("extdata",
+                         "20170205_flights.csv"
+                         package = "trrrj")
+read_flights_fr24(flt_fr24_file)
 }
 
 }
@@ -47,6 +51,7 @@ read_flights_fr24("extdata/20170206_flights.csv")
 Other read/export functions: \code{\link{export_event_so6}},
   \code{\link{export_event_trajectory}},
   \code{\link{export_flights_at_airport_fr24}},
+  \code{\link{export_flights_fr24}},
   \code{\link{export_positions_at_airport_fr24}},
   \code{\link{export_positions_fr24}},
   \code{\link{import_flights_csvs}},

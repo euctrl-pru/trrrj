@@ -44,16 +44,19 @@ the bounding box as contractually agreed.
 }
 \examples{
 \dontrun{
-# positions for flight 207522820 on 20170206 (6th Feb 2017)
-poss_dir <- system.file("extdata", package = "trrrj")
-poss_file <- paste0(poss_dir, "/20170206_positions/20170206_207522820.csv")
-read_positions_fr24()
+# positions, as recorded by FR24, for flight 207535493 on 20170205 (5th Feb 2017)
+pos_fr24_file <- system.file("extdata",
+                             "20170205_positions",
+                             "20170205_207535493.csv"
+                             package = "trrrj")
+read_positions_fr24(pos_fr24_file)
 }
 }
 \seealso{
 Other read/export functions: \code{\link{export_event_so6}},
   \code{\link{export_event_trajectory}},
   \code{\link{export_flights_at_airport_fr24}},
+  \code{\link{export_flights_fr24}},
   \code{\link{export_positions_at_airport_fr24}},
   \code{\link{export_positions_fr24}},
   \code{\link{import_flights_csvs}},

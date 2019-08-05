@@ -18,30 +18,30 @@ Filenames are something like
 A dataframe of correlated position reports (CPR's).
         The returned dataframe has the following variables:
         \tabular{lll}{
-          Name \tab Description \tab Type\cr
-          cpm_id \tab  \tab  \cr
-          tact_id \tab ETFMS ID \tab string \cr
-          timestamp_etfms \tab  \tab  \cr
-          timestamp_track \tab  \tab  \cr
-          block \tab  \tab  \cr
-          record \tab  \tab  \cr
-          entry_node_sac \tab  \tab  \cr
-          entry_node_sic \tab  \tab  \cr
-          callsign \tab Callsign of flight \tab string \cr
-          adep_icao \tab ICAO code of Departure aerodrome \tab string \cr
-          ades_icao \tab ICAO code of Destination aerodrome \tab string \cr
-          eobt \tab Estimated Off-block Time \tab timestamp \cr
+          Name \tab Description \tab Type \cr
+          cpm_id \tab CPR Message ID \tab int \cr
+          tact_id \tab ETFMS flight ID \tab int \cr
+          timestamp_etfms \tab ETFMS reception timestamp \tab char (YY/MM/DD hh:mm:ss) \cr
+          timestamp_track \tab track timestamp \tab char (YY/MM/DD hh:mm:ss) \cr
+          block \tab Block number \tab int \cr
+          record \tab Record number (index within a block) \tab int \cr
+          entry_node_sac \tab Entry Node system area code \tab int \cr
+          entry_node_sic \tab Entry Node system identifier code \tab int \cr
+          callsign \tab Callsign of flight \tab char \cr
+          adep_icao \tab ICAO code of Departure aerodrome \tab char \cr
+          ades_icao \tab ICAO code of Destination aerodrome \tab char \cr
+          eobt \tab Estimated Off-block Time \tab char (YY/MM/DD hh:mm:ss) \cr
           longitude \tab Longitude (WGS84) \tab decimal degrees  \cr
           latitude \tab  Latitude (WGS84) \tab  decimal degrees \cr
           flight_level \tab  Flight level \tab  integer \cr
-          track_service \tab  \tab  \cr
-          ssr_code \tab  \tab  \cr
-          track_speed \tab  \tab  \cr
-          track_heading \tab  \tab  \cr
-          climb_rate \tab  \tab  \cr
-          track_vertical_mode \tab vertical attitude \tab factor  \cr
-          ifps_id \tab  \tab  \cr
-          aircraft_address \tab ICAO 24-bit address \tab string
+          track_service \tab Track service \tab char (Begin, Continuing, End or Begin_And_End) \cr
+          ssr_code \tab SSR code \tab oct \cr
+          track_speed \tab Track velocity (in Knots) \tab int \cr
+          track_heading \tab Track heading \tab char \cr
+          climb_rate \tab Climb or descend rate \tab int \cr
+          track_vertical_mode \tab vertical attitude \tab char (Climb, Descend, Level_Flight or Undetermined) \cr
+          ifps_id \tab IFPS flight plan id \tab char \cr
+          aircraft_address \tab ICAO 24-bit address \tab char
         }
 }
 \description{
@@ -50,8 +50,9 @@ Read Network Manager's archived CPR file
 \examples{
 \dontrun{
 # read CPR's of the 20 sample flights for 5th Feb 2017
-cprs_dir <- system.file("extdata", package = "trrrj")
-cprs_file <- paste0(cprs_dir, "/1.201702051001tacop304ARCHIVED_OPLOG_ALL_CPR.gz")
+cprs_file <- system.file("extdata",
+                        "1.201702051001tacop304ARCHIVED_OPLOG_ALL_CPR.gz",
+                        package = "trrrj")
 cprs05 <- read_cpr(cprs_file)
 }
 }
@@ -59,6 +60,7 @@ cprs05 <- read_cpr(cprs_file)
 Other read/export functions: \code{\link{export_event_so6}},
   \code{\link{export_event_trajectory}},
   \code{\link{export_flights_at_airport_fr24}},
+  \code{\link{export_flights_fr24}},
   \code{\link{export_positions_at_airport_fr24}},
   \code{\link{export_positions_fr24}},
   \code{\link{import_flights_csvs}},

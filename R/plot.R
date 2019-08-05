@@ -113,7 +113,7 @@ plot_flight_horizontal <- function(poss,
 #' \dontrun{
 #' # plot CPR tryjectories
 #' europe <- c(left = 5, bottom = 35, right = 30, top = 52)
-#' plot_cpr_horizontal(poss, europe)
+#' plot_cpr_horizontal(cprs, europe)
 #' }
 plot_cpr_horizontal <- function(cprs, bb = NULL) {
   cprs %>%

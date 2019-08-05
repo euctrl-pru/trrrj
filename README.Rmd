@@ -21,6 +21,16 @@ knitr::opts_chunk$set(
 
 The `{trrrj}` package provides facilities to aid in the analysis of flight trajectories.
 
+It is in contiuous flux both because new features are added but also because of how people
+in the work together and collaborate.
+
+If you want to contribute but you feel overwhelmed by the git/github scaffolding, please have a 
+look at the `usethis` vignette "[Pull request helpers][prh]". It marvellously describes
+a nice workflow and would make collaboration very easy and fruitful.
+
+[prh]: https://usethis.r-lib.org/articles/articles/pr-functions.html
+
+
 ## Installation
 
 `{trrrj}` is not yet available from CRAN, but you can install the development
@@ -54,7 +64,8 @@ There are functions that allow you to:
 * Read/transform/*save your day*
     - parse Longitude/Latitude in various formats
     - determine the AIRAC^[An AIRAC (Aeronautical Information Regulation And Control) cycle
-      is the 28-day period that regulates the [pubblication of aeronautical information](https://en.wikipedia.org/wiki/Aeronautical_Information_Publication)] cyle
+      is the 28-day period that regulates the
+      [pubblication of aeronautical information][airac]] cyle
       for a date or its range (ICAO or CFMU format)
 
 
@@ -67,13 +78,15 @@ provide realistic examples and use cases for guides and vignettes.
 
 ## Tutorials and Guides
 
-The vignette [Plotting trajectories](articles/trrrj-plotting.html) provides
-a good introduction on how to use the package.
+The vignette [Plotting trajectories](https://trrrj.ansperformance.eu/articles/trrrj-plotting.html)
+provides a good introduction on how to use the package.
 
-The vignette [How to Access OpenSky Network Data](articles/osn-access.html) details
-a simple session for retrieving data from OSN.
+The vignette
+[How to Access OpenSky Network Data](https://trrrj.ansperformance.eu/articles/osn-access.html)
+details a simple session for retrieving data from OSN.
 
 
+[airac]: <https://en.wikipedia.org/wiki/Aeronautical_Information_Publication> "AIP - Aeronautical Information Publication"
 [fr24]: <https://www.flightradar24.com/> "Flightradar24"
 [ddr2]: <https://www.eurocontrol.int/ddr> "Demand Data Repository - EUROCONTROL"
 [nm-cfmu]: <https://www.eurocontrol.int/network-manager> "Network Manager - EUROCONTROL"

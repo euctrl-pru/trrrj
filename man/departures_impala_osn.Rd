@@ -2,7 +2,7 @@
 % Please edit documentation in R/osn-impala.R
 \name{departures_impala_osn}
 \alias{departures_impala_osn}
-\title{Get departures at airport}
+\title{Get departures from airport}
 \usage{
 departures_impala_osn(session, apt, wef, til = NULL)
 }
@@ -21,7 +21,7 @@ data frame of flight and track data (see OSN docs about
    by Airport}).
 }
 \description{
-Get departures at airport
+Get departures from airport
 }
 \examples{
 \dontrun{

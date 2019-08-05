@@ -82,7 +82,7 @@ trj_cpr <- cprs %>%
   filter(callsign == "RYR19QK")
 
 trj_cpr %>% 
-  plot_cpr_horizontal(europe)
+  trrrj::plot_cpr_horizontal(europe)
 ```
 
 

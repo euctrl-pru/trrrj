@@ -17,10 +17,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' library(ROracle)
-#' export_flights_at_airport_fr24("2017-09-01T00:00:00Z", "2017-09-02T00:00:00Z",
-#'             "SVG",
-#'             flow = "ARR")
+#' export_positions_fr24("2017-09-01T00:00:00Z", "2017-09-01T06:00:00Z")
 #' }
 export_positions_fr24 <- function(wef, til) {
   # DB params
@@ -94,6 +91,83 @@ export_positions_fr24 <- function(wef, til) {
 }
 
 
+#' Extract FR24 flights list for a time interval
+#'
+#' You need to store your credentials to access the FR24 tables in
+#' the following environment variables:
+#' \itemize{
+#'   \item \code{PRU_FR24_USR} for the user id
+#'   \item \code{PRU_FR24_PWD} for the password
+#'   \item \code{PRU_FR24_DBNAME} for the database name
+#' }
+#'
+#' @param wef date of With Effect From (included)
+#' @param til date of TILl instant (excluded)
+#'
+#' @return a dataframe of flights
+#' @family read/export functions
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' export_flights_fr24("2017-09-01T00:00:00Z", "2017-09-01T06:00:00Z")
+#' }
+export_flights_fr24 <- function(wef, til) {
+  # DB params
+  usr <- Sys.getenv("PRU_FR24_USR")
+  pwd <- Sys.getenv("PRU_FR24_PWD")
+  dbn <- Sys.getenv("PRU_FR24_DBNAME")
+
+  # interval of interest
+  wef <- parsedate::parse_iso_8601(wef)
+  til <- parsedate::parse_iso_8601(til)
+  wef <- format(wef, format = "%Y-%m-%dT%H:%M:%SZ")
+  til <- format(til, format = "%Y-%m-%dT%H:%M:%SZ")
+
+
+  # NOTE: to be set before you create your ROracle connection!
+  # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
+  withr::local_envvar(c("TZ" = "UTC",
+                        "ORA_SDTZ" = "UTC"))
+
+  con <- withr::local_db_connection(
+    ROracle::dbConnect(
+      DBI::dbDriver("Oracle"),
+      usr, pwd,
+      dbname = dbn,
+      timezone = "UTC")
+  )
+
+  # TODO: add list of flight IDs in WHERE from function args
+  sql_where <- ""
+
+  sqlq_flt <- paste0("
+    SELECT
+      FLIGHT_ID,
+      START_TIME,
+      ADEP,
+      ADES,
+      CALLSIGN,
+      FLIGHT,
+      REG,
+      MODEL,
+      ADDRESS
+    FROM
+      FR24_ADSB_DATA_FLIGHTS
+    WHERE
+      START_TIME >= TO_DATE(?WEF, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
+      AND START_TIME < TO_DATE(?TIL, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
+      ", sql_where)
+
+  query_flt <- DBI::sqlInterpolate(con, sqlq_flt, WEF = wef, TIL = til)
+
+  fltq <- ROracle::dbSendQuery(con, query_flt)
+  flts <- ROracle::fetch(fltq, n = -1)
+  flts <- tibble::as_tibble(flts)
+
+  return(flts)
+}
+
 #' Extract FR24 flights list for a time interval at an airport
 #'
 #' You need to store your credentials to access the FR24 tables in
@@ -116,7 +190,6 @@ export_positions_fr24 <- function(wef, til) {
 #'
 #' @examples
 #' \dontrun{
-#' library(ROracle)
 #' export_flights_at_airport_fr24("2017-09-01T00:00:00Z", "2017-09-02T00:00:00Z",
 #'             "SVG",
 #'             flow = "ARR")
@@ -211,13 +284,15 @@ export_flights_at_airport_fr24 <- function(wef, til, apt, flow = "ALL") {
 #'
 #' @examples
 #' \dontrun{
-#' library(ROracle)
-#' export_flights_at_airport_fr24("2017-09-01T00:00:00Z",
+#' export_positions_at_airport_fr24("2017-09-01T00:00:00Z",
 #'                                "2017-09-02T00:00:00Z",
 #'                                "SVG",
 #'                                5.638, 58.877)
 #' }
-export_positions_at_airport_fr24 <- function(wef, til, apt, lon_apt, lat_apt, flow = "ALL", radius = 40) {
+export_positions_at_airport_fr24 <- function(wef, til,
+                                             apt, lon_apt, lat_apt,
+                                             flow = "ALL",
+                                             radius = 40) {
   stopifnot(flow %in% c("ALL", "ARR", "DEP"), is.numeric(radius))
 
 
@@ -369,7 +444,11 @@ export_positions_at_airport_fr24 <- function(wef, til, apt, lon_apt, lat_apt, fl
 #' @family read/export functions
 #' @examples
 #' \dontrun{
-#' read_flights_fr24("extdata/20170206_flights.csv")
+#' # flights, as recorded by FR24, on 20170205 (5th Feb 2017)
+#' flt_fr24_file <- system.file("extdata",
+#'                          "20170205_flights.csv"
+#'                          package = "trrrj")
+#' read_flights_fr24(flt_fr24_file)
 #' }
 #'
 read_flights_fr24 <- function(path) {
@@ -453,10 +532,13 @@ read_flights_fr24 <- function(path) {
 #' @family read/export functions
 #' @examples
 #' \dontrun{
-#' # positions for flight 207522820 on 20170206 (6th Feb 2017)
-#' poss_dir <- system.file("extdata", package = "trrrj")
-#' poss_file <- paste0(poss_dir, "/20170206_positions/20170206_207522820.csv")
-#' read_positions_fr24()
+#' # positions, as recorded by FR24, for flight 207535493 on 20170205 (5th Feb 2017)
+#' pos_fr24_file <- system.file("extdata",
+#'                              "20170205_positions",
+#'                              "20170205_207535493.csv"
+#'                              package = "trrrj")
+
+#' read_positions_fr24(pos_fr24_file)
 #' }
 read_positions_fr24 <- function(path) {
   col_types <- readr::cols(
