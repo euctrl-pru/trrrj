@@ -2,9 +2,40 @@
 
 #' Read SO6 file
 #'
-#' The SO6 file has 20 variables of roughly two types:
-#' * Segment-specific data (latitude/longitude, time/data information)
-#' * Flight meta data (flight identifier, callsign, aircraft type)
+#' @description
+#' The SO6 file has variables of two types:
+#' * Segment-specific data (latitude/longitude, time/data information, ...)
+#' * Flight meta data (flight id, callsign, aircraft type, ...)
+#'
+#' They are marked S or F respectively in the table below.
+#'
+#' \tabular{llll}{
+#' \strong{Name} \tab \strong{Description} \tab \strong{Type} \tab \strong{Kind} \cr
+#' \code{segment_id}              \tab segment Id \tab char \tab S \cr
+#' \code{adep}                    \tab Departing aerodrome (ICAO) ID \tab char \tab F \cr
+#' \code{ades}                    \tab Destination aerodrome (ICAO) ID \tab char \tab S \cr
+#' \code{aircraft_type}           \tab ICAO aircraft type \tab char \tab S \cr
+#' \code{segment_hhmm_begin}      \tab Segment's begin timestamp (hhmmss) \tab char \tab S \cr
+#' \code{segment_hhmm_end}        \tab Segment's end timestamp (hhmmss) \tab char \tab S \cr
+#' \code{segment_fl_begin}        \tab Segment's begin flight level \tab int \tab S \cr
+#' \code{segment_fl_end}          \tab Segment's end flight level \tab int \tab S \cr
+#' \code{status}                  \tab Segment's status (0=climb, 1=descent, 2=cruise)\tab factor  \tab S \cr
+#' \code{callsign}                \tab Flight call sign \tab char \tab F \cr
+#' \code{segment_date_begin}      \tab Segment's begin date (YYMMDD) \tab char \tab S \cr
+#' \code{segment_date_end}        \tab Segment's end date (YYMMDD) \tab char \tab S \cr
+#' \code{segment_latitude_begin}  \tab Segment's begin latitude (Min decimal) \tab char \tab S \cr
+#' \code{segment_longitude_begin} \tab Segment's begin longitude (Min decimal) \tab char \tab S \cr
+#' \code{segment_latitude_end}    \tab Segment's end latitude (Min decimal) \tab char \tab S \cr
+#' \code{segment_longitude_end}   \tab Segment's end longitude (Min decimal) \tab char \tab S \cr
+#' \code{flight_id}               \tab Flight ID \tab int \tab F \cr
+#' \code{sequence}                \tab Segment's sequence \tab int \tab S \cr
+#' \code{segment_length}          \tab Segment's length \tab double \tab S \cr
+#' \code{segment_parity}          \tab Segment's parity \tab int \tab S \cr
+#' \code{segment_timestamp_begin} \tab Segment's begin timestamp \tab datetime \tab S \cr
+#' \code{segment_timestamp_end}   \tab Segment's end timestamp \tab datetime \tab S \cr
+#' \code{point_id_begin}          \tab Segment's begin point ID \tab char \tab S \cr
+#' \code{point_id_end}            \tab Segment's end point ID \tab char \tab S
+#' }
 #'
 #' @param filename the file containing SO6 trajectories
 #' @param delim    the field delimiter (default: " " [blank])
