@@ -85,3 +85,92 @@ export_model_trajectory <- function(wef, til, model = "CTFM") {
 
     pnts
 }
+
+
+#' Export APDS (airport) data
+#'
+#' Extract APDS data from PRISME database.
+#'
+#' You need your ATMAP DB credential stored in the \code{PRU_ATMAP_USR},
+#' \code{PRU_ATMAP_PWD} and \code{PRU_ATMAP_DBNAME} environment
+#' variables.
+#'
+#' @param wef date of With Effect From (included)
+#' @param til date of TILl instant (excluded)
+#'
+#' @return a dataframe of airport reported movements
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' export_apds("2019-04-10", "2019-04-11")
+#' }
+
+export_apds <- function(wef, til) {
+
+  usr <- Sys.getenv("PRU_ATMAP_USR")
+  pwd <- Sys.getenv("PRU_ATMAP_PWD")
+  dbn <- Sys.getenv("PRU_ATMAP_DBNAME")
+
+  wef <- lubridate::ymd(wef)
+  til <- lubridate::ymd(til)
+  # start of the month for wef date
+  wms <- lubridate::floor_date(wef, "month")
+
+  wef <- format(wef, "%Y-%m-%d")
+  til <- format(til, "%Y-%m-%d")
+  wms <- format(wms, "%Y-%m-%d")
+
+  # NOTE: to be set before you create your ROracle connection!
+  # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
+  withr::local_envvar(c("TZ" = "UTC",
+                        "ORA_SDTZ" = "UTC"))
+
+  con <- withr::local_db_connection(
+    ROracle::dbConnect(
+      DBI::dbDriver("Oracle"),
+      usr, pwd,
+      dbname = dbn,
+      timezone = "UTC")
+  )
+
+
+  query <- "
+  SELECT
+    *
+  FROM
+    SWH_FCT.FAC_APDS_FLIGHT_IR691
+  WHERE
+        MVT_TIME_UTC >= TO_DATE(?WEF, 'YYYY-MM-DD')
+    AND MVT_TIME_UTC <  TO_DATE(?TIL, 'YYYY-MM-DD')
+    AND SRC_DATE_FROM = TO_DATE(?WMS, 'YYYY-MM-DD')
+"
+
+  query <- DBI::sqlInterpolate(con, query, WEF = wef, TIL = til, WMS = wms)
+  flt <- ROracle::dbSendQuery(con, query)
+
+  ROracle::fetch(flt, n = -1) %>%
+    tibble::as_tibble() %>%
+    dplyr::select(
+      APDS_ID,
+      AP_C_FLTID,
+      AP_C_REG,
+      dplyr::ends_with("ICAO"),
+      SRC_PHASE,
+      MVT_TIME_UTC,
+      BLOCK_TIME_UTC,
+      SCHED_TIME_UTC,
+      ARCTYP,
+      AP_C_RWY,
+      AP_C_STND,
+      dplyr::starts_with("C40_"),
+      dplyr::starts_with("C100_")
+    ) %>%
+    dplyr::select(
+      -dplyr::ends_with("_MIN"),
+      -dplyr::ends_with("_IN_FRONT"),
+      -dplyr::ends_with("_CTFM"),
+      -dplyr::ends_with("_CPF"),
+      -dplyr::contains("TRANSIT")) %>%
+    janitor::clean_names()
+}
