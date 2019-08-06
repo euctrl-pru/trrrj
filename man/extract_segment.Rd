@@ -18,7 +18,7 @@ a dataset of level segments. A level segment is defined by
 }
 \description{
 It is assumed that the dataset is grouped by flight id
-and that position reports are sorted by timestamp.
+and that position reports are ascending by timestamp.
 }
 \examples{
 \dontrun{

@@ -1,12 +1,12 @@
 #' Extract level segment from a list of position reports.
 #'
 #' It is assumed that the dataset is grouped by flight id
-#' and that position reports are sorted by timestamp.
+#' and that position reports are ascending by timestamp.
 #'
 #' @param prs dataset containing position reports.
-#' Two variables are used: `timestamp` and `altitude` (feet)
+#'            Two variables are used: `timestamp` and `altitude` (feet)
 #' @param vert_limit the maximum absolute vertical rate for a segment to be
-#' considered level (default = 5 feet/s)
+#'                   considered level (default = 5 feet/s)
 #'
 #' @return a dataset of level segments. A level segment is defined by
 #' @family analysis functions
