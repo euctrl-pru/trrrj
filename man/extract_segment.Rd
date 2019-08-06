@@ -20,6 +20,9 @@ a dataset of level segments. A level segment is defined by
 It is assumed that the dataset is grouped by flight id
 and that position reports are ascending by timestamp.
 }
+\details{
+Ciao
+}
 \examples{
 \dontrun{
 cumulative_time(poss)
