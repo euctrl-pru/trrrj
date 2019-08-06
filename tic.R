@@ -9,6 +9,9 @@ if (Sys.getenv("BUILD_PKGDOWN") != "" && Sys.getenv("id_rsa") != "") {
     add_step(step_setup_ssh())
 
   if (ci_get_branch() == "master") {
+    get_stage("install") %>%
+      add_step(step_install_github("r-lib/pkgdown/@1829398a4e97"))
+
     get_stage("deploy") %>%
       add_step(step_build_pkgdown()) %>%
       add_step(step_push_deploy(path = "docs", branch = "gh-pages"))
