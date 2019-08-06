@@ -7,7 +7,7 @@
 arrivals_osn(apt, wef, til = NULL, usr = NULL, pwd = NULL)
 }
 \arguments{
-\item{apt}{ICAO airport ID}
+\item{apt}{ICAO airport location identifier (4-letter code)}
 
 \item{wef}{starting from}
 

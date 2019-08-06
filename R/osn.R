@@ -5,7 +5,7 @@
 #' See \url{https://opensky-network.org/apidoc/index.html} for
 #' details and limitations.
 #'
-#' @param apt ICAO airport ID
+#' @param apt ICAO airport location identifier (4-letter code)
 #' @param wef starting from
 #' @param til until time [default wef + 1 day]
 #' @param usr (optional) user account
