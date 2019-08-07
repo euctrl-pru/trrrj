@@ -17,6 +17,7 @@ Disconnect from OpenSky Network’s Impala shell.
 }
 \examples{
 \dontrun{
+session <- connect_osn("cucu", verbose = 2)
 disconnect_osn(session)
 }
 }

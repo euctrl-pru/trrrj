@@ -2,7 +2,7 @@
 % Please edit documentation in R/so6.R
 \name{export_event_trajectory}
 \alias{export_event_trajectory}
-\title{Extract "Event"-based trajectories from CPLX tables (in PRISME)}
+\title{Export event-based NM trajectories}
 \usage{
 export_event_trajectory(wef, til)
 }
@@ -15,7 +15,10 @@ export_event_trajectory(wef, til)
 a dataframe of trajectory points.
 }
 \description{
-You need to store your credentials to access the CPLX tables in
+Extract "Event"-based trajectories from PRISME database
+}
+\details{
+You need to store your credentials to access the CPLX related tables in
 the following environment variables:
 \itemize{
   \item \code{PRU_CPLX_USR} for the user id
@@ -26,6 +29,7 @@ the following environment variables:
 \examples{
 \dontrun{
 export_event_trajectory("2010-06-16", "2010-06-17")
+export_event_trajectory("2010-06-16 10:00", "2010-06-16T11:00:00Z")
 }
 }
 \seealso{

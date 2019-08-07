@@ -2,15 +2,15 @@
 % Please edit documentation in R/fr24.R
 \name{export_positions_at_airport_fr24}
 \alias{export_positions_at_airport_fr24}
-\title{Export ADS-B position reports for relevant flight ids around an airport}
+\title{Export FlightRadar24 position reports from flights flying around an airport}
 \usage{
 export_positions_at_airport_fr24(wef, til, apt, lon_apt, lat_apt,
   flow = "ALL", radius = 40)
 }
 \arguments{
-\item{wef}{timestamp of With Effect From (included)}
+\item{wef}{(UTC) timestamp of With Effect From (included)}
 
-\item{til}{timestamp of TILl instant (excluded)}
+\item{til}{(UTC) timestamp of TILl instant (excluded)}
 
 \item{apt}{IATA airport code, i.e. PSA for Pisa "Galileo Galilei"}
 
@@ -27,6 +27,10 @@ export_positions_at_airport_fr24(wef, til, apt, lon_apt, lat_apt,
 dataframe of ADS-B position reports
 }
 \description{
+Extract  FlightRadar24 positions within a distance from the aerodrome
+for qualified airport movements (arrivals or departures or all)
+}
+\details{
 You need to store your credentials to access the FR24 tables in
 the following environment variables:
 \itemize{
@@ -37,10 +41,19 @@ the following environment variables:
 }
 \examples{
 \dontrun{
-export_positions_at_airport_fr24("2017-09-01T00:00:00Z",
-                               "2017-09-02T00:00:00Z",
-                               "SVG",
-                               5.638, 58.877)
+# half a day (UTC times, not local ones!) worth of all movements at Stavanger Airport,
+# Sola, Sweden on 1st Sep 2017
+export_positions_at_airport_fr24("2017-09-01T00:00:00",
+                                 "2017-09-01T12:00:00",
+                                 "SVG",
+                                 5.638, 58.877)
+
+# all arrivals within 50 NM on 25th Sep 2018 at Pisa Airport, Pisa, Italy
+export_positions_at_airport_fr24("2018-09-25",
+                                 "2018-09-26",
+                                 "PSA", 10.39270, 43.68390,
+                                 flow = "ARR",
+                                 radius = 50)
 }
 }
 \seealso{

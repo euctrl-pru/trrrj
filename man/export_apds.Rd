@@ -18,9 +18,13 @@ a dataframe of airport reported movements
 Extract APDS data from PRISME database.
 }
 \details{
-You need your ATMAP DB credential stored in the \code{PRU_ATMAP_USR},
-\code{PRU_ATMAP_PWD} and \code{PRU_ATMAP_DBNAME} environment
-variables.
+You need to store your credentials to access the ATMAP tables in
+the following environment variables:
+\itemize{
+  \item \code{PRU_ATMAP_USR} for the user id
+  \item \code{PRU_ATMAP_PWD} for the password
+  \item \code{PRU_ATMAP_DBNAME} for the database name
+}
 }
 \examples{
 \dontrun{

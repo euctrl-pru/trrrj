@@ -2,11 +2,15 @@
 % Please edit documentation in R/so6.R
 \name{export_event_so6}
 \alias{export_event_so6}
-\title{Extract "Event"-based trajectories from CPLX tables (in PRISME) to SO6 format}
+\title{Export "Event"-based trajectories to SO6 format}
 \usage{
 export_event_so6(wef, til)
 }
 \arguments{
+\item{wef}{(UTC) timestamp of With Effect From (included)}
+
+\item{til}{(UTC) timestamp of TILl instant (excluded)}
+
 \item{wef}{the With-EFfect date from when flights are selected.}
 
 \item{til}{the unTIL date till when flights are selected.}
@@ -15,6 +19,9 @@ export_event_so6(wef, til)
 a dataframe of trajectory segments in SO6 format.
 }
 \description{
+Extract event-based trajectories from PRISME database and convert to SO6 format
+}
+\details{
 You need to store your credentials to access the CPLX tables in
 the following environment variables:
 \itemize{
@@ -25,7 +32,11 @@ the following environment variables:
 }
 \examples{
 \dontrun{
+# BEWARE: this can take some long-ish time
 export_event_so6("2010-06-16", "2010-06-17")
+
+# reduce the time scope to get the data quicker (and smaller)
+export_event_so6("2010-06-16 10:00", "2010-06-16T11:00:11")
 }
 }
 \seealso{

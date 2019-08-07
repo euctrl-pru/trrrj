@@ -22,7 +22,8 @@ Fix a list flights' CSV files where \code{callsign}s contains ASCII NUL characte
 \examples{
 \dontrun{
 # fix all February 2017 flights files
-flights_csvs <- dir("extdata/", pattern = "201702.._flights\\\\.csv", full.names = TRUE)
+flights_dir <- system.file("extdata", package = "trrrj")
+flights_csvs <- dir(flights_dir, pattern = "201702.._flights\\\\.csv", full.names = TRUE)
 flights_csvs <- fix_flights_csvs(flights_csvs)
 }
 }

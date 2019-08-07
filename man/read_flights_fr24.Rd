@@ -41,7 +41,7 @@ the bounding box as contractually agreed.
 \dontrun{
 # flights, as recorded by FR24, on 20170205 (5th Feb 2017)
 flt_fr24_file <- system.file("extdata",
-                         "20170205_flights.csv"
+                         "20170205_flights.csv",
                          package = "trrrj")
 read_flights_fr24(flt_fr24_file)
 }

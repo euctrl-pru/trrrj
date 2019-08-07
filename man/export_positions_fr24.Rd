@@ -7,9 +7,9 @@
 export_positions_fr24(wef, til)
 }
 \arguments{
-\item{wef}{timestamp of With Effect From (included)}
+\item{wef}{(UT) timestamp of With Effect From (included)}
 
-\item{til}{timestamp of TILl instant (excluded)}
+\item{til}{(UT) timestamp of TILl instant (excluded)}
 }
 \value{
 a dataframe of position reports
@@ -26,6 +26,7 @@ the following environment variables:
 \examples{
 \dontrun{
 export_positions_fr24("2017-09-01T00:00:00Z", "2017-09-01T06:00:00Z")
+export_positions_fr24("2017-09-01 10:05:00Z", "2017-09-01T11:33:00")
 }
 }
 \seealso{

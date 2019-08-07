@@ -1,5 +1,15 @@
 #' Export point profile from NM trajectories
 #'
+#' Extract NM point profile trajectories from PRISME database
+#'
+#' You need to store your credentials to access the PRU tables in
+#' the following environment variables:
+#' \itemize{
+#'   \item \code{PRU_DEV_USR} for the user id
+#'   \item \code{PRU_DEV_PWD} for the password
+#'   \item \code{PRU_DEV_DBNAME} for the database name
+#' }
+#'
 #' @param wef the day With-Wffect-From, i.e. "2019-07-14"
 #' @param til the day unTIL, i.e. "2019-07-16" (not included)
 #' @param model the model of the profile: one of "FTFM", "CTFM", "CPF".
@@ -10,18 +20,21 @@
 #'
 #' @examples
 #' \dontrun{
-#' export_model_trajectory("2019-07-14", "2019-07-15")
+#' # export 1 day worth of NM (planned) trajectories
+#' export_model_trajectory("2019-07-14", "2019-07-15", model = "FTFM")
+#'
+#' # export 2 hours of NM (flown) trajectories
+#' export_model_trajectory("2019-07-14 22:00", "2019-07-15")
 #' }
 export_model_trajectory <- function(wef, til, model = "CTFM") {
   usr <- Sys.getenv("PRU_DEV_USR")
   pwd <- Sys.getenv("PRU_DEV_PWD")
   dbn <- Sys.getenv("PRU_DEV_DBNAME")
 
-  wef <- lubridate::ymd(wef)
-  til <- lubridate::ymd(til)
-
-  wef <- format(wef, "%Y-%m-%d")
-  til <- format(til, "%Y-%m-%d")
+  wef <- parsedate::parse_date(wef)
+  til <- parsedate::parse_date(til)
+  wef <- format(wef, "%Y-%m-%dT%H:%M:%SZ")
+  til <- format(til, "%Y-%m-%dT%H:%M:%SZ")
 
   # NOTE: to be set before you create your ROracle connection!
   # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
@@ -38,8 +51,8 @@ export_model_trajectory <- function(wef, til, model = "CTFM") {
 
   query <- "
   WITH args AS (SELECT
-                  TO_DATE(?WEF, 'YYYY-MM-DD') lobt_wef,
-                  TO_DATE(?TIL, 'YYYY-MM-DD') lobt_til
+                  TO_DATE(?WEF, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') lobt_wef,
+                  TO_DATE(?TIL, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') lobt_til
                 FROM DUAL)
   SELECT
     p.MODEL_TYPE,
@@ -91,9 +104,13 @@ export_model_trajectory <- function(wef, til, model = "CTFM") {
 #'
 #' Extract APDS data from PRISME database.
 #'
-#' You need your ATMAP DB credential stored in the \code{PRU_ATMAP_USR},
-#' \code{PRU_ATMAP_PWD} and \code{PRU_ATMAP_DBNAME} environment
-#' variables.
+#' You need to store your credentials to access the ATMAP tables in
+#' the following environment variables:
+#' \itemize{
+#'   \item \code{PRU_ATMAP_USR} for the user id
+#'   \item \code{PRU_ATMAP_PWD} for the password
+#'   \item \code{PRU_ATMAP_DBNAME} for the database name
+#' }
 #'
 #' @param wef date of With Effect From (included)
 #' @param til date of TILl instant (excluded)
@@ -112,13 +129,13 @@ export_apds <- function(wef, til) {
   pwd <- Sys.getenv("PRU_ATMAP_PWD")
   dbn <- Sys.getenv("PRU_ATMAP_DBNAME")
 
-  wef <- lubridate::ymd(wef)
-  til <- lubridate::ymd(til)
+  wef <- parsedate::parse_date(wef)
+  til <- parsedate::parse_date(til)
   # start of the month for wef date
   wms <- lubridate::floor_date(wef, "month")
 
-  wef <- format(wef, "%Y-%m-%d")
-  til <- format(til, "%Y-%m-%d")
+  wef <- format(wef, "%Y-%m-%dT%H:%M:%SZ")
+  til <- format(til, "%Y-%m-%dT%H:%M:%SZ")
   wms <- format(wms, "%Y-%m-%d")
 
   # NOTE: to be set before you create your ROracle connection!
@@ -141,8 +158,8 @@ export_apds <- function(wef, til) {
   FROM
     SWH_FCT.FAC_APDS_FLIGHT_IR691
   WHERE
-        MVT_TIME_UTC >= TO_DATE(?WEF, 'YYYY-MM-DD')
-    AND MVT_TIME_UTC <  TO_DATE(?TIL, 'YYYY-MM-DD')
+        MVT_TIME_UTC >= TO_DATE(?WEF, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
+    AND MVT_TIME_UTC <  TO_DATE(?TIL, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
     AND SRC_DATE_FROM = TO_DATE(?WMS, 'YYYY-MM-DD')
 "
 

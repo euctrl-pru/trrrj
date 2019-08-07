@@ -2,19 +2,23 @@
 % Please edit documentation in R/fr24.R
 \name{export_flights_fr24}
 \alias{export_flights_fr24}
-\title{Extract FR24 flights list for a time interval}
+\title{Export FlightRadar24 flight movements for an interval of time}
 \usage{
 export_flights_fr24(wef, til)
 }
 \arguments{
-\item{wef}{date of With Effect From (included)}
+\item{wef}{(UTC) timestamp of With Effect From (included)}
 
-\item{til}{date of TILl instant (excluded)}
+\item{til}{(UTC) timestamp of TILl instant (excluded)}
 }
 \value{
 a dataframe of flights
 }
 \description{
+Extract  FlightRadar24 flight movements
+in the specified period
+}
+\details{
 You need to store your credentials to access the FR24 tables in
 the following environment variables:
 \itemize{
@@ -25,7 +29,7 @@ the following environment variables:
 }
 \examples{
 \dontrun{
-export_flights_fr24("2017-09-01T00:00:00Z", "2017-09-01T06:00:00Z")
+export_flights_fr24("2017-09-01T10:30:00", "2017-09-01 11")
 }
 }
 \seealso{

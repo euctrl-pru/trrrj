@@ -2,14 +2,14 @@
 % Please edit documentation in R/fr24.R
 \name{export_flights_at_airport_fr24}
 \alias{export_flights_at_airport_fr24}
-\title{Extract FR24 flights list for a time interval at an airport}
+\title{Export FlightRadar24 flight movements at an airport in an interval of time}
 \usage{
 export_flights_at_airport_fr24(wef, til, apt, flow = "ALL")
 }
 \arguments{
-\item{wef}{timestamp of With Effect From (included)}
+\item{wef}{(UTC) timestamp of With Effect From (included)}
 
-\item{til}{timestamp of TILl instant (excluded)}
+\item{til}{(UTC) timestamp of TILl instant (excluded)}
 
 \item{apt}{IATA code of an airport, i.g. PSA for Pisa "Galileo Galilei"}
 
@@ -20,6 +20,10 @@ export_flights_at_airport_fr24(wef, til, apt, flow = "ALL")
 a dataframe of flights
 }
 \description{
+Extract  FlightRadar24 flight movements
+in the specified period at an airport
+}
+\details{
 You need to store your credentials to access the FR24 tables in
 the following environment variables:
 \itemize{
@@ -30,7 +34,12 @@ the following environment variables:
 }
 \examples{
 \dontrun{
-export_flights_at_airport_fr24("2017-09-01T00:00:00Z", "2017-09-02T00:00:00Z",
+export_flights_at_airport_fr24("2017-09-01T00:00:00", "2017-09-02T00:00:00",
+            "SVG",
+            flow = "ARR")
+
+# only 2 hours interval
+export_flights_at_airport_fr24("2017-09-01 10", "2017-09-02T11:00:00",
             "SVG",
             flow = "ARR")
 }

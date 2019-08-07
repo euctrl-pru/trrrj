@@ -8,8 +8,8 @@
 #'   \item \code{PRU_FR24_DBNAME} for the database name
 #' }
 #'
-#' @param wef timestamp of With Effect From (included)
-#' @param til timestamp of TILl instant (excluded)
+#' @param wef (UT) timestamp of With Effect From (included)
+#' @param til (UT) timestamp of TILl instant (excluded)
 #'
 #' @return a dataframe of position reports
 #' @family read/export functions
@@ -18,6 +18,7 @@
 #' @examples
 #' \dontrun{
 #' export_positions_fr24("2017-09-01T00:00:00Z", "2017-09-01T06:00:00Z")
+#' export_positions_fr24("2017-09-01 10:05:00Z", "2017-09-01T11:33:00")
 #' }
 export_positions_fr24 <- function(wef, til) {
   # DB params
@@ -26,8 +27,8 @@ export_positions_fr24 <- function(wef, til) {
   dbn <- Sys.getenv("PRU_FR24_DBNAME")
 
   # interval of interest
-  wef <- parsedate::parse_iso_8601(wef)
-  til <- parsedate::parse_iso_8601(til)
+  wef <- parsedate::parse_date(wef)
+  til <- parsedate::parse_date(til)
   wef <- format(wef, format = "%Y-%m-%dT%H:%M:%SZ")
   til <- format(til, format = "%Y-%m-%dT%H:%M:%SZ")
 
@@ -91,7 +92,10 @@ export_positions_fr24 <- function(wef, til) {
 }
 
 
-#' Extract FR24 flights list for a time interval
+#' Export FlightRadar24 flight movements for an interval of time
+#'
+#' Extract  FlightRadar24 flight movements
+#' in the specified period
 #'
 #' You need to store your credentials to access the FR24 tables in
 #' the following environment variables:
@@ -101,8 +105,8 @@ export_positions_fr24 <- function(wef, til) {
 #'   \item \code{PRU_FR24_DBNAME} for the database name
 #' }
 #'
-#' @param wef date of With Effect From (included)
-#' @param til date of TILl instant (excluded)
+#' @param wef (UTC) timestamp of With Effect From (included)
+#' @param til (UTC) timestamp of TILl instant (excluded)
 #'
 #' @return a dataframe of flights
 #' @family read/export functions
@@ -110,7 +114,7 @@ export_positions_fr24 <- function(wef, til) {
 #'
 #' @examples
 #' \dontrun{
-#' export_flights_fr24("2017-09-01T00:00:00Z", "2017-09-01T06:00:00Z")
+#' export_flights_fr24("2017-09-01T10:30:00", "2017-09-01 11")
 #' }
 export_flights_fr24 <- function(wef, til) {
   # DB params
@@ -168,7 +172,10 @@ export_flights_fr24 <- function(wef, til) {
   return(flts)
 }
 
-#' Extract FR24 flights list for a time interval at an airport
+#' Export FlightRadar24 flight movements at an airport in an interval of time
+#'
+#' Extract  FlightRadar24 flight movements
+#' in the specified period at an airport
 #'
 #' You need to store your credentials to access the FR24 tables in
 #' the following environment variables:
@@ -178,8 +185,8 @@ export_flights_fr24 <- function(wef, til) {
 #'   \item \code{PRU_FR24_DBNAME} for the database name
 #' }
 #'
-#' @param wef timestamp of With Effect From (included)
-#' @param til timestamp of TILl instant (excluded)
+#' @param wef (UTC) timestamp of With Effect From (included)
+#' @param til (UTC) timestamp of TILl instant (excluded)
 #' @param apt IATA code of an airport, i.g. PSA for Pisa "Galileo Galilei"
 #' @param flow the flow of flights: "ARR" for arrivals, "DEP" for departures,
 #'             "ALL" for both (default "ALL")
@@ -190,7 +197,12 @@ export_flights_fr24 <- function(wef, til) {
 #'
 #' @examples
 #' \dontrun{
-#' export_flights_at_airport_fr24("2017-09-01T00:00:00Z", "2017-09-02T00:00:00Z",
+#' export_flights_at_airport_fr24("2017-09-01T00:00:00", "2017-09-02T00:00:00",
+#'             "SVG",
+#'             flow = "ARR")
+#'
+#' # only 2 hours interval
+#' export_flights_at_airport_fr24("2017-09-01 10", "2017-09-02T11:00:00",
 #'             "SVG",
 #'             flow = "ARR")
 #' }
@@ -246,8 +258,8 @@ export_flights_at_airport_fr24 <- function(wef, til, apt, flow = "ALL") {
     FROM
       FR24_ADSB_DATA_FLIGHTS
     WHERE
-      START_TIME >= TO_DATE(?WEF, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
-      AND START_TIME < TO_DATE(?TIL, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
+          START_TIME >= TO_DATE(?WEF, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
+      AND START_TIME <  TO_DATE(?TIL, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
       ", sql_where)
 
   query_flt <- DBI::sqlInterpolate(con, sqlq_flt, WEF = wef, TIL = til, APT = apt)
@@ -259,7 +271,10 @@ export_flights_at_airport_fr24 <- function(wef, til, apt, flow = "ALL") {
   return(flts)
 }
 
-#' Export ADS-B position reports for relevant flight ids around an airport
+#' Export FlightRadar24 position reports from flights flying around an airport
+#'
+#' Extract  FlightRadar24 positions within a distance from the aerodrome
+#' for qualified airport movements (arrivals or departures or all)
 #'
 #' You need to store your credentials to access the FR24 tables in
 #' the following environment variables:
@@ -269,8 +284,8 @@ export_flights_at_airport_fr24 <- function(wef, til, apt, flow = "ALL") {
 #'   \item \code{PRU_FR24_DBNAME} for the database name
 #' }
 #'
-#' @param wef timestamp of With Effect From (included)
-#' @param til timestamp of TILl instant (excluded)
+#' @param wef (UTC) timestamp of With Effect From (included)
+#' @param til (UTC) timestamp of TILl instant (excluded)
 #' @param radius radius around airport to keep position reports (nautical miles [NM])
 #' @param apt IATA airport code, i.e. PSA for Pisa "Galileo Galilei"
 #' @param lon_apt airport longitude (decimal degrees, WGS84)
@@ -284,10 +299,19 @@ export_flights_at_airport_fr24 <- function(wef, til, apt, flow = "ALL") {
 #'
 #' @examples
 #' \dontrun{
-#' export_positions_at_airport_fr24("2017-09-01T00:00:00Z",
-#'                                "2017-09-02T00:00:00Z",
-#'                                "SVG",
-#'                                5.638, 58.877)
+#' # half a day (UTC times, not local ones!) worth of all movements at Stavanger Airport,
+#' # Sola, Sweden on 1st Sep 2017
+#' export_positions_at_airport_fr24("2017-09-01T00:00:00",
+#'                                  "2017-09-01T12:00:00",
+#'                                  "SVG",
+#'                                  5.638, 58.877)
+#'
+#' # all arrivals within 50 NM on 25th Sep 2018 at Pisa Airport, Pisa, Italy
+#' export_positions_at_airport_fr24("2018-09-25",
+#'                                  "2018-09-26",
+#'                                  "PSA", 10.39270, 43.68390,
+#'                                  flow = "ARR",
+#'                                  radius = 50)
 #' }
 export_positions_at_airport_fr24 <- function(wef, til,
                                              apt, lon_apt, lat_apt,
@@ -446,7 +470,7 @@ export_positions_at_airport_fr24 <- function(wef, til,
 #' \dontrun{
 #' # flights, as recorded by FR24, on 20170205 (5th Feb 2017)
 #' flt_fr24_file <- system.file("extdata",
-#'                          "20170205_flights.csv"
+#'                          "20170205_flights.csv",
 #'                          package = "trrrj")
 #' read_flights_fr24(flt_fr24_file)
 #' }
@@ -535,7 +559,7 @@ read_flights_fr24 <- function(path) {
 #' # positions, as recorded by FR24, for flight 207535493 on 20170205 (5th Feb 2017)
 #' pos_fr24_file <- system.file("extdata",
 #'                              "20170205_positions",
-#'                              "20170205_207535493.csv"
+#'                              "20170205_207535493.csv",
 #'                              package = "trrrj")
 
 #' read_positions_fr24(pos_fr24_file)

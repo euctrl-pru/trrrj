@@ -145,7 +145,9 @@ read_so6 <- function(filename, delim = " ") {
 }
 
 
-#' Extract "Event"-based trajectories from CPLX tables (in PRISME) to SO6 format
+#' Export "Event"-based trajectories to SO6 format
+#'
+#' Extract event-based trajectories from PRISME database and convert to SO6 format
 #'
 #' You need to store your credentials to access the CPLX tables in
 #' the following environment variables:
@@ -155,6 +157,8 @@ read_so6 <- function(filename, delim = " ") {
 #'   \item \code{PRU_CPLX_DBNAME} for the database name
 #' }
 #'
+#' @param wef (UTC) timestamp of With Effect From (included)
+#' @param til (UTC) timestamp of TILl instant (excluded)
 #' @param wef the With-EFfect date from when flights are selected.
 #' @param til the unTIL date till when flights are selected.
 #'
@@ -164,7 +168,11 @@ read_so6 <- function(filename, delim = " ") {
 #'
 #' @examples
 #' \dontrun{
+#' # BEWARE: this can take some long-ish time
 #' export_event_so6("2010-06-16", "2010-06-17")
+#'
+#' # reduce the time scope to get the data quicker (and smaller)
+#' export_event_so6("2010-06-16 10:00", "2010-06-16T11:00:11")
 #' }
 export_event_so6 <- function(wef, til) {
   export_event_trajectory(wef, til) %>%
@@ -224,9 +232,11 @@ generate_so6 <- function(event_trajectory) {
     dplyr::arrange(.data$XX17, .data$XX18)
 }
 
-#' Extract "Event"-based trajectories from CPLX tables (in PRISME)
+#' Export event-based NM trajectories
 #'
-#' You need to store your credentials to access the CPLX tables in
+#' Extract "Event"-based trajectories from PRISME database
+#'
+#' You need to store your credentials to access the CPLX related tables in
 #' the following environment variables:
 #' \itemize{
 #'   \item \code{PRU_CPLX_USR} for the user id
@@ -244,21 +254,24 @@ generate_so6 <- function(event_trajectory) {
 #' @examples
 #' \dontrun{
 #' export_event_trajectory("2010-06-16", "2010-06-17")
+#' export_event_trajectory("2010-06-16 10:00", "2010-06-16T11:00:00Z")
 #' }
 export_event_trajectory <- function(wef, til) {
   usr <- Sys.getenv("PRU_CPLX_USR")
   pwd <- Sys.getenv("PRU_CPLX_PWD")
   dbn <- Sys.getenv("PRU_CPLX_DBNAME")
 
-  wef <- lubridate::ymd(wef)
-  til <- lubridate::ymd(til)
+  # interval of interest
+  wef <- parsedate::parse_date(wef)
+  til <- parsedate::parse_date(til)
+
   wefminus1 <- wef - 1
   tilplus1  <- til + 1
 
-  wef <- format(wef, "%Y-%m-%d")
-  til <- format(til, "%Y-%m-%d")
-  wefminus1 <- format(wefminus1, "%Y-%m-%d")
-  tilplus1  <- format(tilplus1,  "%Y-%m-%d")
+  wef <- format(wef, format = "%Y-%m-%dT%H:%M:%SZ")
+  til <- format(til, format = "%Y-%m-%dT%H:%M:%SZ")
+  wefminus1 <- format(wefminus1, "%Y-%m-%dT%H:%M:%SZ")
+  tilplus1  <- format(tilplus1,  "%Y-%m-%dT%H:%M:%SZ")
 
   # NOTE: to be set before you create your ROracle connection!
   # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
@@ -291,9 +304,9 @@ export_event_trajectory <- function(wef, til) {
   # flst_det_type = 'PTP' AND
   # seq > 0 AND
   # data_2 != 'GATE' AND
-  # f.lobt >= TO_DATE(?WEFMINUS1, 'YYYY-MM-DD') AND
-  # f.lobt < TO_DATE(?TIL, 'YYYY-MM-DD') AND
-  # f.arvt_1 >= TO_DATE(?WEF, 'YYYY-MM-DD') AND
+  # f.lobt   >= TO_DATE(?WEFMINUS1, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') AND
+  # f.lobt   <  TO_DATE(?TIL,       'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') AND
+  # f.arvt_1 >= TO_DATE(?WEF,       'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') AND
   # t.event_time  >= f.lobt - 1 AND
   # t.event_time  < f.lobt + 1 AND
   # dset_grp = 3 AND
@@ -301,8 +314,8 @@ export_event_trajectory <- function(wef, til) {
   # ORDER BY sam_id, seq"
 
   query <- "WITH inp AS (SELECT
-                           TO_DATE(?WEF, 'YYYY-MM-DD') lobt_wef,
-                           TO_DATE(?TIL, 'YYYY-MM-DD') lobt_til
+                           TO_DATE(?WEF, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') lobt_wef,
+                           TO_DATE(?TIL, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') lobt_til
                          FROM DUAL)
             SELECT
               f.ID                     AS GID,

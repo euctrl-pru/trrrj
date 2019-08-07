@@ -18,10 +18,23 @@ export_model_trajectory(wef, til, model = "CTFM")
 a dataframe with trajectory data
 }
 \description{
-Export point profile from NM trajectories
+Extract NM point profile trajectories from PRISME database
+}
+\details{
+You need to store your credentials to access the PRU tables in
+the following environment variables:
+\itemize{
+  \item \code{PRU_DEV_USR} for the user id
+  \item \code{PRU_DEV_PWD} for the password
+  \item \code{PRU_DEV_DBNAME} for the database name
+}
 }
 \examples{
 \dontrun{
-export_model_trajectory("2019-07-14", "2019-07-15")
+# export 1 day worth of NM (planned) trajectories
+export_model_trajectory("2019-07-14", "2019-07-15", model = "FTFM")
+
+# export 2 hours of NM (flown) trajectories
+export_model_trajectory("2019-07-14 22:00", "2019-07-15")
 }
 }

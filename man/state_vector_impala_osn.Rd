@@ -23,6 +23,7 @@ Get state vectors from OSN
 }
 \examples{
 \dontrun{
+session <- connect_osn("cucu", verbose = 2)
 state_vector_impala_osn(
    session,
    icao24 = c("3c6589", "3c6757"),

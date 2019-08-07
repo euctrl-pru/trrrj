@@ -47,7 +47,7 @@ the bounding box as contractually agreed.
 # positions, as recorded by FR24, for flight 207535493 on 20170205 (5th Feb 2017)
 pos_fr24_file <- system.file("extdata",
                              "20170205_positions",
-                             "20170205_207535493.csv"
+                             "20170205_207535493.csv",
                              package = "trrrj")
 read_positions_fr24(pos_fr24_file)
 }

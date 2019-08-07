@@ -24,6 +24,7 @@ connect_osn <- function(usr, passwd = askpass, verbose = FALSE) {
 #'
 #' @examples
 #' \dontrun{
+#' session <- connect_osn("cucu", verbose = 2)
 #' disconnect_osn(session)
 #' }
 disconnect_osn <- function(session) {
@@ -83,6 +84,7 @@ disconnect_osn <- function(session) {
 #'
 #' @examples
 #' \dontrun{
+#' session <- connect_osn("cucu", verbose = 2)
 #' arrivals_impala_osn(session, "EDDF", "2019-04-22 00:00:00", til=NULL)
 #' }
 arrivals_impala_osn <- function(session, apt, wef, til=NULL) {
@@ -203,6 +205,7 @@ arrivals_impala_osn <- function(session, apt, wef, til=NULL) {
 #'
 #' @examples
 #' \dontrun{
+#' session <- connect_osn("cucu", verbose = 2)
 #' depurtures_impala_osn(session, "EDDF", "2019-04-22 00:00:00", til=NULL)
 #' }
 departures_impala_osn <- function(session, apt, wef, til=NULL) {
@@ -299,6 +302,7 @@ departures_impala_osn <- function(session, apt, wef, til=NULL) {
 #'
 #' @examples
 #' \dontrun{
+#' session <- connect_osn("cucu", verbose = 2)
 #' state_vector_impala_osn(
 #'    session,
 #'    icao24 = c("3c6589", "3c6757"),

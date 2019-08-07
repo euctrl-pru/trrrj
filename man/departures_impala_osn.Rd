@@ -25,6 +25,7 @@ Get departures from airport
 }
 \examples{
 \dontrun{
+session <- connect_osn("cucu", verbose = 2)
 depurtures_impala_osn(session, "EDDF", "2019-04-22 00:00:00", til=NULL)
 }
 }
