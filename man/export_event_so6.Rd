@@ -10,10 +10,6 @@ export_event_so6(wef, til)
 \item{wef}{(UTC) timestamp of With Effect From (included)}
 
 \item{til}{(UTC) timestamp of TILl instant (excluded)}
-
-\item{wef}{the With-EFfect date from when flights are selected.}
-
-\item{til}{the unTIL date till when flights are selected.}
 }
 \value{
 a dataframe of trajectory segments in SO6 format.

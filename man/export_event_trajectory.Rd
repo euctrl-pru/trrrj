@@ -7,9 +7,9 @@
 export_event_trajectory(wef, til)
 }
 \arguments{
-\item{wef}{the With-EFfect date from when flights are selected.}
+\item{wef}{(UTC) timestamp of With Effect From (included)}
 
-\item{til}{the unTIL date till when flights are selected.}
+\item{til}{(UTC) timestamp of TILl instant (excluded)}
 }
 \value{
 a dataframe of trajectory points.
