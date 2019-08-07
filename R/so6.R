@@ -159,8 +159,6 @@ read_so6 <- function(filename, delim = " ") {
 #'
 #' @param wef (UTC) timestamp of With Effect From (included)
 #' @param til (UTC) timestamp of TILl instant (excluded)
-#' @param wef the With-EFfect date from when flights are selected.
-#' @param til the unTIL date till when flights are selected.
 #'
 #' @return a dataframe of trajectory segments in SO6 format.
 #' @family read/export functions
@@ -244,8 +242,8 @@ generate_so6 <- function(event_trajectory) {
 #'   \item \code{PRU_CPLX_DBNAME} for the database name
 #' }
 #'
-#' @param wef the With-EFfect date from when flights are selected.
-#' @param til the unTIL date till when flights are selected.
+#' @param wef (UTC) timestamp of With Effect From (included)
+#' @param til (UTC) timestamp of TILl instant (excluded)
 #'
 #' @return a dataframe of trajectory points.
 #' @family read/export functions
