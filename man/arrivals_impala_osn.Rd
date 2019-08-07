@@ -11,14 +11,32 @@ arrivals_impala_osn(session, apt, wef, til = NULL)
 
 \item{apt}{ICAO ID of airport, i.e. "EDDF" for Frankfurt}
 
-\item{wef}{Start of period of interest}
+\item{wef}{(UTC) timestamp of With Effect From (included)}
 
-\item{til}{End of period of interest}
+\item{til}{(UTC) timestamp of TILl instant (excluded), if NULL
+if is interpreted as WEF + 1 day.}
 }
 \value{
-data frame of flight and track data (see OSN docs about
+data frame of flight and track data containing the following
+        variable (see also OSN docs about
   \href{https://opensky-network.org/apidoc/rest.html#arrivals-by-airport}{Arrivals
-   by Airport}).
+   by Airport}):
+   \tabular{lll}{
+     \strong{Name}       \tab \strong{Description} \tab \strong{Type} \cr
+     icao24              \tab ICAO 24-bit address \tab chr \cr
+     callsign            \tab flight's callsign   \tab chr \cr
+     day                 \tab flight's day  \tab int \cr
+     firstseen           \tab first seen by OpenSky Network (UNIX timestamp)\tab int \cr
+     lastseen            \tab last seen by OpenSky Network (UNIX timestamp) \tab int \cr
+     estdepartureairport \tab Estimated departure airport \tab chr \cr
+     estarrivalairport   \tab Estimated arrival airport   \tab chr \cr
+     item.time           \tab position report's time (UNIX timestamp) \tab int \cr
+     item.longitude      \tab position report's longitude (WSG84 decimal degrees)\tab dbl \cr
+     item.latitude       \tab position report's latitude (WSG84 decimal degrees) \tab dbl \cr
+     item.altitude       \tab position report's barometric altitude (meters) \tab dbl \cr
+     item.heading        \tab true track in decimal degrees clockwise from north (north=0°) \tab dbl \cr
+     item.onground       \tab TRUE if the position was retrieved from a surface position report \tab lgl
+   }
 }
 \description{
 Get arrivals at airport

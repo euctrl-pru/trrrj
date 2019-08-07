@@ -78,9 +78,27 @@ disconnect_osn <- function(session) {
 #' @param til (UTC) timestamp of TILl instant (excluded), if NULL
 #'            if is interpreted as WEF + 1 day.
 #'
-#' @return data frame of flight and track data (see OSN docs about
+#' @return data frame of flight and track data containing the following
+#'         variable (see also OSN docs about
 #'   \href{https://opensky-network.org/apidoc/rest.html#arrivals-by-airport}{Arrivals
-#'    by Airport}).
+#'    by Airport}):
+#'    \tabular{lll}{
+#'      \strong{Name}       \tab \strong{Description} \tab \strong{Type} \cr
+#'      icao24              \tab ICAO 24-bit address \tab chr \cr
+#'      callsign            \tab flight's callsign   \tab chr \cr
+#'      day                 \tab flight's day  \tab int \cr
+#'      firstseen           \tab first seen by OpenSky Network (UNIX timestamp)\tab int \cr
+#'      lastseen            \tab last seen by OpenSky Network (UNIX timestamp) \tab int \cr
+#'      estdepartureairport \tab Estimated departure airport \tab chr \cr
+#'      estarrivalairport   \tab Estimated arrival airport   \tab chr \cr
+#'      item.time           \tab position report's time (UNIX timestamp) \tab int \cr
+#'      item.longitude      \tab position report's longitude (WSG84 decimal degrees)\tab dbl \cr
+#'      item.latitude       \tab position report's latitude (WSG84 decimal degrees) \tab dbl \cr
+#'      item.altitude       \tab position report's barometric altitude (meters) \tab dbl \cr
+#'      item.heading        \tab true track in decimal degrees clockwise from north (north=0°) \tab dbl \cr
+#'      item.onground       \tab TRUE if the position was retrieved from a surface position report \tab lgl
+#'    }
+#'
 #' @export
 #'
 #' @examples
@@ -222,9 +240,7 @@ arrivals_impala_osn <- function(session, apt, wef, til=NULL) {
 #' @param wef Start of period of interest
 #' @param til End of period of interest
 #'
-#' @return data frame of flight and track data (see OSN docs about
-#'   \href{https://opensky-network.org/apidoc/rest.html#departures-by-airport}{Departures
-#'    by Airport}).
+#' @inherit arrivals_impala_osn return
 #' @export
 #'
 #' @examples
