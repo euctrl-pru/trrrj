@@ -74,8 +74,9 @@ disconnect_osn <- function(session) {
 #'
 #' @param session SSH session to OSN Impala
 #' @param apt ICAO ID of airport, i.e. "EDDF" for Frankfurt
-#' @param wef Start of period of interest
-#' @param til End of period of interest
+#' @param wef (UTC) timestamp of With Effect From (included)
+#' @param til (UTC) timestamp of TILl instant (excluded), if NULL
+#'            if is interpreted as WEF + 1 day.
 #'
 #' @return data frame of flight and track data (see OSN docs about
 #'   \href{https://opensky-network.org/apidoc/rest.html#arrivals-by-airport}{Arrivals
@@ -157,37 +158,60 @@ arrivals_impala_osn <- function(session, apt, wef, til=NULL) {
     session,
     stringr::str_glue("-q {query}", query = query)) %>%
     { rawToChar(.$stdout)} %>%
-    stringi::stri_split_lines() %>%
-    purrr::flatten_chr() %>%
-    # match all lines starting w/ '|'
-    stringr::str_subset(pattern = "^\\|") %>%
-    # remove first and last field separator, '|'
-    stringr::str_replace_all("^[|](.+)[|]$", "\\1") %>%
-    stringr::str_replace_all("\\s*\\|\\s*", ",") %>%
-    stringr::str_trim(side = "both")
+    stringi::stri_split_lines(omit_empty = TRUE)
 
-  # remove duplicated heading (with column names)
-  values_to_parse <- lines[!duplicated(lines)]
-  cols <- readr::cols(
-    icao24 = readr::col_character(),
-    callsign = readr::col_character(),
-    day = readr::col_integer(),
-    firstseen = readr::col_integer(),
-    lastseen = readr::col_integer(),
-    estdepartureairport = readr::col_character(),
-    estarrivalairport = readr::col_character(),
-    item.time = readr::col_integer(),
-    item.longitude = readr::col_double(),
-    item.latitude = readr::col_double(),
-    item.altitude = readr::col_double(),
-    item.heading = readr::col_double(),
-    item.onground = readr::col_logical()
+  # create an empty dataframe to return in case of empty query
+  values <- tibble::tibble(
+    icao24 = character(),
+    callsign = character(),
+    day = integer(),
+    firstseen = integer(),
+    lastseen = integer(),
+    estdepartureairport = character(),
+    estarrivalairport = character(),
+    item.time = integer(),
+    item.longitude = double(),
+    item.latitude = double(),
+    item.altitude = double(),
+    item.heading = double(),
+    item.onground = logical()
   )
-  values <- values_to_parse %>%
-    readr::read_csv(
-      na = c("", "NULL"),
-      col_types = cols) %>%
-    janitor::clean_names()
+  if (length(lines) >= 1) {
+    lines <- lines %>%
+      purrr::flatten_chr() %>%
+      # match all lines starting w/ '|'
+      stringr::str_subset(pattern = "^\\|")
+    if (length(lines) >= 1) {
+      lines <- lines %>%
+        # remove first and last field separator, '|'
+        stringr::str_replace_all("^[|](.+)[|]$", "\\1") %>%
+        stringr::str_replace_all("\\s*\\|\\s*", ",") %>%
+        stringr::str_trim(side = "both")
+
+      # remove duplicated heading (with column names)
+      values_to_parse <- lines[!duplicated(lines)]
+      cols <- readr::cols(
+        icao24 = readr::col_character(),
+        callsign = readr::col_character(),
+        day = readr::col_integer(),
+        firstseen = readr::col_integer(),
+        lastseen = readr::col_integer(),
+        estdepartureairport = readr::col_character(),
+        estarrivalairport = readr::col_character(),
+        item.time = readr::col_integer(),
+        item.longitude = readr::col_double(),
+        item.latitude = readr::col_double(),
+        item.altitude = readr::col_double(),
+        item.heading = readr::col_double(),
+        item.onground = readr::col_logical()
+      )
+      values <- values_to_parse %>%
+        readr::read_csv(
+          na = c("", "NULL"),
+          col_types = cols) %>%
+        janitor::clean_names()
+    }
+  }
   values
 }
 
