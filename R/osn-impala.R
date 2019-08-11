@@ -163,7 +163,7 @@ arrivals_impala_osn <- function(session, apt, wef, til=NULL) {
     "SELECT {COLUMNS} ",
     "FROM {TABLES} ",
     "WHERE ",
-    "estdepartureairport like '%{APT}%' ",
+    "estarrivalairport like '%{APT}%' ",
     " and firstseen >= {WEF} ",
     " and firstseen <  {TIL};",
     COLUMNS = stringr::str_c(columns, collapse = ","),
