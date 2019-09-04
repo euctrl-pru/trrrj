@@ -11,7 +11,7 @@ cfmu_airac_epoch <- function() {
 #' @return the epoch number for CFMU AIRAC numbering scheme
 #'
 cfmu_airac_epoch_number <- function() {
-  184
+  0
 }
 
 #' return the CFMU AIRAC cycle number for a date
@@ -27,9 +27,9 @@ cfmu_airac_epoch_number <- function() {
 #'
 cfmu_airac <- function(date) {
   d <- lubridate::ymd(date, tz = "UTC")
-  extra_days <- ( lubridate::interval(cfmu_airac_epoch(), d) %/% lubridate::days(1)) %% 28
-  cy_beg <- (d - lubridate::days(extra_days))
-  num_cycles <- lubridate::interval(cfmu_airac_epoch(), cy_beg) %/% lubridate::days(1) %/% 28
+  num_cycles <- lubridate::interval(cfmu_airac_epoch(), d) %/% lubridate::ddays(28)
+  # or alternatively
+  # num_cycles <- as.integer((as.integer(d) - as.integer(cfmu_airac_epoch())) / 2419200)
   num_cycles + cfmu_airac_epoch_number()
 }
 
@@ -45,10 +45,10 @@ cfmu_airac <- function(date) {
 #' cfmu_airac_interval(441)
 #'
 cfmu_airac_interval <- function(cfmu_airac) {
-  a_beg <- cfmu_airac_epoch() +
+  airac_beg <- cfmu_airac_epoch() +
     lubridate::ddays( (cfmu_airac - cfmu_airac_epoch_number()) * 28)
-  a_end <- a_beg + lubridate::ddays(28)
-  lubridate::interval(a_beg, a_end)
+  airac_end <- airac_beg + lubridate::ddays(28)
+  lubridate::interval(airac_beg, airac_end)
 }
 
 
