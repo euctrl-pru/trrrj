@@ -263,13 +263,8 @@ export_event_trajectory <- function(wef, til) {
   wef <- parsedate::parse_date(wef)
   til <- parsedate::parse_date(til)
 
-  wefminus1 <- wef - 1
-  tilplus1  <- til + 1
-
   wef <- format(wef, format = "%Y-%m-%dT%H:%M:%SZ")
   til <- format(til, format = "%Y-%m-%dT%H:%M:%SZ")
-  wefminus1 <- format(wefminus1, "%Y-%m-%dT%H:%M:%SZ")
-  tilplus1  <- format(tilplus1,  "%Y-%m-%dT%H:%M:%SZ")
 
   # NOTE: to be set before you create your ROracle connection!
   # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
@@ -283,33 +278,6 @@ export_event_trajectory <- function(wef, til) {
       dbname = dbn,
       timezone = "UTC")
   )
-
-  # see OGIS_FLIGHT_FEA view definition
-  # query <- "SELECT
-  # f.ID as GID,
-  # pos_lon / 60 AS LON,
-  # pos_lat / 60 AS LAT,
-  # altitude AS FL,
-  # event_time AS TIME_OVER,
-  # data_1 AS POINT_ID,
-  # data_2 AS AIR_ROUTE,
-  # f.aircraft_type_icao_id AS AIRCRAFT_TYPE
-  # FROM
-  # fsd.flst_event t,
-  # flx.flight f
-  # WHERE
-  # f.id = sam_id AND
-  # flst_det_type = 'PTP' AND
-  # seq > 0 AND
-  # data_2 != 'GATE' AND
-  # f.lobt   >= TO_DATE(?WEFMINUS1, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') AND
-  # f.lobt   <  TO_DATE(?TIL,       'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') AND
-  # f.arvt_1 >= TO_DATE(?WEF,       'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') AND
-  # t.event_time  >= f.lobt - 1 AND
-  # t.event_time  < f.lobt + 1 AND
-  # dset_grp = 3 AND
-  # pos_lon IS NOT NULL
-  # ORDER BY sam_id, seq"
 
   query <- "WITH inp AS (SELECT
                            TO_DATE(?WEF, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') lobt_wef,
@@ -344,10 +312,6 @@ export_event_trajectory <- function(wef, til) {
               AND t.dset_grp = 3
               AND t.pos_lon IS NOT NULL"
 
-  # query <- DBI::sqlInterpolate(
-  #   con, query,
-  #   WEF = wef, TIL = til,
-  #   WEFMINUS1 = wefminus1)
   query <- DBI::sqlInterpolate(
     con, query,
     WEF = wef, TIL = til)
@@ -363,4 +327,132 @@ export_event_trajectory <- function(wef, til) {
     )
 
   pnts
+}
+
+#' Export ALL_FT+-based NM trajectories
+#'
+#' Extract "ALL_FT+"-based trajectories from PRISME database
+#'
+#' You need to store your credentials to access the PRU related tables in
+#' the following environment variables:
+#' \itemize{
+#'   \item \code{PRU_TEST_USR} for the user id
+#'   \item \code{PRU_TEST_PWD} for the password
+#'   \item \code{PRU_TEST_DBNAME} for the database name
+#' }
+#'
+#' @param wef (UTC) timestamp of With Effect From (included)
+#' @param til (UTC) timestamp of TILl instant (excluded)
+#'
+#' @return a dataframe of trajectory points.
+#' @family read/export functions
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' export_allft_trajectory("2010-06-16", "2010-06-17")
+#' export_allft_trajectory("2010-06-16 10:00", "2010-06-16T11:00:00Z")
+#' }
+export_allft_trajectory <- function(wef, til) {
+  usr <- Sys.getenv("PRU_TEST_USR")
+  pwd <- Sys.getenv("PRU_TEST_PWD")
+  dbn <- Sys.getenv("PRU_TEST_DBNAME")
+
+  # interval of interest
+  wef <- parsedate::parse_date(wef)
+  til <- parsedate::parse_date(til)
+
+  wef <- format(wef, format = "%Y-%m-%dT%H:%M:%SZ")
+  til <- format(til, format = "%Y-%m-%dT%H:%M:%SZ")
+
+  # NOTE: to be set before you create your ROracle connection!
+  # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
+  withr::local_envvar(c("TZ" = "UTC",
+                        "ORA_SDTZ" = "UTC"))
+
+  con <- withr::local_db_connection(
+    ROracle::dbConnect(
+      DBI::dbDriver("Oracle"),
+      usr, pwd,
+      dbname = dbn,
+      timezone = "UTC")
+  )
+
+  query <- "WITH inp AS (SELECT
+                           TO_DATE(?WEF, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') lobt_wef,
+                           TO_DATE(?TIL, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') lobt_til
+                         FROM DUAL)
+            SELECT
+              f.ID                     AS GID,
+              p.lon                    AS LON,
+              p.lat                    AS LAT,
+              f.aircraft_id            AS CALLSIGN,
+              p.flight_level               AS FL,
+              p.time_over              AS TIME_OVER,
+              p.point_id               AS POINT_ID,
+              p.air_route              AS AIR_ROUTE,
+              f.aircraft_type_icao_id  AS AIRCRAFT_TYPE,
+              f.adep                   AS ADEP,
+              f.ades                   AS ADES
+            FROM
+              FSD.ALL_FT_POINT_PROFILE p
+            JOIN
+              FLX.T_FLIGHT f
+            ON (f.id = p.sam_id AND f.lobt = p.lobt)
+            WHERE
+                  f.lobt >=       (SELECT lobt_wef FROM inp)
+              AND f.lobt <        (SELECT lobt_til FROM inp)
+              AND p.lobt >=       (SELECT lobt_wef FROM inp)
+              AND p.lobt <        (SELECT lobt_til FROM inp)
+              AND p.model_type = 'CTFM'"
+
+
+  query <- DBI::sqlInterpolate(
+    con, query,
+    WEF = wef, TIL = til)
+  fltq <- ROracle::dbSendQuery(con, query)
+  pnts <- ROracle::fetch(fltq, n = -1) %>%
+    dplyr::mutate(TIME_OVER = lubridate::as_datetime(.data$TIME_OVER, tz = "UTC")) %>%
+    tibble::as_tibble() %>%
+    janitor::clean_names() %>%
+    dplyr::rename(
+      longitude = .data$lon,
+      latitude  = .data$lat,
+      flight_id = .data$gid
+    )
+
+  pnts
+}
+
+
+#' Export "ALL_FT+"-based trajectories to SO6 format
+#'
+#' Extract AFF_FT+-based trajectories from PRISME database and convert to SO6 format
+#'
+#' You need to store your credentials to access the PRU tables in
+#' the following environment variables:
+#' \itemize{
+#'   \item \code{PRU_TEST_USR} for the user id
+#'   \item \code{PRU_TEST_PWD} for the password
+#'   \item \code{PRU_TEST_DBNAME} for the database name
+#' }
+#'
+#' @param wef (UTC) timestamp of With Effect From (included)
+#' @param til (UTC) timestamp of TILl instant (excluded)
+#'
+#' @return a dataframe of trajectory segments in SO6 format.
+#' @family read/export functions
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # BEWARE: this can take some long-ish time
+#' export_allft_so6("2010-06-16", "2010-06-17")
+#'
+#' # reduce the time scope to get the data quicker (and smaller)
+#' export_allft_so6("2010-06-16 10:00", "2010-06-16T11:00:11")
+#' }
+export_allft_so6 <- function(wef, til) {
+  export_allft_trajectory(wef, til) %>%
+    generate_so6()
 }

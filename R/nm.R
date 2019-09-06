@@ -169,17 +169,17 @@ export_apds <- function(wef, til) {
   ROracle::fetch(flt, n = -1) %>%
     tibble::as_tibble() %>%
     dplyr::select(
-      APDS_ID,
-      AP_C_FLTID,
-      AP_C_REG,
+      .data$APDS_ID,
+      .data$AP_C_FLTID,
+      .data$AP_C_REG,
       dplyr::ends_with("ICAO"),
-      SRC_PHASE,
-      MVT_TIME_UTC,
-      BLOCK_TIME_UTC,
-      SCHED_TIME_UTC,
-      ARCTYP,
-      AP_C_RWY,
-      AP_C_STND,
+      .data$SRC_PHASE,
+      .data$MVT_TIME_UTC,
+      .data$BLOCK_TIME_UTC,
+      .data$SCHED_TIME_UTC,
+      .data$ARCTYP,
+      .data$AP_C_RWY,
+      .data$AP_C_STND,
       dplyr::starts_with("C40_"),
       dplyr::starts_with("C100_")
     ) %>%

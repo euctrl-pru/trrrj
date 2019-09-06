@@ -48,7 +48,9 @@ read_flights_fr24(flt_fr24_file)
 
 }
 \seealso{
-Other read/export functions: \code{\link{export_event_so6}},
+Other read/export functions: \code{\link{export_allft_so6}},
+  \code{\link{export_allft_trajectory}},
+  \code{\link{export_event_so6}},
   \code{\link{export_event_trajectory}},
   \code{\link{export_flights_at_airport_fr24}},
   \code{\link{export_flights_fr24}},
