@@ -46,7 +46,6 @@ export_flights_at_airport_fr24("2017-09-01 10", "2017-09-02T11:00:00",
 }
 \seealso{
 Other read/export functions: \code{\link{export_allft_so6}},
-  \code{\link{export_allft_trajectory}},
   \code{\link{export_event_so6}},
   \code{\link{export_event_trajectory}},
   \code{\link{export_flights_fr24}},

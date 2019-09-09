@@ -4,7 +4,7 @@
 \alias{export_allft_so6}
 \title{Export "ALL_FT+"-based trajectories to SO6 format}
 \usage{
-export_allft_so6(wef, til)
+export_allft_so6(wef, til, model = "CTFM")
 }
 \arguments{
 \item{wef}{(UTC) timestamp of With Effect From (included)}
@@ -29,15 +29,14 @@ the following environment variables:
 \examples{
 \dontrun{
 # BEWARE: this can take some long-ish time
-export_allft_so6("2010-06-16", "2010-06-17")
+export_allft_so6("2010-06-16", "2010-06-17", model = "FTFM")
 
 # reduce the time scope to get the data quicker (and smaller)
 export_allft_so6("2010-06-16 10:00", "2010-06-16T11:00:11")
 }
 }
 \seealso{
-Other read/export functions: \code{\link{export_allft_trajectory}},
-  \code{\link{export_event_so6}},
+Other read/export functions: \code{\link{export_event_so6}},
   \code{\link{export_event_trajectory}},
   \code{\link{export_flights_at_airport_fr24}},
   \code{\link{export_flights_fr24}},

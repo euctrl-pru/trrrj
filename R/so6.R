@@ -177,8 +177,43 @@ export_event_so6 <- function(wef, til) {
     generate_so6()
 }
 
-generate_so6 <- function(event_trajectory) {
-  event_trajectory %>%
+#' Export trajectory profiles to SO6 format
+#'
+#' @description
+#' The data frame for point trajectories needs to have the following columns:
+#'
+#' \tabular{llll}{
+#' \strong{Name} \tab \strong{Description} \tab \strong{Type} \cr
+#' \code{flight_id}               \tab Flight ID \tab int \cr
+#' \code{time_over}               \tab Time over point \tab datetime \cr
+#' \code{longitude}               \tab Longitude (decimal degrees) \tab double \cr
+#' \code{latitude}                \tab Latitude (decimal degrees) \tab double \cr
+#' \code{flight_level}            \tab Flight level \tab int \cr
+#' \code{point_id}                \tab Point ID or NO_POINT \tab char \cr
+#' \code{air_route}               \tab Air route or NO_ROUTE \tab char \cr
+#' \code{lobt}                    \tab Last Off-block Time \tab datetime \cr
+#' \code{seq_id}                  \tab Positions's sequence number \tab int \cr
+#' \code{callsign}                \tab Flight call sign \tab char \cr
+#' \code{registration}            \tab Aircraft registration \tab char \cr
+#' \code{model}                   \tab Aircraft model \tab char \cr
+#' \code{aircraft_type}           \tab Aircraft ICAO type \tab char \cr
+#' \code{aircraft_operator}       \tab Aircraft operator \tab char \cr
+#' \code{adep}                    \tab Departing aerodrome (ICAO) ID \tab char \cr
+#' \code{ades}                    \tab Destination aerodrome (ICAO) ID \tab char
+#' }
+#'
+#'
+#' @param trajectory A data frame for point trajectories.
+#'
+#' @return A data frame for trajectories in SO6 format
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' generate_so6(trj)
+#' }
+generate_so6 <- function(trajectory) {
+  trajectory %>%
     dplyr::group_by(.data$flight_id) %>%
     dplyr::arrange(.data$time_over) %>%
     dplyr::mutate(
@@ -194,9 +229,9 @@ generate_so6 <- function(event_trajectory) {
       XX6 = ifelse(.data$n == 1,
                    .data$XX5,
                   dplyr::lead(.data$XX5)),
-      XX7 = .data$fl,
+      XX7 = .data$flight_level,
       XX8 = ifelse(.data$n == 1,
-                   .data$fl,
+                   .data$flight_level,
                   dplyr::lead(.data$XX7)),
       XX9 = dplyr::case_when(
         (.data$XX7 <  .data$XX8) ~ 0,
@@ -230,200 +265,6 @@ generate_so6 <- function(event_trajectory) {
     dplyr::arrange(.data$XX17, .data$XX18)
 }
 
-#' Export event-based NM trajectories
-#'
-#' Extract "Event"-based trajectories from PRISME database
-#'
-#' You need to store your credentials to access the CPLX related tables in
-#' the following environment variables:
-#' \itemize{
-#'   \item \code{PRU_CPLX_USR} for the user id
-#'   \item \code{PRU_CPLX_PWD} for the password
-#'   \item \code{PRU_CPLX_DBNAME} for the database name
-#' }
-#'
-#' @param wef (UTC) timestamp of With Effect From (included)
-#' @param til (UTC) timestamp of TILl instant (excluded)
-#'
-#' @return a dataframe of trajectory points.
-#' @family read/export functions
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#' export_event_trajectory("2010-06-16", "2010-06-17")
-#' export_event_trajectory("2010-06-16 10:00", "2010-06-16T11:00:00Z")
-#' }
-export_event_trajectory <- function(wef, til) {
-  usr <- Sys.getenv("PRU_CPLX_USR")
-  pwd <- Sys.getenv("PRU_CPLX_PWD")
-  dbn <- Sys.getenv("PRU_CPLX_DBNAME")
-
-  # interval of interest
-  wef <- parsedate::parse_date(wef)
-  til <- parsedate::parse_date(til)
-
-  wef <- format(wef, format = "%Y-%m-%dT%H:%M:%SZ")
-  til <- format(til, format = "%Y-%m-%dT%H:%M:%SZ")
-
-  # NOTE: to be set before you create your ROracle connection!
-  # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
-  withr::local_envvar(c("TZ" = "UTC",
-                        "ORA_SDTZ" = "UTC"))
-
-  con <- withr::local_db_connection(
-    ROracle::dbConnect(
-      DBI::dbDriver("Oracle"),
-      usr, pwd,
-      dbname = dbn,
-      timezone = "UTC")
-  )
-
-  query <- "WITH inp AS (SELECT
-                           TO_DATE(?WEF, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') lobt_wef,
-                           TO_DATE(?TIL, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') lobt_til
-                         FROM DUAL)
-            SELECT
-              f.ID                     AS GID,
-              t.pos_lon / 60           AS LON,
-              t.pos_lat / 60           AS LAT,
-              f.aircraft_id            AS CALLSIGN,
-              t.altitude               AS FL,
-              t.event_time             AS TIME_OVER,
-              t.data_1                 AS POINT_ID,
-              t.data_2                 AS AIR_ROUTE,
-              f.aircraft_type_icao_id  AS AIRCRAFT_TYPE,
-              f.adep                   AS ADEP,
-              f.ades                   AS ADES
-            FROM
-              fsd.flst_event t
-            JOIN
-              flx.flight f
-            ON (f.id = t.sam_id)
-            WHERE
-                  f.lobt >=       (SELECT lobt_wef - 1 FROM inp)
-              AND f.lobt <        (SELECT lobt_til     FROM inp)
-              AND f.arvt_3 >      (SELECT lobt_wef     FROM inp)
-              AND t.event_time >= (SELECT lobt_wef - 2 FROM inp)
-              AND t.event_time <  (SELECT lobt_til + 1 FROM inp)
-              AND t.flst_det_type = 'PTP'
-              AND t.seq > 0
-              AND t.data_2 != 'GATE'
-              AND t.dset_grp = 3
-              AND t.pos_lon IS NOT NULL"
-
-  query <- DBI::sqlInterpolate(
-    con, query,
-    WEF = wef, TIL = til)
-  fltq <- ROracle::dbSendQuery(con, query)
-  pnts <- ROracle::fetch(fltq, n = -1) %>%
-    dplyr::mutate(TIME_OVER = lubridate::as_datetime(.data$TIME_OVER, tz = "UTC")) %>%
-    tibble::as_tibble() %>%
-    janitor::clean_names() %>%
-    dplyr::rename(
-      longitude = .data$lon,
-      latitude  = .data$lat,
-      flight_id = .data$gid
-    )
-
-  pnts
-}
-
-#' Export ALL_FT+-based NM trajectories
-#'
-#' Extract "ALL_FT+"-based trajectories from PRISME database
-#'
-#' You need to store your credentials to access the PRU related tables in
-#' the following environment variables:
-#' \itemize{
-#'   \item \code{PRU_TEST_USR} for the user id
-#'   \item \code{PRU_TEST_PWD} for the password
-#'   \item \code{PRU_TEST_DBNAME} for the database name
-#' }
-#'
-#' @param wef (UTC) timestamp of With Effect From (included)
-#' @param til (UTC) timestamp of TILl instant (excluded)
-#'
-#' @return a dataframe of trajectory points.
-#' @family read/export functions
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#' export_allft_trajectory("2010-06-16", "2010-06-17")
-#' export_allft_trajectory("2010-06-16 10:00", "2010-06-16T11:00:00Z")
-#' }
-export_allft_trajectory <- function(wef, til) {
-  usr <- Sys.getenv("PRU_TEST_USR")
-  pwd <- Sys.getenv("PRU_TEST_PWD")
-  dbn <- Sys.getenv("PRU_TEST_DBNAME")
-
-  # interval of interest
-  wef <- parsedate::parse_date(wef)
-  til <- parsedate::parse_date(til)
-
-  wef <- format(wef, format = "%Y-%m-%dT%H:%M:%SZ")
-  til <- format(til, format = "%Y-%m-%dT%H:%M:%SZ")
-
-  # NOTE: to be set before you create your ROracle connection!
-  # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
-  withr::local_envvar(c("TZ" = "UTC",
-                        "ORA_SDTZ" = "UTC"))
-
-  con <- withr::local_db_connection(
-    ROracle::dbConnect(
-      DBI::dbDriver("Oracle"),
-      usr, pwd,
-      dbname = dbn,
-      timezone = "UTC")
-  )
-
-  query <- "WITH inp AS (SELECT
-                           TO_DATE(?WEF, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') lobt_wef,
-                           TO_DATE(?TIL, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') lobt_til
-                         FROM DUAL)
-            SELECT
-              f.ID                     AS GID,
-              p.lon                    AS LON,
-              p.lat                    AS LAT,
-              f.aircraft_id            AS CALLSIGN,
-              p.flight_level               AS FL,
-              p.time_over              AS TIME_OVER,
-              p.point_id               AS POINT_ID,
-              p.air_route              AS AIR_ROUTE,
-              f.aircraft_type_icao_id  AS AIRCRAFT_TYPE,
-              f.adep                   AS ADEP,
-              f.ades                   AS ADES
-            FROM
-              FSD.ALL_FT_POINT_PROFILE p
-            JOIN
-              FLX.T_FLIGHT f
-            ON (f.id = p.sam_id AND f.lobt = p.lobt)
-            WHERE
-                  f.lobt >=       (SELECT lobt_wef FROM inp)
-              AND f.lobt <        (SELECT lobt_til FROM inp)
-              AND p.lobt >=       (SELECT lobt_wef FROM inp)
-              AND p.lobt <        (SELECT lobt_til FROM inp)
-              AND p.model_type = 'CTFM'"
-
-
-  query <- DBI::sqlInterpolate(
-    con, query,
-    WEF = wef, TIL = til)
-  fltq <- ROracle::dbSendQuery(con, query)
-  pnts <- ROracle::fetch(fltq, n = -1) %>%
-    dplyr::mutate(TIME_OVER = lubridate::as_datetime(.data$TIME_OVER, tz = "UTC")) %>%
-    tibble::as_tibble() %>%
-    janitor::clean_names() %>%
-    dplyr::rename(
-      longitude = .data$lon,
-      latitude  = .data$lat,
-      flight_id = .data$gid
-    )
-
-  pnts
-}
-
 
 #' Export "ALL_FT+"-based trajectories to SO6 format
 #'
@@ -447,12 +288,12 @@ export_allft_trajectory <- function(wef, til) {
 #' @examples
 #' \dontrun{
 #' # BEWARE: this can take some long-ish time
-#' export_allft_so6("2010-06-16", "2010-06-17")
+#' export_allft_so6("2010-06-16", "2010-06-17", model = "FTFM")
 #'
 #' # reduce the time scope to get the data quicker (and smaller)
 #' export_allft_so6("2010-06-16 10:00", "2010-06-16T11:00:11")
 #' }
-export_allft_so6 <- function(wef, til) {
-  export_allft_trajectory(wef, til) %>%
+export_allft_so6 <- function(wef, til, model = "CTFM") {
+  export_model_trajectory(wef, til, model) %>%
     generate_so6()
 }

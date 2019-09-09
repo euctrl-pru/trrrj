@@ -39,7 +39,6 @@ flts \%>\% filter(!(row_number() \%in\% bad_rows))
          in callsign.
 
 Other read/export functions: \code{\link{export_allft_so6}},
-  \code{\link{export_allft_trajectory}},
   \code{\link{export_event_so6}},
   \code{\link{export_event_trajectory}},
   \code{\link{export_flights_at_airport_fr24}},
