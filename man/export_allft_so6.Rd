@@ -10,6 +10,8 @@ export_allft_so6(wef, til, model = "CTFM")
 \item{wef}{(UTC) timestamp of With Effect From (included)}
 
 \item{til}{(UTC) timestamp of TILl instant (excluded)}
+
+\item{model}{the trajectory model, one of FTFM, RTFM, CTFM, CPF}
 }
 \value{
 a dataframe of trajectory segments in SO6 format.

@@ -278,8 +278,9 @@ generate_so6 <- function(trajectory) {
 #'   \item \code{PRU_TEST_DBNAME} for the database name
 #' }
 #'
-#' @param wef (UTC) timestamp of With Effect From (included)
-#' @param til (UTC) timestamp of TILl instant (excluded)
+#' @param wef   (UTC) timestamp of With Effect From (included)
+#' @param til   (UTC) timestamp of TILl instant (excluded)
+#' @param model the trajectory model, one of FTFM, RTFM, CTFM, CPF
 #'
 #' @return a dataframe of trajectory segments in SO6 format.
 #' @family read/export functions

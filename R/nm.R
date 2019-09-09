@@ -92,8 +92,8 @@ export_model_trajectory <- function(wef, til, model = "CTFM") {
   pnts <- ROracle::fetch(fltq, n = -1) %>%
     dplyr::mutate(
       TIME_OVER = lubridate::as_datetime(.data$TIME_OVER, tz = "UTC"),
-      POINT_ID  = dplyr::if_else(is.na(POINT_ID),  "NO_POINT", .data$POINT_ID),
-      AIR_ROUTE = dplyr::if_else(is.na(AIR_ROUTE), "NO_ROUTE", .data$AIR_ROUTE)) %>%
+      POINT_ID  = dplyr::if_else(is.na(.data$POINT_ID),  "NO_POINT", .data$POINT_ID),
+      AIR_ROUTE = dplyr::if_else(is.na(.data$AIR_ROUTE), "NO_ROUTE", .data$AIR_ROUTE)) %>%
     tibble::as_tibble() %>%
     janitor::clean_names()
 
@@ -193,9 +193,10 @@ export_event_trajectory <- function(wef, til) {
     WEF = wef, TIL = til)
   fltq <- ROracle::dbSendQuery(con, query)
   pnts <- ROracle::fetch(fltq, n = -1) %>%
-    dplyr::mutate(TIME_OVER = lubridate::as_datetime(.data$TIME_OVER, tz = "UTC"),
-                  POINT_ID  = dplyr::if_else(is.na(POINT_ID),  "NO_POINT", .data$POINT_ID),
-                  AIR_ROUTE = dplyr::if_else(is.na(AIR_ROUTE), "NO_ROUTE", .data$AIR_ROUTE)) %>%
+    dplyr::mutate(
+      TIME_OVER = lubridate::as_datetime(.data$TIME_OVER, tz = "UTC"),
+      POINT_ID  = dplyr::if_else(is.na(.data$POINT_ID),  "NO_POINT", .data$POINT_ID),
+      AIR_ROUTE = dplyr::if_else(is.na(.data$AIR_ROUTE), "NO_ROUTE", .data$AIR_ROUTE)) %>%
     tibble::as_tibble() %>%
     janitor::clean_names()
 
