@@ -10,6 +10,8 @@ export_event_so6(wef, til)
 \item{wef}{(UTC) timestamp of LOBT With Effect From (included).
 Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
 "2019-07-14T10:21:23Z"}
+
+\item{til}{(UTC) timestamp of LOBT TILl (excluded).}
 }
 \value{
 a dataframe of trajectory segments in SO6 format, see \code{\link{read_so6}}

@@ -11,6 +11,8 @@ export_allft_so6(wef, til, model = "CTFM")
 Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
 "2019-07-14T10:21:23Z"}
 
+\item{til}{(UTC) timestamp of LOBT TILl (excluded).}
+
 \item{model}{the trajectory model, one of FTFM, RTFM, CTFM, CPF}
 }
 \value{

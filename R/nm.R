@@ -117,6 +117,7 @@ export_model_trajectory <- function(wef, til, model = "CTFM") {
 #' @param wef (UTC) timestamp of LOBT With Effect From (included).
 #'            Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
 #'            "2019-07-14T10:21:23Z"
+#' @param til (UTC) timestamp of LOBT TILl instant (excluded)
 #'
 #' @return a dataframe of trajectory points.
 #' @family read/export functions
