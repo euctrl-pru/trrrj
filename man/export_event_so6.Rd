@@ -12,7 +12,8 @@ export_event_so6(wef, til)
 \item{til}{(UTC) timestamp of TILl instant (excluded)}
 }
 \value{
-a dataframe of trajectory segments in SO6 format.
+a dataframe of trajectory segments in SO6 format, see \code{\link{read_so6}}
+        for a description of the SO6 format.
 }
 \description{
 Extract event-based trajectories from PRISME database and convert to SO6 format

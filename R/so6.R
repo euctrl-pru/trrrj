@@ -160,7 +160,8 @@ read_so6 <- function(filename, delim = " ") {
 #' @param wef (UTC) timestamp of With Effect From (included)
 #' @param til (UTC) timestamp of TILl instant (excluded)
 #'
-#' @return a dataframe of trajectory segments in SO6 format.
+#' @return a dataframe of trajectory segments in SO6 format, see \code{\link{read_so6}}
+#'         for a description of the SO6 format.
 #' @family read/export functions
 #' @export
 #'
@@ -183,29 +184,30 @@ export_event_so6 <- function(wef, til) {
 #' The data frame for point trajectories needs to have the following columns:
 #'
 #' \tabular{llll}{
-#' \strong{Name} \tab \strong{Description} \tab \strong{Type} \cr
-#' \code{flight_id}               \tab Flight ID \tab int \cr
-#' \code{time_over}               \tab Time over point \tab datetime \cr
-#' \code{longitude}               \tab Longitude (decimal degrees) \tab double \cr
-#' \code{latitude}                \tab Latitude (decimal degrees) \tab double \cr
-#' \code{flight_level}            \tab Flight level \tab int \cr
-#' \code{point_id}                \tab Point ID or NO_POINT \tab char \cr
-#' \code{air_route}               \tab Air route or NO_ROUTE \tab char \cr
-#' \code{lobt}                    \tab Last Off-block Time \tab datetime \cr
-#' \code{seq_id}                  \tab Positions's sequence number \tab int \cr
-#' \code{callsign}                \tab Flight call sign \tab char \cr
-#' \code{registration}            \tab Aircraft registration \tab char \cr
-#' \code{model}                   \tab Aircraft model \tab char \cr
-#' \code{aircraft_type}           \tab Aircraft ICAO type \tab char \cr
-#' \code{aircraft_operator}       \tab Aircraft operator \tab char \cr
-#' \code{adep}                    \tab Departing aerodrome (ICAO) ID \tab char \cr
-#' \code{ades}                    \tab Destination aerodrome (ICAO) ID \tab char
+#' \strong{Name}            \tab \strong{Description}            \tab \strong{Type} \cr
+#' \code{flight_id}         \tab Flight ID                       \tab int           \cr
+#' \code{time_over}         \tab Time over point                 \tab datetime      \cr
+#' \code{longitude}         \tab Longitude (decimal degrees)     \tab double        \cr
+#' \code{latitude}          \tab Latitude (decimal degrees)      \tab double        \cr
+#' \code{flight_level}      \tab Flight level                    \tab int           \cr
+#' \code{point_id}          \tab Point ID or NO_POINT            \tab char          \cr
+#' \code{air_route}         \tab Air route or NO_ROUTE           \tab char          \cr
+#' \code{lobt}              \tab Last Off-block Time             \tab datetime      \cr
+#' \code{seq_id}            \tab Positions's sequence number     \tab int           \cr
+#' \code{callsign}          \tab Flight call sign                \tab char          \cr
+#' \code{registration}      \tab Aircraft registration           \tab char          \cr
+#' \code{model}             \tab Aircraft model                  \tab char          \cr
+#' \code{aircraft_type}     \tab Aircraft ICAO type              \tab char          \cr
+#' \code{aircraft_operator} \tab Aircraft operator               \tab char          \cr
+#' \code{adep}              \tab Departing aerodrome (ICAO) ID   \tab char          \cr
+#' \code{ades}              \tab Destination aerodrome (ICAO) ID \tab char
 #' }
 #'
 #'
 #' @param trajectory A data frame for point trajectories.
 #'
-#' @return A data frame for trajectories in SO6 format
+#' @return A data frame for trajectories in SO6 format, see \code{\link{read_so6}}
+#'         for a description of the SO6 format.
 #' @export
 #'
 #' @examples
@@ -262,7 +264,29 @@ generate_so6 <- function(trajectory) {
     dplyr::filter(!is.na(.data$XX19)) %>%
     dplyr::ungroup() %>%
     dplyr::select(dplyr::starts_with("XX")) %>%
-    dplyr::arrange(.data$XX17, .data$XX18)
+    dplyr::arrange(.data$XX17, .data$XX18) %>%
+    dplyr::rename(
+      segment_id              = XX1,
+      adep                    = XX2,
+      ades                    = XX3,
+      aircraft_type           = XX4,
+      segment_hhmm_begin      = XX5,
+      segment_hhmm_end        = XX6,
+      segment_fl_begin        = XX7,
+      segment_fl_end          = XX8,
+      status                  = XX9,
+      callsign                = XX10,
+      segment_date_begin      = XX11,
+      segment_date_end        = XX12,
+      segment_latitude_begin  = XX13,
+      segment_longitude_begin = XX14,
+      segment_latitude_end    = XX15,
+      segment_longitude_end   = XX16,
+      flight_id               = XX17,
+      sequence                = XX18,
+      segment_length          = XX19,
+      segment_parity          = XX20
+    )
 }
 
 
@@ -282,7 +306,8 @@ generate_so6 <- function(trajectory) {
 #' @param til   (UTC) timestamp of TILl instant (excluded)
 #' @param model the trajectory model, one of FTFM, RTFM, CTFM, CPF
 #'
-#' @return a dataframe of trajectory segments in SO6 format.
+#' @return a dataframe of trajectory segments in SO6 format, see \code{\link{read_so6}}
+#'         for a description of the SO6 format.
 #' @family read/export functions
 #' @export
 #'

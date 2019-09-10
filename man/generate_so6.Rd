@@ -10,29 +10,30 @@ generate_so6(trajectory)
 \item{trajectory}{A data frame for point trajectories.}
 }
 \value{
-A data frame for trajectories in SO6 format
+A data frame for trajectories in SO6 format, see \code{\link{read_so6}}
+        for a description of the SO6 format.
 }
 \description{
 The data frame for point trajectories needs to have the following columns:
 
 \tabular{llll}{
-\strong{Name} \tab \strong{Description} \tab \strong{Type} \cr
-\code{flight_id}               \tab Flight ID \tab int \cr
-\code{time_over}               \tab Time over point \tab datetime \cr
-\code{longitude}               \tab Longitude (decimal degrees) \tab double \cr
-\code{latitude}                \tab Latitude (decimal degrees) \tab double \cr
-\code{flight_level}            \tab Flight level \tab int \cr
-\code{point_id}                \tab Point ID or NO_POINT \tab char \cr
-\code{air_route}               \tab Air route or NO_ROUTE \tab char \cr
-\code{lobt}                    \tab Last Off-block Time \tab datetime \cr
-\code{seq_id}                  \tab Positions's sequence number \tab int \cr
-\code{callsign}                \tab Flight call sign \tab char \cr
-\code{registration}            \tab Aircraft registration \tab char \cr
-\code{model}                   \tab Aircraft model \tab char \cr
-\code{aircraft_type}           \tab Aircraft ICAO type \tab char \cr
-\code{aircraft_operator}       \tab Aircraft operator \tab char \cr
-\code{adep}                    \tab Departing aerodrome (ICAO) ID \tab char \cr
-\code{ades}                    \tab Destination aerodrome (ICAO) ID \tab char
+\strong{Name}            \tab \strong{Description}            \tab \strong{Type} \cr
+\code{flight_id}         \tab Flight ID                       \tab int           \cr
+\code{time_over}         \tab Time over point                 \tab datetime      \cr
+\code{longitude}         \tab Longitude (decimal degrees)     \tab double        \cr
+\code{latitude}          \tab Latitude (decimal degrees)      \tab double        \cr
+\code{flight_level}      \tab Flight level                    \tab int           \cr
+\code{point_id}          \tab Point ID or NO_POINT            \tab char          \cr
+\code{air_route}         \tab Air route or NO_ROUTE           \tab char          \cr
+\code{lobt}              \tab Last Off-block Time             \tab datetime      \cr
+\code{seq_id}            \tab Positions's sequence number     \tab int           \cr
+\code{callsign}          \tab Flight call sign                \tab char          \cr
+\code{registration}      \tab Aircraft registration           \tab char          \cr
+\code{model}             \tab Aircraft model                  \tab char          \cr
+\code{aircraft_type}     \tab Aircraft ICAO type              \tab char          \cr
+\code{aircraft_operator} \tab Aircraft operator               \tab char          \cr
+\code{adep}              \tab Departing aerodrome (ICAO) ID   \tab char          \cr
+\code{ades}              \tab Destination aerodrome (ICAO) ID \tab char
 }
 }
 \examples{

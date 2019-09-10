@@ -14,7 +14,8 @@ export_allft_so6(wef, til, model = "CTFM")
 \item{model}{the trajectory model, one of FTFM, RTFM, CTFM, CPF}
 }
 \value{
-a dataframe of trajectory segments in SO6 format.
+a dataframe of trajectory segments in SO6 format, see \code{\link{read_so6}}
+        for a description of the SO6 format.
 }
 \description{
 Extract AFF_FT+-based trajectories from PRISME database and convert to SO6 format
