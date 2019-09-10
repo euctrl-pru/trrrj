@@ -7,9 +7,11 @@
 export_model_trajectory(wef, til, model = "CTFM")
 }
 \arguments{
-\item{wef}{the day With-Wffect-From, i.e. "2019-07-14"}
+\item{wef}{(UTC) timestamp of LOBT With Effect From (included).
+Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
+"2019-07-14T10:21:23Z"}
 
-\item{til}{the day unTIL, i.e. "2019-07-16" (not included)}
+\item{til}{(UTC) timestamp of LOBT TILl instant (excluded)}
 
 \item{model}{the model of the profile: one of "FTFM", "CTFM", "CPF".
 [default: "CFTM"]}

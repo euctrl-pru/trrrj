@@ -7,9 +7,9 @@
 export_event_so6(wef, til)
 }
 \arguments{
-\item{wef}{(UTC) timestamp of With Effect From (included)}
-
-\item{til}{(UTC) timestamp of TILl instant (excluded)}
+\item{wef}{(UTC) timestamp of LOBT With Effect From (included).
+Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
+"2019-07-14T10:21:23Z"}
 }
 \value{
 a dataframe of trajectory segments in SO6 format, see \code{\link{read_so6}}

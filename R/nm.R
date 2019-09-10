@@ -10,8 +10,10 @@
 #'   \item \code{PRU_DEV_DBNAME} for the database name
 #' }
 #'
-#' @param wef the day With-Wffect-From, i.e. "2019-07-14"
-#' @param til the day unTIL, i.e. "2019-07-16" (not included)
+#' @param wef (UTC) timestamp of LOBT With Effect From (included).
+#'            Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
+#'            "2019-07-14T10:21:23Z"
+#' @param til (UTC) timestamp of LOBT TILl instant (excluded)
 #' @param model the model of the profile: one of "FTFM", "CTFM", "CPF".
 #'              [default: "CFTM"]
 #'
@@ -112,8 +114,9 @@ export_model_trajectory <- function(wef, til, model = "CTFM") {
 #'   \item \code{PRU_CPLX_DBNAME} for the database name
 #' }
 #'
-#' @param wef (UTC) timestamp of With Effect From (included)
-#' @param til (UTC) timestamp of TILl instant (excluded)
+#' @param wef (UTC) timestamp of LOBT With Effect From (included).
+#'            Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
+#'            "2019-07-14T10:21:23Z"
 #'
 #' @return a dataframe of trajectory points.
 #' @family read/export functions

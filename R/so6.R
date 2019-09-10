@@ -157,8 +157,9 @@ read_so6 <- function(filename, delim = " ") {
 #'   \item \code{PRU_CPLX_DBNAME} for the database name
 #' }
 #'
-#' @param wef (UTC) timestamp of With Effect From (included)
-#' @param til (UTC) timestamp of TILl instant (excluded)
+#' @param wef (UTC) timestamp of LOBT With Effect From (included).
+#'            Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
+#'            "2019-07-14T10:21:23Z"
 #'
 #' @return a dataframe of trajectory segments in SO6 format, see \code{\link{read_so6}}
 #'         for a description of the SO6 format.
@@ -302,8 +303,9 @@ generate_so6 <- function(trajectory) {
 #'   \item \code{PRU_TEST_DBNAME} for the database name
 #' }
 #'
-#' @param wef   (UTC) timestamp of With Effect From (included)
-#' @param til   (UTC) timestamp of TILl instant (excluded)
+#' @param wef (UTC) timestamp of LOBT With Effect From (included).
+#'            Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
+#'            "2019-07-14T10:21:23Z"
 #' @param model the trajectory model, one of FTFM, RTFM, CTFM, CPF
 #'
 #' @return a dataframe of trajectory segments in SO6 format, see \code{\link{read_so6}}
