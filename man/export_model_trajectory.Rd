@@ -4,7 +4,7 @@
 \alias{export_model_trajectory}
 \title{Export point profile from NM trajectories}
 \usage{
-export_model_trajectory(wef, til, model = "CTFM")
+export_model_trajectory(wef, til, model = "CTFM", bbox = NULL)
 }
 \arguments{
 \item{wef}{(UTC) timestamp of LOBT With Effect From (included).
@@ -15,6 +15,9 @@ Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
 
 \item{model}{the model of the profile: one of "FTFM", "CTFM", "CPF".
 [default: "CFTM"]}
+
+\item{bbox}{(Optional) axis aligned bounding box
+(lon_min, lat_min, lon_max, lat_max)}
 }
 \value{
 a dataframe with trajectory data
@@ -38,5 +41,9 @@ export_model_trajectory("2019-07-14", "2019-07-15", model = "FTFM")
 
 # export 2 hours of NM (flown) trajectories
 export_model_trajectory("2019-07-14 22:00", "2019-07-15")
+
+# export all CTFM trajectories within a bounding box 40 NM around EDDF
+bb <- c(xmin = 7.536746, xmax = 9.604390, ymin = 49.36732, ymax = 50.69920)
+export_model_trajectory("2019-01-01 00:00", "2019-01-02 00:00", bbox = bb)
 }
 }

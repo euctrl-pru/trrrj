@@ -16,6 +16,8 @@
 #' @param til (UTC) timestamp of LOBT TILl instant (excluded)
 #' @param model the model of the profile: one of "FTFM", "CTFM", "CPF".
 #'              [default: "CFTM"]
+#' @param bbox (Optional) axis aligned bounding box
+#'             (lon_min, lat_min, lon_max, lat_max)
 #'
 #' @return a dataframe with trajectory data
 #' @export
@@ -27,8 +29,12 @@
 #'
 #' # export 2 hours of NM (flown) trajectories
 #' export_model_trajectory("2019-07-14 22:00", "2019-07-15")
+#'
+#' # export all CTFM trajectories within a bounding box 40 NM around EDDF
+#' bb <- c(xmin = 7.536746, xmax = 9.604390, ymin = 49.36732, ymax = 50.69920)
+#' export_model_trajectory("2019-01-01 00:00", "2019-01-02 00:00", bbox = bb)
 #' }
-export_model_trajectory <- function(wef, til, model = "CTFM") {
+export_model_trajectory <- function(wef, til, model = "CTFM", bbox = NULL) {
   usr <- Sys.getenv("PRU_DEV_USR")
   pwd <- Sys.getenv("PRU_DEV_PWD")
   dbn <- Sys.getenv("PRU_DEV_DBNAME")
@@ -37,6 +43,17 @@ export_model_trajectory <- function(wef, til, model = "CTFM") {
   til <- parsedate::parse_date(til)
   wef <- format(wef, "%Y-%m-%dT%H:%M:%SZ")
   til <- format(til, "%Y-%m-%dT%H:%M:%SZ")
+
+  if (!is.null(bbox)) {
+    where_bbox <- stringr::str_glue(
+      "AND (({lon_min} <= p.LON AND p.LON <={lon_max}) AND ({lat_min} <= p.LAT AND p.LAT <={lat_max}))",
+      lon_min = bbox["xmin"],
+      lon_max = bbox["xmax"],
+      lat_min = bbox["ymin"],
+      lat_max = bbox["ymax"])
+  } else {
+    where_bbox <- ""
+  }
 
   # NOTE: to be set before you create your ROracle connection!
   # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
@@ -83,13 +100,16 @@ export_model_trajectory <- function(wef, til, model = "CTFM") {
     AND f.lobt <   (SELECT lobt_til FROM args)
     AND p.LOBT >= (SELECT lobt_wef FROM args)
     AND p.LOBT <  (SELECT lobt_til FROM args)
-    AND p.MODEL_TYPE = ?MODEL"
+    AND p.MODEL_TYPE = ?MODEL
+    {WHERE_BBOX}"
 
+  query <- stringr::str_glue(query, WHERE_BBOX = where_bbox)
 
   query <- DBI::sqlInterpolate(
     con, query,
     WEF = wef, TIL = til,
     MODEL = model)
+  # message(query)
   fltq <- ROracle::dbSendQuery(con, query)
   pnts <- ROracle::fetch(fltq, n = -1) %>%
     dplyr::mutate(
