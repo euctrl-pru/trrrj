@@ -17,7 +17,7 @@
 #' @param model the model of the profile: one of "FTFM", "CTFM", "CPF".
 #'              [default: "CFTM"]
 #' @param bbox (Optional) axis aligned bounding box
-#'             (lon_min, lat_min, lon_max, lat_max)
+#'             (xmin, ymin, xmax, ymax)
 #'
 #' @return a dataframe with trajectory data
 #' @export
@@ -319,3 +319,117 @@ export_apds <- function(wef, til) {
       -dplyr::contains("TRANSIT")) %>%
     janitor::clean_names()
 }
+
+#' Export list of hourly-binned flights and aircraft info
+#'
+#' Extract hourly-binned flights from PRISME database together with aircraft information such
+#' as registration, aircraft operator and ICAO 24-bit address
+#'
+#' You need to store your credentials to access the PRU tables in
+#' the following environment variables:
+#' \itemize{
+#'   \item \code{PRU_DEV_USR} for the user id
+#'   \item \code{PRU_DEV_PWD} for the password
+#'   \item \code{PRU_DEV_DBNAME} for the database name
+#' }
+#'
+#' @param wef (UTC) timestamp of LOBT With Effect From (included).
+#'            Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
+#'            "2019-07-14T10:21:23Z"
+#' @param til (UTC) timestamp of LOBT TILl instant (excluded)
+#' @param model the model of the profile: one of "FTFM", "CTFM", "CPF".
+#'              [default: "CFTM"]
+#' @param bbox (Optional) axis aligned bounding box
+#'             (xmin, ymin, xmax, ymax)
+#'
+#' @return a dataframe with trajectory data
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # export all hourly CTFM flights within a bounding box 40 NM around EDDF
+#' bb <- c(xmin = 7.536746, xmax = 9.604390, ymin = 49.36732, ymax = 50.69920)
+#' export_hourly_adsb("2019-01-01 00:00", "2019-01-02 00:00", bbox = bb)
+#' }
+export_hourly_adsb <- function(wef, til, model = 'CTFM', bbox = NULL) {
+  usr <- Sys.getenv("PRU_DEV_USR")
+  pwd <- Sys.getenv("PRU_DEV_PWD")
+  dbn <- Sys.getenv("PRU_DEV_DBNAME")
+
+  wef <- parsedate::parse_date(wef)
+  til <- parsedate::parse_date(til)
+  wef <- format(wef, "%Y-%m-%dT%H:%M:%SZ")
+  til <- format(til, "%Y-%m-%dT%H:%M:%SZ")
+
+  if (!is.null(bbox)) {
+    where_bbox <- stringr::str_glue(
+      "AND (({lon_min} <= p.LON AND p.LON <={lon_max}) AND ({lat_min} <= p.LAT AND p.LAT <={lat_max}))",
+      lon_min = bbox["xmin"],
+      lon_max = bbox["xmax"],
+      lat_min = bbox["ymin"],
+      lat_max = bbox["ymax"])
+  } else {
+    where_bbox <- ""
+  }
+
+  # NOTE: to be set before you create your ROracle connection!
+  # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
+  withr::local_envvar(c("TZ" = "UTC",
+                        "ORA_SDTZ" = "UTC"))
+
+  con <- withr::local_db_connection(
+    ROracle::dbConnect(
+      DBI::dbDriver("Oracle"),
+      usr, pwd,
+      dbname = dbn,
+      timezone = "UTC")
+  )
+
+  query <- "
+  WITH args AS (SELECT
+                  TO_DATE(?WEF, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') lobt_wef,
+                  TO_DATE(?TIL, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') lobt_til
+                FROM DUAL)
+  SELECT
+  DISTINCT
+    p.SAM_ID                 AS FLIGHT_ID,
+    ROUND( (TRUNC( CAST(p.TIME_OVER AS DATE), 'HH24') -
+          DATE '1970-01-01') * 24 * 60 * 60, 0) AS HOUR,
+    f.AIRCRAFT_ID            AS CALLSIGN,
+    f.REGISTRATION,
+    p.MODEL_TYPE,
+    f.AIRCRAFT_TYPE_ICAO_ID  AS AIRCRAFT_TYPE,
+    f.AIRCRAFT_OPERATOR,
+    f.ADEP,
+    f.ADES,
+    f.PF_ID AS PRISME_FLEET_ID,
+    f.AIRCRAFT_ADDRESS AS ICAO24
+  FROM
+    FSD.ALL_FT_POINT_PROFILE p
+  JOIN
+    SWH_FCT.FAC_FLIGHT f
+  ON (f.id = p.sam_id AND f.lobt = p.lobt)
+  WHERE
+        f.lobt >=  (SELECT lobt_wef FROM args)
+    AND f.lobt <   (SELECT lobt_til FROM args)
+    AND p.LOBT >= (SELECT lobt_wef FROM args)
+    AND p.LOBT <  (SELECT lobt_til FROM args)
+    AND p.MODEL_TYPE = ?MODEL
+    {WHERE_BBOX}"
+
+  query <- stringr::str_glue(query, WHERE_BBOX = where_bbox)
+
+  query <- DBI::sqlInterpolate(
+    con, query,
+    WEF = wef, TIL = til,
+    MODEL = model)
+
+  # message(query)
+  fltq <- ROracle::dbSendQuery(con, query)
+  flts <- ROracle::fetch(fltq, n = -1) %>%
+    tibble::as_tibble() %>%
+    janitor::clean_names()
+
+  flts
+}
+
