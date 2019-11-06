@@ -428,6 +428,7 @@ export_hourly_adsb <- function(wef, til, model = 'CTFM', bbox = NULL) {
   fltq <- ROracle::dbSendQuery(con, query)
   flts <- ROracle::fetch(fltq, n = -1) %>%
     tibble::as_tibble() %>%
+    mutate(ICAO24 = tolower(ICAO24)) %>%
     janitor::clean_names()
 
   flts
