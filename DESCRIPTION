@@ -55,7 +55,8 @@ Suggests:
     lintr,
     rmarkdown,
     ROracle,
-    testthat
+    testthat,
+    rnaturalearthdata
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
