@@ -18,6 +18,10 @@
 #'              [default: "CFTM"]
 #' @param bbox (Optional) axis aligned bounding box
 #'             (xmin, ymin, xmax, ymax)
+#' @param buffer (Optional) number of (portion of) hours buffer before/after `wef` and `til`
+#'             (before, after). This is to cater for flights crossing `wef` and `til`.
+#'             For example `c(24, 2.25)` allows to retrieve points 24H before `wef` and
+#'             1H15M after `til`.
 #'
 #' @return a dataframe with trajectory data
 #' @export
@@ -30,11 +34,14 @@
 #' # export 2 hours of NM (flown) trajectories
 #' export_model_trajectory("2019-07-14 22:00", "2019-07-15")
 #'
+#' # export 1 day of NM (flown) trajectories
+#' export_model_trajectory("2019-07-14", "2019-07-15", buffer = c(before = 24, after = 1.25))
+#'
 #' # export all CTFM trajectories within a bounding box 40 NM around EDDF
 #' bb <- c(xmin = 7.536746, xmax = 9.604390, ymin = 49.36732, ymax = 50.69920)
 #' export_model_trajectory("2019-01-01 00:00", "2019-01-02 00:00", bbox = bb)
 #' }
-export_model_trajectory <- function(wef, til, model = "CTFM", bbox = NULL) {
+export_model_trajectory <- function(wef, til, model = "CTFM", bbox = NULL, buffer = NULL) {
   usr <- Sys.getenv("PRU_DEV_USR")
   pwd <- Sys.getenv("PRU_DEV_PWD")
   dbn <- Sys.getenv("PRU_DEV_DBNAME")
@@ -44,6 +51,10 @@ export_model_trajectory <- function(wef, til, model = "CTFM", bbox = NULL) {
   wef <- format(wef, "%Y-%m-%dT%H:%M:%SZ")
   til <- format(til, "%Y-%m-%dT%H:%M:%SZ")
 
+  where_bbox <- ""
+  where_buffer <- ""
+
+
   if (!is.null(bbox)) {
     where_bbox <- stringr::str_glue(
       "AND (({lon_min} <= p.LON AND p.LON <={lon_max}) AND ({lat_min} <= p.LAT AND p.LAT <={lat_max}))",
@@ -51,8 +62,12 @@ export_model_trajectory <- function(wef, til, model = "CTFM", bbox = NULL) {
       lon_max = bbox["xmax"],
       lat_min = bbox["ymin"],
       lat_max = bbox["ymax"])
-  } else {
-    where_bbox <- ""
+  }
+  if (!is.null(buffer)) {
+    where_buffer <- stringr::str_glue(
+      "AND ((p.TIME_OVER >= p.LOBT - {before}) AND (p.TIME_OVER < p.LOBT + {after}))",
+      before = buffer["before"],
+      after = buffer["after"])
   }
 
   # NOTE: to be set before you create your ROracle connection!
@@ -101,9 +116,12 @@ export_model_trajectory <- function(wef, til, model = "CTFM", bbox = NULL) {
     AND p.LOBT >= (SELECT lobt_wef FROM args)
     AND p.LOBT <  (SELECT lobt_til FROM args)
     AND p.MODEL_TYPE = ?MODEL
-    {WHERE_BBOX}"
+    {WHERE_BBOX}
+    {WHERE_BUFFER}
+  "
 
-  query <- stringr::str_glue(query, WHERE_BBOX = where_bbox)
+  query <- stringr::str_glue(query, WHERE_BBOX = where_bbox, WHERE_BUFFER = where_buffer)
+  logger::log_debug('Query = {query}')
 
   query <- DBI::sqlInterpolate(
     con, query,
