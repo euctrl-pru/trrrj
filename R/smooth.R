@@ -10,7 +10,7 @@
 #' @examples
 #' smooth_positions(egll_positions)
 #'
-smooth_positions <- function(df, n = 8, type = "t") {
+smooth_positions <- function(df, n = 5, type = "t") {
   df %>%
     dplyr::mutate_at(.vars = c("longitude", "latitude", "altitude"),
                      .funs = ~ pracma::movavg(.x, n = n, type = type))
