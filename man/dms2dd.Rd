@@ -18,12 +18,13 @@ a decimal degrees value
 Convert  Degree Minute Seconds (DMS) format to Decimal Degrees (DD)
 }
 \examples{
-ddm2dd("51Â° 43' 34.00\\u0022 N")
+ddm2dd("51Â° 43' 34.00\u0022 N")
 
 }
 \seealso{
-Other coordinatetes conversion functions: \code{\link{ddm2dd}},
-  \code{\link{parse_lat_icao}},
-  \code{\link{parse_lon_icao}}
+Other coordinatetes conversion functions: 
+\code{\link{ddm2dd}()},
+\code{\link{parse_lat_icao}()},
+\code{\link{parse_lon_icao}()}
 }
 \concept{coordinatetes conversion functions}

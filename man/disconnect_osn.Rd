@@ -7,7 +7,7 @@
 disconnect_osn(session)
 }
 \arguments{
-\item{session}{ssh connection created with \code{\link[=ssh_connect]{ssh_connect()}}}
+\item{session}{ssh connection created with \code{\link[ssh:ssh_connect]{ssh_connect()}}}
 }
 \value{
 an SSH session

@@ -35,14 +35,17 @@ export_event_trajectory("2010-06-16 10:00", "2010-06-16T11:00:00Z")
 }
 }
 \seealso{
-Other read/export functions: \code{\link{export_allft_so6}},
-  \code{\link{export_event_so6}},
-  \code{\link{export_flights_at_airport_fr24}},
-  \code{\link{export_flights_fr24}},
-  \code{\link{export_positions_at_airport_fr24}},
-  \code{\link{export_positions_fr24}},
-  \code{\link{import_flights_csvs}},
-  \code{\link{read_cpr}}, \code{\link{read_flights_fr24}},
-  \code{\link{read_positions_fr24}}, \code{\link{read_so6}}
+Other read/export functions: 
+\code{\link{export_allft_so6}()},
+\code{\link{export_event_so6}()},
+\code{\link{export_flights_at_airport_fr24}()},
+\code{\link{export_flights_fr24}()},
+\code{\link{export_positions_at_airport_fr24}()},
+\code{\link{export_positions_fr24}()},
+\code{\link{import_flights_csvs}()},
+\code{\link{read_cpr}()},
+\code{\link{read_flights_fr24}()},
+\code{\link{read_positions_fr24}()},
+\code{\link{read_so6}()}
 }
 \concept{read/export functions}

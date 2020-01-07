@@ -4,8 +4,13 @@
 \alias{plot_flight_horizontal}
 \title{Plot the recorded positions of a flight on a map.}
 \usage{
-plot_flight_horizontal(poss, bbox = NULL, buffer = 100,
-  legend.position = "none", shape = NULL)
+plot_flight_horizontal(
+  poss,
+  bbox = NULL,
+  buffer = 100,
+  legend.position = "none",
+  shape = NULL
+)
 }
 \arguments{
 \item{poss}{a dataframe of position reports with (at least)
@@ -59,8 +64,9 @@ plot_flight_horizontal(p1)
 }
 }
 \seealso{
-Other plot functions: \code{\link{plot_cpr_horizontal}},
-  \code{\link{plot_flight_vertical_distance}},
-  \code{\link{plot_flight_vertical_time}}
+Other plot functions: 
+\code{\link{plot_cpr_horizontal}()},
+\code{\link{plot_flight_vertical_distance}()},
+\code{\link{plot_flight_vertical_time}()}
 }
 \concept{plot functions}

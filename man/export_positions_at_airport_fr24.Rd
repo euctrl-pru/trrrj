@@ -4,8 +4,15 @@
 \alias{export_positions_at_airport_fr24}
 \title{Export FlightRadar24 position reports from flights flying around an airport}
 \usage{
-export_positions_at_airport_fr24(wef, til, apt, lon_apt, lat_apt,
-  flow = "ALL", radius = 40)
+export_positions_at_airport_fr24(
+  wef,
+  til,
+  apt,
+  lon_apt,
+  lat_apt,
+  flow = "ALL",
+  radius = 40
+)
 }
 \arguments{
 \item{wef}{(UTC) timestamp of With Effect From (included)}
@@ -57,14 +64,17 @@ export_positions_at_airport_fr24("2018-09-25",
 }
 }
 \seealso{
-Other read/export functions: \code{\link{export_allft_so6}},
-  \code{\link{export_event_so6}},
-  \code{\link{export_event_trajectory}},
-  \code{\link{export_flights_at_airport_fr24}},
-  \code{\link{export_flights_fr24}},
-  \code{\link{export_positions_fr24}},
-  \code{\link{import_flights_csvs}},
-  \code{\link{read_cpr}}, \code{\link{read_flights_fr24}},
-  \code{\link{read_positions_fr24}}, \code{\link{read_so6}}
+Other read/export functions: 
+\code{\link{export_allft_so6}()},
+\code{\link{export_event_so6}()},
+\code{\link{export_event_trajectory}()},
+\code{\link{export_flights_at_airport_fr24}()},
+\code{\link{export_flights_fr24}()},
+\code{\link{export_positions_fr24}()},
+\code{\link{import_flights_csvs}()},
+\code{\link{read_cpr}()},
+\code{\link{read_flights_fr24}()},
+\code{\link{read_positions_fr24}()},
+\code{\link{read_so6}()}
 }
 \concept{read/export functions}

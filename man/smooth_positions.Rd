@@ -4,7 +4,7 @@
 \alias{smooth_positions}
 \title{Smooth longitude, latitude and altitude.}
 \usage{
-smooth_positions(df, n = 8, type = "t")
+smooth_positions(df, n = 5, type = "t")
 }
 \arguments{
 \item{df}{a data frame of trajectory positions}

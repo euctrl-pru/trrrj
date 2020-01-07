@@ -24,8 +24,9 @@ plot_flight_vertical_time(poss)
 }
 }
 \seealso{
-Other plot functions: \code{\link{plot_cpr_horizontal}},
-  \code{\link{plot_flight_horizontal}},
-  \code{\link{plot_flight_vertical_distance}}
+Other plot functions: 
+\code{\link{plot_cpr_horizontal}()},
+\code{\link{plot_flight_horizontal}()},
+\code{\link{plot_flight_vertical_distance}()}
 }
 \concept{plot functions}

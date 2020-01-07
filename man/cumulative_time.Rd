@@ -35,6 +35,7 @@ cumulative_time(poss \%>\% filter(altitude > 0))
 }
 }
 \seealso{
-Other positions enhancements functions: \code{\link{cumulative_distance}}
+Other positions enhancements functions: 
+\code{\link{cumulative_distance}()}
 }
 \concept{positions enhancements functions}

@@ -3,7 +3,6 @@
 \docType{package}
 \name{trrrj}
 \alias{trrrj}
-\alias{trrrj-package}
 \title{trrrj: A package for analysing flight trajectories.}
 \description{
 The trrrj package provides three categories of important functions:

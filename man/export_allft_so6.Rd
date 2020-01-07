@@ -41,14 +41,17 @@ export_allft_so6("2010-06-16 10:00", "2010-06-16T11:00:11")
 }
 }
 \seealso{
-Other read/export functions: \code{\link{export_event_so6}},
-  \code{\link{export_event_trajectory}},
-  \code{\link{export_flights_at_airport_fr24}},
-  \code{\link{export_flights_fr24}},
-  \code{\link{export_positions_at_airport_fr24}},
-  \code{\link{export_positions_fr24}},
-  \code{\link{import_flights_csvs}},
-  \code{\link{read_cpr}}, \code{\link{read_flights_fr24}},
-  \code{\link{read_positions_fr24}}, \code{\link{read_so6}}
+Other read/export functions: 
+\code{\link{export_event_so6}()},
+\code{\link{export_event_trajectory}()},
+\code{\link{export_flights_at_airport_fr24}()},
+\code{\link{export_flights_fr24}()},
+\code{\link{export_positions_at_airport_fr24}()},
+\code{\link{export_positions_fr24}()},
+\code{\link{import_flights_csvs}()},
+\code{\link{read_cpr}()},
+\code{\link{read_flights_fr24}()},
+\code{\link{read_positions_fr24}()},
+\code{\link{read_so6}()}
 }
 \concept{read/export functions}

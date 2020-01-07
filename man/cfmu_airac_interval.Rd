@@ -20,8 +20,10 @@ cfmu_airac_interval(441)
 
 }
 \seealso{
-Other AIRAC functions: \code{\link{airac_interval}},
-  \code{\link{airac_year_epoch}}, \code{\link{airac}},
-  \code{\link{cfmu_airac}}
+Other AIRAC functions: 
+\code{\link{airac_interval}()},
+\code{\link{airac_year_epoch}()},
+\code{\link{airac}()},
+\code{\link{cfmu_airac}()}
 }
 \concept{AIRAC functions}
