@@ -18,10 +18,14 @@
 #'              [default: "CFTM"]
 #' @param bbox (Optional) axis aligned bounding box
 #'             (xmin, ymin, xmax, ymax)
-#' @param buffer (Optional) number of (portion of) hours buffer before/after `wef` and `til`
-#'             (before, after). This is to cater for flights crossing `wef` and `til`.
-#'             For example `c(24, 2.25)` allows to retrieve points 24H before `wef` and
-#'             1H15M after `til`.
+#' @param lobt_buffer (Optional) number of (portion of) hours buffer for LOBT before/after
+#'             `wef` and `til` (before, after). This is to cater for flights crossing `wef` and `til`.
+#'             For example `c(before = 24, after = 2.25)` allows to retrieve flights with LOBT
+#'             24H before `wef` and 1H15M after `til` and then potentially crossing the interval.
+#' @param timeover_buffer (Optional) number of (portion of) hours buffer for `time_over`
+#'             before/after `wef` and `til` (before, after). This is to cater for flights crossing
+#'             `wef` and `til`. For example `c(before = 2, after = 0.25)` allows to retrieve
+#'             points 2H before `wef` and 15M after `til`.
 #'
 #' @return a dataframe with trajectory data
 #' @export
@@ -35,13 +39,18 @@
 #' export_model_trajectory("2019-07-14 22:00", "2019-07-15")
 #'
 #' # export 1 day of NM (flown) trajectories
-#' export_model_trajectory("2019-07-14", "2019-07-15", buffer = c(before = 24, after = 1.25))
+#' export_model_trajectory("2019-07-14", "2019-07-15", lobt_buffer = c(before = 24, after = 1.25))
 #'
 #' # export all CTFM trajectories within a bounding box 40 NM around EDDF
 #' bb <- c(xmin = 7.536746, xmax = 9.604390, ymin = 49.36732, ymax = 50.69920)
 #' export_model_trajectory("2019-01-01 00:00", "2019-01-02 00:00", bbox = bb)
 #' }
-export_model_trajectory <- function(wef, til, model = "CTFM", bbox = NULL, buffer = NULL) {
+export_model_trajectory <- function(
+  wef, til, model = "CTFM",
+  bbox = NULL,
+  lobt_buffer = c(before = 28, after = 24),
+  timeover_buffer = c(before = 2, after = 2)) {
+
   usr <- Sys.getenv("PRU_DEV_USR")
   pwd <- Sys.getenv("PRU_DEV_PWD")
   dbn <- Sys.getenv("PRU_DEV_DBNAME")
@@ -53,9 +62,15 @@ export_model_trajectory <- function(wef, til, model = "CTFM", bbox = NULL, buffe
 
   where_bbox <- ""
   where_buffer <- ""
+  lobt_before <- 0
+  lobt_after  <- 0
 
+  stopifnot(model %in% c("CTFM", "FTFM", "RTFM"))
 
   if (!is.null(bbox)) {
+    stopifnot(names(bbox) %!in% c("xmin", "xmax", "ymin", "ymax"))
+    stopifnot(is.numeric(bbox))
+
     where_bbox <- stringr::str_glue(
       "AND (({lon_min} <= p.LON AND p.LON <={lon_max}) AND ({lat_min} <= p.LAT AND p.LAT <={lat_max}))",
       lon_min = bbox["xmin"],
@@ -63,11 +78,26 @@ export_model_trajectory <- function(wef, til, model = "CTFM", bbox = NULL, buffe
       lat_min = bbox["ymin"],
       lat_max = bbox["ymax"])
   }
-  if (!is.null(buffer)) {
+
+  if (!is.null(lobt_buffer)) {
+    stopifnot(names(lobt_buffer) %in% c("before", "after"))
+    stopifnot(is.numeric(lobt_buffer))
+
+    lobt_before <- lobt_buffer["before"]
+    lobt_after  <- lobt_buffer["after"]
+  }
+
+  if (!is.null(timeover_buffer)) {
+    stopifnot(names(timeover_buffer) %in% c("before", "after"))
+    stopifnot(is.numeric(timeover_buffer))
+
+    timeover_before <- timeover_buffer["before"]
+    timeover_after  <- timeover_buffer["after"]
+
     where_buffer <- stringr::str_glue(
-      "AND ((p.TIME_OVER >= p.LOBT - {before}) AND (p.TIME_OVER < p.LOBT + {after}))",
-      before = buffer["before"],
-      after = buffer["after"])
+      "AND (((SELECT LOBT_WEF FROM ARGS) - ({before} / 24) <= p.TIME_OVER) AND (p.TIME_OVER < (SELECT LOBT_TIL FROM ARGS) + ({after} / 24)))",
+      before = timeover_before,
+      after  = timeover_after)
   }
 
   # NOTE: to be set before you create your ROracle connection!
@@ -84,50 +114,55 @@ export_model_trajectory <- function(wef, til, model = "CTFM", bbox = NULL, buffe
   )
 
   query <- "
-  WITH args AS (SELECT
-                  TO_DATE(?WEF, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') lobt_wef,
-                  TO_DATE(?TIL, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') lobt_til
-                FROM DUAL)
-  SELECT
-    p.SAM_ID                 AS FLIGHT_ID,
-    p.TIME_OVER,
-    p.LON                    AS LONGITUDE,
-    p.LAT                    AS LATITUDE,
-    p.FLIGHT_LEVEL,
-    p.POINT_ID,
-    p.AIR_ROUTE,
-    p.LOBT,
-    p.SEQ_ID,
-    f.AIRCRAFT_ID            AS CALLSIGN,
-    f.REGISTRATION,
-    p.MODEL_TYPE,
-    f.AIRCRAFT_TYPE_ICAO_ID  AS AIRCRAFT_TYPE,
-    f.AIRCRAFT_OPERATOR,
-    f.ADEP,
-    f.ADES
-  FROM
-    FSD.ALL_FT_POINT_PROFILE p
-  JOIN
-    FLX.T_FLIGHT f
-  ON (f.id = p.sam_id AND f.lobt = p.lobt)
-  WHERE
-        f.lobt >=  (SELECT lobt_wef FROM args)
-    AND f.lobt <   (SELECT lobt_til FROM args)
-    AND p.LOBT >= (SELECT lobt_wef FROM args)
-    AND p.LOBT <  (SELECT lobt_til FROM args)
-    AND p.MODEL_TYPE = ?MODEL
-    {WHERE_BBOX}
-    {WHERE_BUFFER}
+    WITH
+        ARGS
+        AS
+            (SELECT TO_DATE (?WEF,
+                             'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
+                        LOBT_WEF,
+                    TO_DATE (?TIL,
+                             'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
+                        LOBT_TIL
+               FROM DUAL)
+    SELECT
+      P.SAM_ID                 AS FLIGHT_ID,
+      P.TIME_OVER,
+      P.LON                    AS LONGITUDE,
+      P.LAT                    AS LATITUDE,
+      P.FLIGHT_LEVEL,
+      P.POINT_ID,
+      P.AIR_ROUTE,
+      P.LOBT,
+      P.SEQ_ID,
+      F.AIRCRAFT_ID            AS CALLSIGN,
+      F.REGISTRATION,
+      P.MODEL_TYPE,
+      F.AIRCRAFT_TYPE_ICAO_ID  AS AIRCRAFT_TYPE,
+      F.AIRCRAFT_OPERATOR,
+      F.ADEP,
+      F.ADES
+    FROM FSD.ALL_FT_POINT_PROFILE  P
+         JOIN FLX.FLIGHT F ON (F.ID = P.SAM_ID AND F.LOBT = P.LOBT)
+   WHERE     F.LOBT >= (SELECT LOBT_WEF FROM ARGS) - ({BEFORE} / 24)
+         AND F.LOBT <  (SELECT LOBT_TIL FROM ARGS) + ({AFTER} / 24)
+         AND P.LOBT >= (SELECT LOBT_WEF FROM ARGS) - ({BEFORE} / 24)
+         AND P.LOBT <  (SELECT LOBT_TIL FROM ARGS) + ({AFTER} / 24)
+         AND P.MODEL_TYPE = ?MODEL
+        {WHERE_BBOX}
+        {WHERE_BUFFER}
   "
 
-  query <- stringr::str_glue(query, WHERE_BBOX = where_bbox, WHERE_BUFFER = where_buffer)
-  logger::log_debug('Query = {query}')
-
+  query <- stringr::str_glue(query,
+                             WHERE_BBOX   = where_bbox,
+                             WHERE_BUFFER = where_buffer,
+                             BEFORE       = lobt_before,
+                             AFTER        = lobt_after)
   query <- DBI::sqlInterpolate(
     con, query,
     WEF = wef, TIL = til,
     MODEL = model)
-  # message(query)
+  logger::log_debug('Query = {query}')
+
   fltq <- ROracle::dbSendQuery(con, query)
   pnts <- ROracle::fetch(fltq, n = -1) %>%
     dplyr::mutate(
