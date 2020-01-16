@@ -14,6 +14,10 @@ askpass::askpass
 # see https://github.com/tidyverse/magrittr/issues/29
 if(getRversion() >= "2.15.1")  utils::globalVariables(c("."))
 
+
+# from https://stackoverflow.com/a/38352065/963575
+`%!in%` <- Negate(`%in%`)
+
 cpr_plot_time <- function(cprs) {
   cprs %>%
     dplyr::mutate(
