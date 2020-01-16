@@ -309,6 +309,7 @@ generate_so6 <- function(trajectory) {
 #'            "2019-07-14T10:21:23Z"
 #' @param til (UTC) timestamp of LOBT TILl (excluded).
 #' @param model the trajectory model, one of FTFM, RTFM, CTFM, CPF
+#' @param ... extra arguments passed to [export_model_trajectory].
 #'
 #' @return a dataframe of trajectory segments in SO6 format, see \code{\link{read_so6}}
 #'         for a description of the SO6 format.
@@ -323,7 +324,7 @@ generate_so6 <- function(trajectory) {
 #' # reduce the time scope to get the data quicker (and smaller)
 #' export_allft_so6("2010-06-16 10:00", "2010-06-16T11:00:11")
 #' }
-export_allft_so6 <- function(wef, til, model = "CTFM") {
-  export_model_trajectory(wef, til, model) %>%
+export_allft_so6 <- function(wef, til, model = "CTFM", ...) {
+  export_model_trajectory(wef, til, model, ...) %>%
     generate_so6()
 }

@@ -4,7 +4,7 @@
 \alias{export_allft_so6}
 \title{Export "ALL_FT+"-based trajectories to SO6 format}
 \usage{
-export_allft_so6(wef, til, model = "CTFM")
+export_allft_so6(wef, til, model = "CTFM", ...)
 }
 \arguments{
 \item{wef}{(UTC) timestamp of LOBT With Effect From (included).
@@ -14,6 +14,8 @@ Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
 \item{til}{(UTC) timestamp of LOBT TILl (excluded).}
 
 \item{model}{the trajectory model, one of FTFM, RTFM, CTFM, CPF}
+
+\item{...}{extra arguments passed to [export_model_trajectory].}
 }
 \value{
 a dataframe of trajectory segments in SO6 format, see \code{\link{read_so6}}
