@@ -49,7 +49,7 @@ export_model_trajectory <- function(
   wef, til, model = "CTFM",
   bbox = NULL,
   lobt_buffer = c(before = 28, after = 24),
-  timeover_buffer = c(before = 2, after = 2)) {
+  timeover_buffer = NULL) {
 
   usr <- Sys.getenv("PRU_DEV_USR")
   pwd <- Sys.getenv("PRU_DEV_PWD")
@@ -61,14 +61,14 @@ export_model_trajectory <- function(
   til <- format(til, "%Y-%m-%dT%H:%M:%SZ")
 
   where_bbox <- ""
-  where_buffer <- ""
+  where_timeover_buffer <- ""
   lobt_before <- 0
   lobt_after  <- 0
 
   stopifnot(model %in% c("CTFM", "FTFM", "RTFM"))
 
   if (!is.null(bbox)) {
-    stopifnot(names(bbox) %!in% c("xmin", "xmax", "ymin", "ymax"))
+    stopifnot(names(bbox) %in% c("xmin", "xmax", "ymin", "ymax"))
     stopifnot(is.numeric(bbox))
 
     where_bbox <- stringr::str_glue(
@@ -94,7 +94,7 @@ export_model_trajectory <- function(
     timeover_before <- timeover_buffer["before"]
     timeover_after  <- timeover_buffer["after"]
 
-    where_buffer <- stringr::str_glue(
+    where_timeover_buffer <- stringr::str_glue(
       "AND (((SELECT LOBT_WEF FROM ARGS) - ({before} / 24) <= p.TIME_OVER) AND (p.TIME_OVER < (SELECT LOBT_TIL FROM ARGS) + ({after} / 24)))",
       before = timeover_before,
       after  = timeover_after)
@@ -123,7 +123,28 @@ export_model_trajectory <- function(
                     TO_DATE (?TIL,
                              'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
                         LOBT_TIL
-               FROM DUAL)
+               FROM DUAL),
+        -- Flight IDs for the time and BBOX interval of interest,
+        -- i.e.take all IDs where TIME_OVER and POSITION (LON, LAT) fit
+        -- WEF / TIL and BBOX respectively
+        -- NOTE: be slack with LOBT due to data hydiorincrasies
+        FIDS
+        AS (
+          SELECT DISTINCT P.SAM_ID AS FLIGHT_ID
+          FROM FSD.ALL_FT_POINT_PROFILE  P
+          JOIN FLX.FLIGHT F ON (F.ID = P.SAM_ID AND F.LOBT = P.LOBT)
+          WHERE     F.LOBT >= (SELECT LOBT_WEF FROM ARGS) - ({BEFORE} / 24)
+                AND F.LOBT <  (SELECT LOBT_TIL FROM ARGS) + ({AFTER} / 24)
+                AND P.LOBT >= (SELECT LOBT_WEF FROM ARGS) - ({BEFORE} / 24)
+                AND P.LOBT <  (SELECT LOBT_TIL FROM ARGS) + ({AFTER} / 24)
+                AND P.MODEL_TYPE = ?MODEL
+               -- it can happen when ADEP/ADES are unknown, i.e. 'ZZZ'
+               AND P.LON IS NOT NULL
+               AND P.LAT IS NOT NULL
+               AND P.TIME_OVER IS NOT NULL
+               {WHERE_BBOX}
+               AND (((SELECT LOBT_WEF FROM ARGS) <= P.TIME_OVER) AND (P.TIME_OVER < (SELECT LOBT_TIL FROM ARGS) ))
+               )
     SELECT
       P.SAM_ID                 AS FLIGHT_ID,
       P.TIME_OVER,
@@ -148,13 +169,17 @@ export_model_trajectory <- function(
          AND P.LOBT >= (SELECT LOBT_WEF FROM ARGS) - ({BEFORE} / 24)
          AND P.LOBT <  (SELECT LOBT_TIL FROM ARGS) + ({AFTER} / 24)
          AND P.MODEL_TYPE = ?MODEL
+         -- it can happen when ADEP/ADES are unknown, 'ZZZ'
+         AND P.LON IS NOT NULL
+         AND P.LAT IS NOT NULL
+         AND P.TIME_OVER IS NOT NULL
         {WHERE_BBOX}
-        {WHERE_BUFFER}
+        {WHERE_TIMEOVER_BUFFER}
   "
 
   query <- stringr::str_glue(query,
                              WHERE_BBOX   = where_bbox,
-                             WHERE_BUFFER = where_buffer,
+                             WHERE_TIMEOVER_BUFFER = where_timeover_buffer,
                              BEFORE       = lobt_before,
                              AFTER        = lobt_after)
   query <- DBI::sqlInterpolate(
@@ -481,7 +506,7 @@ export_hourly_adsb <- function(wef, til, model = 'CTFM', bbox = NULL) {
   fltq <- ROracle::dbSendQuery(con, query)
   flts <- ROracle::fetch(fltq, n = -1) %>%
     tibble::as_tibble() %>%
-    mutate(ICAO24 = tolower(ICAO24)) %>%
+    dplyr::mutate(ICAO24 = tolower(.data$ICAO24)) %>%
     janitor::clean_names()
 
   flts

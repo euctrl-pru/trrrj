@@ -10,7 +10,7 @@ export_model_trajectory(
   model = "CTFM",
   bbox = NULL,
   lobt_buffer = c(before = 28, after = 24),
-  timeover_buffer = c(before = 2, after = 2)
+  timeover_buffer = NULL
 )
 }
 \arguments{
