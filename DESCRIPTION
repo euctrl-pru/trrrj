@@ -21,6 +21,7 @@ BugReports: https://github.com/euctrl-pru/trrrj/issues
 Depends: 
     R (>= 3.4.0)
 Imports: 
+    zoo,
     askpass,
     assertthat,
     DBI,
