@@ -378,7 +378,8 @@ export_apds <- function(wef, til) {
       .data$APDS_ID,
       .data$AP_C_FLTID,
       .data$AP_C_REG,
-      dplyr::ends_with("ICAO"),
+      # iMatch columns
+      dplyr::starts_with("IM_"),
       .data$SRC_PHASE,
       .data$MVT_TIME_UTC,
       .data$BLOCK_TIME_UTC,
@@ -386,6 +387,7 @@ export_apds <- function(wef, til) {
       .data$ARCTYP,
       .data$AP_C_RWY,
       .data$AP_C_STND,
+      # crossings at 40/100NM timestamps/positions
       dplyr::starts_with("C40_"),
       dplyr::starts_with("C100_")
     ) %>%
