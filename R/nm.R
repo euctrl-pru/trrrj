@@ -309,6 +309,7 @@ export_event_trajectory <- function(wef, til) {
 #' Export APDS (airport) data
 #'
 #' Extract APDS data from PRISME database.
+#' **Note**: there are 129 columns...
 #'
 #' You need to store your credentials to access the ATMAP tables in
 #' the following environment variables:
@@ -374,29 +375,6 @@ export_apds <- function(wef, til) {
 
   ROracle::fetch(flt, n = -1) %>%
     tibble::as_tibble() %>%
-    dplyr::select(
-      .data$APDS_ID,
-      .data$AP_C_FLTID,
-      .data$AP_C_REG,
-      # iMatch columns
-      dplyr::starts_with("IM_"),
-      .data$SRC_PHASE,
-      .data$MVT_TIME_UTC,
-      .data$BLOCK_TIME_UTC,
-      .data$SCHED_TIME_UTC,
-      .data$ARCTYP,
-      .data$AP_C_RWY,
-      .data$AP_C_STND,
-      # crossings at 40/100NM timestamps/positions
-      dplyr::starts_with("C40_"),
-      dplyr::starts_with("C100_")
-    ) %>%
-    dplyr::select(
-      -dplyr::ends_with("_MIN"),
-      -dplyr::ends_with("_IN_FRONT"),
-      -dplyr::ends_with("_CTFM"),
-      -dplyr::ends_with("_CPF"),
-      -dplyr::contains("TRANSIT")) %>%
     janitor::clean_names()
 }
 

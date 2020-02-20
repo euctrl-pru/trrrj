@@ -16,6 +16,7 @@ a dataframe of airport reported movements
 }
 \description{
 Extract APDS data from PRISME database.
+**Note**: there are 129 columns...
 }
 \details{
 You need to store your credentials to access the ATMAP tables in
