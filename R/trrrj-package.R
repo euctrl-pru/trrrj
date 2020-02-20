@@ -23,6 +23,4 @@
 #' field either computed (lapsed time/distance) or from other sources (i.e. EUROCONTROL's PRISME,
 #' Network Manager [CPRs] or PRU [airport information]).
 #'
-#' @docType package
-#' @name trrrj
 NULL
