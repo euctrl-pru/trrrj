@@ -160,6 +160,7 @@ export_model_trajectory <- function(
       P.MODEL_TYPE,
       F.AIRCRAFT_TYPE_ICAO_ID  AS AIRCRAFT_TYPE,
       F.AIRCRAFT_OPERATOR,
+      F.AIRCRAFT_ADDRESS       AS ICAO24,
       F.ADEP,
       F.ADES
     FROM FSD.ALL_FT_POINT_PROFILE  P
@@ -492,3 +493,79 @@ export_hourly_adsb <- function(wef, til, model = 'CTFM', bbox = NULL) {
   flts
 }
 
+#' Export the flight list of movements at an airport
+#'
+#' @param wef (UTC) timestamp of LOBT With Effect From (included).
+#'            Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
+#'            "2019-07-14T10:21:23Z"
+#' @param til (UTC) timestamp of LOBT TILl instant (excluded)
+#' @param apt ICAO code of the airport, i.e. "EDDF"
+#'
+#' @return a data frame of flight list
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' export_movements("2020-01-20", "2020-01-21", "EDDF")
+#' }
+export_movements <- function(wef, til, apt) {
+  usr <- Sys.getenv("PRU_DEV_USR")
+  pwd <- Sys.getenv("PRU_DEV_PWD")
+  dbn <- Sys.getenv("PRU_DEV_DBNAME")
+
+  # interval of interest
+  wef <- parsedate::parse_date(wef)
+  til <- parsedate::parse_date(til)
+
+  wef <- format(wef, format = "%Y-%m-%dT%H:%M:%SZ")
+  til <- format(til, format = "%Y-%m-%dT%H:%M:%SZ")
+
+  # NOTE: to be set before you create your ROracle connection!
+  # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
+  withr::local_envvar(c("TZ" = "UTC",
+                        "ORA_SDTZ" = "UTC"))
+
+  con <- withr::local_db_connection(
+    ROracle::dbConnect(
+      DBI::dbDriver("Oracle"),
+      usr, pwd,
+      dbname = dbn,
+      timezone = "UTC")
+  )
+
+  query <- "
+    SELECT
+        LOBT,
+        AIRCRAFT_ID,
+        REGISTRATION,
+        AIRCRAFT_TYPE_ICAO_ID,
+        AIRCRAFT_OPERATOR,
+        ADEP,
+        ADES,
+        ID SAM_ID,
+        EOBT_1,
+        ARVT_1,
+        COBT_2,
+        ARVT_2,
+        AIRCRAFT_ADDRESS AS ICAO24
+    FROM
+        SWH_FCT.FAC_FLIGHT
+    WHERE
+            LOBT >= TO_DATE(?WEF, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
+        AND LOBT <  TO_DATE(?TIL, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
+        AND ADES = ?APT
+  "
+
+  query <- DBI::sqlInterpolate(
+    con, query,
+    WEF = wef, TIL = til, APT = apt)
+  movq <- ROracle::dbSendQuery(con, query)
+  movs <- ROracle::fetch(movq, n = -1) %>%
+    dplyr::mutate(
+      ICAO24 = tolower(.data$ICAO24)) %>%
+    tibble::as_tibble() %>%
+    janitor::clean_names()
+
+  movs
+
+}
