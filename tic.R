@@ -10,7 +10,8 @@ if (Sys.getenv("BUILD_PKGDOWN") != "" && Sys.getenv("id_rsa") != "") {
 
   if (ci_get_branch() == "master") {
     get_stage("install") %>%
-      add_step(step_install_github("r-lib/pkgdown@1829398a4e97"))
+      # install the latest release "@&release" magic from https://stackoverflow.com/a/40179557/963575
+      add_step(step_install_github("r-lib/pkgdown@*release"))
 
     get_stage("deploy") %>%
       add_step(step_build_pkgdown()) %>%
