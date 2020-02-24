@@ -4,25 +4,38 @@
 \alias{export_movements}
 \title{Export the flight list of movements at an airport}
 \usage{
-export_movements(wef, til, apt)
+export_movements(
+  apt,
+  wef,
+  til,
+  type = "both",
+  lobt_buffer = c(before = 28, after = 24)
+)
 }
 \arguments{
+\item{apt}{ICAO code of the airport, i.e. "EDDF"}
+
 \item{wef}{(UTC) timestamp of LOBT With Effect From (included).
 Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
 "2019-07-14T10:21:23Z"}
 
 \item{til}{(UTC) timestamp of LOBT TILl instant (excluded)}
 
-\item{apt}{ICAO code of the airport, i.e. "EDDF"}
+\item{type}{Type of movement; 'arr' for arrivals, 'dep' for departures
+'both' for arrivals and departures. [default 'both']}
+
+\item{lobt_buffer}{The number of hours before and after LOBT to query
+[default before = 28, after = 24]. This is related to how
+LOBT is stored in the underlying database table.}
 }
 \value{
-a data frame of flight list
+a data frame of flight movements
 }
 \description{
 Export the flight list of movements at an airport
 }
 \examples{
 \dontrun{
-export_movements("2020-01-20", "2020-01-21", "EDDF")
+export_movements("EDDF", "2020-01-20", "2020-01-21")
 }
 }
