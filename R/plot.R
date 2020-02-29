@@ -73,29 +73,11 @@ plot_flight_horizontal <- function(poss,
     ggplot2::coord_sf(xlim = c(bbox["left"], bbox["right"]),
                       ylim = c(bbox["bottom"], bbox["top"]),
              expand = TRUE) +
-    ggplot2::geom_path(
-      data = poss,
-      mapping = ggplot2::aes_(
-        x = quote(longitude), y = quote(latitude),
-        colour = quote(callsign),
-        group = quote(callsign)
-      ),
-      size = 1.4, alpha = .3, lineend = "round") +
+    geom_flight_horizontal(data = poss, shape = shape) +
     ggplot2::theme_minimal() +
     ggplot2::theme(panel.background = ggplot2::element_rect(fill = "aliceblue"),
                    legend.position = legend.position)
 
-  if (!is.null(shape)) {
-    p <- p +
-    ggplot2::geom_point(
-      data = poss,
-      mapping = ggplot2::aes_(
-        x = quote(longitude), y = quote(latitude),
-        colour = quote(callsign), group = quote(callsign)
-      ),
-      shape = shape
-    )
-  }
   p
 }
 
@@ -179,4 +161,30 @@ plot_flight_vertical_distance <- function(poss) {
     ggplot2::xlab("Distance (km)") +
     ggplot2::ylab("Altitude (feet)") +
     ggplot2::labs(title = "Vertical profile vs. distance")
+}
+
+geom_flight_horizontal <- function(data, shape = NULL, ...) {
+  # compose a couple of geoms, see "Multiple components" in https://rpubs.com/hadley/97970
+  list(
+    ggplot2::geom_path(
+      data = data,
+      mapping = ggplot2::aes_(
+        x = quote(longitude),
+        y = quote(latitude),
+        colour = quote(callsign),
+        group = quote(callsign)
+      ),
+      size = 1.4, alpha = .3, lineend = "round"),
+    if (!is.null(shape)) {
+      ggplot2::geom_point(
+        data = data,
+        mapping = ggplot2::aes_(
+          x = quote(longitude),
+          y = quote(latitude),
+          colour = quote(callsign),
+          group = quote(callsign)
+        ),
+        shape = shape)
+    }
+  )
 }
