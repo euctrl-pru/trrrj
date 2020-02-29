@@ -16,7 +16,6 @@ reference:
     - starts_with("read_")
     - starts_with("export_")
     - starts_with("import_")
-    - ends_with("_osn")
 
   - title: Plot Horizontal/Vertical Trajectories
     contents:

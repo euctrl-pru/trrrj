@@ -45,7 +45,6 @@ Imports:
     rlang,
     rnaturalearth,
     sf,
-    ssh,
     stringi,
     stringr,
     tibble,
