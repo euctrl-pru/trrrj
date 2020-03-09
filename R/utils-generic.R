@@ -1,10 +1,12 @@
 #' Ask password
 #'
-#' See \code{askpass::\link[askpass::askpass]{askpass}} for details.
+#' See \code{\link[askpass:askpass]{askpass}} for details.
 #'
+#' @name askpass
 #' @export
 #' @importFrom askpass askpass
 NULL
+
 
 # take care of R CHECK's NOTE about "no visible binding for global variable '.'"
 # see https://github.com/tidyverse/magrittr/issues/29
