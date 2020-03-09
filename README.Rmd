@@ -76,14 +76,13 @@ provide realistic examples and use cases for guides and vignettes.
 
 
 
-## Tutorials and Guides
+## Tutorials and Guides et al.
 
 The vignette [Plotting trajectories](https://trrrj.ansperformance.eu/articles/trrrj-plotting.html)
 provides a good introduction on how to use the package.
 
-The vignette
-[How to Access OpenSky Network Data](https://trrrj.ansperformance.eu/articles/osn-access.html)
-details a simple session for retrieving data from OSN.
+The [`{osn}` package](https://github.com/espinielli/osn) can be used to access
+the [OpenSky Network Data](osn).
 
 
 [airac]: <https://en.wikipedia.org/wiki/Aeronautical_Information_Publication> "AIP - Aeronautical Information Publication"

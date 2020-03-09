@@ -62,15 +62,14 @@ There are functions that allow you to:
 The package contains small data source files in order to provide
 realistic examples and use cases for guides and vignettes.
 
-## Tutorials and Guides
+## Tutorials and Guides et al.
 
 The vignette [Plotting
 trajectories](https://trrrj.ansperformance.eu/articles/trrrj-plotting.html)
 provides a good introduction on how to use the package.
 
-The vignette [How to Access OpenSky Network
-Data](https://trrrj.ansperformance.eu/articles/osn-access.html) details
-a simple session for retrieving data from OSN.
+The [`{osn}` package](https://github.com/espinielli/osn) can be used to
+access the [OpenSky Network Data](osn).
 
 1.  Correlated Position Reports (CPR) are position report provided by
     the ATC radar facilities. They are *correlated* because they contain
