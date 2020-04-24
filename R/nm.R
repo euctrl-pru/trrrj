@@ -638,3 +638,132 @@ export_movements <- function(
 
   movs
 }
+
+
+#' Export the flight list
+#'
+#' @param wef  (UTC) timestamp of LOBT With Effect From (included).
+#'             Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
+#'             "2019-07-14T10:21:23Z"
+#' @param til  (UTC) timestamp of LOBT TILl instant (excluded)
+#' @param lobt_buffer The number of hours before and after LOBT to query
+#'             [default before = 28, after = 24]. This is related to how
+#'             LOBT is stored in the underlying database table.
+#'
+#' @return a data frame of flight info
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' export_flight_info("2020-01-20", "2020-01-21")
+#' }
+export_flight_info <- function(
+  wef,
+  til,
+  lobt_buffer = c(before = 28, after = 24)) {
+
+  if (!is.null(lobt_buffer)) {
+    stopifnot(names(lobt_buffer) %in% c("before", "after"))
+    stopifnot(is.numeric(lobt_buffer))
+  }
+
+  usr <- Sys.getenv("PRU_DEV_USR")
+  pwd <- Sys.getenv("PRU_DEV_PWD")
+  dbn <- Sys.getenv("PRU_DEV_DBNAME")
+
+  # interval of interest
+  wef <- parsedate::parse_date(wef)
+  til <- parsedate::parse_date(til)
+
+  wef <- format(wef, format = "%Y-%m-%dT%H:%M:%SZ")
+  til <- format(til, format = "%Y-%m-%dT%H:%M:%SZ")
+
+  where_lobt <- stringr::str_glue(
+    "(((SELECT MOV_WEF FROM ARGS) - ({before} / 24) <= LOBT) AND (LOBT < (SELECT MOV_TIL FROM ARGS) + ({after} / 24)))",
+    before = lobt_buffer["before"],
+    after  = lobt_buffer["after"])
+
+  where_apt <- ""
+
+
+  # NOTE: to be set before you create your ROracle connection!
+  # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
+  withr::local_envvar(c("TZ" = "UTC",
+                        "ORA_SDTZ" = "UTC"))
+
+  con <- withr::local_db_connection(
+    ROracle::dbConnect(
+      DBI::dbDriver("Oracle"),
+      usr, pwd,
+      dbname = dbn,
+      timezone = "UTC")
+  )
+  columns <- c("LOBT",
+               "IOBT",
+               "AIRCRAFT_ID",
+               "CRCO_FLT_ID",
+               "ACARS_CALLSIGN",
+               "REGISTRATION",
+               "CRCO_REGISTRATION",
+               "ACARS_REGISTRATION",
+               "AIRCRAFT_TYPE_ICAO_ID",
+               "FLT_RULES",
+               "ICAO_FLT_TYPE",
+               "CRCO_ICAO_AIRCRAFT_TYPE",
+               "WK_TBL_CAT",
+               "AIRCRAFT_OPERATOR",
+               "CRCO_USERNAME",
+               "AIRCRAFT_ADDRESS",
+               "CRCO_AIRCRAFT_ADDRESS",
+               "LAST_FPL_ARCADDR",
+               "ADEP",
+               "ADES",
+               "ID",
+               "SENSITIVE",
+               "EOBT_1",
+               "ARVT_1",
+               "TAXI_TIME_1",
+               "AOBT_3",
+               "ARVT_3",
+               "TAXI_TIME_3")
+
+
+  query <- "
+    WITH
+        ARGS
+        AS
+            (SELECT TO_DATE (?WEF,
+                             'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
+                        MOV_WEF,
+                    TO_DATE (?TIL,
+                             'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
+                        MOV_TIL
+               FROM DUAL)
+    SELECT
+      {COLUMNS}
+    FROM
+        SWH_FCT.FAC_FLIGHT
+    WHERE
+        {WHERE_LOBT}
+  "
+  query <- stringr::str_glue(query,
+                             COLUMNS = paste(columns, collapse = ", "),
+                             WHERE_LOBT = where_lobt)
+
+  query <- DBI::sqlInterpolate(
+    con, query,
+    WEF = wef, TIL = til)
+  logger::log_debug('SQL query = {query}')
+
+  movq <- ROracle::dbSendQuery(con, query)
+  movs <- ROracle::fetch(movq, n = -1) %>%
+    dplyr::mutate(
+      AIRCRAFT_ADDRESS = tolower(.data$AIRCRAFT_ADDRESS),
+      CRCO_AIRCRAFT_ADDRESS = tolower(.data$CRCO_AIRCRAFT_ADDRESS),
+      LAST_FPL_ARCADDR = tolower(.data$LAST_FPL_ARCADDR)
+    ) %>%
+    tibble::as_tibble() %>%
+    janitor::clean_names()
+
+  movs
+}
