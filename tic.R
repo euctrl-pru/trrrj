@@ -1,4 +1,4 @@
-do_package_checks()
+add_package_checks()
 
 if (Sys.getenv("BUILD_PKGDOWN") != "" && Sys.getenv("id_rsa") != "") {
   # pkgdown documentation can be built optionally. Other example criteria:
@@ -8,17 +8,7 @@ if (Sys.getenv("BUILD_PKGDOWN") != "" && Sys.getenv("id_rsa") != "") {
   get_stage("before_deploy") %>%
     add_step(step_setup_ssh())
 
-  if (ci_get_branch() == "master") {
-    get_stage("install") %>%
-      # install the latest release "@&release" magic from https://stackoverflow.com/a/40179557/963575
-      add_step(step_install_github("r-lib/pkgdown@*release"))
-
-    get_stage("deploy") %>%
-      add_step(step_build_pkgdown()) %>%
-      add_step(step_push_deploy(path = "docs", branch = "gh-pages"))
-  }
-
-  # run lintr after successful CI build
-  get_stage("after_success") %>%
-    add_code_step(lintr::lint_package())
+  get_stage("deploy") %>%
+    add_step(step_build_pkgdown()) %>%
+    add_step(step_push_deploy(path = "docs", branch = "gh-pages"))
 }
