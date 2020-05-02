@@ -73,7 +73,6 @@ The package contains small data source files in order to
 provide realistic examples and use cases for guides and vignettes.
 
 
-
 ## Tutorials and Guides et al.
 
 The vignette [Plotting trajectories](https://trrrj.ansperformance.eu/articles/trrrj-plotting.html)
