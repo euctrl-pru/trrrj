@@ -4,7 +4,8 @@
 \name{egll_flights_fr24}
 \alias{egll_flights_fr24}
 \title{Sample FlightRadar24's archived feed ADS-B flight data for EGLL.}
-\format{A data frame with xxyy rows and 11 variables:
+\format{
+A data frame with xxyy rows and 11 variables:
 \describe{
   \item{address}{mode-S address in hexadecimal, as supplied by the
    Mode-S or ADS-B transponder}
@@ -19,7 +20,8 @@
   `GROUND` for ground vehicles}
   \item{flight}{flight number, e.g. OK190}
   \item{start_time}{date of the flight (what about the ones crssing midnight?)}
-}}
+}
+}
 \source{
 FlightRadar24
 }

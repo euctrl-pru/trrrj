@@ -4,7 +4,9 @@
 \name{egll_flights}
 \alias{egll_flights}
 \title{Sample Reference Trajectories' flight data at EGLL.}
-\format{An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 45 rows and 9 columns.}
+\format{
+An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 45 rows and 9 columns.
+}
 \source{
 Reference Trajectories
 }

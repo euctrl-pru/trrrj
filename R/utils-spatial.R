@@ -1,16 +1,17 @@
 bbox_at_distance <- function(lon, lat, ele = 0, distance) {
 
 
-  ref <- st_point(x = c(lon, lat, ele), dim = "XYZ") %>% st_sfc(crs = 4326)
+  ref <- sf::st_point(x = c(lon, lat, ele), dim = "XYZ") %>% sf::st_sfc(crs = 4326)
 
   # define radius of interest
-  r <- set_units(distance, nmile) %>% set_units(m)
+  r <- units::set_units(distance, units::as_units("nmile")) %>%
+    units::set_units(units::as_units("m"))
 
   # change to Irish grid, which uses meters
-  ref <- st_transform(ref, 29902)
-  ref_bbox <-  st_buffer(ref, r) %>%
-    st_transform(crs = 4326) %>%
-    st_bbox()
+  ref <- sf::st_transform(ref, 29902)
+  ref_bbox <-  sf::st_buffer(ref, r) %>%
+    sf::st_transform(crs = 4326) %>%
+    sf::st_bbox()
   ref_bbox
 }
 
