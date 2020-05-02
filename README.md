@@ -3,9 +3,14 @@
 
 # trrrj
 
+<!-- badges: start -->
+
+[![R build
+status](https://github.com/euctrl-pru/trrrj/workflows/R-CMD-check/badge.svg)](https://github.com/euctrl-pru/trrrj/actions)
 [![Travis build
 status](https://travis-ci.org/euctrl-pru/trrrj.svg?branch=master)](https://travis-ci.org/euctrl-pru/trrrj)
 [![codecov](https://codecov.io/gh/euctrl-pru/trrrj/branch/master/graph/badge.svg)](https://codecov.io/gh/euctrl-pru/trrrj)
+<!-- badges: end -->
 
 The `{trrrj}` package provides facilities to aid in the analysis of
 flight trajectories.
