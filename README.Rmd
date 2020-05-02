@@ -51,9 +51,7 @@ There are functions that allow you to:
 * Load trajectories from various providers/sources:
     - archived/live feed [Flightradar24][fr24] ADS-B based (files)
     - live feed [Flightradar24][fr24] ADS-B based (EUROCONTROL's DB)
-    - archived [Network Manager][nm-cfmu] CPR's^[Correlated Position Reports (CPR)
-      are position report provided by the ATC radar facilities.
-      They are *correlated* because they contain flight information] (files)
+    - archived [Network Manager][nm-cfmu] CPR's (files); see [CPRs] note
     - [DDR2][ddr2] SO6 trajectories (EUROCONTROL's DB)
     - historical data from [OpenSky Network][osn]
 
@@ -66,10 +64,7 @@ There are functions that allow you to:
 
 * Read/transform/*save your day*
     - parse Longitude/Latitude in various formats
-    - determine the AIRAC^[An AIRAC (Aeronautical Information Regulation And Control) cycle
-      is the 28-day period that regulates the
-      [pubblication of aeronautical information][airac]] cyle
-      for a date or its range (ICAO or CFMU format)
+    - determine the AIRAC cyle for a date or its range (ICAO or CFMU format); see [AIRAC] note
 
 
 ## Data
@@ -86,6 +81,17 @@ provides a good introduction on how to use the package.
 
 The [`{osn}` package](https://github.com/espinielli/osn) can be used to access
 the [OpenSky Network Data](osn).
+
+
+## Notes
+
+### CPRs
+Correlated Position Reports (CPR) are position report provided by the ATC radar facilities.
+They are *correlated* because they contain flight information
+
+### AIRAC
+An AIRAC (Aeronautical Information Regulation And Control) cycle is the 28-day period
+that regulates the [pubblication of aeronautical information][airac]
 
 
 [airac]: <https://en.wikipedia.org/wiki/Aeronautical_Information_Publication> "AIP - Aeronautical Information Publication"
