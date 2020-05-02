@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![R build
-status](https://github.com/euctrl-pru/trrrj/workflows/R-CMD-check/badge.svg)](https://github.com/euctrl-pru/trrrj/actions)
+status](https://github.com/euctrl-pru/trrrj/workflows/Render%20README/badge.svg)](https://github.com/euctrl-pru/trrrj/actions)
 [![Travis build
 status](https://travis-ci.org/euctrl-pru/trrrj.svg?branch=master)](https://travis-ci.org/euctrl-pru/trrrj)
 [![codecov](https://codecov.io/gh/euctrl-pru/trrrj/branch/master/graph/badge.svg)](https://codecov.io/gh/euctrl-pru/trrrj)
@@ -16,7 +16,7 @@ The `{trrrj}` package provides facilities to aid in the analysis of
 flight trajectories.
 
 It is in contiuous flux both because new features are added but also
-because of how people in the work together and collaborate.
+because of users’ feedback.
 
 If you want to contribute but you feel overwhelmed by the git/github
 scaffolding, please have a look at the `usethis` vignette “[Pull request
