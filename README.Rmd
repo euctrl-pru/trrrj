@@ -49,10 +49,11 @@ remotes::install_github("euctrl-pru/trrrj")
 There are functions that allow you to:
 
 * Load trajectories from various providers/sources:
-    - archived/live feed [Flightradar24][fr24] ADS-B based (files)
-    - live feed [Flightradar24][fr24] ADS-B based (EUROCONTROL's DB)
-    - archived [Network Manager][nm-cfmu] CPR's (files); see CPR in the [Notes]
-    - historical data from [OpenSky Network][osn]
+    - [Flightradar24][fr24]'s archived/live feed files (ADS-B)
+    - [Flightradar24][fr24]'s live feed from EUROCONTROL's DB (ADS-B)
+    - [Network Manager][nm-cfmu]'s archived CPR files (see CPRs in the [Notes])
+    - [DDR2][ddr2]'s SO6 trajectories from EUROCONTROL's DB (Flight plan and CPR based)
+    - [OpenSky Network][osn]'s historical data, **removed** see [osn package](https://github.com/espinielli/osn)
 
 * Plot trajectories
     - 2D plot
@@ -84,7 +85,7 @@ the [OpenSky Network Data](osn).
 
 ## Notes
 
-### CPR
+### CPRs
 Correlated Position Reports (CPR) are position report provided by the ATC radar facilities.
 They are *correlated* because they contain flight information
 
