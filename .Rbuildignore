@@ -14,3 +14,4 @@
 ^\.travis\.yml$
 ^cran-comments\.md$
 ^doc$
+^\.github$
