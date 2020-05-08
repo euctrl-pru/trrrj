@@ -5,6 +5,8 @@
 \alias{trrrj}
 \title{trrrj: A package for analysing flight trajectories.}
 \description{
+\lifecycle{maturing}
+
 The trrrj package provides three categories of important functions:
 archive import, live feed import and positions enhancements.
 }
