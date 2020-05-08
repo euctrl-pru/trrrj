@@ -56,3 +56,54 @@ bounding_box <- function(lat, lon, dist, in.miles = TRUE) {
   dimnames(m) <- list(c("lng", "lat"), c("min", "max"))
   m
 }
+
+#' Retain only positions within a range from a location.
+#'
+#' The points whose distance, `.distance`, satisfies
+#' \deqn{dm <= .distance < dM}
+#' are kept (`.exclude == FALSE`) or excluded (`.exclude == TRUE`)
+#'
+#' @param df  a (trajectory) data frame
+#' @param geo a geographical location in lon/lat
+#' @param dm  a distance in Nautical Miles
+#' @param dM  a distance in Nautical Miles
+#' @param lon the column for longitude in `df`
+#' @param lat the column for latitude in `df`
+#' @param .keep keep the calculated distance (in Nautical Miles)
+#'              in the `.distance` column [default is FALSE]
+#' @param .exclude exclude the point in the [`dm`, `dM`) [default is FALSE]
+#'
+#' @return a subset of `df`
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' fra <- c(8.570556, 50.03333) # Frankfurt Airport (longitude, latitude)
+#'
+#' # keep the points 40 NM from FRA
+#' poss %>% filter_positions_at_range(fra, 0, 40, longitude, latitude)
+#' # keep the points from 10 to 40 NM from FRA
+#' poss %>% filter_positions_at_range(fra, 10, 40, longitude, latitude)
+#' # exclude the points from 10 to 40 NM from FRA
+#' poss %>% filter_positions_at_range(fra, 10, 40, longitude, latitude, .exclude = TRUE)
+#' # keep the points further away of 40 NM from FRA
+#' poss %>% filter_positions_at_range(fra, 0, 40, longitude, latitude, .exclude = TRUE)
+#' }
+filter_positions_at_range <- function(df, geo, dm, dM, lon, lat, .exclude = FALSE, .keep = FALSE) {
+  if (.exclude == TRUE) {
+    predicate <- magrittr::or
+    # swap the values of the minimum and maximum distances
+    temp <- dm
+    dm <- dM
+    dM <- temp
+  } else {
+    predicate <- magrittr::and
+  }
+  ddff <- df %>%
+    dplyr::mutate(.distance = geosphere::distGeo(geo, cbind({{ lon }}, {{ lat }})) / 1852.0) %>%
+    dplyr::filter(predicate((dm <= .data$.distance), (.data$.distance < dM)))
+  if (.keep != TRUE) {
+    ddff <- ddff %>% dplyr::select(-.data$.distance)
+  }
+  ddff
+}
