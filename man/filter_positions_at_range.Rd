@@ -18,7 +18,7 @@ filter_positions_at_range(
 \arguments{
 \item{df}{a (trajectory) data frame}
 
-\item{geo}{a geographical location in lon/lat}
+\item{geo}{a geographical location in lon/lat (WGS84)}
 
 \item{dm}{a distance in Nautical Miles}
 

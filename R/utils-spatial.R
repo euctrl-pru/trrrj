@@ -1,60 +1,118 @@
-bbox_at_distance <- function(lon, lat, ele = 0, distance) {
 
+#' Return an axis-aligned bounding box delimiting a circle at distance `d`
+#'
+#' @description
+#' \lifecycle{experimental}
+#'
+#' `bbox_at_distance` returns an `st_bbox` object representing the extent of
+#' an axis-aligned bounding box containing the (polygonal approximation of a)
+#' circonference at distance `d` from the location, `geo`.
+#'
+#'  WARNING: current implementation relies on `polygon_at_distance` which is
+#'  not robust to cope with circles containing the Poles or crossing the date line.
+#'
+#' @param geo a geographical position [lon, lat]
+#' @param d   a distance in Nautical Miles
+#' @param ... other params
+#'
+#' @return an `st_bbox` object
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' fra <- c(8.570556, 50.03333) # Frankfurt Airport (longitude, latitude)
+#' bbox_at_distance(fra, 40)
+#' }
+bbox_at_distance <- function(geo, d, ...) {
+  polygon_at_distance(geo, d, ...) %>%
+    sf::st_bbox()
+}
 
-  ref <- sf::st_point(x = c(lon, lat, ele), dim = "XYZ") %>% sf::st_sfc(crs = 4326)
+#' Generate the polygon at distance d from a geographical location
+#'
+#' @description
+#'
+#' \lifecycle{experimental}
+#'
+#' `polygon_at_distance` returns a polygon approximating a circonference
+#'  at distance `d`, in Nautical Miles, from the location `geo`.
+#'  You can control how many points per quadrant will be used via the
+#'  `nQuadSegs` parameter (the default of 30 from \link[sf]{st_buffer} should
+#'  suffice for most of the needs.)
+#'
+#'  WARNING: this is not tested to work across the date line or for polygons
+#'  containing the poles or for polygons spanning more than half an emisphere.
+#'
+#' @param geo a geographical location in lon/lat (WGS84)
+#' @param d   a distance in Nautical Miles
+#' @param ... other parameters, for example `nQuadSegs`, see also \link[sf]{st_buffer}
+#'
+#' @return a polygon.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' fra <- c(8.570556, 50.03333) # Frankfurt Airport (longitude, latitude)
+#' polygon_at_distance(fra, 40)
+#' }
+polygon_at_distance <- function(geo, d, ...) {
+  ref <- geo %>%
+    sf::st_point() %>%
+    sf::st_sfc(crs = 4326)
 
   # define radius of interest
-  r <- units::set_units(distance, units::as_units("nmile")) %>%
-    units::set_units(units::as_units("m"))
+  r <- d * 1852
 
   # change to Irish grid, which uses meters
   ref <- sf::st_transform(ref, 29902)
-  ref_bbox <-  sf::st_buffer(ref, r) %>%
-    sf::st_transform(crs = 4326) %>%
-    sf::st_bbox()
-  ref_bbox
+  ref_poly <-  sf::st_buffer(ref, r, ...) %>%
+    sf::st_transform(crs = 4326)
+  ref_poly
 }
 
+
 # from http://rstudio-pubs-static.s3.amazonaws.com/19324_dd865f50a2304595b45d86f3022f4681.html
-#' Calculate Bounding Box
+#' Calculate the coordinates of the axis-aligned bounding box
 #'
+#' @description
+#' \lifecycle{experimental}
 #' Calculate a bounding box for a center point given a set of coordinates.
 #'
-#' @param lat The latitude of the center point.
-#' @param lon The longitude of the center point.
-#' @param dist The distance from the center point.
-#' @param in.miles logical.  If \code{TRUE} uses miles as the units of
-#' \code{dist}.  If \code{FALSE} uses kilometers.
+#' @param lat latitude of the center point  [decimal degrees].
+#' @param lon longitude of the center point [decimal degrees].
+#' @param d   distance from the center point in Nautical Miles.
+#'
 #' @return Returns a matrix with max/min latitude/longitude values.
+#'
 #' @references \url{http://janmatuschek.de/LatitudeLongitudeBoundingCoordinates}
 #' @keywords bounding_box, coordinates
 #' @export
 #' @examples
+#' \dontrun{
 #' bounding_box(38.8977, 77.0366, 1)
-bounding_box <- function(lat, lon, dist, in.miles = TRUE) {
+#' }
+bounding_box <- function(lat, lon, d) {
 
   ## Helper functions
-  if (in.miles) {
-    ang_rad <- function(miles) miles/3958.756
-  } else {
-    ang_rad <- function(miles) miles/1000
-  }
-  `%+/-%` <- function(x, margin){x + c(-1, +1)*margin}
-  deg2rad <- function(x) x/(180/pi)
-  rad2deg <- function(x) x*(180/pi)
-  lat_range <- function(latr, r) rad2deg(latr %+/-% r)
-  lon_range <- function(lonr, dlon) rad2deg(lonr %+/-% dlon)
+  `%+/-%` <- function(x, margin) {x + c(-1, +1) * margin}
+  deg2rad <- function(x) {x / (180 / pi)}
+  rad2deg <- function(x) {x * (180 / pi)}
+  coord_range <- function(ll, r) rad2deg(ll %+/-% r)
 
-  r <- ang_rad(dist)
-  latr <- deg2rad(lat)
-  lonr <- deg2rad(lon)
-  dlon <- asin(sin(r)/cos(latr))
+  r   <- d * 1.852 / 6371
+  lat <- deg2rad(lat)
+  lon <- deg2rad(lon)
 
-  m <- matrix(c(lon_range(lonr = lonr, dlon = dlon),
-                lat_range(latr=latr, r=r)), nrow=2, byrow = TRUE)
+  latT      <- asin(sin(lat) / cos(r))
+  delta_lon <- asin(sin(r)   / cos(lat))
 
-  dimnames(m) <- list(c("lng", "lat"), c("min", "max"))
-  m
+  m <- matrix(c(coord_range(ll = lon,  r = delta_lon),
+                coord_range(ll = latT, r = r)),
+              nrow = 2,
+              byrow = TRUE)
+
+  dimnames(m) <- list(c("lon", "lat"), c("min", "max"))
+  rad2deg(m)
 }
 
 #' Retain only positions within a range from a location.
@@ -64,7 +122,7 @@ bounding_box <- function(lat, lon, dist, in.miles = TRUE) {
 #' are kept (`.exclude == FALSE`) or excluded (`.exclude == TRUE`)
 #'
 #' @param df  a (trajectory) data frame
-#' @param geo a geographical location in lon/lat
+#' @param geo a geographical location in lon/lat (WGS84)
 #' @param dm  a distance in Nautical Miles
 #' @param dM  a distance in Nautical Miles
 #' @param lon the column for longitude in `df`

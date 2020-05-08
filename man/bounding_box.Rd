@@ -2,28 +2,28 @@
 % Please edit documentation in R/utils-spatial.R
 \name{bounding_box}
 \alias{bounding_box}
-\title{Calculate Bounding Box}
+\title{Calculate the coordinates of the axis-aligned bounding box}
 \usage{
-bounding_box(lat, lon, dist, in.miles = TRUE)
+bounding_box(lat, lon, d)
 }
 \arguments{
-\item{lat}{The latitude of the center point.}
+\item{lat}{latitude of the center point  [decimal degrees].}
 
-\item{lon}{The longitude of the center point.}
+\item{lon}{longitude of the center point [decimal degrees].}
 
-\item{dist}{The distance from the center point.}
-
-\item{in.miles}{logical.  If \code{TRUE} uses miles as the units of
-\code{dist}.  If \code{FALSE} uses kilometers.}
+\item{d}{distance from the center point in Nautical Miles.}
 }
 \value{
 Returns a matrix with max/min latitude/longitude values.
 }
 \description{
+\lifecycle{experimental}
 Calculate a bounding box for a center point given a set of coordinates.
 }
 \examples{
+\dontrun{
 bounding_box(38.8977, 77.0366, 1)
+}
 }
 \references{
 \url{http://janmatuschek.de/LatitudeLongitudeBoundingCoordinates}
