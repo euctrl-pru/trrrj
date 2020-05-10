@@ -42,7 +42,7 @@
 #'
 #' @return a data frame where date and time are combined in a single
 #'         datetime and longitude and latitude are in decimal degrees.
-#' @family read/export functions
+#' @family read/export
 #' @export
 #'
 #' @examples
@@ -164,7 +164,7 @@ read_so6 <- function(filename, delim = " ") {
 #'
 #' @return a dataframe of trajectory segments in SO6 format, see \code{\link{read_so6}}
 #'         for a description of the SO6 format.
-#' @family read/export functions
+#' @family read/export
 #' @export
 #'
 #' @examples
@@ -211,6 +211,7 @@ export_event_so6 <- function(wef, til) {
 #' @return A data frame for trajectories in SO6 format, see \code{\link{read_so6}}
 #'         for a description of the SO6 format.
 #' @export
+#' @family read/export
 #'
 #' @examples
 #' \dontrun{
@@ -313,7 +314,7 @@ generate_so6 <- function(trajectory) {
 #'
 #' @return a dataframe of trajectory segments in SO6 format, see \code{\link{read_so6}}
 #'         for a description of the SO6 format.
-#' @family read/export functions
+#' @family read/export
 #' @export
 #'
 #' @examples

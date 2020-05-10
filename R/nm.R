@@ -29,6 +29,7 @@
 #'
 #' @return a dataframe with trajectory data
 #' @export
+#' @family read/export
 #'
 #' @examples
 #' \dontrun{
@@ -219,7 +220,7 @@ export_model_trajectory <- function(
 #' @param til (UTC) timestamp of LOBT TILl instant (excluded)
 #'
 #' @return a dataframe of trajectory points.
-#' @family read/export functions
+#' @family read/export
 #' @export
 #'
 #' @examples
@@ -325,12 +326,12 @@ export_event_trajectory <- function(wef, til) {
 #'
 #' @return a dataframe of airport reported movements
 #' @export
+#' @family read/export
 #'
 #' @examples
 #' \dontrun{
 #' export_apds("2019-04-10", "2019-04-11")
 #' }
-
 export_apds <- function(wef, til) {
 
   usr <- Sys.getenv("PRU_ATMAP_USR")
@@ -403,6 +404,7 @@ export_apds <- function(wef, til) {
 #'
 #' @return a dataframe with trajectory data
 #' @export
+#' @family read/export
 #'
 #' @examples
 #' \dontrun{
@@ -508,6 +510,7 @@ export_hourly_adsb <- function(wef, til, model = 'CTFM', bbox = NULL) {
 #'
 #' @return a data frame of flight movements
 #' @export
+#' @family read/export
 #'
 #' @examples
 #' \dontrun{
@@ -652,6 +655,7 @@ export_movements <- function(
 #'
 #' @return a data frame of flight info
 #' @export
+#' @family read/export
 #'
 #' @examples
 #' \dontrun{

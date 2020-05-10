@@ -52,3 +52,11 @@ ggplot() +
   geom_line(data = df1, mapping = aes(x = timestamp, y = baroaltitude), colour = "red")
 }
 }
+\seealso{
+Other analysis: 
+\code{\link{cumulative_distance}()},
+\code{\link{cumulative_time}()},
+\code{\link{extract_segment}()},
+\code{\link{smooth_positions}()}
+}
+\concept{analysis}

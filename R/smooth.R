@@ -6,6 +6,7 @@
 #'
 #' @return return a smoothed trajectory
 #' @export
+#' @family analysis
 #'
 #' @examples
 #' smooth_positions(egll_positions)

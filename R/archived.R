@@ -11,7 +11,7 @@
 #'          in callsign.
 #' @export
 #'
-#' @family read/export functions
+#' @family read/export
 #' @examples
 #' \dontrun{
 #' # read all package February 2017 flights files
@@ -56,6 +56,7 @@ import_flights_csvs <- function(files) {
 #'         The filename has a \code{_fixed} postfix to the original basename
 #'         (without extension), i.e. \code{20170206_flights.csv} becomes
 #'         \code{20170206_flights_fixed.csv}.
+#' @family read/export
 #' @export
 #'
 #' @examples
@@ -85,6 +86,8 @@ fix_nulls_in_callsign <- function(flights_csv, fixed_dir = getwd()) {
 #' @return a list of newly created files where each NUL in \code{callsign}
 #'         has been substituted by a SPACE character.
 #' @seealso \code{\link{fix_nulls_in_callsign}} for the new files naming convention.
+#'
+#' @family read/export
 #' @export
 #'
 #' @examples

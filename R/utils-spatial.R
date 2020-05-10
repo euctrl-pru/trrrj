@@ -17,6 +17,7 @@
 #'
 #' @return an `st_bbox` object
 #' @export
+#' @family spatial
 #'
 #' @examples
 #' \dontrun{
@@ -49,6 +50,7 @@ bbox_at_distance <- function(geo, d, ...) {
 #'
 #' @return a polygon.
 #' @export
+#' @family spatial
 #'
 #' @examples
 #' \dontrun{
@@ -87,6 +89,7 @@ polygon_at_distance <- function(geo, d, ...) {
 #' @references \url{http://janmatuschek.de/LatitudeLongitudeBoundingCoordinates}
 #' @keywords bounding_box, coordinates
 #' @export
+#' @family spatial
 #' @examples
 #' \dontrun{
 #' bounding_box(38.8977, 77.0366, 1)
@@ -133,6 +136,7 @@ bounding_box <- function(lat, lon, d) {
 #'
 #' @return a subset of `df`
 #' @export
+#' @family spatial
 #'
 #' @examples
 #' \dontrun{

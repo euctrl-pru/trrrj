@@ -21,9 +21,9 @@ ddm2dd("N51° 28.65'")
 
 }
 \seealso{
-Other coordinatetes conversion functions: 
+Other coordinates: 
 \code{\link{dms2dd}()},
 \code{\link{parse_lat_icao}()},
 \code{\link{parse_lon_icao}()}
 }
-\concept{coordinatetes conversion functions}
+\concept{coordinates}

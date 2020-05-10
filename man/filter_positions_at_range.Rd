@@ -55,3 +55,10 @@ poss \%>\% filter_positions_at_range(fra, 10, 40, longitude, latitude, .exclude 
 poss \%>\% filter_positions_at_range(fra, 0, 40, longitude, latitude, .exclude = TRUE)
 }
 }
+\seealso{
+Other spatial: 
+\code{\link{bbox_at_distance}()},
+\code{\link{bounding_box}()},
+\code{\link{polygon_at_distance}()}
+}
+\concept{spatial}

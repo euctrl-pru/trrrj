@@ -32,3 +32,10 @@ fra <- c(8.570556, 50.03333) # Frankfurt Airport (longitude, latitude)
 bbox_at_distance(fra, 40)
 }
 }
+\seealso{
+Other spatial: 
+\code{\link{bounding_box}()},
+\code{\link{filter_positions_at_range}()},
+\code{\link{polygon_at_distance}()}
+}
+\concept{spatial}

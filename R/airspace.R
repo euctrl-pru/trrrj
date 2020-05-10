@@ -5,7 +5,7 @@
 #' `parse_airspace_prisme` reads the airspace PRISME format and returns a tibble
 #' where each row describes an airspace.
 #'
-#' Each aispace in PRISME format is described by:
+#' Each airspace in PRISME format is described by:
 #' \enumerate{
 #'   \item Airspace description (one row):
 #'     \itemize{
@@ -22,6 +22,8 @@
 #' @param lines text lines of the PRISME airspace representation
 #'
 #' @return a tibble of airspaces
+#'
+#' @family read/export
 #' @export
 #'
 #' @examples

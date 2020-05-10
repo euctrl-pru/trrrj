@@ -22,9 +22,9 @@ ddm2dd("51° 43' 34.00\u0022 N")
 
 }
 \seealso{
-Other coordinatetes conversion functions: 
+Other coordinates: 
 \code{\link{ddm2dd}()},
 \code{\link{parse_lat_icao}()},
 \code{\link{parse_lon_icao}()}
 }
-\concept{coordinatetes conversion functions}
+\concept{coordinates}

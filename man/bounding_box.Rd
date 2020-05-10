@@ -28,5 +28,12 @@ bounding_box(38.8977, 77.0366, 1)
 \references{
 \url{http://janmatuschek.de/LatitudeLongitudeBoundingCoordinates}
 }
+\seealso{
+Other spatial: 
+\code{\link{bbox_at_distance}()},
+\code{\link{filter_positions_at_range}()},
+\code{\link{polygon_at_distance}()}
+}
+\concept{spatial}
 \keyword{bounding_box,}
 \keyword{coordinates}

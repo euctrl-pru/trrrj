@@ -43,9 +43,9 @@ parse_lon_icao("0114901W")
 
 }
 \seealso{
-Other coordinatetes conversion functions: 
+Other coordinates: 
 \code{\link{ddm2dd}()},
 \code{\link{dms2dd}()},
 \code{\link{parse_lat_icao}()}
 }
-\concept{coordinatetes conversion functions}
+\concept{coordinates}

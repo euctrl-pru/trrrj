@@ -17,7 +17,7 @@ a tibble of airspaces
 `parse_airspace_prisme` reads the airspace PRISME format and returns a tibble
 where each row describes an airspace.
 
-Each aispace in PRISME format is described by:
+Each airspace in PRISME format is described by:
 \enumerate{
   \item Airspace description (one row):
     \itemize{
@@ -38,3 +38,27 @@ sectors <- readr::read_lines(es) \%>\%
   parse_airspace_prisme()
 }
 }
+\seealso{
+Other read/export: 
+\code{\link{export_allft_so6}()},
+\code{\link{export_apds}()},
+\code{\link{export_event_so6}()},
+\code{\link{export_event_trajectory}()},
+\code{\link{export_flight_info}()},
+\code{\link{export_flights_at_airport_fr24}()},
+\code{\link{export_flights_fr24}()},
+\code{\link{export_hourly_adsb}()},
+\code{\link{export_model_trajectory}()},
+\code{\link{export_movements}()},
+\code{\link{export_positions_at_airport_fr24}()},
+\code{\link{export_positions_fr24}()},
+\code{\link{fix_flights_csvs}()},
+\code{\link{fix_nulls_in_callsign}()},
+\code{\link{generate_so6}()},
+\code{\link{import_flights_csvs}()},
+\code{\link{read_cpr}()},
+\code{\link{read_flights_fr24}()},
+\code{\link{read_positions_fr24}()},
+\code{\link{read_so6}()}
+}
+\concept{read/export}

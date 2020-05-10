@@ -36,7 +36,7 @@
 #' @return A dataframe of correlated position reports (CPR's)
 #' @export
 #'
-#' @family read/export functions
+#' @family read/export
 #' @examples
 #' \dontrun{
 #' # read CPR's of the 20 sample flights for 5th Feb 2017

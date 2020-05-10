@@ -8,7 +8,7 @@
 #' @return a dataframe with a new \code{cumulative_distance} column (in km)
 #' @export
 #'
-#' @family positions enhancements functions
+#' @family analysis
 #' @examples
 #' \dontrun{
 #' cumulative_distance(poss)
@@ -73,7 +73,7 @@ cumulative_distance <- function(positions) {
 #' @return a dataframe with a new \code{cumulative_time} column (in min)
 #' @export
 #'
-#' @family positions enhancements functions
+#' @family analysis
 #' @examples
 #' \dontrun{
 #' cumulative_time(poss)

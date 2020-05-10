@@ -26,9 +26,9 @@ plot_cpr_horizontal(cprs, europe)
 }
 }
 \seealso{
-Other plot functions: 
+Other plot: 
 \code{\link{plot_flight_horizontal}()},
 \code{\link{plot_flight_vertical_distance}()},
 \code{\link{plot_flight_vertical_time}()}
 }
-\concept{plot functions}
+\concept{plot}

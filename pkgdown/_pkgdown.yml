@@ -15,6 +15,31 @@ toc:
 development:
   mode: release
 
+reference:
+- title: Import & Export
+  contents:
+  - has_concept("read/export")
+
+- title: Analysis
+  contents:
+  - has_concept("analysis")
+
+- title: Spatial
+  contents:
+  - has_concept("spatial")
+
+- title: Plot
+  contents:
+  - has_concept("plot")
+
+- title: AIRAC helpers
+  contents:
+  - has_concept("airac")
+
+- title: Coordinates helpers
+  contents:
+  - has_concept("coordinates")
+
 
 # as_is is needed to produce vignette output as specified in the YAML
 # (which is usually overridden by pkgdown by using `rmarkdown::html_document()` directly)

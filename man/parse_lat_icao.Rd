@@ -44,9 +44,9 @@ parse_lat_icao("554718N")
 
 }
 \seealso{
-Other coordinatetes conversion functions: 
+Other coordinates: 
 \code{\link{ddm2dd}()},
 \code{\link{dms2dd}()},
 \code{\link{parse_lon_icao}()}
 }
-\concept{coordinatetes conversion functions}
+\concept{coordinates}

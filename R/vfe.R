@@ -9,7 +9,7 @@
 #' considered level (default = 5 feet/s)
 #'
 #' @return a dataset of level segments. A level segment is defined by
-#' @family analysis functions
+#' @family analysis
 #' @export
 #'
 #' @examples

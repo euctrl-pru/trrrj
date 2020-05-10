@@ -32,3 +32,27 @@ the following environment variables:
 export_apds("2019-04-10", "2019-04-11")
 }
 }
+\seealso{
+Other read/export: 
+\code{\link{export_allft_so6}()},
+\code{\link{export_event_so6}()},
+\code{\link{export_event_trajectory}()},
+\code{\link{export_flight_info}()},
+\code{\link{export_flights_at_airport_fr24}()},
+\code{\link{export_flights_fr24}()},
+\code{\link{export_hourly_adsb}()},
+\code{\link{export_model_trajectory}()},
+\code{\link{export_movements}()},
+\code{\link{export_positions_at_airport_fr24}()},
+\code{\link{export_positions_fr24}()},
+\code{\link{fix_flights_csvs}()},
+\code{\link{fix_nulls_in_callsign}()},
+\code{\link{generate_so6}()},
+\code{\link{import_flights_csvs}()},
+\code{\link{parse_airspace_prisme}()},
+\code{\link{read_cpr}()},
+\code{\link{read_flights_fr24}()},
+\code{\link{read_positions_fr24}()},
+\code{\link{read_so6}()}
+}
+\concept{read/export}

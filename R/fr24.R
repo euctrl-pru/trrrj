@@ -12,7 +12,7 @@
 #' @param til (UT) timestamp of TILl instant (excluded)
 #'
 #' @return a dataframe of position reports
-#' @family read/export functions
+#' @family read/export
 #' @export
 #'
 #' @examples
@@ -109,7 +109,8 @@ export_positions_fr24 <- function(wef, til) {
 #' @param til (UTC) timestamp of TILl instant (excluded)
 #'
 #' @return a dataframe of flights
-#' @family read/export functions
+#' @family read/export
+#'
 #' @export
 #'
 #' @examples
@@ -192,7 +193,7 @@ export_flights_fr24 <- function(wef, til) {
 #'             "ALL" for both (default "ALL")
 #'
 #' @return a dataframe of flights
-#' @family read/export functions
+#' @family read/export
 #' @export
 #'
 #' @examples
@@ -294,7 +295,7 @@ export_flights_at_airport_fr24 <- function(wef, til, apt, flow = "ALL") {
 #'                                  "ALL" for both (default "ALL")
 #'
 #' @return dataframe of ADS-B position reports
-#' @family read/export functions
+#' @family read/export
 #' @export
 #'
 #' @examples
@@ -465,7 +466,7 @@ export_positions_at_airport_fr24 <- function(wef, til,
 #'
 #' @export
 #'
-#' @family read/export functions
+#' @family read/export
 #' @examples
 #' \dontrun{
 #' # flights, as recorded by FR24, on 20170205 (5th Feb 2017)
@@ -553,7 +554,7 @@ read_flights_fr24 <- function(path) {
 #'
 #' @export
 #'
-#' @family read/export functions
+#' @family read/export
 #' @examples
 #' \dontrun{
 #' # positions, as recorded by FR24, for flight 207535493 on 20170205 (5th Feb 2017)
