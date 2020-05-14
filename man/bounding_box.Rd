@@ -18,6 +18,7 @@ Returns a matrix with max/min latitude/longitude values.
 }
 \description{
 \lifecycle{experimental}
+
 Calculate a bounding box for a center point given a set of coordinates.
 }
 \examples{

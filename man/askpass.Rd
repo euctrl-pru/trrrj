@@ -4,5 +4,5 @@
 \alias{askpass}
 \title{Ask password}
 \description{
-See \code{\link[askpass:askpass]{askpass}} for details.
+See \code{\link[askpass]{askpass}} for details.
 }

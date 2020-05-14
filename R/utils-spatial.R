@@ -1,21 +1,21 @@
 
-#' Return an axis-aligned bounding box delimiting a circle at distance `d`
+#' Return an axis-aligned bounding box delimiting a circle at distance \code{d}
 #'
 #' @description
 #' \lifecycle{experimental}
 #'
-#' `bbox_at_distance` returns an `st_bbox` object representing the extent of
-#' an axis-aligned bounding box containing the (polygonal approximation of a)
-#' circonference at distance `d` from the location, `geo`.
+#' \code{bbox_at_distance} returns an \code{\link[sf]{st_bbox}} object representing
+#' the extent of an axis-aligned bounding box containing the (polygonal approximation of a)
+#' a circle at dithance \code{d}.
 #'
-#'  WARNING: current implementation relies on `polygon_at_distance` which is
+#'  WARNING: current implementation relies on \code{polygon_at_distance} which is
 #'  not robust to cope with circles containing the Poles or crossing the date line.
 #'
 #' @param geo a geographical position [lon, lat]
 #' @param d   a distance in Nautical Miles
 #' @param ... other params
 #'
-#' @return an `st_bbox` object
+#' @return an \code{\link[sf]{st_bbox}} object
 #' @export
 #' @family spatial
 #'
@@ -35,10 +35,10 @@ bbox_at_distance <- function(geo, d, ...) {
 #'
 #' \lifecycle{experimental}
 #'
-#' `polygon_at_distance` returns a polygon approximating a circonference
-#'  at distance `d`, in Nautical Miles, from the location `geo`.
+#' \code{polygon_at_distance} returns a polygon approximating a circonference
+#'  at distance \code{d}, in Nautical Miles, from the location \code{geo}.
 #'  You can control how many points per quadrant will be used via the
-#'  `nQuadSegs` parameter (the default of 30 from \link[sf]{st_buffer} should
+#'  \code{nQuadSegs} parameter (the default of 30 from \link[sf]{st_buffer} should
 #'  suffice for most of the needs.)
 #'
 #'  WARNING: this is not tested to work across the date line or for polygons
@@ -46,7 +46,8 @@ bbox_at_distance <- function(geo, d, ...) {
 #'
 #' @param geo a geographical location in lon/lat (WGS84)
 #' @param d   a distance in Nautical Miles
-#' @param ... other parameters, for example `nQuadSegs`, see also \link[sf]{st_buffer}
+#' @param ... other parameters, for example \code{nQuadSegs};
+#'            see also \code{\link[sf]{st_buffer}}
 #'
 #' @return a polygon.
 #' @export
@@ -78,6 +79,7 @@ polygon_at_distance <- function(geo, d, ...) {
 #'
 #' @description
 #' \lifecycle{experimental}
+#'
 #' Calculate a bounding box for a center point given a set of coordinates.
 #'
 #' @param lat latitude of the center point  [decimal degrees].
@@ -120,21 +122,21 @@ bounding_box <- function(lat, lon, d) {
 
 #' Retain only positions within a range from a location.
 #'
-#' The points whose distance, `.distance`, satisfies
+#' The points whose distance, \code{.distance}, satisfies
 #' \deqn{dm <= .distance < dM}
-#' are kept (`.exclude == FALSE`) or excluded (`.exclude == TRUE`)
+#' are kept (\code{.exclude = FALSE}) or excluded (\code{.exclude = TRUE})
 #'
 #' @param df  a (trajectory) data frame
 #' @param geo a geographical location in lon/lat (WGS84)
 #' @param dm  a distance in Nautical Miles
 #' @param dM  a distance in Nautical Miles
-#' @param lon the column for longitude in `df`
-#' @param lat the column for latitude in `df`
+#' @param lon the column for longitude in \code{df}
+#' @param lat the column for latitude in \code{df}
 #' @param .keep keep the calculated distance (in Nautical Miles)
-#'              in the `.distance` column [default is FALSE]
-#' @param .exclude exclude the point in the [`dm`, `dM`) [default is FALSE]
+#'              in the \code{.distance} column [default is FALSE]
+#' @param .exclude exclude the point in the [\code{dm}, \code{dM}) [default is FALSE]
 #'
-#' @return a subset of `df`
+#' @return a subset of \code{df}
 #' @export
 #' @family spatial
 #'

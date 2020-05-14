@@ -1,6 +1,6 @@
 #' Ask password
 #'
-#' See \code{\link[askpass:askpass]{askpass}} for details.
+#' See \code{\link[askpass]{askpass}} for details.
 #'
 #' @name askpass
 #' @export

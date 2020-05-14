@@ -7,7 +7,8 @@
 parse_lon_icao(lon)
 }
 \arguments{
-\item{lon}{a string representation for longitude, i.e. 0114901W or 0114901.23W}
+\item{lon}{a string representation for longitude, i.e. \code{0114901W} or
+\code{0114901.23W}}
 }
 \value{
 decimal degress value
@@ -31,12 +32,12 @@ bullet d):
   forty-two seconds West.
 }
 What is typical in AIP pubblications is the additional part
-of decimal seconds, like `554718.23N`.
+of decimal seconds, like \code{554718.23N}.
 }
 \details{
 This format is used in AIP pubblications, for examples for runway threshold
 coordinates, stand positions, etc.
-This is used also in `ALL+` files from NM.
+This is used also in \code{ALL_FT+} files from NM.
 }
 \examples{
 parse_lon_icao("0114901W")

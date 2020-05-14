@@ -8,7 +8,8 @@ to_decimal_degrees <- function(degs, mins, secs, sgn) {
 #'
 #' @param value a string representation of an angle (i.e. longitude) in
 #'              Degree Minute Second (DMS)), i.e. "51° 43' 34.00\" N"
-#'              Note the escaping of double quote.
+#'
+#'              \strong{Note} the escaping of double quote.
 #'
 #' @return a decimal degrees value
 #' @family coordinates
@@ -97,7 +98,7 @@ parse_heading_nm <- function(track_heading) {
 #'
 #' This format is used in AIP pubblications, for examples for runway threshold
 #' coordinates, stand positions, etc.
-#' This is used also in `ALL+` files from NM.
+#' This is used also in \code{ALL_FT+} files from NM.
 #' @param lat a string representation for latitude,
 #'        i.e. \code{554718N} or \code{554718.23N}
 #'
@@ -139,14 +140,15 @@ parse_lat_icao <- function(lat) {
 #'   forty-two seconds West.
 #' }
 #' What is typical in AIP pubblications is the additional part
-#' of decimal seconds, like `554718.23N`.
+#' of decimal seconds, like \code{554718.23N}.
 #'
 #' This format is used in AIP pubblications, for examples for runway threshold
 #' coordinates, stand positions, etc.
-#' This is used also in `ALL+` files from NM.
+#' This is used also in \code{ALL_FT+} files from NM.
 #'
 #'
-#' @param lon a string representation for longitude, i.e. 0114901W or 0114901.23W
+#' @param lon a string representation for longitude, i.e. \code{0114901W} or
+#'            \code{0114901.23W}
 #'
 #' @return decimal degress value
 #' @family coordinates

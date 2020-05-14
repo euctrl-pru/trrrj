@@ -24,22 +24,22 @@ filter_positions_at_range(
 
 \item{dM}{a distance in Nautical Miles}
 
-\item{lon}{the column for longitude in `df`}
+\item{lon}{the column for longitude in \code{df}}
 
-\item{lat}{the column for latitude in `df`}
+\item{lat}{the column for latitude in \code{df}}
 
-\item{.exclude}{exclude the point in the [`dm`, `dM`) [default is FALSE]}
+\item{.exclude}{exclude the point in the [\code{dm}, \code{dM}) [default is FALSE]}
 
 \item{.keep}{keep the calculated distance (in Nautical Miles)
-in the `.distance` column [default is FALSE]}
+in the \code{.distance} column [default is FALSE]}
 }
 \value{
-a subset of `df`
+a subset of \code{df}
 }
 \description{
-The points whose distance, `.distance`, satisfies
+The points whose distance, \code{.distance}, satisfies
 \deqn{dm <= .distance < dM}
-are kept (`.exclude == FALSE`) or excluded (`.exclude == TRUE`)
+are kept (\code{.exclude = FALSE}) or excluded (\code{.exclude = TRUE})
 }
 \examples{
 \dontrun{

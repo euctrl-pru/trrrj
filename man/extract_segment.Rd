@@ -8,7 +8,7 @@ extract_segment(prs, vert_limit = 5)
 }
 \arguments{
 \item{prs}{dataset containing position reports.
-Two variables are used: `timestamp` and `altitude` (feet)}
+Two variables are used: \code{timestamp} and \code{altitude} (feet)}
 
 \item{vert_limit}{the maximum absolute vertical rate for a segment to be
 considered level (default = 5 feet/s)}

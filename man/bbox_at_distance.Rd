@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-spatial.R
 \name{bbox_at_distance}
 \alias{bbox_at_distance}
-\title{Return an axis-aligned bounding box delimiting a circle at distance `d`}
+\title{Return an axis-aligned bounding box delimiting a circle at distance \code{d}}
 \usage{
 bbox_at_distance(geo, d, ...)
 }
@@ -14,16 +14,16 @@ bbox_at_distance(geo, d, ...)
 \item{...}{other params}
 }
 \value{
-an `st_bbox` object
+an \code{\link[sf]{st_bbox}} object
 }
 \description{
 \lifecycle{experimental}
 
-`bbox_at_distance` returns an `st_bbox` object representing the extent of
-an axis-aligned bounding box containing the (polygonal approximation of a)
-circonference at distance `d` from the location, `geo`.
+\code{bbox_at_distance} returns an \code{\link[sf]{st_bbox}} object representing
+the extent of an axis-aligned bounding box containing the (polygonal approximation of a)
+a circle at dithance \code{d}.
 
- WARNING: current implementation relies on `polygon_at_distance` which is
+ WARNING: current implementation relies on \code{polygon_at_distance} which is
  not robust to cope with circles containing the Poles or crossing the date line.
 }
 \examples{

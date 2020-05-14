@@ -2,7 +2,7 @@
 % Please edit documentation in R/so6.R
 \name{export_allft_so6}
 \alias{export_allft_so6}
-\title{Export "ALL_FT+"-based trajectories to SO6 format}
+\title{Export \code{ALL_FT+}-based trajectories to \code{SO6} format}
 \usage{
 export_allft_so6(wef, til, model = "CTFM", ...)
 }
@@ -22,7 +22,8 @@ a dataframe of trajectory segments in SO6 format, see \code{\link{read_so6}}
         for a description of the SO6 format.
 }
 \description{
-Extract AFF_FT+-based trajectories from PRISME database and convert to SO6 format
+Extract \code{ALL_FT+}-based trajectories from PRISME database and convert to
+\code{SO6} format.
 }
 \details{
 You need to store your credentials to access the PRU tables in

@@ -37,7 +37,7 @@ of decimal seconds, like \code{554718.23N}.
 \details{
 This format is used in AIP pubblications, for examples for runway threshold
 coordinates, stand positions, etc.
-This is used also in `ALL+` files from NM.
+This is used also in \code{ALL_FT+} files from NM.
 }
 \examples{
 parse_lat_icao("554718N")
