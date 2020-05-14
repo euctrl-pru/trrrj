@@ -23,6 +23,7 @@ Depends:
 Imports: 
     askpass,
     assertthat,
+    data.table,
     DBI,
     dplyr,
     geosphere,
@@ -52,8 +53,7 @@ Imports:
     tools,
     units,
     withr,
-    zoo,
-    data.table
+    zoo
 Suggests: 
     bookdown,
     knitr,
