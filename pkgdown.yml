@@ -1,0 +1,10 @@
+pandoc: '2.2'
+pkgdown: 1.5.1
+pkgdown_sha: ~
+articles:
+  trrrj-plotting: trrrj-plotting.html
+last_built: 2020-05-18T16:23Z
+urls:
+  reference: https://trrrj.ansperformance.eu/reference
+  article: https://trrrj.ansperformance.eu/articles
+
