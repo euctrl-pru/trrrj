@@ -14,12 +14,12 @@ bbox_at_distance(geo, d, ...)
 \item{...}{other params}
 }
 \value{
-an \code{\link[sf]{st_bbox}} object
+an \code{\link[sf:st_bbox]{st_bbox}} object
 }
 \description{
 \lifecycle{experimental}
 
-\code{bbox_at_distance} returns an \code{\link[sf]{st_bbox}} object representing
+\code{bbox_at_distance} returns an \code{\link[sf:st_bbox]{st_bbox}} object representing
 the extent of an axis-aligned bounding box containing the (polygonal approximation of a)
 a circle at dithance \code{d}.
 

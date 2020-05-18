@@ -4,7 +4,7 @@
 #' @description
 #' \lifecycle{experimental}
 #'
-#' \code{bbox_at_distance} returns an \code{\link[sf]{st_bbox}} object representing
+#' \code{bbox_at_distance} returns an \code{\link[sf:st_bbox]{st_bbox}} object representing
 #' the extent of an axis-aligned bounding box containing the (polygonal approximation of a)
 #' a circle at dithance \code{d}.
 #'
@@ -15,7 +15,7 @@
 #' @param d   a distance in Nautical Miles
 #' @param ... other params
 #'
-#' @return an \code{\link[sf]{st_bbox}} object
+#' @return an \code{\link[sf:st_bbox]{st_bbox}} object
 #' @export
 #' @family spatial
 #'
@@ -38,7 +38,7 @@ bbox_at_distance <- function(geo, d, ...) {
 #' \code{polygon_at_distance} returns a polygon approximating a circonference
 #'  at distance \code{d}, in Nautical Miles, from the location \code{geo}.
 #'  You can control how many points per quadrant will be used via the
-#'  \code{nQuadSegs} parameter (the default of 30 from \link[sf]{st_buffer} should
+#'  \code{nQuadSegs} parameter (the default of 30 from \link[sf:st_buffer]{st_buffer} should
 #'  suffice for most of the needs.)
 #'
 #'  WARNING: this is not tested to work across the date line or for polygons
@@ -47,7 +47,7 @@ bbox_at_distance <- function(geo, d, ...) {
 #' @param geo a geographical location in lon/lat (WGS84)
 #' @param d   a distance in Nautical Miles
 #' @param ... other parameters, for example \code{nQuadSegs};
-#'            see also \code{\link[sf]{st_buffer}}
+#'            see also \code{\link[sf:st_buffer]{st_buffer}}
 #'
 #' @return a polygon.
 #' @export

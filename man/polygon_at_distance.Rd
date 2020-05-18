@@ -12,7 +12,7 @@ polygon_at_distance(geo, d, ...)
 \item{d}{a distance in Nautical Miles}
 
 \item{...}{other parameters, for example \code{nQuadSegs};
-see also \code{\link[sf]{st_buffer}}}
+see also \code{\link[sf:st_buffer]{st_buffer}}}
 }
 \value{
 a polygon.
@@ -23,7 +23,7 @@ a polygon.
 \code{polygon_at_distance} returns a polygon approximating a circonference
  at distance \code{d}, in Nautical Miles, from the location \code{geo}.
  You can control how many points per quadrant will be used via the
- \code{nQuadSegs} parameter (the default of 30 from \link[sf]{st_buffer} should
+ \code{nQuadSegs} parameter (the default of 30 from \link[sf:st_buffer]{st_buffer} should
  suffice for most of the needs.)
 
  WARNING: this is not tested to work across the date line or for polygons
