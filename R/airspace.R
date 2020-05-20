@@ -58,6 +58,7 @@ parse_airspace_prisme <- function(lines) {
           pol <- pts %>%
             stringi::stri_split(fixed = ";", simplify = TRUE) %>%
             apply(2, as.double) %>%
+            magrittr::divide_by(60.0) %>%
             {list(.)} %>%
             as.data.frame() %>%
             sf::st_as_sf(coords = c("X1", "X2"), crs = 4326) %>%
