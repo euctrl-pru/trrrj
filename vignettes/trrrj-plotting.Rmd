@@ -129,7 +129,6 @@ for the 6th Sep 2017, then you need to issue the following command (showing the 
 
 
 ```{r svg-flights-sep, eval=FALSE}
-library(ROracle)
 svg20170906flt <- export_flights_at_airport_fr24("2017-09-06T00:00:00Z",
                                                  "2017-09-07T00:00:00Z",
                                                  "SVG",
