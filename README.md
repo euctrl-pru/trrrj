@@ -9,8 +9,10 @@ trrrj
 README](https://github.com/euctrl-pru/trrrj/workflows/Render%20README/badge.svg)](https://github.com/euctrl-pru/trrrj/actions)
 [![R build
 status](https://github.com/euctrl-pru/trrrj/workflows/R-CMD-check/badge.svg)](https://github.com/euctrl-pru/trrrj/actions)
-[![R build
-status](https://github.com/euctrl-pru/trrrj/workflows/pkgdown.yaml/badge.svg)](https://github.com/euctrl-pru/trrrj/actions)
+[![pkgdown
+deploy](https://github.com/euctrl-pru/trrrj/workflows/pkgdown/badge.svg)](https://github.com/euctrl-pru/trrrj/actions)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
 **THIS IS WORK IN PROGRESS: use at your own risk.**
