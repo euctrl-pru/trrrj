@@ -4,8 +4,7 @@
 \name{cprs}
 \alias{cprs}
 \title{Sample Correlated Position Report (CPR) data.}
-\format{
-A data frame with 53940 rows and 10 variables:
+\format{A data frame with 53940 rows and 10 variables:
 \describe{
   \item{cpm_id}{CPR Message (CPM) line number}
   \item{tact_id}{TACT Id, TACT (a.k.a.
@@ -64,69 +63,7 @@ A data frame with 53940 rows and 10 variables:
   \item{ifps_id}{a unique flight plan identifier assigned by the IFPS system}
   \item{aircraft_address}{a unique identification of the aircrafts
    frame (24-bit ICAO aircraft address)}
-}
-
-A data frame with 53940 rows and 10 variables:
-\describe{
-  \item{cpm_id}{CPR Message (CPM) line number}
-  \item{tact_id}{TACT Id, TACT (a.k.a.
-      \href{http://ansperformance.eu/references/acronym/etfms.html}{ETFMS})
-      is an NM system}
-  \item{timestamp_etfms}{time of CPM reception by the ETFMS system}
-  \item{timestamp_track}{time of track}
-  \item{block}{block number. ETFMS internal use}
-  \item{record}{record number. ETFMS internal use}
-  \item{entry_node_sac}{Entry Node (EN) system area code (SAC).
-   To avoid ambiguity in the exchange of Surveillance related data,
-   each system using the ASTERIX data format gets assigned a unique
-   identifier composed of two values called `SAC/SIC'.
-   See \url{https://www.eurocontrol.int/services/system-area-code-list}}
-  \item{entry_node_sic}{Entry Node (EN) system identifier code (SIC).
-   To avoid ambiguity in the exchange of Surveillance related data,
-   each system using the ASTERIX data format gets assigned a unique
-   identifier composed of two values called `SAC/SIC'.
-   The System Identification Code (SIC) is allocated nationally by
-   the responsible Air Traffic Services Organisation.
-   It identifies each individual system (surveillance sensor,
-   surveillance data processing system, etc) within the respective
-   area defined by the SAC.
-   See \url{https://www.eurocontrol.int/services/system-area-code-list}}
-  \item{callsign}{Callsign for the flight as provided in
-   the FPL (Flight PLan). It may be the registration marking of the aircraft
-   or the ICAO designator for the aircraft operating agency followed by
-   the flight identification}
-  \item{adep_icao}{ICAO location identifier of the
-   Airport of Departure (ADEP)}
-  \item{ades_icao}{ICAO location identifier of the
-   Airport of Destination (ADES)}
-  \item{eobt}{Estimate Take-Off Date and Time (EOBT), the estimated time
-   at which the aircraft will commence movement associated with departure}
-  \item{longitude}{longitude (decimal degrees)}
-  \item{latitude}{latitude  (decimal degrees)}
-  \item{flight_level}{flight level of the aircraft. Flight levels are
-   surfaces of constant atmospheric pressure which are related to a
-   specific pressure datum, 1013.2 HP (Hecto-Pascal).
-   The expression `Flight level times 100' is sometimes,
-   not quite correctly, referred to as altitude in feet}
-  \item{track_service}{Determines whether the CPR is the first (Begin),
-   an intermediate (Continuing) or the last (End) CPR sent by the
-   corresponding system for the relevant flight. (Begin_And_End is also
-   possible)}
-  \item{ssr_code}{A 4-Digit octal code used in the transponder to identify
-   an aircraft (SSR Mode 3/A).
-  See \url{https://en.wikipedia.org/wiki/Aviation_transponder_interrogation_modes}}
-  \item{track_speed}{calculated ground velocity (knots) based on the
-   previous radar position}
-  \item{track_heading}{calculated heading of aircraft with respect to
-   the magnetic North (decimal degrees)}
-  \item{climb_rate}{Climb (positive) or descend (negative) rate (knots)}
-  \item{track_vertical_mode}{a categorical value for the rate of
-   climb, it can be one of CLIMB, DESCENT, LEVEL_FLIGHT or UNDETERMINED}
-  \item{ifps_id}{a unique flight plan identifier assigned by the IFPS system}
-  \item{aircraft_address}{a unique identification of the aircrafts
-   frame (24-bit ICAO aircraft address)}
-}
-}
+}}
 \source{
 EUROCONTROL's Network Manager
 

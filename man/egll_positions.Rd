@@ -4,9 +4,7 @@
 \name{egll_positions}
 \alias{egll_positions}
 \title{Sample Reference Trajectories' position reports data at EGLL.}
-\format{
-An object of class \code{grouped_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 18574 rows and 10 columns.
-}
+\format{An object of class \code{grouped_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 18574 rows and 10 columns.}
 \source{
 Reference Trajectories
 }

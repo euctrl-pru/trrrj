@@ -4,9 +4,7 @@
 \name{egll_rw_sf}
 \alias{egll_rw_sf}
 \title{EGLL runways.}
-\format{
-An object of class \code{sf} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 2 rows and 2 columns.
-}
+\format{An object of class \code{sf} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 2 rows and 2 columns.}
 \source{
 UK AIP
 }

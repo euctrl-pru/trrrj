@@ -4,8 +4,7 @@
 \name{poss}
 \alias{poss}
 \title{Sample FlightRadar24's archived feed ADS-B position reports data.}
-\format{
-A data frame with 9290 rows and 19 variables.
+\format{A data frame with 9290 rows and 19 variables.
 The variables are a joint of flight information from `flts` with
 the following ones:
 \describe{
@@ -44,8 +43,7 @@ the following ones:
   \item{schd_to}{IATA code for scheduled arrival airport}
   \item{real_to}{IATA code for actual arrival airport (when diverted)}
   \item{date}{date of the flight (what about the ones crossing midnight?)}
-}
-}
+}}
 \source{
 FlightRadar24
 }

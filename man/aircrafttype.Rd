@@ -4,8 +4,7 @@
 \name{aircrafttype}
 \alias{aircrafttype}
 \title{Aircraft type as per ICAO.}
-\format{
-A data frame with 9290 rows and 19 variables.
+\format{A data frame with 9290 rows and 19 variables.
 The variables are a joint of flight information from `flts` with
 the following ones:
 \describe{
@@ -26,8 +25,7 @@ the following ones:
   \item{AircraftDescription}{The aircraft kind, see the first character of the Description field.}
   \item{EngineCount}{The number of engines, see the second character of the Description field.}
   \item{EngineType}{The engine type, see the third character of the Description field.}
-}
-}
+}}
 \source{
 \url{https://www.icao.int/publications/DOC8643/Pages/Search.aspx}
 }

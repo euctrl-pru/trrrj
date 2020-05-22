@@ -4,8 +4,7 @@
 \name{flts}
 \alias{flts}
 \title{Sample FlightRadar24's archived feed ADS-B flight data.}
-\format{
-A data frame with 43 rows and 11 variables:
+\format{A data frame with 43 rows and 11 variables:
 \describe{
   \item{flight_id}{unique identifier for the flight leg (integer)}
   \item{aircraft_id}{mode-S address in hexadecimal, as supplied by the
@@ -21,8 +20,7 @@ A data frame with 43 rows and 11 variables:
   \item{schd_to}{IATA code for scheduled arrival airport}
   \item{real_to}{IATA code for actual arrival airport (when diverted)}
   \item{date}{date of the flight (what about the ones crssing midnight?)}
-}
-}
+}}
 \source{
 FlightRadar24
 }

@@ -4,8 +4,7 @@
 \name{egll_positions_fr24}
 \alias{egll_positions_fr24}
 \title{Sample FlightRadar24's archived feed ADS-B position reports data at EGLL.}
-\format{
-A data frame with zzzz rows and 19 variables.
+\format{A data frame with zzzz rows and 19 variables.
 The variables are a joint of flight information from `flts` with
 the following ones:
 \describe{
@@ -24,8 +23,7 @@ the following ones:
   \item{event_time}{datetime for the position report}
   \item{on_ground}{1 = on ground, 0 = airborne}
   \item{vert_speed}{vertical speed}
-}
-}
+}}
 \source{
 FlightRadar24
 }
