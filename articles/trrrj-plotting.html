@@ -194,8 +194,7 @@ A map of all sample CPR trajectories
 <p>The <code>trrrj</code> package provides an API to retrieve FR24 data from the DB. The use case here is for flights around an airport.</p>
 <p>Before continuing <strong>BE CAREFUL</strong> about how to use it, you could get a lot of data back and il could take a lot of time.</p>
 <p>Let’s say you want to retrieve the <em>arrival</em> flow to <a href="https://en.wikipedia.org/wiki/Stavanger_Airport,_Sola">Stavanger airport</a> in Norway for the 6th Sep 2017, then you need to issue the following command (showing the first 10 ones only):</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ROracle</span>)
-<span class="no">svg20170906flt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/export_flights_at_airport_fr24.html">export_flights_at_airport_fr24</a></span>(<span class="st">"2017-09-06T00:00:00Z"</span>,
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">svg20170906flt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/export_flights_at_airport_fr24.html">export_flights_at_airport_fr24</a></span>(<span class="st">"2017-09-06T00:00:00Z"</span>,
                                                  <span class="st">"2017-09-07T00:00:00Z"</span>,
                                                  <span class="st">"SVG"</span>,
                                                  <span class="kw">flow</span> <span class="kw">=</span> <span class="st">"ARR"</span>)</pre></body></html></div>
