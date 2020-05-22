@@ -1,15 +1,8 @@
-add_package_checks()
+# installs dependencies, runs R CMD check, runs covr::codecov()
+do_package_checks()
 
-if (Sys.getenv("BUILD_PKGDOWN") != "" && Sys.getenv("id_rsa") != "") {
-  # pkgdown documentation can be built optionally. Other example criteria:
-  # - `inherits(ci(), "TravisCI")`: Only for Travis CI
-  # - `Sys.getenv("BUILD_PKGDOWN") != ""`: If the env var "BUILD_PKGDOWN" is set
-  # - `Sys.getenv("TRAVIS_EVENT_TYPE") == "cron"`: Only for Travis cron jobs
-  get_stage("before_deploy") %>%
-    add_step(step_setup_ssh())
-
-  get_stage("deploy") %>%
-    add_step(step_build_pkgdown()) %>%
-    add_code_step(system('echo "trrrj.ansperformance.eu" > docs/CNAME')) %>%
-    add_step(step_push_deploy(path = "docs", branch = "gh-pages"))
+if (ci_on_travis() && ci_has_env("BUILD_PKGDOWN")) {
+  # creates pkgdown site and pushes to gh-pages branch
+  # only for the runner with the "BUILD_PKGDOWN" env var set
+  do_pkgdown()
 }
