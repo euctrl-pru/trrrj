@@ -39,7 +39,7 @@ export_positions_fr24 <- function(wef, til) {
                         "ORA_SDTZ" = "UTC"))
 
   con <- withr::local_db_connection(
-    ROracle::dbConnect(
+    DBI::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -85,9 +85,9 @@ export_positions_fr24 <- function(wef, til) {
         PNT.FLIGHT_ID = FLT.FLIGHT_ID"
 
   query_pos <- DBI::sqlInterpolate(con, sqlq_pnt, WEF = wef, TIL = til)
-  posq <- ROracle::dbSendQuery(con, query_pos)
+  posq <- DBI::dbSendQuery(con, query_pos)
   # ~2.5 min for one day
-  ROracle::fetch(posq, n = -1) %>%
+  DBI::fetch(posq, n = -1) %>%
     tibble::as_tibble()
 }
 
@@ -136,7 +136,7 @@ export_flights_fr24 <- function(wef, til) {
                         "ORA_SDTZ" = "UTC"))
 
   con <- withr::local_db_connection(
-    ROracle::dbConnect(
+    DBI::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -166,8 +166,8 @@ export_flights_fr24 <- function(wef, til) {
 
   query_flt <- DBI::sqlInterpolate(con, sqlq_flt, WEF = wef, TIL = til)
 
-  fltq <- ROracle::dbSendQuery(con, query_flt)
-  flts <- ROracle::fetch(fltq, n = -1)
+  fltq <- DBI::dbSendQuery(con, query_flt)
+  flts <- DBI::fetch(fltq, n = -1)
   flts <- tibble::as_tibble(flts)
 
   return(flts)
@@ -228,7 +228,7 @@ export_flights_at_airport_fr24 <- function(wef, til, apt, flow = "ALL") {
                         "ORA_SDTZ" = "UTC"))
 
   con <- withr::local_db_connection(
-    ROracle::dbConnect(
+    DBI::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -265,8 +265,8 @@ export_flights_at_airport_fr24 <- function(wef, til, apt, flow = "ALL") {
 
   query_flt <- DBI::sqlInterpolate(con, sqlq_flt, WEF = wef, TIL = til, APT = apt)
 
-  fltq <- ROracle::dbSendQuery(con, query_flt)
-  flts <- ROracle::fetch(fltq, n = -1)
+  fltq <- DBI::dbSendQuery(con, query_flt)
+  flts <- DBI::fetch(fltq, n = -1)
   flts <- tibble::as_tibble(flts)
 
   return(flts)
@@ -353,7 +353,7 @@ export_positions_at_airport_fr24 <- function(wef, til,
                         "ORA_SDTZ" = "UTC"))
 
   con <- withr::local_db_connection(
-    ROracle::dbConnect(
+    DBI::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -428,8 +428,8 @@ export_positions_at_airport_fr24 <- function(wef, til,
     LAT_SOUTH = lats, LAT_NORTH = latn
   )
 
-  fltq <- ROracle::dbSendQuery(con, query_pnt)
-  pnts <- ROracle::fetch(fltq, n = -1)
+  fltq <- DBI::dbSendQuery(con, query_pnt)
+  pnts <- DBI::fetch(fltq, n = -1)
   pnts <- tibble::as_tibble(pnts)
 
   return(pnts)

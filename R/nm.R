@@ -107,7 +107,7 @@ export_model_trajectory <- function(
                         "ORA_SDTZ" = "UTC"))
 
   con <- withr::local_db_connection(
-    ROracle::dbConnect(
+    DBI::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -190,8 +190,8 @@ export_model_trajectory <- function(
     MODEL = model)
   logger::log_debug('Query = {query}')
 
-  fltq <- ROracle::dbSendQuery(con, query)
-  pnts <- ROracle::fetch(fltq, n = -1) %>%
+  fltq <- DBI::dbSendQuery(con, query)
+  pnts <- DBI::fetch(fltq, n = -1) %>%
     dplyr::mutate(
       TIME_OVER = lubridate::as_datetime(.data$TIME_OVER, tz = "UTC"),
       POINT_ID  = dplyr::if_else(is.na(.data$POINT_ID),  "NO_POINT", .data$POINT_ID),
@@ -246,7 +246,7 @@ export_event_trajectory <- function(wef, til) {
                         "ORA_SDTZ" = "UTC"))
 
   con <- withr::local_db_connection(
-    ROracle::dbConnect(
+    DBI::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -295,8 +295,8 @@ export_event_trajectory <- function(wef, til) {
   query <- DBI::sqlInterpolate(
     con, query,
     WEF = wef, TIL = til)
-  fltq <- ROracle::dbSendQuery(con, query)
-  pnts <- ROracle::fetch(fltq, n = -1) %>%
+  fltq <- DBI::dbSendQuery(con, query)
+  pnts <- DBI::fetch(fltq, n = -1) %>%
     dplyr::mutate(
       TIME_OVER = lubridate::as_datetime(.data$TIME_OVER, tz = "UTC"),
       POINT_ID  = dplyr::if_else(is.na(.data$POINT_ID),  "NO_POINT", .data$POINT_ID),
@@ -353,7 +353,7 @@ export_apds <- function(wef, til) {
                         "ORA_SDTZ" = "UTC"))
 
   con <- withr::local_db_connection(
-    ROracle::dbConnect(
+    DBI::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -373,9 +373,9 @@ export_apds <- function(wef, til) {
 "
 
   query <- DBI::sqlInterpolate(con, query, WEF = wef, TIL = til, WMS = wms)
-  flt <- ROracle::dbSendQuery(con, query)
+  flt <- DBI::dbSendQuery(con, query)
 
-  ROracle::fetch(flt, n = -1) %>%
+  DBI::fetch(flt, n = -1) %>%
     tibble::as_tibble() %>%
     janitor::clean_names()
 }
@@ -439,7 +439,7 @@ export_hourly_adsb <- function(wef, til, model = 'CTFM', bbox = NULL) {
                         "ORA_SDTZ" = "UTC"))
 
   con <- withr::local_db_connection(
-    ROracle::dbConnect(
+    DBI::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -486,8 +486,8 @@ export_hourly_adsb <- function(wef, til, model = 'CTFM', bbox = NULL) {
     MODEL = model)
 
   # message(query)
-  fltq <- ROracle::dbSendQuery(con, query)
-  flts <- ROracle::fetch(fltq, n = -1) %>%
+  fltq <- DBI::dbSendQuery(con, query)
+  flts <- DBI::fetch(fltq, n = -1) %>%
     tibble::as_tibble() %>%
     dplyr::mutate(ICAO24 = tolower(.data$ICAO24)) %>%
     janitor::clean_names()
@@ -564,7 +564,7 @@ export_movements <- function(
                         "ORA_SDTZ" = "UTC"))
 
   con <- withr::local_db_connection(
-    ROracle::dbConnect(
+    DBI::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -629,8 +629,8 @@ export_movements <- function(
     WEF = wef, TIL = til, APT = apt)
   logger::log_debug('SQL query = {query}')
 
-  movq <- ROracle::dbSendQuery(con, query)
-  movs <- ROracle::fetch(movq, n = -1) %>%
+  movq <- DBI::dbSendQuery(con, query)
+  movs <- DBI::fetch(movq, n = -1) %>%
     dplyr::mutate(
       AIRCRAFT_ADDRESS = tolower(.data$AIRCRAFT_ADDRESS),
       CRCO_AIRCRAFT_ADDRESS = tolower(.data$CRCO_AIRCRAFT_ADDRESS),
@@ -696,7 +696,7 @@ export_flight_info <- function(
                         "ORA_SDTZ" = "UTC"))
 
   con <- withr::local_db_connection(
-    ROracle::dbConnect(
+    DBI::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -759,8 +759,8 @@ export_flight_info <- function(
     WEF = wef, TIL = til)
   logger::log_debug('SQL query = {query}')
 
-  movq <- ROracle::dbSendQuery(con, query)
-  movs <- ROracle::fetch(movq, n = -1) %>%
+  movq <- DBI::dbSendQuery(con, query)
+  movs <- DBI::fetch(movq, n = -1) %>%
     dplyr::mutate(
       AIRCRAFT_ADDRESS = tolower(.data$AIRCRAFT_ADDRESS),
       CRCO_AIRCRAFT_ADDRESS = tolower(.data$CRCO_AIRCRAFT_ADDRESS),
