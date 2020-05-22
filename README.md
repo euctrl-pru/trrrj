@@ -12,6 +12,8 @@ status](https://travis-ci.org/euctrl-pru/trrrj.svg?branch=master)](https://travi
 [![codecov](https://codecov.io/gh/euctrl-pru/trrrj/branch/master/graph/badge.svg)](https://codecov.io/gh/euctrl-pru/trrrj)
 <!-- badges: end -->
 
+THIS IS WORK IN PROGRESS: use at your own risk.
+
 The `{trrrj}` package provides facilities to aid in the analysis of
 flight trajectories.
 
