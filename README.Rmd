@@ -21,6 +21,8 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 
+THIS IS WORK IN PROGRESS: use at your own risk.
+
 
 The `{trrrj}` package provides facilities to aid in the analysis of flight trajectories.
 
