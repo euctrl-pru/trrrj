@@ -180,7 +180,7 @@ filter_positions_at_range <- function(df, geo, dm, dM, lon, lat, .exclude = FALS
 #' @export
 #' @family spatial
 #'
-#' @seealso \code{\link{parse_airspace_prism}} for an example.
+#' @seealso \code{\link{parse_airspace_prisme}} for an example.
 #'
 crs_tc <- function() {
   # From TatukCppWrapper.cpp in PRU Complexity code base

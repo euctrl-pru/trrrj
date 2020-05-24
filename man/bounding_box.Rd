@@ -32,6 +32,7 @@ bounding_box(38.8977, 77.0366, 1)
 \seealso{
 Other spatial: 
 \code{\link{bbox_at_distance}()},
+\code{\link{crs_tc}()},
 \code{\link{filter_positions_at_range}()},
 \code{\link{polygon_at_distance}()}
 }

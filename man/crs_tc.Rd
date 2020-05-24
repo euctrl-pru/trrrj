@@ -13,5 +13,12 @@ the PROJ4 string for the map projection
 Traffic Complexity score computation uses a custom Albers Equal Area projection.
 }
 \seealso{
-\code{\link{parse_airspace_prism}} for an example.
+\code{\link{parse_airspace_prisme}} for an example.
+
+Other spatial: 
+\code{\link{bbox_at_distance}()},
+\code{\link{bounding_box}()},
+\code{\link{filter_positions_at_range}()},
+\code{\link{polygon_at_distance}()}
 }
+\concept{spatial}

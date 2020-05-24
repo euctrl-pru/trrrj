@@ -35,6 +35,7 @@ bbox_at_distance(fra, 40)
 \seealso{
 Other spatial: 
 \code{\link{bounding_box}()},
+\code{\link{crs_tc}()},
 \code{\link{filter_positions_at_range}()},
 \code{\link{polygon_at_distance}()}
 }

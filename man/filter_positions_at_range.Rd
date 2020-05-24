@@ -59,6 +59,7 @@ poss \%>\% filter_positions_at_range(fra, 0, 40, longitude, latitude, .exclude =
 Other spatial: 
 \code{\link{bbox_at_distance}()},
 \code{\link{bounding_box}()},
+\code{\link{crs_tc}()},
 \code{\link{polygon_at_distance}()}
 }
 \concept{spatial}
