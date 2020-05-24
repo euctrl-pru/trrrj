@@ -17,7 +17,7 @@ a decimal (degrees) value
 Convert Degree decimal Minute (DdM)) format to Decimal Degrees (DD).
 }
 \examples{
-ddm2dd("N51Â° 28.65'")
+ddm2dd("N51° 28.65'")
 
 }
 \seealso{
