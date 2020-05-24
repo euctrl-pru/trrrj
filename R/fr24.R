@@ -39,7 +39,7 @@ export_positions_fr24 <- function(wef, til) {
                         "ORA_SDTZ" = "UTC"))
 
   con <- withr::local_db_connection(
-    DBI::dbConnect(
+    ROracle::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -136,7 +136,7 @@ export_flights_fr24 <- function(wef, til) {
                         "ORA_SDTZ" = "UTC"))
 
   con <- withr::local_db_connection(
-    DBI::dbConnect(
+    ROracle::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -228,7 +228,7 @@ export_flights_at_airport_fr24 <- function(wef, til, apt, flow = "ALL") {
                         "ORA_SDTZ" = "UTC"))
 
   con <- withr::local_db_connection(
-    DBI::dbConnect(
+    ROracle::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -353,7 +353,7 @@ export_positions_at_airport_fr24 <- function(wef, til,
                         "ORA_SDTZ" = "UTC"))
 
   con <- withr::local_db_connection(
-    DBI::dbConnect(
+    ROracle::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
