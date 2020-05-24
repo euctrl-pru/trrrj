@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Parse PRISME Airspace format — parse_airspace_prisme • trrrj</title>
+<title>PROJ4 CRS string used in Traffic Complexity — crs_tc • trrrj</title>
 
 
 <!-- jquery -->
@@ -39,22 +39,8 @@
 
 
 
-<meta property="og:title" content="Parse PRISME Airspace format — parse_airspace_prisme" />
-<meta property="og:description" content="
-`parse_airspace_prisme` reads the airspace PRISME format and returns a tibble
-where each row describes an airspace.
-Each airspace in PRISME format is described by:
-Airspace description (one row):
-an airspace Unit code
-a Elementary Sector code
-minimum flight level
-maximum flight level
-the number of vertices of the polygon of the Elementary Sector
-the coordinates of vertices
-
-vertex coordinates (as many rows as the number of vertices)
-
-" />
+<meta property="og:title" content="PROJ4 CRS string used in Traffic Complexity — crs_tc" />
+<meta property="og:description" content="Traffic Complexity score computation uses a custom Albers Equal Area projection." />
 
 
 
@@ -137,73 +123,25 @@ vertex coordinates (as many rows as the number of vertices)
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Parse PRISME Airspace format</h1>
-    <small class="dont-index">Source: <a href='https://github.com/euctrl-pru/trrrj/blob/master/R/airspace.R'><code>R/airspace.R</code></a></small>
-    <div class="hidden name"><code>parse_airspace_prisme.Rd</code></div>
+    <h1>PROJ4 CRS string used in Traffic Complexity</h1>
+    <small class="dont-index">Source: <a href='https://github.com/euctrl-pru/trrrj/blob/master/R/utils-spatial.R'><code>R/utils-spatial.R</code></a></small>
+    <div class="hidden name"><code>crs_tc.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
-<p>`parse_airspace_prisme` reads the airspace PRISME format and returns a tibble
-where each row describes an airspace.</p>
-<p>Each airspace in PRISME format is described by:</p><ol>
-<li><p>Airspace description (one row):</p><ul>
-<li><p>an airspace Unit code</p></li>
-<li><p>a Elementary Sector code</p></li>
-<li><p>minimum flight level</p></li>
-<li><p>maximum flight level</p></li>
-<li><p>the number of vertices of the polygon of the Elementary Sector</p></li>
-<li><p>the coordinates of vertices</p></li>
-</ul></li>
-<li><p>vertex coordinates (as many rows as the number of vertices)</p></li>
-</ol>
-
+    <p>Traffic Complexity score computation uses a custom Albers Equal Area projection.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>parse_airspace_prisme</span>(<span class='no'>lines</span>)</pre>
+    <pre class="usage"><span class='fu'>crs_tc</span>()</pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>lines</th>
-      <td><p>text lines of the PRISME airspace representation</p></td>
-    </tr>
-    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a tibble of airspaces in Traffic Complexity CRS</p>
+    <p>the PROJ4 string for the map projection</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other read/export: 
-<code><a href='export_allft_so6.html'>export_allft_so6</a>()</code>,
-<code><a href='export_apds.html'>export_apds</a>()</code>,
-<code><a href='export_event_so6.html'>export_event_so6</a>()</code>,
-<code><a href='export_event_trajectory.html'>export_event_trajectory</a>()</code>,
-<code><a href='export_flight_info.html'>export_flight_info</a>()</code>,
-<code><a href='export_flights_at_airport_fr24.html'>export_flights_at_airport_fr24</a>()</code>,
-<code><a href='export_flights_fr24.html'>export_flights_fr24</a>()</code>,
-<code><a href='export_hourly_adsb.html'>export_hourly_adsb</a>()</code>,
-<code><a href='export_model_trajectory.html'>export_model_trajectory</a>()</code>,
-<code><a href='export_movements.html'>export_movements</a>()</code>,
-<code><a href='export_positions_at_airport_fr24.html'>export_positions_at_airport_fr24</a>()</code>,
-<code><a href='export_positions_fr24.html'>export_positions_fr24</a>()</code>,
-<code><a href='fix_flights_csvs.html'>fix_flights_csvs</a>()</code>,
-<code><a href='fix_nulls_in_callsign.html'>fix_nulls_in_callsign</a>()</code>,
-<code><a href='generate_so6.html'>generate_so6</a>()</code>,
-<code><a href='import_flights_csvs.html'>import_flights_csvs</a>()</code>,
-<code><a href='read_cpr.html'>read_cpr</a>()</code>,
-<code><a href='read_flights_fr24.html'>read_flights_fr24</a>()</code>,
-<code><a href='read_positions_fr24.html'>read_positions_fr24</a>()</code>,
-<code><a href='read_so6.html'>read_so6</a>()</code></p></div>
+    <div class='dont-index'><p><code>parse_airspace_prism</code> for an example.</p></div>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>es</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"airspace_prisme_462.prisme"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"trrrj"</span>)
-<span class='no'>sectors</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>readr</span><span class='kw ns'>::</span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_lines.html'>read_lines</a></span>(<span class='no'>es</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>parse_airspace_prisme</span>()
-}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
