@@ -10,7 +10,7 @@ parse_airspace_prisme(lines)
 \item{lines}{text lines of the PRISME airspace representation}
 }
 \value{
-a tibble of airspaces
+a tibble of airspaces in Traffic Complexity CRS
 }
 \description{
 \lifecycle{experimental}

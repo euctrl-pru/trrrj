@@ -172,7 +172,15 @@ filter_positions_at_range <- function(df, geo, dm, dM, lon, lat, .exclude = FALS
   ddff
 }
 
-# Traffic Complexity crs
+#' PROJ4 CRS string used in Traffic Complexity
+#'
+#' Traffic Complexity score computation uses a custom Albers Equal Area projection.
+#'
+#' @return the PROJ4 string for the map projection
+#' @export
+#'
+#' @seealso \code{\link{parse_airspace_prism}} for an example.
+#'
 crs_tc <- function() {
   # From TatukCppWrapper.cpp in PRU Complexity code base
   # define albersProjectionStandardWKT

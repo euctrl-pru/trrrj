@@ -23,7 +23,7 @@
 #'
 #' @param lines text lines of the PRISME airspace representation
 #'
-#' @return a tibble of airspaces
+#' @return a tibble of airspaces in Traffic Complexity CRS
 #'
 #' @family read/export
 #' @export
