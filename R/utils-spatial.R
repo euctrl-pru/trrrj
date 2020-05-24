@@ -171,3 +171,28 @@ filter_positions_at_range <- function(df, geo, dm, dM, lon, lat, .exclude = FALS
   }
   ddff
 }
+
+# Traffic Complexity crs
+crs_tc <- function() {
+  # From TatukCppWrapper.cpp in PRU Complexity code base
+  # define albersProjectionStandardWKT
+  # "PROJCS[
+  #   "Custom_Abers_to_meters",
+  #   GEOGCS["Unknown_datum_based_upon_the_WGS_84_ellipsoid",
+  #     DATUM["Not_specified_based_on_WGS_84_ellipsoid",
+  #           SPHEROID["WGS_1984",6378137,298.257223563],
+  #           TOWGS84[0,0,0,0,0,0,0]],
+  #     PRIMEM["Greenwich",0],
+  #     UNIT["Degree",0.0174532925199433]],
+  #   PROJECTION["Albers",
+  #             AUTHORITY["EPSG","9822"]],
+  #   PARAMETER["Central_Meridian",0],
+  #   PARAMETER["Latitude_Of_Origin",45],
+  #   PARAMETER["False_Easting",0],
+  #   PARAMETER["False_Northing",0],
+  #   PARAMETER["Standard_Parallel_1",40],
+  #   PARAMETER["Standard_Parallel_2",50],
+  #   UNIT["Meter",1,AUTHORITY["EPSG","9001"]]
+  # ]"
+  "+proj=aea +lat_1=40.0 +lat_2=50.0 +lat_0=45.0 +lon_0=0.0 +datum=WGS84 +ellps=WGS84 +units=kmi +x_0=0.0 +y_0=0.0 +no_defs"
+}
