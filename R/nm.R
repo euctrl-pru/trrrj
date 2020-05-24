@@ -107,7 +107,7 @@ export_model_trajectory <- function(
                         "ORA_SDTZ" = "UTC"))
 
   con <- withr::local_db_connection(
-    DBI::dbConnect(
+    ROracle::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -246,7 +246,7 @@ export_event_trajectory <- function(wef, til) {
                         "ORA_SDTZ" = "UTC"))
 
   con <- withr::local_db_connection(
-    DBI::dbConnect(
+    ROracle::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -353,7 +353,7 @@ export_apds <- function(wef, til) {
                         "ORA_SDTZ" = "UTC"))
 
   con <- withr::local_db_connection(
-    DBI::dbConnect(
+    ROracle::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -439,7 +439,7 @@ export_hourly_adsb <- function(wef, til, model = 'CTFM', bbox = NULL) {
                         "ORA_SDTZ" = "UTC"))
 
   con <- withr::local_db_connection(
-    DBI::dbConnect(
+    ROracle::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -564,7 +564,7 @@ export_movements <- function(
                         "ORA_SDTZ" = "UTC"))
 
   con <- withr::local_db_connection(
-    DBI::dbConnect(
+    ROracle::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -696,7 +696,7 @@ export_flight_info <- function(
                         "ORA_SDTZ" = "UTC"))
 
   con <- withr::local_db_connection(
-    DBI::dbConnect(
+    ROracle::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,

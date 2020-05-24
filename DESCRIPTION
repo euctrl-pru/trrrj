@@ -53,7 +53,8 @@ Imports:
     tools,
     units,
     withr,
-    zoo
+    zoo,
+    ROracle
 Suggests: 
     bookdown,
     knitr,
