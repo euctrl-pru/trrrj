@@ -205,6 +205,68 @@ One on 4th , 19 on 5th and 21 on 6th Feb 2017.</p>
    frame (24-bit ICAO aircraft address)</p></dd>
 
 </dl>
+
+<p>A data frame with 53940 rows and 10 variables:</p><dl>
+  <dt>cpm_id</dt><dd><p>CPR Message (CPM) line number</p></dd>
+  <dt>tact_id</dt><dd><p>TACT Id, TACT (a.k.a.
+      <a href='http://ansperformance.eu/references/acronym/etfms.html'>ETFMS</a>)
+      is an NM system</p></dd>
+  <dt>timestamp_etfms</dt><dd><p>time of CPM reception by the ETFMS system</p></dd>
+  <dt>timestamp_track</dt><dd><p>time of track</p></dd>
+  <dt>block</dt><dd><p>block number. ETFMS internal use</p></dd>
+  <dt>record</dt><dd><p>record number. ETFMS internal use</p></dd>
+  <dt>entry_node_sac</dt><dd><p>Entry Node (EN) system area code (SAC).
+   To avoid ambiguity in the exchange of Surveillance related data,
+   each system using the ASTERIX data format gets assigned a unique
+   identifier composed of two values called `SAC/SIC'.
+   See <a href='https://www.eurocontrol.int/services/system-area-code-list'>https://www.eurocontrol.int/services/system-area-code-list</a></p></dd>
+  <dt>entry_node_sic</dt><dd><p>Entry Node (EN) system identifier code (SIC).
+   To avoid ambiguity in the exchange of Surveillance related data,
+   each system using the ASTERIX data format gets assigned a unique
+   identifier composed of two values called `SAC/SIC'.
+   The System Identification Code (SIC) is allocated nationally by
+   the responsible Air Traffic Services Organisation.
+   It identifies each individual system (surveillance sensor,
+   surveillance data processing system, etc) within the respective
+   area defined by the SAC.
+   See <a href='https://www.eurocontrol.int/services/system-area-code-list'>https://www.eurocontrol.int/services/system-area-code-list</a></p></dd>
+  <dt>callsign</dt><dd><p>Callsign for the flight as provided in
+   the FPL (Flight PLan). It may be the registration marking of the aircraft
+   or the ICAO designator for the aircraft operating agency followed by
+   the flight identification</p></dd>
+  <dt>adep_icao</dt><dd><p>ICAO location identifier of the
+   Airport of Departure (ADEP)</p></dd>
+  <dt>ades_icao</dt><dd><p>ICAO location identifier of the
+   Airport of Destination (ADES)</p></dd>
+  <dt>eobt</dt><dd><p>Estimate Take-Off Date and Time (EOBT), the estimated time
+   at which the aircraft will commence movement associated with departure</p></dd>
+  <dt>longitude</dt><dd><p>longitude (decimal degrees)</p></dd>
+  <dt>latitude</dt><dd><p>latitude  (decimal degrees)</p></dd>
+  <dt>flight_level</dt><dd><p>flight level of the aircraft. Flight levels are
+   surfaces of constant atmospheric pressure which are related to a
+   specific pressure datum, 1013.2 HP (Hecto-Pascal).
+   The expression `Flight level times 100' is sometimes,
+   not quite correctly, referred to as altitude in feet</p></dd>
+  <dt>track_service</dt><dd><p>Determines whether the CPR is the first (Begin),
+   an intermediate (Continuing) or the last (End) CPR sent by the
+   corresponding system for the relevant flight. (Begin_And_End is also
+   possible)</p></dd>
+  <dt>ssr_code</dt><dd><p>A 4-Digit octal code used in the transponder to identify
+   an aircraft (SSR Mode 3/A).
+  See <a href='https://en.wikipedia.org/wiki/Aviation_transponder_interrogation_modes'>https://en.wikipedia.org/wiki/Aviation_transponder_interrogation_modes</a></p></dd>
+  <dt>track_speed</dt><dd><p>calculated ground velocity (knots) based on the
+   previous radar position</p></dd>
+  <dt>track_heading</dt><dd><p>calculated heading of aircraft with respect to
+   the magnetic North (decimal degrees)</p></dd>
+  <dt>climb_rate</dt><dd><p>Climb (positive) or descend (negative) rate (knots)</p></dd>
+  <dt>track_vertical_mode</dt><dd><p>a categorical value for the rate of
+   climb, it can be one of CLIMB, DESCENT, LEVEL_FLIGHT or UNDETERMINED</p></dd>
+  <dt>ifps_id</dt><dd><p>a unique flight plan identifier assigned by the IFPS system</p></dd>
+  <dt>aircraft_address</dt><dd><p>a unique identification of the aircrafts
+   frame (24-bit ICAO aircraft address)</p></dd>
+
+</dl>
+
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
     <p>EUROCONTROL's Network Manager</p>
