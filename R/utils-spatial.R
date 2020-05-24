@@ -178,6 +178,7 @@ filter_positions_at_range <- function(df, geo, dm, dM, lon, lat, .exclude = FALS
 #'
 #' @return the PROJ4 string for the map projection
 #' @export
+#' @family spatial
 #'
 #' @seealso \code{\link{parse_airspace_prism}} for an example.
 #'
