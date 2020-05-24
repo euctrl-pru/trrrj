@@ -35,7 +35,7 @@
 #'   parse_airspace_prisme()
 #' }
 parse_airspace_prisme <- function(lines) {
-  as <- list()
+  airspace <- list()
   i <- 1
   pts <- NULL
 
@@ -58,20 +58,19 @@ parse_airspace_prisme <- function(lines) {
           pol <- pts %>%
             stringi::stri_split(fixed = ";", simplify = TRUE) %>%
             apply(2, as.double) %>%
-            magrittr::divide_by(60.0) %>%
             {list(.)} %>%
             as.data.frame() %>%
-            sf::st_as_sf(coords = c("X1", "X2"), crs = 4326) %>%
+            sf::st_as_sf(coords = c("X1", "X2"), crs = crs_tc()) %>%
             dplyr::summarise(unit = un, airspace = es, fl_min = fl_m, fl_max= fl_M,
                              geometry = sf::st_combine(.data$geometry)) %>%
             sf::st_cast("POLYGON")
 
-          as[[i]] <- pol
+          airspace[[i]] <- pol
           i <- i + 1
           pts <- NULL
         }
       }
     }
   }
-  sf::st_as_sf(data.table::rbindlist(as))
+  sf::st_as_sf(data.table::rbindlist(airspace))
 }
