@@ -49,14 +49,14 @@ Imports:
     tools,
     units,
     withr,
-    zoo,
-    ROracle
+    zoo
 Suggests: 
     bookdown,
     knitr,
     here,
     lintr,
     rmarkdown,
+    ROracle,
     rnaturalearthdata,
     testthat
 VignetteBuilder: 
