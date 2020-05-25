@@ -23,7 +23,7 @@
 #'
 #' @param lines text lines of the PRISME airspace representation
 #'
-#' @return a tibble of airspaces in Traffic Complexity CRS
+#' @return a tibble of airspaces (CRS = 4326)
 #'
 #' @family read/export
 #' @export
@@ -61,6 +61,7 @@ parse_airspace_prisme <- function(lines) {
             {list(.)} %>%
             as.data.frame() %>%
             sf::st_as_sf(coords = c("X1", "X2"), crs = crs_tc()) %>%
+            sf::st_transform(crs = 4326) %>%
             dplyr::summarise(unit = un, airspace = es, fl_min = fl_m, fl_max= fl_M,
                              geometry = sf::st_combine(.data$geometry)) %>%
             sf::st_cast("POLYGON")
