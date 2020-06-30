@@ -132,7 +132,7 @@
     <p>Calculate the cumulative time (in s).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cumulative_time</span>(<span class='no'>positions</span>, <span class='kw'>offblock</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>inblock</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>cumulative_time</span>(<span class='kw'>positions</span>, offblock = <span class='kw'>NULL</span>, inblock = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,20 +161,20 @@ different from the last timestamp in the dataset</p></td>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other analysis: 
-<code><a href='cumulative_distance.html'>cumulative_distance</a>()</code>,
-<code><a href='extract_segment.html'>extract_segment</a>()</code>,
-<code><a href='filter_outlier.html'>filter_outlier</a>()</code>,
-<code><a href='smooth_positions.html'>smooth_positions</a>()</code></p></div>
+<code>cumulative_distance()</code>,
+<code>extract_segment()</code>,
+<code>filter_outlier()</code>,
+<code>smooth_positions()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>cumulative_time</span>(<span class='no'>poss</span>)
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>cumulative_time</span>(<span class='kw'>poss</span>)
 <span class='co'># calculate only the flown distance</span>
 <span class='co'># NOTE: there is a gap in FR24 data between last ground position (if any)</span>
 <span class='co'>#       and first in air one (typically at ~1500 ft).</span>
 <span class='co'>#       The following code would certainly work better</span>
 <span class='co'>#       would poss contain a position report for a very low altitude.</span>
-<span class='fu'>cumulative_time</span>(<span class='no'>poss</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>altitude</span> <span class='kw'>&gt;</span> <span class='fl'>0</span>))
+<span class='fu'>cumulative_time</span>(<span class='kw'>poss</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='kw'>altitude</span> <span class='op'>&gt;</span> <span class='fl'>0</span>))
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

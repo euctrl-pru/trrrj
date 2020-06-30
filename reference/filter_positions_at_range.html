@@ -136,15 +136,15 @@ $$dm &lt;= .distance &lt; dM$$
 are kept (<code>.exclude = FALSE</code>) or excluded (<code>.exclude = TRUE</code>)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>filter_positions_at_range</span>(
-  <span class='no'>df</span>,
-  <span class='no'>geo</span>,
-  <span class='no'>dm</span>,
-  <span class='no'>dM</span>,
-  <span class='no'>lon</span>,
-  <span class='no'>lat</span>,
-  <span class='kw'>.exclude</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.keep</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/trrrj/man/filter_positions_at_range.html'>filter_positions_at_range</a></span>(
+  <span class='kw'>df</span>,
+  <span class='kw'>geo</span>,
+  <span class='kw'>dm</span>,
+  <span class='kw'>dM</span>,
+  <span class='kw'>lon</span>,
+  <span class='kw'>lat</span>,
+  .exclude = <span class='fl'>FALSE</span>,
+  .keep = <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -191,22 +191,23 @@ in the <code>.distance</code> column [default is FALSE]</p></td>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other spatial: 
-<code><a href='bbox_at_distance.html'>bbox_at_distance</a>()</code>,
-<code><a href='bounding_box.html'>bounding_box</a>()</code>,
-<code><a href='polygon_at_distance.html'>polygon_at_distance</a>()</code></p></div>
+<code><a href='https://rdrr.io/pkg/trrrj/man/bbox_at_distance.html'>bbox_at_distance</a>()</code>,
+<code><a href='https://rdrr.io/pkg/trrrj/man/bounding_box.html'>bounding_box</a>()</code>,
+<code><a href='https://rdrr.io/pkg/trrrj/man/crs_tc.html'>crs_tc</a>()</code>,
+<code><a href='https://rdrr.io/pkg/trrrj/man/polygon_at_distance.html'>polygon_at_distance</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>fra</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>8.570556</span>, <span class='fl'>50.03333</span>) <span class='co'># Frankfurt Airport (longitude, latitude)</span>
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>fra</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>8.570556</span>, <span class='fl'>50.03333</span>) <span class='co'># Frankfurt Airport (longitude, latitude)</span>
 
 <span class='co'># keep the points 40 NM from FRA</span>
-<span class='no'>poss</span> <span class='kw'>%&gt;%</span> <span class='fu'>filter_positions_at_range</span>(<span class='no'>fra</span>, <span class='fl'>0</span>, <span class='fl'>40</span>, <span class='no'>longitude</span>, <span class='no'>latitude</span>)
+<span class='kw'>poss</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/trrrj/man/filter_positions_at_range.html'>filter_positions_at_range</a></span>(<span class='kw'>fra</span>, <span class='fl'>0</span>, <span class='fl'>40</span>, <span class='kw'>longitude</span>, <span class='kw'>latitude</span>)
 <span class='co'># keep the points from 10 to 40 NM from FRA</span>
-<span class='no'>poss</span> <span class='kw'>%&gt;%</span> <span class='fu'>filter_positions_at_range</span>(<span class='no'>fra</span>, <span class='fl'>10</span>, <span class='fl'>40</span>, <span class='no'>longitude</span>, <span class='no'>latitude</span>)
+<span class='kw'>poss</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/trrrj/man/filter_positions_at_range.html'>filter_positions_at_range</a></span>(<span class='kw'>fra</span>, <span class='fl'>10</span>, <span class='fl'>40</span>, <span class='kw'>longitude</span>, <span class='kw'>latitude</span>)
 <span class='co'># exclude the points from 10 to 40 NM from FRA</span>
-<span class='no'>poss</span> <span class='kw'>%&gt;%</span> <span class='fu'>filter_positions_at_range</span>(<span class='no'>fra</span>, <span class='fl'>10</span>, <span class='fl'>40</span>, <span class='no'>longitude</span>, <span class='no'>latitude</span>, <span class='kw'>.exclude</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='kw'>poss</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/trrrj/man/filter_positions_at_range.html'>filter_positions_at_range</a></span>(<span class='kw'>fra</span>, <span class='fl'>10</span>, <span class='fl'>40</span>, <span class='kw'>longitude</span>, <span class='kw'>latitude</span>, .exclude = <span class='fl'>TRUE</span>)
 <span class='co'># keep the points further away of 40 NM from FRA</span>
-<span class='no'>poss</span> <span class='kw'>%&gt;%</span> <span class='fu'>filter_positions_at_range</span>(<span class='no'>fra</span>, <span class='fl'>0</span>, <span class='fl'>40</span>, <span class='no'>longitude</span>, <span class='no'>latitude</span>, <span class='kw'>.exclude</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='kw'>poss</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/trrrj/man/filter_positions_at_range.html'>filter_positions_at_range</a></span>(<span class='kw'>fra</span>, <span class='fl'>0</span>, <span class='fl'>40</span>, <span class='kw'>longitude</span>, <span class='kw'>latitude</span>, .exclude = <span class='fl'>TRUE</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

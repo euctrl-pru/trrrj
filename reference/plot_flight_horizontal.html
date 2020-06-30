@@ -132,12 +132,12 @@
     <p>Plot the recorded positions of a flight on a map.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_flight_horizontal</span>(
-  <span class='no'>poss</span>,
-  <span class='kw'>bbox</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>buffer</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='st'>"none"</span>,
-  <span class='kw'>shape</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/trrrj/man/plot_flight_horizontal.html'>plot_flight_horizontal</a></span>(
+  <span class='kw'>poss</span>,
+  bbox = <span class='kw'>NULL</span>,
+  buffer = <span class='fl'>100</span>,
+  legend.position = <span class='st'>"none"</span>,
+  shape = <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -176,37 +176,37 @@ See <code>shape</code> in <code><a href='https://ggplot2.tidyverse.org/reference
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other plot: 
-<code><a href='plot_cpr_horizontal.html'>plot_cpr_horizontal</a>()</code>,
-<code><a href='plot_flight_vertical_distance.html'>plot_flight_vertical_distance</a>()</code>,
-<code><a href='plot_flight_vertical_time.html'>plot_flight_vertical_time</a>()</code></p></div>
+<code><a href='https://rdrr.io/pkg/trrrj/man/plot_cpr_horizontal.html'>plot_cpr_horizontal</a>()</code>,
+<code><a href='https://rdrr.io/pkg/trrrj/man/plot_flight_vertical_distance.html'>plot_flight_vertical_distance</a>()</code>,
+<code><a href='https://rdrr.io/pkg/trrrj/man/plot_flight_vertical_time.html'>plot_flight_vertical_time</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)
 
 <span class='co'># define the bounding box of interest</span>
-<span class='no'>europe</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>bottom</span> <span class='kw'>=</span> <span class='fl'>35</span>, <span class='kw'>right</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>52</span>)
-<span class='fu'>plot_flight_horizontal</span>(<span class='no'>poss</span>, <span class='no'>europe</span>)
-<span class='fu'>plot_flight_horizontal</span>(<span class='no'>poss</span>, <span class='kw'>buffer</span> <span class='kw'>=</span> <span class='fl'>10</span>) <span class='co'># 10km around the values</span>
+<span class='kw'>europe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(left = <span class='fl'>5</span>, bottom = <span class='fl'>35</span>, right = <span class='fl'>30</span>, top = <span class='fl'>52</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/trrrj/man/plot_flight_horizontal.html'>plot_flight_horizontal</a></span>(<span class='kw'>poss</span>, <span class='kw'>europe</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/trrrj/man/plot_flight_horizontal.html'>plot_flight_horizontal</a></span>(<span class='kw'>poss</span>, buffer = <span class='fl'>10</span>) <span class='co'># 10km around the values</span>
 
 <span class='co'># from DB to plot</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='export_flights_at_airport_fr24.html'>export_flights_at_airport_fr24</a></span>(<span class='st'>"2017-09-01T00:00:00Z"</span>,
+<span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/trrrj/man/export_flights_at_airport_fr24.html'>export_flights_at_airport_fr24</a></span>(<span class='st'>"2017-09-01T00:00:00Z"</span>,
                                     <span class='st'>"2017-09-02T00:00:00Z"</span>,
                                     <span class='st'>"SVG"</span>,
-                                    <span class='fl'>5.638</span>, <span class='fl'>58.877</span>) <span class='kw'>%&gt;%</span>
+                                    <span class='fl'>5.638</span>, <span class='fl'>58.877</span>) <span class='op'>%&gt;%</span>
   <span class='co'># NOTE: convert till DB columns are properly changed</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>longitude</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='no'>LON</span>), <span class='kw'>latitude</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='no'>LAT</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span>(<span class='no'>FLIGHT_ID</span>, <span class='no'>EVENT_TIME</span>, <span class='no'>longitude</span>, <span class='no'>latitude</span>)
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(longitude = <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='kw'>LON</span>), latitude = <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='kw'>LAT</span>)) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span>(<span class='kw'>FLIGHT_ID</span>, <span class='kw'>EVENT_TIME</span>, <span class='kw'>longitude</span>, <span class='kw'>latitude</span>)
 
-<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='export_flights_at_airport_fr24.html'>export_flights_at_airport_fr24</a></span>(<span class='st'>"2017-09-01T00:00:00Z"</span>,
+<span class='kw'>f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/trrrj/man/export_flights_at_airport_fr24.html'>export_flights_at_airport_fr24</a></span>(<span class='st'>"2017-09-01T00:00:00Z"</span>,
                                     <span class='st'>"2017-09-02T00:00:00Z"</span>,
                                     <span class='st'>"SVG"</span>,
-                                    <span class='kw'>flow</span> <span class='kw'>=</span> <span class='st'>"ARR"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>rename</a></span>(<span class='kw'>callsign</span> <span class='kw'>=</span> <span class='no'>CALLSIGN</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span>(<span class='no'>FLIGHT_ID</span>, <span class='no'>callsign</span>)
+                                    flow = <span class='st'>"ARR"</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span>(callsign = <span class='kw'>CALLSIGN</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span>(<span class='kw'>FLIGHT_ID</span>, <span class='kw'>callsign</span>)
 
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/join.html'>left_join</a></span>(<span class='no'>f</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(!<span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span>(<span class='no'>callsign</span>))
-<span class='fu'>plot_flight_horizontal</span>(<span class='no'>p1</span>)
+<span class='kw'>p1</span> <span class='op'>&lt;-</span> <span class='kw'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span>(<span class='kw'>f</span>) <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span>(<span class='kw'>callsign</span>))
+<span class='fu'><a href='https://rdrr.io/pkg/trrrj/man/plot_flight_horizontal.html'>plot_flight_horizontal</a></span>(<span class='kw'>p1</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
