@@ -1,7 +1,7 @@
 Type: Package
 Package: trrrj
 Title: Helper function for flight trajectories for PRU
-Version: 0.0.1.0
+Version: 0.1.0
 Authors@R: 
     c(person(given = "Enrico",
              family = "Spinielli",

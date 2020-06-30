@@ -1,3 +1,13 @@
+# trrrj 0.1.0
+
+## Semi-decent Release
+* removed explicit dependency from ROracle package in order to make GitHub Actions work
+* OpenSky Network code in its own (WIP) package [osn](https://github.com/espinielli/osn)
+* Fixed export of NM trajectories (related to Last Off-block time as used in PRISME DB)
+* Implemented `filter_outlier` as inspired by
+  [Xavier Olive's Python `traffic` library](https://github.com/xoolive/traffic)
+* Improved documentation
+
 # trrrj 0.0.1
 
 ## Initial Release
