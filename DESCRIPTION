@@ -52,12 +52,12 @@ Imports:
     zoo
 Suggests: 
     bookdown,
-    knitr,
     here,
+    knitr,
     lintr,
     rmarkdown,
-    ROracle,
     rnaturalearthdata,
+    ROracle,
     testthat
 VignetteBuilder: 
     knitr
