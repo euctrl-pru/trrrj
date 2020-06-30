@@ -55,9 +55,9 @@ Suggests:
     here,
     knitr,
     lintr,
+    rgeos,
     rmarkdown,
     rnaturalearthdata,
-    ROracle,
     testthat
 VignetteBuilder: 
     knitr

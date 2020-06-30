@@ -105,9 +105,9 @@ export_model_trajectory <- function(
   # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
   withr::local_envvar(c("TZ" = "UTC",
                         "ORA_SDTZ" = "UTC"))
-
+  withr::local_namespace("ROracle")
   con <- withr::local_db_connection(
-    ROracle::dbConnect(
+    DBI::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -244,9 +244,9 @@ export_event_trajectory <- function(wef, til) {
   # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
   withr::local_envvar(c("TZ" = "UTC",
                         "ORA_SDTZ" = "UTC"))
-
+  withr::local_namespace("ROracle")
   con <- withr::local_db_connection(
-    ROracle::dbConnect(
+    DBI::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -351,9 +351,9 @@ export_apds <- function(wef, til) {
   # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
   withr::local_envvar(c("TZ" = "UTC",
                         "ORA_SDTZ" = "UTC"))
-
+  withr::local_namespace("ROracle")
   con <- withr::local_db_connection(
-    ROracle::dbConnect(
+    DBI::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -437,9 +437,9 @@ export_hourly_adsb <- function(wef, til, model = 'CTFM', bbox = NULL) {
   # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
   withr::local_envvar(c("TZ" = "UTC",
                         "ORA_SDTZ" = "UTC"))
-
+  withr::local_namespace("ROracle")
   con <- withr::local_db_connection(
-    ROracle::dbConnect(
+    DBI::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -562,9 +562,9 @@ export_movements <- function(
   # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
   withr::local_envvar(c("TZ" = "UTC",
                         "ORA_SDTZ" = "UTC"))
-
+  withr::local_namespace("ROracle")
   con <- withr::local_db_connection(
-    ROracle::dbConnect(
+    DBI::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
@@ -694,9 +694,9 @@ export_flight_info <- function(
   # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
   withr::local_envvar(c("TZ" = "UTC",
                         "ORA_SDTZ" = "UTC"))
-
+  withr::local_namespace("ROracle")
   con <- withr::local_db_connection(
-    ROracle::dbConnect(
+    DBI::dbConnect(
       DBI::dbDriver("Oracle"),
       usr, pwd,
       dbname = dbn,
