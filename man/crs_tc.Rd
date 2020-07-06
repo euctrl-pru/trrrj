@@ -19,6 +19,7 @@ Other spatial:
 \code{\link{bbox_at_distance}()},
 \code{\link{bounding_box}()},
 \code{\link{filter_positions_at_range}()},
-\code{\link{polygon_at_distance}()}
+\code{\link{polygon_at_distance}()},
+\code{\link{polygon_from_coords}()}
 }
 \concept{spatial}

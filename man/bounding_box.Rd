@@ -34,7 +34,8 @@ Other spatial:
 \code{\link{bbox_at_distance}()},
 \code{\link{crs_tc}()},
 \code{\link{filter_positions_at_range}()},
-\code{\link{polygon_at_distance}()}
+\code{\link{polygon_at_distance}()},
+\code{\link{polygon_from_coords}()}
 }
 \concept{spatial}
 \keyword{bounding_box,}

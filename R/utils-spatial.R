@@ -205,3 +205,27 @@ crs_tc <- function() {
   # ]"
   "+proj=aea +lat_1=40.0 +lat_2=50.0 +lat_0=45.0 +lon_0=0.0 +datum=WGS84 +ellps=WGS84 +units=kmi +x_0=0.0 +y_0=0.0 +no_defs"
 }
+
+
+#' Return a polygon from (WGS84) coordinates
+#'
+#' @param coords coordinates defining a polygon
+#' @inheritParams sf::st_segmentize
+#'
+#' @return an sf polygon
+#' @export
+#' @family spatial
+#'
+#' @examples
+#' \dontrun{
+#' coords <- list(rbind(c(0, 0), c(1, 0), c(1, 1), c(0.5, 1.5), c(0, 1), c(0, 0)))
+#' polygon_from_coords(coords)
+#' }
+polygon_from_coords <- function(coords, dfMaxLength = units::set_units(1, km)) {
+  coords %>%
+    sf::st_polygon() %>%
+    sf::st_sfc() %>%
+    sf::st_sf(a=1, geom = ., crs = 4326) %>%
+    sf::st_segmentize(dfMaxLength) %>%
+    sf::st_geometry()
+}
