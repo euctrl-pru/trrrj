@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate the coordinates of the axis-aligned bounding box — bounding_box • trrrj</title>
+<title>Return a polygon from (WGS84) coordinates — polygon_from_coords • trrrj</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Calculate the coordinates of the axis-aligned bounding box — bounding_box" />
-<meta property="og:description" content="
-Calculate a bounding box for a center point given a set of coordinates." />
+<meta property="og:title" content="Return a polygon from (WGS84) coordinates — polygon_from_coords" />
+<meta property="og:description" content="Return a polygon from (WGS84) coordinates" />
 
 
 
@@ -124,53 +123,46 @@ Calculate a bounding box for a center point given a set of coordinates." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate the coordinates of the axis-aligned bounding box</h1>
+    <h1>Return a polygon from (WGS84) coordinates</h1>
     <small class="dont-index">Source: <a href='https://github.com/euctrl-pru/trrrj/blob/master/R/utils-spatial.R'><code>R/utils-spatial.R</code></a></small>
-    <div class="hidden name"><code>bounding_box.Rd</code></div>
+    <div class="hidden name"><code>polygon_from_coords.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
-<p>Calculate a bounding box for a center point given a set of coordinates.</p>
+    <p>Return a polygon from (WGS84) coordinates</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bounding_box</span>(<span class='kw'>lat</span>, <span class='kw'>lon</span>, <span class='kw'>d</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/trrrj/man/polygon_from_coords.html'>polygon_from_coords</a></span>(<span class='kw'>coords</span>, dfMaxLength = <span class='kw'>units</span>::<span class='fu'><a href='https://rdrr.io/pkg/units/man/set_units.html'>set_units</a></span>(<span class='fl'>1</span>, <span class='kw'>km</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>lat</th>
-      <td><p>latitude of the center point  [decimal degrees].</p></td>
+      <th>coords</th>
+      <td><p>coordinates defining a polygon</p></td>
     </tr>
     <tr>
-      <th>lon</th>
-      <td><p>longitude of the center point [decimal degrees].</p></td>
-    </tr>
-    <tr>
-      <th>d</th>
-      <td><p>distance from the center point in Nautical Miles.</p></td>
+      <th>dfMaxLength</th>
+      <td><p>maximum length of a line segment. If <code>x</code> has geographical coordinates (long/lat), <code>dfMaxLength</code> is either a numeric expressed in meter, or an object of class <code>units</code> with length units <code>rad</code> or <code>degree</code>; segmentation in the long/lat case takes place along the great circle, using st_geod_segmentize.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a matrix with max/min latitude/longitude values.</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p><a href='http://janmatuschek.de/LatitudeLongitudeBoundingCoordinates'>http://janmatuschek.de/LatitudeLongitudeBoundingCoordinates</a></p>
+    <p>an sf polygon</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other spatial: 
-<code>bbox_at_distance()</code>,
-<code>crs_tc()</code>,
-<code>filter_positions_at_range()</code>,
-<code>polygon_at_distance()</code>,
-<code>polygon_from_coords()</code></p></div>
+<code><a href='https://rdrr.io/pkg/trrrj/man/bbox_at_distance.html'>bbox_at_distance</a>()</code>,
+<code><a href='https://rdrr.io/pkg/trrrj/man/bounding_box.html'>bounding_box</a>()</code>,
+<code><a href='https://rdrr.io/pkg/trrrj/man/crs_tc.html'>crs_tc</a>()</code>,
+<code><a href='https://rdrr.io/pkg/trrrj/man/filter_positions_at_range.html'>filter_positions_at_range</a>()</code>,
+<code><a href='https://rdrr.io/pkg/trrrj/man/polygon_at_distance.html'>polygon_at_distance</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>bounding_box</span>(<span class='fl'>38.8977</span>, <span class='fl'>77.0366</span>, <span class='fl'>1</span>)
+<span class='kw'>coords</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>, <span class='fl'>1.5</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>)))
+<span class='fu'><a href='https://rdrr.io/pkg/trrrj/man/polygon_from_coords.html'>polygon_from_coords</a></span>(<span class='kw'>coords</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
