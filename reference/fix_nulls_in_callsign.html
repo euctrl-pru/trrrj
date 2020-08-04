@@ -132,7 +132,7 @@
     <p>Fix flights' CSV file where <code>callsign</code>s contains ASCII NUL characters.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/trrrj/man/fix_nulls_in_callsign.html'>fix_nulls_in_callsign</a></span>(<span class='kw'>flights_csv</span>, fixed_dir = <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>())</pre>
+    <pre class="usage"><span class='fu'>fix_nulls_in_callsign</span>(<span class='no'>flights_csv</span>, <span class='kw'>fixed_dir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>())</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -159,33 +159,33 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other read/export: 
-<code><a href='https://rdrr.io/pkg/trrrj/man/export_allft_so6.html'>export_allft_so6</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/export_apds.html'>export_apds</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/export_event_so6.html'>export_event_so6</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/export_event_trajectory.html'>export_event_trajectory</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/export_flight_info.html'>export_flight_info</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/export_flights_at_airport_fr24.html'>export_flights_at_airport_fr24</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/export_flights_fr24.html'>export_flights_fr24</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/export_hourly_adsb.html'>export_hourly_adsb</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/export_model_trajectory.html'>export_model_trajectory</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/export_movements.html'>export_movements</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/export_positions_at_airport_fr24.html'>export_positions_at_airport_fr24</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/export_positions_fr24.html'>export_positions_fr24</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/fix_flights_csvs.html'>fix_flights_csvs</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/generate_so6.html'>generate_so6</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/import_flights_csvs.html'>import_flights_csvs</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/parse_airspace_prisme.html'>parse_airspace_prisme</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/read_cpr.html'>read_cpr</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/read_flights_fr24.html'>read_flights_fr24</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/read_positions_fr24.html'>read_positions_fr24</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/read_so6.html'>read_so6</a>()</code></p></div>
+<code><a href='export_allft_so6.html'>export_allft_so6</a>()</code>,
+<code><a href='export_apds.html'>export_apds</a>()</code>,
+<code><a href='export_event_so6.html'>export_event_so6</a>()</code>,
+<code><a href='export_event_trajectory.html'>export_event_trajectory</a>()</code>,
+<code><a href='export_flight_info.html'>export_flight_info</a>()</code>,
+<code><a href='export_flights_at_airport_fr24.html'>export_flights_at_airport_fr24</a>()</code>,
+<code><a href='export_flights_fr24.html'>export_flights_fr24</a>()</code>,
+<code><a href='export_hourly_adsb.html'>export_hourly_adsb</a>()</code>,
+<code><a href='export_model_trajectory.html'>export_model_trajectory</a>()</code>,
+<code><a href='export_movements.html'>export_movements</a>()</code>,
+<code><a href='export_positions_at_airport_fr24.html'>export_positions_at_airport_fr24</a>()</code>,
+<code><a href='export_positions_fr24.html'>export_positions_fr24</a>()</code>,
+<code><a href='fix_flights_csvs.html'>fix_flights_csvs</a>()</code>,
+<code><a href='generate_so6.html'>generate_so6</a>()</code>,
+<code><a href='import_flights_csvs.html'>import_flights_csvs</a>()</code>,
+<code><a href='parse_airspace_prisme.html'>parse_airspace_prisme</a>()</code>,
+<code><a href='read_cpr.html'>read_cpr</a>()</code>,
+<code><a href='read_flights_fr24.html'>read_flights_fr24</a>()</code>,
+<code><a href='read_positions_fr24.html'>read_positions_fr24</a>()</code>,
+<code><a href='read_so6.html'>read_so6</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># fix 6th Feb 2017 flights file</span>
-<span class='kw'>flights_dir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, package = <span class='st'>"trrrj"</span>)
-<span class='kw'>flights_file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='kw'>flights_dir</span>, <span class='st'>"/20170206_flights.csv"</span>)
-<span class='kw'>flights_csv</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/trrrj/man/fix_nulls_in_callsign.html'>fix_nulls_in_callsign</a></span>(<span class='kw'>flights_file</span>)
+<span class='no'>flights_dir</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"trrrj"</span>)
+<span class='no'>flights_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='no'>flights_dir</span>, <span class='st'>"/20170206_flights.csv"</span>)
+<span class='no'>flights_csv</span> <span class='kw'>&lt;-</span> <span class='fu'>fix_nulls_in_callsign</span>(<span class='no'>flights_file</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -202,7 +202,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

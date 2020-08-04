@@ -133,11 +133,11 @@
     </div>
 
     <pre class="usage"><span class='fu'>export_movements</span>(
-  <span class='kw'>apt</span>,
-  <span class='kw'>wef</span>,
-  <span class='kw'>til</span>,
-  type = <span class='st'>"both"</span>,
-  lobt_buffer = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(before = <span class='fl'>28</span>, after = <span class='fl'>24</span>)
+  <span class='no'>apt</span>,
+  <span class='no'>wef</span>,
+  <span class='no'>til</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"both"</span>,
+  <span class='kw'>lobt_buffer</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>before</span> <span class='kw'>=</span> <span class='fl'>28</span>, <span class='kw'>after</span> <span class='kw'>=</span> <span class='fl'>24</span>)
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -176,29 +176,29 @@ LOBT is stored in the underlying database table.</p></td>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other read/export: 
-<code>export_allft_so6()</code>,
-<code>export_apds()</code>,
-<code>export_event_so6()</code>,
-<code>export_event_trajectory()</code>,
-<code>export_flight_info()</code>,
-<code>export_flights_at_airport_fr24()</code>,
-<code>export_flights_fr24()</code>,
-<code>export_hourly_adsb()</code>,
-<code>export_model_trajectory()</code>,
-<code>export_positions_at_airport_fr24()</code>,
-<code>export_positions_fr24()</code>,
-<code>fix_flights_csvs()</code>,
-<code>fix_nulls_in_callsign()</code>,
-<code>generate_so6()</code>,
-<code>import_flights_csvs()</code>,
-<code>parse_airspace_prisme()</code>,
-<code>read_cpr()</code>,
-<code>read_flights_fr24()</code>,
-<code>read_positions_fr24()</code>,
-<code>read_so6()</code></p></div>
+<code><a href='export_allft_so6.html'>export_allft_so6</a>()</code>,
+<code><a href='export_apds.html'>export_apds</a>()</code>,
+<code><a href='export_event_so6.html'>export_event_so6</a>()</code>,
+<code><a href='export_event_trajectory.html'>export_event_trajectory</a>()</code>,
+<code><a href='export_flight_info.html'>export_flight_info</a>()</code>,
+<code><a href='export_flights_at_airport_fr24.html'>export_flights_at_airport_fr24</a>()</code>,
+<code><a href='export_flights_fr24.html'>export_flights_fr24</a>()</code>,
+<code><a href='export_hourly_adsb.html'>export_hourly_adsb</a>()</code>,
+<code><a href='export_model_trajectory.html'>export_model_trajectory</a>()</code>,
+<code><a href='export_positions_at_airport_fr24.html'>export_positions_at_airport_fr24</a>()</code>,
+<code><a href='export_positions_fr24.html'>export_positions_fr24</a>()</code>,
+<code><a href='fix_flights_csvs.html'>fix_flights_csvs</a>()</code>,
+<code><a href='fix_nulls_in_callsign.html'>fix_nulls_in_callsign</a>()</code>,
+<code><a href='generate_so6.html'>generate_so6</a>()</code>,
+<code><a href='import_flights_csvs.html'>import_flights_csvs</a>()</code>,
+<code><a href='parse_airspace_prisme.html'>parse_airspace_prisme</a>()</code>,
+<code><a href='read_cpr.html'>read_cpr</a>()</code>,
+<code><a href='read_flights_fr24.html'>read_flights_fr24</a>()</code>,
+<code><a href='read_positions_fr24.html'>read_positions_fr24</a>()</code>,
+<code><a href='read_so6.html'>read_so6</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='fu'>export_movements</span>(<span class='st'>"EDDF"</span>, <span class='st'>"2020-01-20"</span>, <span class='st'>"2020-01-21"</span>)
 }</div></pre>
   </div>
@@ -216,7 +216,7 @@ LOBT is stored in the underlying database table.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

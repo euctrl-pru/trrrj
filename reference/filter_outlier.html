@@ -140,7 +140,7 @@ A <code>col</code> value is considered an outlier if <code>.&lt;col&gt;_eps2</co
 <code>.&lt;col&gt;_sigma</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>filter_outlier</span>(<span class='kw'>df</span>, <span class='kw'>col</span>, <span class='kw'>ksize</span>, <span class='kw'>fill</span>, keep = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>filter_outlier</span>(<span class='no'>df</span>, <span class='no'>col</span>, <span class='no'>ksize</span>, <span class='no'>fill</span>, <span class='kw'>keep</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -180,27 +180,27 @@ in Xavier Olive's Python library
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other analysis: 
-<code><a href='https://rdrr.io/pkg/trrrj/man/cumulative_distance.html'>cumulative_distance</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/cumulative_time.html'>cumulative_time</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/extract_segment.html'>extract_segment</a>()</code>,
-<code><a href='https://rdrr.io/pkg/trrrj/man/smooth_positions.html'>smooth_positions</a>()</code></p></div>
+<code><a href='cumulative_distance.html'>cumulative_distance</a>()</code>,
+<code><a href='cumulative_time.html'>cumulative_time</a>()</code>,
+<code><a href='extract_segment.html'>extract_segment</a>()</code>,
+<code><a href='smooth_positions.html'>smooth_positions</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='http://readr.tidyverse.org'>readr</a></span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>anytime</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/euctrl-pru/trrrj'>trrrj</a></span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='http://ggplot2.tidyverse.org'>ggplot2</a></span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>readr</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>anytime</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>trrrj</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>)
 
-<span class='kw'>ifile</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"belevingsvlucht.csv"</span>, package = <span class='st'>"trrrj"</span>)
-<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='kw'>readr</span>::<span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span>(<span class='kw'>ifile</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(timestamp = <span class='kw'>anytime</span>::<span class='fu'>anytime</span>(<span class='kw'>time</span>, tz = <span class='st'>"UTC"</span>))
-<span class='kw'>df1</span> <span class='op'>&lt;-</span> <span class='kw'>df</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/trrrj/man/filter_outlier.html'>filter_outlier</a></span>(col = <span class='kw'>baroaltitude</span>, ksize = <span class='fl'>17</span>, fill = <span class='fl'>TRUE</span>, keep = <span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>() <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(data = <span class='kw'>df</span>,  mapping = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>timestamp</span>, y = <span class='kw'>baroaltitude</span>), colour = <span class='st'>"blue"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(data = <span class='kw'>df1</span>, mapping = <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>timestamp</span>, y = <span class='kw'>baroaltitude</span>), colour = <span class='st'>"red"</span>)
+<span class='no'>ifile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"belevingsvlucht.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"trrrj"</span>)
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>readr</span><span class='kw ns'>::</span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span>(<span class='no'>ifile</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>timestamp</span> <span class='kw'>=</span> <span class='kw pkg'>anytime</span><span class='kw ns'>::</span><span class='fu'>anytime</span>(<span class='no'>time</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>))
+<span class='no'>df1</span> <span class='kw'>&lt;-</span> <span class='no'>df</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>filter_outlier</span>(<span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>baroaltitude</span>, <span class='kw'>ksize</span> <span class='kw'>=</span> <span class='fl'>17</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>keep</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>() +
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>,  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>timestamp</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>baroaltitude</span>), <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"blue"</span>) +
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df1</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>timestamp</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>baroaltitude</span>), <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -217,7 +217,7 @@ in Xavier Olive's Python library
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

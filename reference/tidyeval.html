@@ -157,12 +157,12 @@ section of Advanced R." />
     
 <ul>
 <li><p><code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>enquo</a>()</code> delays the execution of one or
-several function arguments. <code><a href='https://dplyr.tidyverse.org/reference/tidyeval-compat.html'>enquo()</a></code> returns a single quoted
+several function arguments. <code>enquo()</code> returns a single quoted
 expression, which is like a blueprint for the delayed computation.</p></li>
 <li><p><code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>expr</a>()</code> quotes a new expression <em>locally</em>. It
 is mostly useful to build new expressions around arguments
-captured with <code><a href='https://dplyr.tidyverse.org/reference/tidyeval-compat.html'>enquo()</a></code> or <code><a href='https://dplyr.tidyverse.org/reference/tidyeval-compat.html'>enquos()</a></code>:
-<code><a href='https://dplyr.tidyverse.org/reference/tidyeval-compat.html'>expr(mean(!!enquo(arg), na.rm = TRUE))</a></code>.</p></li>
+captured with <code>enquo()</code> or <code>enquos()</code>:
+<code>expr(mean(!!enquo(arg), na.rm = TRUE))</code>.</p></li>
 <li><p><code><a href='https://rlang.r-lib.org/reference/as_name.html'>as_name</a>()</code> transforms a quoted variable name
 into a string. Supplying something else than a quoted variable
 name is an error.</p>
@@ -171,9 +171,9 @@ including quoted function calls and vectors, into a string.
 Its purpose is to summarise that object into a single label.
 That label is often suitable as a default name.</p>
 <p>If you don't know what a quoted expression contains (for instance
-expressions captured with <code><a href='https://dplyr.tidyverse.org/reference/tidyeval-compat.html'>enquo()</a></code> could be a variable
+expressions captured with <code>enquo()</code> could be a variable
 name, a call to a function, or an unquoted constant), then use
-<code><a href='https://dplyr.tidyverse.org/reference/tidyeval-compat.html'>as_label()</a></code>.</p></li>
+<code>as_label()</code>.</p></li>
 </ul>
 
 <p>To learn more about tidy eval and how to use these tools, visit
@@ -200,7 +200,7 @@ section</a> of <a href='https://adv-r.hadley.nz'>Advanced R</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
