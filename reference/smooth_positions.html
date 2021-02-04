@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -106,7 +106,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/euctrl-pru/trrrj/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -132,7 +132,7 @@
     <p>Smooth longitude, latitude and altitude.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>smooth_positions</span>(<span class='no'>df</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"t"</span>)</pre>
+    <pre class="usage"><span class='fu'>smooth_positions</span><span class='op'>(</span><span class='va'>df</span>, n <span class='op'>=</span> <span class='fl'>5</span>, type <span class='op'>=</span> <span class='st'>"t"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -163,7 +163,8 @@
 <code><a href='filter_outlier.html'>filter_outlier</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>smooth_positions</span>(<span class='no'>egll_positions</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 18,574 x 10</span><span>
+    <pre class="examples"><div class='input'><span class='fu'>smooth_positions</span><span class='op'>(</span><span class='va'>egll_positions</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 18,574 x 10</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   flight_id [45]</span><span>
 #&gt;    flight_id timestamp           latitude longitude altitude speed_gnd track_gnd
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>                 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -195,7 +196,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

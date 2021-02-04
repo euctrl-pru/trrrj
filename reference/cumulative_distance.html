@@ -81,7 +81,7 @@ the algorithm used is the one of distCosine." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -107,7 +107,7 @@ the algorithm used is the one of distCosine." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/euctrl-pru/trrrj/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -134,7 +134,7 @@ the algorithm used is the one of distCosine." />
 the algorithm used is the one of <code><a href='https://rdrr.io/pkg/geosphere/man/distCosine.html'>distCosine</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cumulative_distance</span>(<span class='no'>positions</span>)</pre>
+    <pre class="usage"><span class='fu'>cumulative_distance</span><span class='op'>(</span><span class='va'>positions</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,15 +157,16 @@ the algorithm used is the one of <code><a href='https://rdrr.io/pkg/geosphere/ma
 <code><a href='smooth_positions.html'>smooth_positions</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>cumulative_distance</span>(<span class='no'>poss</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>cumulative_distance</span><span class='op'>(</span><span class='va'>poss</span><span class='op'>)</span>
 <span class='co'># calculate only the flown distance</span>
 <span class='co'># NOTE: there is a gap in FR24 data between last ground position (if any)</span>
 <span class='co'>#       and first in air one (typically at ~1500 ft).</span>
 <span class='co'>#       The following code would certainly work better</span>
 <span class='co'>#       would poss contain a position report for a very low altitude.</span>
-<span class='fu'>cumulative_distance</span>(<span class='no'>poss</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>altitude</span> <span class='kw'>&gt;</span> <span class='fl'>0</span>))
-}</div></pre>
+<span class='fu'>cumulative_distance</span><span class='op'>(</span><span class='va'>poss</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>altitude</span> <span class='op'>&gt;</span> <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -181,7 +182,7 @@ the algorithm used is the one of <code><a href='https://rdrr.io/pkg/geosphere/ma
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

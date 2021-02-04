@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Return an axis-aligned bounding box delimiting a circle at distance <code>d</code> — bbox_at_distance • trrrj</title>
+<title>Return an axis-aligned bounding box delimiting a circle at distance d — bbox_at_distance • trrrj</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Return an axis-aligned bounding box delimiting a circle at distance <code>d</code> — bbox_at_distance" />
+<meta property="og:title" content="Return an axis-aligned bounding box delimiting a circle at distance d — bbox_at_distance" />
 <meta property="og:description" content="
 bbox_at_distance returns an st_bbox object representing
 the extent of an axis-aligned bounding box containing the (polygonal approximation of a)
@@ -85,7 +85,7 @@ WARNING: current implementation relies on polygon_at_distance which is
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -111,7 +111,7 @@ WARNING: current implementation relies on polygon_at_distance which is
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/euctrl-pru/trrrj/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -135,14 +135,14 @@ WARNING: current implementation relies on polygon_at_distance which is
 
     <div class="ref-description">
     <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
-<p><code>bbox_at_distance</code> returns an <code><a href='https://rdrr.io/pkg/sf/man/st_bbox.html'>st_bbox</a></code> object representing
+<p><code>bbox_at_distance</code> returns an <code><a href='https://r-spatial.github.io/sf/reference/st_bbox.html'>st_bbox</a></code> object representing
 the extent of an axis-aligned bounding box containing the (polygonal approximation of a)
 a circle at dithance <code>d</code>.</p>
 <p>WARNING: current implementation relies on <code>polygon_at_distance</code> which is
  not robust to cope with circles containing the Poles or crossing the date line.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bbox_at_distance</span>(<span class='no'>geo</span>, <span class='no'>d</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>bbox_at_distance</span><span class='op'>(</span><span class='va'>geo</span>, <span class='va'>d</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -163,7 +163,7 @@ a circle at dithance <code>d</code>.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>an <code><a href='https://rdrr.io/pkg/sf/man/st_bbox.html'>st_bbox</a></code> object</p>
+    <p>an <code><a href='https://r-spatial.github.io/sf/reference/st_bbox.html'>st_bbox</a></code> object</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other spatial: 
@@ -174,10 +174,11 @@ a circle at dithance <code>d</code>.</p>
 <code><a href='polygon_from_coords.html'>polygon_from_coords</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>fra</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>8.570556</span>, <span class='fl'>50.03333</span>) <span class='co'># Frankfurt Airport (longitude, latitude)</span>
-<span class='fu'>bbox_at_distance</span>(<span class='no'>fra</span>, <span class='fl'>40</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>fra</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>8.570556</span>, <span class='fl'>50.03333</span><span class='op'>)</span> <span class='co'># Frankfurt Airport (longitude, latitude)</span>
+<span class='fu'>bbox_at_distance</span><span class='op'>(</span><span class='va'>fra</span>, <span class='fl'>40</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -193,7 +194,7 @@ a circle at dithance <code>d</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
