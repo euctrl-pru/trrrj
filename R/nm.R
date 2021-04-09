@@ -370,6 +370,7 @@ export_apds <- function(wef, til) {
         MVT_TIME_UTC >= TO_DATE(?WEF, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
     AND MVT_TIME_UTC <  TO_DATE(?TIL, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
     AND SRC_DATE_FROM = TRUNC(MVT_TIME_UTC, 'MONTH')
+  "
 
   query <- DBI::sqlInterpolate(con, query, WEF = wef, TIL = til, WMS = wms)
   flt <- DBI::dbSendQuery(con, query)
