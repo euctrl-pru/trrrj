@@ -14,7 +14,7 @@
 #'            Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
 #'            "2019-07-14T10:21:23Z"
 #' @param til (UTC) timestamp of LOBT TILl instant (excluded)
-#' @param model the model of the profile: one of "FTFM", "CTFM", "CPF".
+#' @param model the model of the profile: one of "FTFM", "CTFM", "RTFM", "CPF".
 #'              [default: "CFTM"]
 #' @param bbox (Optional) axis aligned bounding box
 #'             (xmin, ymin, xmax, ymax)
@@ -66,7 +66,7 @@ export_model_trajectory <- function(
   lobt_before <- 0
   lobt_after  <- 0
 
-  stopifnot(model %in% c("CTFM", "FTFM", "RTFM"))
+  stopifnot(model %in% c("CTFM", "FTFM", "RTFM", "CPF"))
 
   if (!is.null(bbox)) {
     stopifnot(names(bbox) %in% c("xmin", "xmax", "ymin", "ymax"))
