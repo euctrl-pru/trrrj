@@ -221,7 +221,7 @@ crs_tc <- function() {
 #' coords <- list(rbind(c(0, 0), c(1, 0), c(1, 1), c(0.5, 1.5), c(0, 1), c(0, 0)))
 #' polygon_from_coords(coords)
 #' }
-polygon_from_coords <- function(coords, dfMaxLength = units::set_units(1, km)) {
+polygon_from_coords <- function(coords, dfMaxLength = units::set_units(1, "km")) {
   coords %>%
     sf::st_polygon() %>%
     sf::st_sfc() %>%

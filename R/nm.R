@@ -328,7 +328,9 @@ export_event_trajectory <- function(wef, til) {
 #' @export
 #' @family read/export
 #'
-#' @examples
+#' @importFrom rlang .data
+#'
+#' #' @examples
 #' \dontrun{
 #' export_apds("2019-04-10", "2019-04-11")
 #' }
@@ -377,27 +379,27 @@ export_apds <- function(wef, til) {
   DBI::fetch(flt, n = -1) %>%
     # tibble::as_tibble() %>%
     dplyr::select(
-      APDS_ID,
-      AP_C_FLTID,
-      AP_C_FLTRUL,
-      AP_C_REG,
-      ends_with("ICAO"),
-      SRC_PHASE,
-      MVT_TIME_UTC,
-      BLOCK_TIME_UTC,
-      SCHED_TIME_UTC,
-      ARCTYP,
-      AP_C_RWY,
-      AP_C_STND,
-      starts_with("C40_"),
-      starts_with("C100_")
+      .data$APDS_ID,
+      .data$AP_C_FLTID,
+      .data$AP_C_FLTRUL,
+      .data$AP_C_REG,
+      .data$ends_with("ICAO"),
+      .data$SRC_PHASE,
+      .data$MVT_TIME_UTC,
+      .data$BLOCK_TIME_UTC,
+      .data$SCHED_TIME_UTC,
+      .data$ARCTYP,
+      .data$AP_C_RWY,
+      .data$AP_C_STND,
+      dplyr::starts_with("C40_"),
+      dplyr::starts_with("C100_")
     ) %>%
     dplyr::select(
-      -ends_with("_MIN"),
-      -ends_with("_IN_FRONT"),
-      -ends_with("_CTFM"),
-      -ends_with("_CPF"),
-      -contains("TRANSIT")
+      -dplyr::ends_with("_MIN"),
+      -dplyr::ends_with("_IN_FRONT"),
+      -dplyr::ends_with("_CTFM"),
+      -dplyr::ends_with("_CPF"),
+      -dplyr::contains("TRANSIT")
     ) %>%
     tibble::as_tibble() %>%
     janitor::clean_names()

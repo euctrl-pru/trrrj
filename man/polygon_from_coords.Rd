@@ -4,7 +4,7 @@
 \alias{polygon_from_coords}
 \title{Return a polygon from (WGS84) coordinates}
 \usage{
-polygon_from_coords(coords, dfMaxLength = units::set_units(1, km))
+polygon_from_coords(coords, dfMaxLength = units::set_units(1, "km"))
 }
 \arguments{
 \item{coords}{coordinates defining a polygon}
