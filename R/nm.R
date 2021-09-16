@@ -372,10 +372,33 @@ export_apds <- function(wef, til) {
     AND SRC_DATE_FROM = TRUNC(MVT_TIME_UTC, 'MONTH')
   "
 
-  query <- DBI::sqlInterpolate(con, query, WEF = wef, TIL = til, WMS = wms)
+  query <- DBI::sqlInterpolate(con, query, WEF = wef, TIL = til)
   flt <- DBI::dbSendQuery(con, query)
-
   DBI::fetch(flt, n = -1) %>%
+    # tibble::as_tibble() %>%
+    dplyr::select(
+      APDS_ID,
+      AP_C_FLTID,
+      AP_C_FLTRUL,
+      AP_C_REG,
+      ends_with("ICAO"),
+      SRC_PHASE,
+      MVT_TIME_UTC,
+      BLOCK_TIME_UTC,
+      SCHED_TIME_UTC,
+      ARCTYP,
+      AP_C_RWY,
+      AP_C_STND,
+      starts_with("C40_"),
+      starts_with("C100_")
+    ) %>%
+    dplyr::select(
+      -ends_with("_MIN"),
+      -ends_with("_IN_FRONT"),
+      -ends_with("_CTFM"),
+      -ends_with("_CPF"),
+      -contains("TRANSIT")
+    ) %>%
     tibble::as_tibble() %>%
     janitor::clean_names()
 }
