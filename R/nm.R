@@ -330,7 +330,7 @@ export_event_trajectory <- function(wef, til) {
 #'
 #' @importFrom rlang .data
 #'
-#' #' @examples
+#' @examples
 #' \dontrun{
 #' export_apds("2019-04-10", "2019-04-11")
 #' }

@@ -27,6 +27,11 @@ the following environment variables:
   \item \code{PRU_ATMAP_DBNAME} for the database name
 }
 }
+\examples{
+\dontrun{
+export_apds("2019-04-10", "2019-04-11")
+}
+}
 \seealso{
 Other read/export: 
 \code{\link{export_allft_so6}()},
