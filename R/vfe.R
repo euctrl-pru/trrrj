@@ -9,6 +9,7 @@
 #'           considered level (default = 5 feet/s)
 #'
 #' @return a dataset of level segments. A level segment is defined by
+#'         its beginning and end 4D position.
 #' @family analysis
 #' @export
 #'
@@ -27,15 +28,28 @@ extract_segment <- function(prs, vert_limit = 5) {
     detect_segment(vert_limit = vert_limit) %>%
     dplyr::filter(.data$seg_begin == TRUE | .data$seg_end == TRUE) %>%
     dplyr::mutate(
-      beg_ts = .data$timestamp,
-      end_ts = dplyr::lead(.data$timestamp),
-      beg_bool = .data$seg_begin,
-      end_bool = dplyr::lead(.data$seg_end),
-      beg_alt = .data$altitude,
-      end_alt = dplyr::lead(.data$altitude)
+      beg_ts        = .data$timestamp,
+      beg_longitude = .data$longitude,
+      beg_latitude  = .data$latitude,
+      beg_altitude  = .data$altitude,
+      beg_bool      = .data$seg_begin,
+      end_ts        = dplyr::lead(.data$timestamp),
+      end_longitude = dplyr::lead(.data$longitude),
+      end_latitude  = dplyr::lead(.data$latitude),
+      end_altitude  = dplyr::lead(.data$altitude),
+      end_bool      = dplyr::lead(.data$seg_end)
     ) %>%
     dplyr::filter(.data$beg_bool == TRUE, .data$end_bool == TRUE) %>%
-    dplyr::select(.data$beg_ts, .data$end_ts, .data$beg_alt, .data$end_alt)
+    dplyr::select(
+      .data$beg_ts,
+      .data$beg_longitude,
+      .data$beg_latitude,
+      .data$beg_altitude,
+      .data$end_ts,
+      .data$end_longitude,
+      .data$end_latitude,
+      .data$end_altitude,
+    )
 }
 
 detect_segment <- function(prs, vert_limit = 5) {
