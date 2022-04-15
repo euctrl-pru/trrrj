@@ -1,7 +1,7 @@
 #' Extract level segment from a list of position reports.
 #'
 #' It is assumed that the dataset is grouped by flight id
-#' and that position reports are sorted by timestamp.
+#' and that position reports are sorted by ascending timestamp.
 #'
 #' @param prs dataset containing position reports.
 #'           Two variables are used: \code{timestamp} and \code{altitude} (feet)
