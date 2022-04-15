@@ -179,24 +179,19 @@ plot_flight_horizontal(svg20170906pos)
 
 ## (File) Archived Trajectories
 
-The `trrrj` package provides import facilities for FR24 archive files:
+FR24 archive files can be accessed with standard R tools like `readr` to
+retrieve the flight list for some of the companion sample files in this package:
 
 ```{r import-flights, message=FALSE}
 library(trrrj)
 library(dplyr)
+library(purrr)
+library(readr)
 
 ######## flights
 flights_dir <- system.file("extdata", package = "trrrj")
 flights_csvs <- dir(flights_dir, pattern = "201702.._flights\\.csv", full.names = TRUE)
-flights <- import_flights_csvs(flights_csvs)
-(pbs <- attr(flights, "problems"))
-
-# the problematic rows have truncated values after the embedded NUL,
-# so filter them out ...
-bad_rows <- pbs %>% pull(flight_id)
-flights <- flights %>%
-  filter(!(flight_id %in% bad_rows)) %>%
-  select(-reserved)
+flights <-  purrr::map_df(flights_csvs, read_csv)
 ```
 
 Here are the first 10 entries (some variables omitted):
@@ -209,7 +204,7 @@ knitr::kable(head(flights %>%
                            schd_from,
                            schd_to,
                            real_to),
-                  10))
+                  4))
 ```
 
 
