@@ -23,7 +23,6 @@ Depends:
 Imports: 
     askpass,
     assertthat,
-    data.table,
     DBI,
     dplyr,
     geosphere,
@@ -42,7 +41,6 @@ Imports:
     sf,
     stringr,
     tidyr,
-    tools,
     units,
     withr,
     zoo

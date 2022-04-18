@@ -73,5 +73,7 @@ parse_airspace_prisme <- function(lines) {
       }
     }
   }
-  sf::st_as_sf(data.table::rbindlist(airspace))
+  # faster but it adds an extra dependency on data.table
+  # sf::st_as_sf(data.table::rbindlist(airspace))
+  sf::st_as_sf(do.call("rbind", airspace))
 }
