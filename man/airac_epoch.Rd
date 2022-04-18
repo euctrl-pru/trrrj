@@ -7,7 +7,7 @@
 airac_epoch()
 }
 \value{
-the AIRAC epoch acording to ICAO scheme
+the AIRAC epoch according to ICAO scheme
 }
 \description{
 AIRAC epoch is defined in  section 2.6.2 b) of

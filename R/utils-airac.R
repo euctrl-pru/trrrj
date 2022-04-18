@@ -56,7 +56,7 @@ cfmu_airac_interval <- function(cfmu_airac) {
 #'
 #' AIRAC epoch is defined in  section 2.6.2 b) of
 #  \href{https://www.icao.int/NACC/Documents/Meetings/2014/ECARAIM/REF09-Doc8126.pdf}{ICAO Doc 8126}.
-#' @return the AIRAC epoch acording to ICAO scheme
+#' @return the AIRAC epoch according to ICAO scheme
 #'
 airac_epoch <- function() {
   lubridate::ymd("1998-01-29", tz = "UTC")
