@@ -56,7 +56,7 @@ parse_airspace_prisme <- function(lines) {
         n <- n - 1
         if (n == 0) {
           pol <- pts %>%
-            stringi::stri_split(fixed = ";", simplify = TRUE) %>%
+            stringr::str_split(pattern = ";", simplify = TRUE) %>%
             apply(2, as.double) %>%
             {list(.)} %>%
             as.data.frame() %>%
