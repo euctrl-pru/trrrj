@@ -21,6 +21,7 @@ airac('2019-01-30')
 }
 \seealso{
 Other airac: 
+\code{\link{airac_epoch}()},
 \code{\link{airac_interval}()},
 \code{\link{airac_year_epoch}()},
 \code{\link{cfmu_airac_interval}()},

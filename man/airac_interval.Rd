@@ -21,6 +21,7 @@ airac_interval("1603")
 }
 \seealso{
 Other airac: 
+\code{\link{airac_epoch}()},
 \code{\link{airac_year_epoch}()},
 \code{\link{airac}()},
 \code{\link{cfmu_airac_interval}()},

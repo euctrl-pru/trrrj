@@ -12,3 +12,15 @@ the AIRAC epoch according to ICAO scheme
 \description{
 AIRAC epoch is defined in  section 2.6.2 b) of
 }
+\examples{
+
+}
+\seealso{
+Other airac: 
+\code{\link{airac_interval}()},
+\code{\link{airac_year_epoch}()},
+\code{\link{airac}()},
+\code{\link{cfmu_airac_interval}()},
+\code{\link{cfmu_airac}()}
+}
+\concept{airac}

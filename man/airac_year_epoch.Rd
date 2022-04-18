@@ -20,6 +20,7 @@ airac_year_epoch(2018)
 }
 \seealso{
 Other airac: 
+\code{\link{airac_epoch}()},
 \code{\link{airac_interval}()},
 \code{\link{airac}()},
 \code{\link{cfmu_airac_interval}()},
