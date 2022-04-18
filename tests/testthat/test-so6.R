@@ -1,11 +1,10 @@
 library(trrrj)
-library(tibble)
 library(dplyr)
 
 context("SO6")
 
 test_that("Generate so6", {
-  three_point_trajectory <- tibble::tribble(
+  three_point_trajectory <- dplyr::tribble(
     ~gid,       ~lon,  ~lat,   ~flight_level,  ~time_over, ~point_id,    ~air_route, ~aircraft_type,  ~adep, ~ades, ~callsign,
     228541457,  7.14,  50.9,     0, "2019-03-30 00:58:00",    "EDDK", "EDDKKUMIK1Q",         "B738", "EDDK", "ZZZZ",    "ABC",
     228541457,  7.21,  50.8,    25, "2019-03-30 00:59:20",   "*DK34", "EDDKKUMIK1Q",         "B738", "EDDK", "ZZZZ",    "ABC",
@@ -16,7 +15,7 @@ test_that("Generate so6", {
            latitude = lat,
            flight_id = gid)
 
-  two_point_trajectory <- tibble::tribble(
+  two_point_trajectory <- dplyr::tribble(
     ~gid,       ~lon,  ~lat,   ~flight_level,  ~time_over, ~point_id,    ~air_route, ~aircraft_type,  ~adep, ~ades, ~callsign,
     228541457,  7.14,  50.9,     0, "2019-03-30 00:58:00",    "EDDK", "EDDKKUMIK1Q",         "B738", "EDDK", "ZZZZ",    "ABC",
     228541457,  7.21,  50.8,    25, "2019-03-30 00:59:20",   "*DK34", "EDDKKUMIK1Q",         "B738", "EDDK", "ZZZZ",    "ABC"
@@ -26,7 +25,7 @@ test_that("Generate so6", {
            latitude = lat,
            flight_id = gid)
 
-  one_point_trajectory <- tibble::tribble(
+  one_point_trajectory <- dplyr::tribble(
     ~gid,       ~lon,  ~lat,   ~flight_level,  ~time_over, ~point_id,    ~air_route, ~aircraft_type,  ~adep, ~ades, ~callsign,
     228541457,  7.24,  50.8,    30, "2019-03-30 00:59:44",   "*DK35", "EDDKKUMIK1Q",         "B738", "EDDK", "ZZZZ",    "ABC"
   ) %>%
@@ -37,7 +36,7 @@ test_that("Generate so6", {
 
 
   # nolint start
-  three_point_so6 <- tibble::tribble(
+  three_point_so6 <- dplyr::tribble(
     ~segment_id              ,
     ~adep                    ,
     ~ades                    ,
@@ -63,7 +62,7 @@ test_that("Generate so6", {
     "*DK34_*DK35", "EDDK", "ZZZZ", "B738", "005920", "005944",  25,  30,   0, "ABC", "190330", "190330", 3048, 432.6, 3048, 434.4, 228541457L,   2L, 1.14199340296962,    0
   )
 
-  two_point_so6 <- tibble::tribble(
+  two_point_so6 <- dplyr::tribble(
     ~segment_id              ,
     ~adep                    ,
     ~ades                    ,
@@ -87,7 +86,7 @@ test_that("Generate so6", {
     "EDDK_*DK34", "EDDK", "ZZZZ", "B738", "005800", "005920",   0,  25,   0,  "ABC", "190330", "190330", 3054, 428.4, 3048, 432.6, 228541457L,   1L, 6.57012416741686,    0
   )
 
-  one_point_so6 <- tibble::tribble(
+  one_point_so6 <- dplyr::tribble(
     ~segment_id              ,
     ~adep                    ,
     ~ades                    ,

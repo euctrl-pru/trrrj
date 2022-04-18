@@ -13,6 +13,7 @@ the AIRAC epoch according to ICAO scheme
 AIRAC epoch is defined in  section 2.6.2 b) of
 }
 \examples{
+airac_epoch()
 
 }
 \seealso{

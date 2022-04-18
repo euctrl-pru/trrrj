@@ -188,7 +188,6 @@ export_model_trajectory <- function(
     con, query,
     WEF = wef, TIL = til,
     MODEL = model)
-  logger::log_debug('Query = {query}')
 
   fltq <- DBI::dbSendQuery(con, query)
   pnts <- DBI::fetch(fltq, n = -1) %>%
@@ -196,7 +195,7 @@ export_model_trajectory <- function(
       TIME_OVER = lubridate::as_datetime(.data$TIME_OVER, tz = "UTC"),
       POINT_ID  = dplyr::if_else(is.na(.data$POINT_ID),  "NO_POINT", .data$POINT_ID),
       AIR_ROUTE = dplyr::if_else(is.na(.data$AIR_ROUTE), "NO_ROUTE", .data$AIR_ROUTE)) %>%
-    tibble::as_tibble() %>%
+    dplyr::as_tibble() %>%
     janitor::clean_names()
 
     pnts
@@ -301,7 +300,7 @@ export_event_trajectory <- function(wef, til) {
       TIME_OVER = lubridate::as_datetime(.data$TIME_OVER, tz = "UTC"),
       POINT_ID  = dplyr::if_else(is.na(.data$POINT_ID),  "NO_POINT", .data$POINT_ID),
       AIR_ROUTE = dplyr::if_else(is.na(.data$AIR_ROUTE), "NO_ROUTE", .data$AIR_ROUTE)) %>%
-    tibble::as_tibble() %>%
+    dplyr::as_tibble() %>%
     janitor::clean_names()
 
   pnts
@@ -377,7 +376,6 @@ export_apds <- function(wef, til) {
   query <- DBI::sqlInterpolate(con, query, WEF = wef, TIL = til)
   flt <- DBI::dbSendQuery(con, query)
   DBI::fetch(flt, n = -1) %>%
-    # tibble::as_tibble() %>%
     dplyr::select(
       .data$APDS_ID,
       .data$AP_C_FLTID,
@@ -401,7 +399,7 @@ export_apds <- function(wef, til) {
       -dplyr::ends_with("_CPF"),
       -dplyr::contains("TRANSIT")
     ) %>%
-    tibble::as_tibble() %>%
+    dplyr::as_tibble() %>%
     janitor::clean_names()
 }
 
@@ -513,7 +511,7 @@ export_hourly_adsb <- function(wef, til, model = 'CTFM', bbox = NULL) {
   # message(query)
   fltq <- DBI::dbSendQuery(con, query)
   flts <- DBI::fetch(fltq, n = -1) %>%
-    tibble::as_tibble() %>%
+    dplyr::as_tibble() %>%
     dplyr::mutate(ICAO24 = tolower(.data$ICAO24)) %>%
     janitor::clean_names()
 
@@ -652,7 +650,6 @@ export_movements <- function(
   query <- DBI::sqlInterpolate(
     con, query,
     WEF = wef, TIL = til, APT = apt)
-  logger::log_debug('SQL query = {query}')
 
   movq <- DBI::dbSendQuery(con, query)
   movs <- DBI::fetch(movq, n = -1) %>%
@@ -661,7 +658,7 @@ export_movements <- function(
       CRCO_AIRCRAFT_ADDRESS = tolower(.data$CRCO_AIRCRAFT_ADDRESS),
       LAST_FPL_ARCADDR = tolower(.data$LAST_FPL_ARCADDR)
     ) %>%
-    tibble::as_tibble() %>%
+    dplyr::as_tibble() %>%
     janitor::clean_names()
 
   movs
@@ -782,7 +779,6 @@ export_flight_info <- function(
   query <- DBI::sqlInterpolate(
     con, query,
     WEF = wef, TIL = til)
-  logger::log_debug('SQL query = {query}')
 
   movq <- DBI::dbSendQuery(con, query)
   movs <- DBI::fetch(movq, n = -1) %>%
@@ -791,7 +787,7 @@ export_flight_info <- function(
       CRCO_AIRCRAFT_ADDRESS = tolower(.data$CRCO_AIRCRAFT_ADDRESS),
       LAST_FPL_ARCADDR = tolower(.data$LAST_FPL_ARCADDR)
     ) %>%
-    tibble::as_tibble() %>%
+    dplyr::as_tibble() %>%
     janitor::clean_names()
 
   movs

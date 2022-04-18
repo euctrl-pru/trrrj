@@ -61,6 +61,7 @@ cfmu_airac_interval <- function(cfmu_airac) {
 #' @export
 #'
 #' @examples
+#' airac_epoch()
 #'
 airac_epoch <- function() {
   lubridate::ymd("1998-01-29", tz = "UTC")

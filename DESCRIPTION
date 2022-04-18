@@ -1,7 +1,7 @@
 Type: Package
 Package: trrrj
 Title: Flight trajectories analysis
-Version: 0.1.0
+Version: 0.2.9000
 Authors@R: 
     c(person(given = "Enrico",
              family = "Spinielli",
@@ -28,10 +28,8 @@ Imports:
     dplyr,
     geosphere,
     ggplot2,
-    glue,
     janitor,
     lifecycle,
-    logger,
     lubridate,
     magrittr,
     nvctr,
@@ -42,9 +40,7 @@ Imports:
     rlang,
     rnaturalearth,
     sf,
-    stringi,
     stringr,
-    tibble,
     tidyr,
     tools,
     units,

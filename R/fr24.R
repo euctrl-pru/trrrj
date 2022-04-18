@@ -88,7 +88,7 @@ export_positions_fr24 <- function(wef, til) {
   posq <- DBI::dbSendQuery(con, query_pos)
   # ~2.5 min for one day
   DBI::fetch(posq, n = -1) %>%
-    tibble::as_tibble()
+    dplyr::as_tibble()
 }
 
 
@@ -168,7 +168,7 @@ export_flights_fr24 <- function(wef, til) {
 
   fltq <- DBI::dbSendQuery(con, query_flt)
   flts <- DBI::fetch(fltq, n = -1)
-  flts <- tibble::as_tibble(flts)
+  flts <- dplyr::as_tibble(flts)
 
   return(flts)
 }
@@ -267,7 +267,7 @@ export_flights_at_airport_fr24 <- function(wef, til, apt, flow = "ALL") {
 
   fltq <- DBI::dbSendQuery(con, query_flt)
   flts <- DBI::fetch(fltq, n = -1)
-  flts <- tibble::as_tibble(flts)
+  flts <- dplyr::as_tibble(flts)
 
   return(flts)
 }
@@ -371,7 +371,7 @@ export_positions_at_airport_fr24 <- function(wef, til,
   }
 
 
-  sqlq_pnt <- glue::glue("
+  sqlq_pnt <- stringr::str_glue("
   WITH
   flights AS (
   SELECT
@@ -430,7 +430,7 @@ export_positions_at_airport_fr24 <- function(wef, til,
 
   fltq <- DBI::dbSendQuery(con, query_pnt)
   pnts <- DBI::fetch(fltq, n = -1)
-  pnts <- tibble::as_tibble(pnts)
+  pnts <- dplyr::as_tibble(pnts)
 
   return(pnts)
 }

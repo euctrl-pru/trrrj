@@ -70,7 +70,7 @@ library(sf)
 # 51° 18' 18.00" N 	-0.447222
 # 000° 26' 50.00" W
 
-egll_apt <- tibble::tribble(
+egll_apt <- dplyr::tribble(
      ~latitude,  ~longitude, ~elevation,  ~icao,          ~id, ~type,        ~name,
   "N51°28.65'", "W0°27.68'",       83.0, "EGLL",       "EGLL", "ARP",   "EGLL ARP",
   "N51°28.65'", "W0°29.10'",         79, "EGLL", "RWY09L/27R", "RWY", "Runway 09L",
@@ -117,7 +117,7 @@ egll_arp <- egll_apt %>%
 # 51° 18' 18.00" N 	-0.447222
 # 000° 26' 50.00" W
 
-egll_vor <- tibble::tribble(
+egll_vor <- dplyr::tribble(
   ~latitude,    ~longitude,  ~icao,  ~id, ~type, ~name,
   "51° 43' 34.00\" N", "000° 32' 59.00\" W", "EGLL", "BNN", "VOR", "Bovingdom",
   "51° 19' 51.15\" N", "000° 02' 05.32\" E", "EGLL", "BIG", "VOR", "Biggin",
@@ -145,7 +145,7 @@ egll_vor <- tibble::tribble(
 # BNN: n = 11
 # LAM: n = 18
 # BIG: n = 25, 29 (better)
-egll_stack_box <- tibble::tribble(
+egll_stack_box <- dplyr::tribble(
   ~longitude, ~latitude,   ~id,
   # OCK
   -0.471039, 51.332792, "OCK",

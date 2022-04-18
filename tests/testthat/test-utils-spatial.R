@@ -2,23 +2,23 @@ context("Spatial utils")
 
 test_that("filter range", {
   g <- c(0, 0)
-  pts <- tibble::tribble(
+  pts <- dplyr::tribble(
     ~id, ~lon, ~latitude,
     1, 1*1/60, 0.0,
     2, 3*1/60, 0.0,
     3, 5*1/60, 0.0
   )
-  included <- tibble::tribble(
+  included <- dplyr::tribble(
     ~id, ~lon, ~latitude,
     2, 3*1/60, 0.0
   )
-  excluded <- tibble::tribble(
+  excluded <- dplyr::tribble(
     ~id, ~lon, ~latitude,
     1, 1*1/60, 0.0,
     3, 5*1/60, 0.0
   )
 
-  empty <- tibble::tibble(
+  empty <- dplyr::tibble(
     id = double(0L), lon = double(0L), latitude = double(0L)
   )
 
