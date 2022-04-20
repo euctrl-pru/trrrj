@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://trrrj.ansperformance.eu/404.html</loc>
+  </url>
+  <url>
+    <loc>https://trrrj.ansperformance.eu/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://trrrj.ansperformance.eu/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://trrrj.ansperformance.eu/articles/trrrj-plotting.html</loc>
+  </url>
+  <url>
+    <loc>https://trrrj.ansperformance.eu/authors.html</loc>
+  </url>
+  <url>
     <loc>https://trrrj.ansperformance.eu/index.html</loc>
+  </url>
+  <url>
+    <loc>https://trrrj.ansperformance.eu/news/index.html</loc>
   </url>
   <url>
     <loc>https://trrrj.ansperformance.eu/reference/airac.html</loc>
@@ -121,19 +139,13 @@
     <loc>https://trrrj.ansperformance.eu/reference/filter_positions_at_range.html</loc>
   </url>
   <url>
-    <loc>https://trrrj.ansperformance.eu/reference/fix_flights_csvs.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/fix_nulls_in_callsign.html</loc>
-  </url>
-  <url>
     <loc>https://trrrj.ansperformance.eu/reference/flts.html</loc>
   </url>
   <url>
     <loc>https://trrrj.ansperformance.eu/reference/generate_so6.html</loc>
   </url>
   <url>
-    <loc>https://trrrj.ansperformance.eu/reference/import_flights_csvs.html</loc>
+    <loc>https://trrrj.ansperformance.eu/reference/index.html</loc>
   </url>
   <url>
     <loc>https://trrrj.ansperformance.eu/reference/parse_airspace_prisme.html</loc>
@@ -191,8 +203,5 @@
   </url>
   <url>
     <loc>https://trrrj.ansperformance.eu/reference/trrrj_example.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/articles/trrrj-plotting.html</loc>
   </url>
 </urlset>
