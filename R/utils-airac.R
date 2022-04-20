@@ -1,6 +1,8 @@
 #' The CFMU epoch date for AIRAC numbering scheme
 #'
 #' @return the epoch date for CFMU AIRAC numbering scheme
+#' @internal
+#' @family airac
 #'
 cfmu_airac_epoch <- function() {
   lubridate::ymd("1984-09-27", tz = "UTC")
@@ -9,6 +11,8 @@ cfmu_airac_epoch <- function() {
 #' The CFMU epoch number for AIRAC numbering scheme
 #'
 #' @return the epoch number for CFMU AIRAC numbering scheme
+#' @internal
+#' @family airac
 #'
 cfmu_airac_epoch_number <- function() {
   0
