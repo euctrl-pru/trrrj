@@ -1,7 +1,7 @@
 #' The CFMU epoch date for AIRAC numbering scheme
 #'
 #' @return the epoch date for CFMU AIRAC numbering scheme
-#' @keyword internal
+#' @keywords internal
 #' @family airac
 #'
 cfmu_airac_epoch <- function() {
@@ -11,7 +11,7 @@ cfmu_airac_epoch <- function() {
 #' The CFMU epoch number for AIRAC numbering scheme
 #'
 #' @return the epoch number for CFMU AIRAC numbering scheme
-#' @keyword internal
+#' @keywords internal
 #' @family airac
 #'
 cfmu_airac_epoch_number <- function() {
