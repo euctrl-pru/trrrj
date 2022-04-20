@@ -13,10 +13,10 @@ jobs:
     timeout-minutes: 15
     runs-on: macOS-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@master
       - uses: r-lib/actions/setup-r@master
-      - uses: r-lib/actions/setup-tinytex@v2
-      - uses: r-lib/actions/setup-pandoc@v2
+      - uses: r-lib/actions/setup-tinytex@master
+      - uses: r-lib/actions/setup-pandoc@master
       - name: Install dependencies
         run: |
           install.packages(c("remotes", "rcmdcheck"))
