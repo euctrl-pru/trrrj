@@ -2,7 +2,7 @@
 % Please edit documentation in R/example.R
 \name{trrrj_example}
 \alias{trrrj_example}
-\title{Get path to trrrj example}
+\title{Get path to trrrj examples}
 \usage{
 trrrj_example(path = NULL)
 }

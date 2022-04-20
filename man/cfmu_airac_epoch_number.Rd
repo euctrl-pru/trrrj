@@ -12,3 +12,14 @@ the epoch number for CFMU AIRAC numbering scheme
 \description{
 The CFMU epoch number for AIRAC numbering scheme
 }
+\seealso{
+Other airac: 
+\code{\link{airac_epoch}()},
+\code{\link{airac_interval}()},
+\code{\link{airac_year_epoch}()},
+\code{\link{airac}()},
+\code{\link{cfmu_airac_epoch}()},
+\code{\link{cfmu_airac_interval}()},
+\code{\link{cfmu_airac}()}
+}
+\concept{airac}

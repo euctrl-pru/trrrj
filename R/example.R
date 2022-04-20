@@ -1,4 +1,4 @@
-#' Get path to trrrj example
+#' Get path to trrrj examples
 #'
 #' trrrj comes bundled with a number of sample files in its `inst/extdata`
 #' directory. This function make them easy to access
