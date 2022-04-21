@@ -40,6 +40,20 @@ reference:
   contents:
   - has_concept("coordinates")
 
+- title: Data
+  contents:
+  - aircrafttype
+  - cprs
+  - egll_apt
+  - egll_flights
+  - egll_flights_fr24
+  - egll_positions
+  - egll_positions_fr24
+  - egll_rw_sf
+  - flts
+  - poss
+  - trrrj_example
+
 
 # as_is is needed to produce vignette output as specified in the YAML
 # (which is usually overridden by pkgdown by using `rmarkdown::html_document()` directly)
