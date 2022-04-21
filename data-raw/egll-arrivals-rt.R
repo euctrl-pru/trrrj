@@ -58,7 +58,7 @@ egll_flights_rt <- egll_flights_rt %>%
 
 
 write_csv(egll_flights_rt, "data-raw/egll-flights-rt.csv")
-save(egll_flights_rt, file = "data/egll-flights-rt.rda")
+save(egll_flights_rt, file = "data/egll_flights_rt.rda")
 
 write_csv(egll_positions_rt, "data-raw/egll-positions-rt.csv")
-save(egll_positions_rt, file = "data/egll-positions-rt.rda")
+save(egll_positions_rt, file = "data/egll_positions_rt.rda")

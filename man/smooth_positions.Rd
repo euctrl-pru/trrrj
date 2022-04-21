@@ -20,7 +20,8 @@ return a smoothed trajectory
 Smooth longitude, latitude and altitude.
 }
 \examples{
-smooth_positions(egll_positions)
+data(list = c("egll_positions_fr24"), package = "trrrj")
+smooth_positions(egll_positions_fr24)
 
 }
 \seealso{

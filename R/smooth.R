@@ -9,7 +9,8 @@
 #' @family analysis
 #'
 #' @examples
-#' smooth_positions(egll_positions)
+#' data(list = c("egll_positions_fr24"), package = "trrrj")
+#' smooth_positions(egll_positions_fr24)
 #'
 smooth_positions <- function(df, n = 5, type = "t") {
   df %>%
