@@ -23,3 +23,4 @@ Other airac:
 \code{\link{cfmu_airac}()}
 }
 \concept{airac}
+\keyword{internal}
