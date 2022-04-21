@@ -43,6 +43,7 @@ We now plot the ADS-B positions just for one flight,
 flight `RYR19QK` from Comiso to Malpensa:
 
 ```{r flight-matching, echo=FALSE}
+# explicitly load sample package data
 data(list = c("flts", "cprs", "poss"), package = "trrrj")
 f_adsb <-flts %>% 
   filter(flight_id == 207752905)
