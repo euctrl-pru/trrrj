@@ -67,7 +67,7 @@ encoded).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_flights_fr24</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_flights_fr24</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -76,12 +76,15 @@ encoded).</p>
 <dd><p>the filename of the <code>&lt;yyyymmdd&gt;_flights&lt;eventually&gt;.csv</code> file.
 The <code>&lt;yyyymmdd&gt;</code> part of the <code>path</code>'s <code>basename</code>
 is extracted into the <code>date</code> field.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a data frame of the archived flights that have flown on <code>&lt;yyyymmdd&gt;</code>.
-  Each flight has the following attributes (all optional, i.e. eventually empty,
-  but  <code>flight_id</code>):</p><ul><li><p><code>date</code>         date of the flight</p></li>
+    
+
+<p>a data frame of the archived flights that have flown on <code>&lt;yyyymmdd&gt;</code>.
+Each flight has the following attributes (all optional, i.e. eventually empty,
+but  <code>flight_id</code>):</p><ul><li><p><code>date</code>         date of the flight</p></li>
 <li><p><code>flight_id</code>    unique decimal identifier for the flight leg</p></li>
 <li><p><code>aircraft_id</code>  mode-S address in hexadecimal</p></li>
 <li><p><code>reg unique</code>   aircraft text identifier</p></li>
@@ -121,14 +124,14 @@ the bounding box as contractually agreed.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># flights, as recorded by FR24, on 20170205 (5th Feb 2017)</span></span>
-<span class="r-in"><span class="va">flt_fr24_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,</span>
-<span class="r-in">                         <span class="st">"20170205_flights.csv"</span>,</span>
-<span class="r-in">                         package <span class="op">=</span> <span class="st">"trrrj"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">read_flights_fr24</span><span class="op">(</span><span class="va">flt_fr24_file</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># flights, as recorded by FR24, on 20170205 (5th Feb 2017)</span></span></span>
+<span class="r-in"><span><span class="va">flt_fr24_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,</span></span>
+<span class="r-in"><span>                         <span class="st">"20170205_flights.csv"</span>,</span></span>
+<span class="r-in"><span>                         package <span class="op">=</span> <span class="st">"trrrj"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">read_flights_fr24</span><span class="op">(</span><span class="va">flt_fr24_file</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -143,7 +146,7 @@ the bounding box as contractually agreed.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

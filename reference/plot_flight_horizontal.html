@@ -63,36 +63,47 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">plot_flight_horizontal</span><span class="op">(</span>
-  <span class="va">poss</span>,
-  bbox <span class="op">=</span> <span class="cn">NULL</span>,
-  buffer <span class="op">=</span> <span class="fl">100</span>,
-  legend.position <span class="op">=</span> <span class="st">"none"</span>,
-  shape <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_flight_horizontal</span><span class="op">(</span></span>
+<span>  <span class="va">poss</span>,</span>
+<span>  bbox <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  buffer <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  legend.position <span class="op">=</span> <span class="st">"none"</span>,</span>
+<span>  shape <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>poss</dt>
 <dd><p>a dataframe of position reports with (at least)
-`callsign`,
-`timestamp` (a date-time), `altitude` (in feet), `longitude`
-(in decimal degrees) and `latitude` (in decimal degrees) columns</p></dd>
+<code>callsign</code>,
+<code>timestamp</code> (a date-time), <code>altitude</code> (in feet), <code>longitude</code>
+(in decimal degrees) and <code>latitude</code> (in decimal degrees) columns</p></dd>
+
+
 <dt>bbox</dt>
 <dd><p>a bounding box in the format
 <code>c(lowerleftlon, lowerleftlat, upperrightlon, upperrightlat)</code>.</p></dd>
+
+
 <dt>buffer</dt>
 <dd><p>number of nautical miles (NM) around the bounding box (default 40)</p></dd>
+
+
 <dt>legend.position</dt>
 <dd><p>legend position as per ggplot2 (default "none", i.e. do not show it).</p></dd>
+
+
 <dt>shape</dt>
 <dd><p>shape of point to plot (default <code>NULL</code>, i.e. do not plot positions, only paths).
 See <code>shape</code> in <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a <code>ggplot2</code> plot object.</p>
+    
+
+<p>a <code>ggplot2</code> plot object.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -104,33 +115,33 @@ See <code>shape</code> in <code><a href="https://ggplot2.tidyverse.org/reference
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># define the bounding box of interest</span></span>
-<span class="r-in"><span class="va">europe</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>left <span class="op">=</span> <span class="fl">5</span>, bottom <span class="op">=</span> <span class="fl">35</span>, right <span class="op">=</span> <span class="fl">30</span>, top <span class="op">=</span> <span class="fl">52</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">plot_flight_horizontal</span><span class="op">(</span><span class="va">poss</span>, <span class="va">europe</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">plot_flight_horizontal</span><span class="op">(</span><span class="va">poss</span>, buffer <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="co"># 10km around the values</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># from DB to plot</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="export_flights_at_airport_fr24.html">export_flights_at_airport_fr24</a></span><span class="op">(</span><span class="st">"2017-09-01T00:00:00Z"</span>,</span>
-<span class="r-in">                                    <span class="st">"2017-09-02T00:00:00Z"</span>,</span>
-<span class="r-in">                                    <span class="st">"SVG"</span>,</span>
-<span class="r-in">                                    <span class="fl">5.638</span>, <span class="fl">58.877</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="co"># NOTE: convert till DB columns are properly changed</span></span>
-<span class="r-in">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>longitude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">LON</span><span class="op">)</span>, latitude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">LAT</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">FLIGHT_ID</span>, <span class="va">EVENT_TIME</span>, <span class="va">longitude</span>, <span class="va">latitude</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="export_flights_at_airport_fr24.html">export_flights_at_airport_fr24</a></span><span class="op">(</span><span class="st">"2017-09-01T00:00:00Z"</span>,</span>
-<span class="r-in">                                    <span class="st">"2017-09-02T00:00:00Z"</span>,</span>
-<span class="r-in">                                    <span class="st">"SVG"</span>,</span>
-<span class="r-in">                                    flow <span class="op">=</span> <span class="st">"ARR"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>callsign <span class="op">=</span> <span class="va">CALLSIGN</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">FLIGHT_ID</span>, <span class="va">callsign</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">f</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">callsign</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">plot_flight_horizontal</span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># define the bounding box of interest</span></span></span>
+<span class="r-in"><span><span class="va">europe</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>left <span class="op">=</span> <span class="fl">5</span>, bottom <span class="op">=</span> <span class="fl">35</span>, right <span class="op">=</span> <span class="fl">30</span>, top <span class="op">=</span> <span class="fl">52</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_flight_horizontal</span><span class="op">(</span><span class="va">poss</span>, <span class="va">europe</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_flight_horizontal</span><span class="op">(</span><span class="va">poss</span>, buffer <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="co"># 10km around the values</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># from DB to plot</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="export_flights_at_airport_fr24.html">export_flights_at_airport_fr24</a></span><span class="op">(</span><span class="st">"2017-09-01T00:00:00Z"</span>,</span></span>
+<span class="r-in"><span>                                    <span class="st">"2017-09-02T00:00:00Z"</span>,</span></span>
+<span class="r-in"><span>                                    <span class="st">"SVG"</span>,</span></span>
+<span class="r-in"><span>                                    <span class="fl">5.638</span>, <span class="fl">58.877</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="co"># NOTE: convert till DB columns are properly changed</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>longitude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">LON</span><span class="op">)</span>, latitude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">LAT</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">FLIGHT_ID</span>, <span class="va">EVENT_TIME</span>, <span class="va">longitude</span>, <span class="va">latitude</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="export_flights_at_airport_fr24.html">export_flights_at_airport_fr24</a></span><span class="op">(</span><span class="st">"2017-09-01T00:00:00Z"</span>,</span></span>
+<span class="r-in"><span>                                    <span class="st">"2017-09-02T00:00:00Z"</span>,</span></span>
+<span class="r-in"><span>                                    <span class="st">"SVG"</span>,</span></span>
+<span class="r-in"><span>                                    flow <span class="op">=</span> <span class="st">"ARR"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>callsign <span class="op">=</span> <span class="va">CALLSIGN</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">FLIGHT_ID</span>, <span class="va">callsign</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">f</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">callsign</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_flight_horizontal</span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -145,7 +156,7 @@ See <code>shape</code> in <code><a href="https://ggplot2.tidyverse.org/reference
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

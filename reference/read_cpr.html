@@ -89,7 +89,7 @@ aircraft_addressICAO 24-bit addresschar
     <p>The payload of an archived CPR file contains the following fields:</p><table class="table table"><tr><td><strong>Name</strong></td><td><strong>Description</strong></td><td><strong>Type</strong></td></tr><tr><td>cpm_id</td><td>CPR Message ID</td><td>int</td></tr><tr><td>tact_id</td><td>ETFMS flight ID</td><td>int</td></tr><tr><td>timestamp_etfms</td><td>ETFMS reception timestamp</td><td>char (YY/MM/DD hh:mm:ss)</td></tr><tr><td>timestamp_track</td><td>track timestamp</td><td>char (YY/MM/DD hh:mm:ss)</td></tr><tr><td>block</td><td>Block number</td><td>int</td></tr><tr><td>record</td><td>Record number (index within a block)</td><td>int</td></tr><tr><td>entry_node_sac</td><td>Entry Node system area code</td><td>int</td></tr><tr><td>entry_node_sic</td><td>Entry Node system identifier code</td><td>int</td></tr><tr><td>callsign</td><td>Callsign of flight</td><td>char</td></tr><tr><td>adep_icao</td><td>ICAO code of Departure aerodrome</td><td>char</td></tr><tr><td>ades_icao</td><td>ICAO code of Destination aerodrome</td><td>char</td></tr><tr><td>eobt</td><td>Estimated Off-block Time</td><td>char (YY/MM/DD hh:mm:ss)</td></tr><tr><td>longitude</td><td>Longitude (WGS84)</td><td>decimal degrees</td></tr><tr><td>latitude</td><td>Latitude (WGS84)</td><td>decimal degrees</td></tr><tr><td>flight_level</td><td>Flight level</td><td>integer</td></tr><tr><td>track_service</td><td>Track service</td><td>char (Begin, Continuing, End or Begin_And_End)</td></tr><tr><td>ssr_code</td><td>SSR code</td><td>oct</td></tr><tr><td>track_speed</td><td>Track velocity (in Knots)</td><td>int</td></tr><tr><td>track_heading</td><td>Track heading</td><td>char</td></tr><tr><td>climb_rate</td><td>Climb or descend rate</td><td>int</td></tr><tr><td>track_vertical_mode</td><td>vertical attitude</td><td>char (Climb, Descend, Level_Flight or Undetermined)</td></tr><tr><td>ifps_id</td><td>IFPS flight plan id</td><td>char</td></tr><tr><td>aircraft_address</td><td>ICAO 24-bit address</td><td>char</td></tr></table></div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_cpr</span><span class="op">(</span><span class="va">file</span>, delim <span class="op">=</span> <span class="st">";"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_cpr</span><span class="op">(</span><span class="va">file</span>, delim <span class="op">=</span> <span class="st">";"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -99,12 +99,17 @@ aircraft_addressICAO 24-bit addresschar
 received and processed by the Network Manager.
 Filenames are something like
 <code>1.201702061001tacop304ARCHIVED_OPLOG_ALL_CPR.gz</code></p></dd>
+
+
 <dt>delim</dt>
-<dd><p>the character delimiting the fields [default = ";"]</p></dd>
+<dd><p>the character delimiting the fields default = ";"</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A dataframe of correlated position reports (CPR's)</p>
+    
+
+<p>A dataframe of correlated position reports (CPR's)</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -130,13 +135,13 @@ Filenames are something like
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># read CPR's of the 20 sample flights for 5th Feb 2017</span></span>
-<span class="r-in"><span class="va">cprs_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,</span>
-<span class="r-in">                        <span class="st">"1.201702051001tacop304ARCHIVED_OPLOG_ALL_CPR.gz"</span>,</span>
-<span class="r-in">                        package <span class="op">=</span> <span class="st">"trrrj"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">cprs05</span> <span class="op">&lt;-</span> <span class="fu">read_cpr</span><span class="op">(</span><span class="va">cprs_file</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># read CPR's of the 20 sample flights for 5th Feb 2017</span></span></span>
+<span class="r-in"><span><span class="va">cprs_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,</span></span>
+<span class="r-in"><span>                        <span class="st">"1.201702051001tacop304ARCHIVED_OPLOG_ALL_CPR.gz"</span>,</span></span>
+<span class="r-in"><span>                        package <span class="op">=</span> <span class="st">"trrrj"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cprs05</span> <span class="op">&lt;-</span> <span class="fu">read_cpr</span><span class="op">(</span><span class="va">cprs_file</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -151,7 +156,7 @@ Filenames are something like
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

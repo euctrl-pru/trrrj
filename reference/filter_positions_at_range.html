@@ -67,41 +67,60 @@ are kept (<code>.exclude = FALSE</code>) or excluded (<code>.exclude = TRUE</cod
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">filter_positions_at_range</span><span class="op">(</span>
-  <span class="va">df</span>,
-  <span class="va">geo</span>,
-  <span class="va">dm</span>,
-  <span class="va">dM</span>,
-  <span class="va">lon</span>,
-  <span class="va">lat</span>,
-  .exclude <span class="op">=</span> <span class="cn">FALSE</span>,
-  .keep <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">filter_positions_at_range</span><span class="op">(</span></span>
+<span>  <span class="va">df</span>,</span>
+<span>  <span class="va">geo</span>,</span>
+<span>  <span class="va">dm</span>,</span>
+<span>  <span class="va">dM</span>,</span>
+<span>  <span class="va">lon</span>,</span>
+<span>  <span class="va">lat</span>,</span>
+<span>  .exclude <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  .keep <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>df</dt>
 <dd><p>a (trajectory) data frame</p></dd>
+
+
 <dt>geo</dt>
 <dd><p>a geographical location in lon/lat (WGS84)</p></dd>
+
+
 <dt>dm</dt>
 <dd><p>a distance in Nautical Miles</p></dd>
+
+
 <dt>dM</dt>
 <dd><p>a distance in Nautical Miles</p></dd>
+
+
 <dt>lon</dt>
 <dd><p>the column for longitude in <code>df</code></p></dd>
+
+
 <dt>lat</dt>
 <dd><p>the column for latitude in <code>df</code></p></dd>
+
+
 <dt>.exclude</dt>
-<dd><p>exclude the point in the [<code>dm</code>, <code>dM</code>) [default is FALSE]</p></dd>
+<dd><p>exclude the point in the [<code>dm</code>, <code>dM</code>) default is FALSE</p></dd>
+
+
 <dt>.keep</dt>
 <dd><p>keep the calculated distance (in Nautical Miles)
-in the <code>.distance</code> column [default is FALSE]</p></dd>
+in the <code>.distance</code> column default is FALSE</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a subset of <code>df</code></p>
+    
+
+<p>a subset of <code>df</code></p>
+
+
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -115,18 +134,18 @@ in the <code>.distance</code> column [default is FALSE]</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="va">fra</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">8.570556</span>, <span class="fl">50.03333</span><span class="op">)</span> <span class="co"># Frankfurt Airport (longitude, latitude)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># keep the points 40 NM from FRA</span></span>
-<span class="r-in"><span class="va">poss</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">filter_positions_at_range</span><span class="op">(</span><span class="va">fra</span>, <span class="fl">0</span>, <span class="fl">40</span>, <span class="va">longitude</span>, <span class="va">latitude</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># keep the points from 10 to 40 NM from FRA</span></span>
-<span class="r-in"><span class="va">poss</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">filter_positions_at_range</span><span class="op">(</span><span class="va">fra</span>, <span class="fl">10</span>, <span class="fl">40</span>, <span class="va">longitude</span>, <span class="va">latitude</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># exclude the points from 10 to 40 NM from FRA</span></span>
-<span class="r-in"><span class="va">poss</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">filter_positions_at_range</span><span class="op">(</span><span class="va">fra</span>, <span class="fl">10</span>, <span class="fl">40</span>, <span class="va">longitude</span>, <span class="va">latitude</span>, .exclude <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># keep the points further away of 40 NM from FRA</span></span>
-<span class="r-in"><span class="va">poss</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">filter_positions_at_range</span><span class="op">(</span><span class="va">fra</span>, <span class="fl">0</span>, <span class="fl">40</span>, <span class="va">longitude</span>, <span class="va">latitude</span>, .exclude <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">fra</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">8.570556</span>, <span class="fl">50.03333</span><span class="op">)</span> <span class="co"># Frankfurt Airport (longitude, latitude)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># keep the points 40 NM from FRA</span></span></span>
+<span class="r-in"><span><span class="va">poss</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">filter_positions_at_range</span><span class="op">(</span><span class="va">fra</span>, <span class="fl">0</span>, <span class="fl">40</span>, <span class="va">longitude</span>, <span class="va">latitude</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># keep the points from 10 to 40 NM from FRA</span></span></span>
+<span class="r-in"><span><span class="va">poss</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">filter_positions_at_range</span><span class="op">(</span><span class="va">fra</span>, <span class="fl">10</span>, <span class="fl">40</span>, <span class="va">longitude</span>, <span class="va">latitude</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># exclude the points from 10 to 40 NM from FRA</span></span></span>
+<span class="r-in"><span><span class="va">poss</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">filter_positions_at_range</span><span class="op">(</span><span class="va">fra</span>, <span class="fl">10</span>, <span class="fl">40</span>, <span class="va">longitude</span>, <span class="va">latitude</span>, .exclude <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># keep the points further away of 40 NM from FRA</span></span></span>
+<span class="r-in"><span><span class="va">poss</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">filter_positions_at_range</span><span class="op">(</span><span class="va">fra</span>, <span class="fl">0</span>, <span class="fl">40</span>, <span class="va">longitude</span>, <span class="va">latitude</span>, .exclude <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -141,7 +160,7 @@ in the <code>.distance</code> column [default is FALSE]</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

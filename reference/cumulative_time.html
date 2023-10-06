@@ -63,25 +63,32 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">cumulative_time</span><span class="op">(</span><span class="va">positions</span>, offblock <span class="op">=</span> <span class="cn">NULL</span>, inblock <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">cumulative_time</span><span class="op">(</span><span class="va">positions</span>, offblock <span class="op">=</span> <span class="cn">NULL</span>, inblock <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>positions</dt>
 <dd><p>the position reports for the flight</p></dd>
+
+
 <dt>offblock</dt>
 <dd><p>optional, the timestamp for offblock if
 different from the first timestamp in the dataset.
-It is either an `int`eger (UNIX timestamp) or a
+It is either an <code>int</code>eger (UNIX timestamp) or a
 date-time value</p></dd>
+
+
 <dt>inblock</dt>
 <dd><p>optional, the timestamp for inblock if
 different from the last timestamp in the dataset</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a dataframe with a new <code>cumulative_time</code> column (in min)</p>
+    
+
+<p>a dataframe with a new <code>cumulative_time</code> column (in min)</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -94,15 +101,15 @@ different from the last timestamp in the dataset</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">cumulative_time</span><span class="op">(</span><span class="va">poss</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># calculate only the flown distance</span></span>
-<span class="r-in"><span class="co"># NOTE: there is a gap in FR24 data between last ground position (if any)</span></span>
-<span class="r-in"><span class="co">#       and first in air one (typically at ~1500 ft).</span></span>
-<span class="r-in"><span class="co">#       The following code would certainly work better</span></span>
-<span class="r-in"><span class="co">#       would poss contain a position report for a very low altitude.</span></span>
-<span class="r-in"><span class="fu">cumulative_time</span><span class="op">(</span><span class="va">poss</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">altitude</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">cumulative_time</span><span class="op">(</span><span class="va">poss</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># calculate only the flown distance</span></span></span>
+<span class="r-in"><span><span class="co"># NOTE: there is a gap in FR24 data between last ground position (if any)</span></span></span>
+<span class="r-in"><span><span class="co">#       and first in air one (typically at ~1500 ft).</span></span></span>
+<span class="r-in"><span><span class="co">#       The following code would certainly work better</span></span></span>
+<span class="r-in"><span><span class="co">#       would poss contain a position report for a very low altitude.</span></span></span>
+<span class="r-in"><span><span class="fu">cumulative_time</span><span class="op">(</span><span class="va">poss</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">altitude</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -117,7 +124,7 @@ different from the last timestamp in the dataset</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

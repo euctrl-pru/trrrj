@@ -67,35 +67,38 @@ parameter for how the date and flight ID are encoded).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_positions_fr24</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_positions_fr24</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>path</dt>
 <dd><p>the filename of the <code>&lt;yyyymmdd&gt;_&lt;flight_id&gt;_positions.csv</code> file</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a data frame of the archived flight's positions for date <code>&lt;yyyymmdd&gt;</code>.
-  Each position report has the following attributes (all mandatory, i.e. non empty,
-  but <code>speed</code>, <code>squawk</code> and <code>vert_speed</code>):</p><ul><li><p><code>flight_id</code>   FR24 unique (within a day?) flight leg identifier</p></li>
+    
+
+<p>a data frame of the archived flight's positions for date <code>&lt;yyyymmdd&gt;</code>.
+Each position report has the following attributes (all mandatory, i.e. non empty,
+but <code>speed</code>, <code>squawk</code> and <code>vert_speed</code>):</p><ul><li><p><code>flight_id</code>   FR24 unique (within a day?) flight leg identifier</p></li>
 <li><p><code>timestamp</code>   <code>snapshot_id</code> converted to a date/time</p></li>
 <li><p><code>snapshot_id</code> time of sample in Unix epoch seconds,
-          i.e. since 1st Jan 1970 00:00:00 UTC</p></li>
+i.e. since 1st Jan 1970 00:00:00 UTC</p></li>
 <li><p><code>altitude</code>    altitude (feet). Barometric relative to ISO 1013 hPa
-          pressure in flight, always 0 on ground.</p></li>
+pressure in flight, always 0 on ground.</p></li>
 <li><p><code>heading</code>     0-359 degrees</p></li>
 <li><p><code>latitude</code>    latitude in decimal degrees</p></li>
 <li><p><code>longitude</code>   longitude in decimal degrees</p></li>
 <li><p><code>radar_id</code>    unique identifier of primary ground receiver</p></li>
 <li><p><code>speed</code>       ground speed (knots)</p></li>
 <li><p><code>squawk</code>      code broadcast by airplane, represented as four
-          octal digits</p></li>
+octal digits</p></li>
 <li><p><code>vert_speed</code>  vertical speed (feet/min). Calculated from rate
-          of altitude changes, 0 for level flight or empty if unavailable</p></li>
+of altitude changes, 0 for level flight or empty if unavailable</p></li>
 <li><p><code>on_ground</code>   1 for on ground, 0 for airborne.
-          Calculated from low altitude and ground speed</p></li>
+Calculated from low altitude and ground speed</p></li>
 </ul></div>
     <div id="details">
     <h2>Details</h2>
@@ -126,14 +129,14 @@ the bounding box as contractually agreed.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># positions, as recorded by FR24, for flight 207535493 on 20170205 (5th Feb 2017)</span></span>
-<span class="r-in"><span class="va">pos_fr24_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,</span>
-<span class="r-in">                             <span class="st">"20170205_positions"</span>,</span>
-<span class="r-in">                             <span class="st">"20170205_207535493.csv"</span>,</span>
-<span class="r-in">                             package <span class="op">=</span> <span class="st">"trrrj"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">read_positions_fr24</span><span class="op">(</span><span class="va">pos_fr24_file</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># positions, as recorded by FR24, for flight 207535493 on 20170205 (5th Feb 2017)</span></span></span>
+<span class="r-in"><span><span class="va">pos_fr24_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,</span></span>
+<span class="r-in"><span>                             <span class="st">"20170205_positions"</span>,</span></span>
+<span class="r-in"><span>                             <span class="st">"20170205_207535493.csv"</span>,</span></span>
+<span class="r-in"><span>                             package <span class="op">=</span> <span class="st">"trrrj"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">read_positions_fr24</span><span class="op">(</span><span class="va">pos_fr24_file</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -148,7 +151,7 @@ the bounding box as contractually agreed.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

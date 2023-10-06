@@ -63,7 +63,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">export_event_trajectory</span><span class="op">(</span><span class="va">wef</span>, <span class="va">til</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">export_event_trajectory</span><span class="op">(</span><span class="va">wef</span>, <span class="va">til</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -72,12 +72,17 @@
 <dd><p>(UTC) timestamp of LOBT With Effect From (included).
 Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
 "2019-07-14T10:21:23Z"</p></dd>
+
+
 <dt>til</dt>
 <dd><p>(UTC) timestamp of LOBT TILl instant (excluded)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a dataframe of trajectory points.</p>
+    
+
+<p>a dataframe of trajectory points.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -110,10 +115,10 @@ the following environment variables:</p><ul><li><p><code>PRU_CPLX_USR</code> for
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">export_event_trajectory</span><span class="op">(</span><span class="st">"2010-06-16"</span>, <span class="st">"2010-06-17"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">export_event_trajectory</span><span class="op">(</span><span class="st">"2010-06-16 10:00"</span>, <span class="st">"2010-06-16T11:00:00Z"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">export_event_trajectory</span><span class="op">(</span><span class="st">"2010-06-16"</span>, <span class="st">"2010-06-17"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">export_event_trajectory</span><span class="op">(</span><span class="st">"2010-06-16 10:00"</span>, <span class="st">"2010-06-16T11:00:00Z"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -128,7 +133,7 @@ the following environment variables:</p><ul><li><p><code>PRU_CPLX_USR</code> for
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

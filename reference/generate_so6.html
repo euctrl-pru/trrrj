@@ -79,17 +79,23 @@ charadepDeparting aerodrome (ICAO) IDchar
 <table class="table table"><tr><td><strong>Name</strong></td><td><strong>Description</strong></td><td><strong>Type</strong></td><td><code>flight_id</code></td></tr><tr><td>Flight ID</td><td>int</td><td><code>time_over</code></td><td>Time over point</td></tr><tr><td>datetime</td><td><code>longitude</code></td><td>Longitude (decimal degrees)</td><td>double</td></tr><tr><td><code>latitude</code></td><td>Latitude (decimal degrees)</td><td>double</td><td><code>flight_level</code></td></tr><tr><td>Flight level</td><td>int</td><td><code>point_id</code></td><td>Point ID or NO_POINT</td></tr><tr><td>char</td><td><code>air_route</code></td><td>Air route or NO_ROUTE</td><td>char</td></tr><tr><td><code>lobt</code></td><td>Last Off-block Time</td><td>datetime</td><td><code>seq_id</code></td></tr><tr><td>Positions's sequence number</td><td>int</td><td><code>callsign</code></td><td>Flight call sign</td></tr><tr><td>char</td><td><code>registration</code></td><td>Aircraft registration</td><td>char</td></tr><tr><td><code>model</code></td><td>Aircraft model</td><td>char</td><td><code>aircraft_type</code></td></tr><tr><td>Aircraft ICAO type</td><td>char</td><td><code>aircraft_operator</code></td><td>Aircraft operator</td></tr><tr><td>char</td><td><code>adep</code></td><td>Departing aerodrome (ICAO) ID</td><td>char</td></tr></table></div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">generate_so6</span><span class="op">(</span><span class="va">trajectory</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">generate_so6</span><span class="op">(</span><span class="va">trajectory</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>trajectory</dt>
 <dd><p>A data frame for point trajectories.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A data frame for trajectories in SO6 format, see <code><a href="read_so6.html">read_so6</a></code>        for a description of the SO6 format.</p>
+    
+
+<p>A data frame for trajectories in SO6 format, see <code><a href="read_so6.html">read_so6</a></code></p>
+
+
+<p>for a description of the SO6 format.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -115,9 +121,9 @@ charadepDeparting aerodrome (ICAO) IDchar
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">generate_so6</span><span class="op">(</span><span class="va">trj</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">generate_so6</span><span class="op">(</span><span class="va">trj</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -132,7 +138,7 @@ charadepDeparting aerodrome (ICAO) IDchar
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

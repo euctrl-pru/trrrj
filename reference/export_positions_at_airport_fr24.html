@@ -65,38 +65,53 @@ for qualified airport movements (arrivals or departures or all)</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">export_positions_at_airport_fr24</span><span class="op">(</span>
-  <span class="va">wef</span>,
-  <span class="va">til</span>,
-  <span class="va">apt</span>,
-  <span class="va">lon_apt</span>,
-  <span class="va">lat_apt</span>,
-  flow <span class="op">=</span> <span class="st">"ALL"</span>,
-  radius <span class="op">=</span> <span class="fl">40</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">export_positions_at_airport_fr24</span><span class="op">(</span></span>
+<span>  <span class="va">wef</span>,</span>
+<span>  <span class="va">til</span>,</span>
+<span>  <span class="va">apt</span>,</span>
+<span>  <span class="va">lon_apt</span>,</span>
+<span>  <span class="va">lat_apt</span>,</span>
+<span>  flow <span class="op">=</span> <span class="st">"ALL"</span>,</span>
+<span>  radius <span class="op">=</span> <span class="fl">40</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>wef</dt>
 <dd><p>(UTC) timestamp of With Effect From (included)</p></dd>
+
+
 <dt>til</dt>
 <dd><p>(UTC) timestamp of TILl instant (excluded)</p></dd>
+
+
 <dt>apt</dt>
 <dd><p>IATA airport code, i.e. PSA for Pisa "Galileo Galilei"</p></dd>
+
+
 <dt>lon_apt</dt>
 <dd><p>airport longitude (decimal degrees, WGS84)</p></dd>
+
+
 <dt>lat_apt</dt>
 <dd><p>airport latitude (decimal degrees, WGS84)</p></dd>
+
+
 <dt>flow</dt>
 <dd><p>the flow of flights: "ARR" for arrivals, "DEP" for departures,
 "ALL" for both (default "ALL")</p></dd>
+
+
 <dt>radius</dt>
-<dd><p>radius around airport to keep position reports (nautical miles [NM])</p></dd>
+<dd><p>radius around airport to keep position reports (nautical miles NM)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>dataframe of ADS-B position reports</p>
+    
+
+<p>dataframe of ADS-B position reports</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -129,21 +144,21 @@ the following environment variables:</p><ul><li><p><code>PRU_FR24_USR</code> for
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># half a day (UTC times, not local ones!) worth of all movements at Stavanger Airport,</span></span>
-<span class="r-in"><span class="co"># Sola, Sweden on 1st Sep 2017</span></span>
-<span class="r-in"><span class="fu">export_positions_at_airport_fr24</span><span class="op">(</span><span class="st">"2017-09-01T00:00:00"</span>,</span>
-<span class="r-in">                                 <span class="st">"2017-09-01T12:00:00"</span>,</span>
-<span class="r-in">                                 <span class="st">"SVG"</span>,</span>
-<span class="r-in">                                 <span class="fl">5.638</span>, <span class="fl">58.877</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># all arrivals within 50 NM on 25th Sep 2018 at Pisa Airport, Pisa, Italy</span></span>
-<span class="r-in"><span class="fu">export_positions_at_airport_fr24</span><span class="op">(</span><span class="st">"2018-09-25"</span>,</span>
-<span class="r-in">                                 <span class="st">"2018-09-26"</span>,</span>
-<span class="r-in">                                 <span class="st">"PSA"</span>, <span class="fl">10.39270</span>, <span class="fl">43.68390</span>,</span>
-<span class="r-in">                                 flow <span class="op">=</span> <span class="st">"ARR"</span>,</span>
-<span class="r-in">                                 radius <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># half a day (UTC times, not local ones!) worth of all movements at Stavanger Airport,</span></span></span>
+<span class="r-in"><span><span class="co"># Sola, Sweden on 1st Sep 2017</span></span></span>
+<span class="r-in"><span><span class="fu">export_positions_at_airport_fr24</span><span class="op">(</span><span class="st">"2017-09-01T00:00:00"</span>,</span></span>
+<span class="r-in"><span>                                 <span class="st">"2017-09-01T12:00:00"</span>,</span></span>
+<span class="r-in"><span>                                 <span class="st">"SVG"</span>,</span></span>
+<span class="r-in"><span>                                 <span class="fl">5.638</span>, <span class="fl">58.877</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># all arrivals within 50 NM on 25th Sep 2018 at Pisa Airport, Pisa, Italy</span></span></span>
+<span class="r-in"><span><span class="fu">export_positions_at_airport_fr24</span><span class="op">(</span><span class="st">"2018-09-25"</span>,</span></span>
+<span class="r-in"><span>                                 <span class="st">"2018-09-26"</span>,</span></span>
+<span class="r-in"><span>                                 <span class="st">"PSA"</span>, <span class="fl">10.39270</span>, <span class="fl">43.68390</span>,</span></span>
+<span class="r-in"><span>                                 flow <span class="op">=</span> <span class="st">"ARR"</span>,</span></span>
+<span class="r-in"><span>                                 radius <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -158,7 +173,7 @@ the following environment variables:</p><ul><li><p><code>PRU_FR24_USR</code> for
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

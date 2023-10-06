@@ -65,24 +65,33 @@ in the specified period at an airport</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">export_flights_at_airport_fr24</span><span class="op">(</span><span class="va">wef</span>, <span class="va">til</span>, <span class="va">apt</span>, flow <span class="op">=</span> <span class="st">"ALL"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">export_flights_at_airport_fr24</span><span class="op">(</span><span class="va">wef</span>, <span class="va">til</span>, <span class="va">apt</span>, flow <span class="op">=</span> <span class="st">"ALL"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>wef</dt>
 <dd><p>(UTC) timestamp of With Effect From (included)</p></dd>
+
+
 <dt>til</dt>
 <dd><p>(UTC) timestamp of TILl instant (excluded)</p></dd>
+
+
 <dt>apt</dt>
 <dd><p>IATA code of an airport, i.g. PSA for Pisa "Galileo Galilei"</p></dd>
+
+
 <dt>flow</dt>
 <dd><p>the flow of flights: "ARR" for arrivals, "DEP" for departures,
 "ALL" for both (default "ALL")</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a dataframe of flights</p>
+    
+
+<p>a dataframe of flights</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -115,16 +124,16 @@ the following environment variables:</p><ul><li><p><code>PRU_FR24_USR</code> for
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">export_flights_at_airport_fr24</span><span class="op">(</span><span class="st">"2017-09-01T00:00:00"</span>, <span class="st">"2017-09-02T00:00:00"</span>,</span>
-<span class="r-in">            <span class="st">"SVG"</span>,</span>
-<span class="r-in">            flow <span class="op">=</span> <span class="st">"ARR"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># only 2 hours interval</span></span>
-<span class="r-in"><span class="fu">export_flights_at_airport_fr24</span><span class="op">(</span><span class="st">"2017-09-01 10"</span>, <span class="st">"2017-09-02T11:00:00"</span>,</span>
-<span class="r-in">            <span class="st">"SVG"</span>,</span>
-<span class="r-in">            flow <span class="op">=</span> <span class="st">"ARR"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">export_flights_at_airport_fr24</span><span class="op">(</span><span class="st">"2017-09-01T00:00:00"</span>, <span class="st">"2017-09-02T00:00:00"</span>,</span></span>
+<span class="r-in"><span>            <span class="st">"SVG"</span>,</span></span>
+<span class="r-in"><span>            flow <span class="op">=</span> <span class="st">"ARR"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># only 2 hours interval</span></span></span>
+<span class="r-in"><span><span class="fu">export_flights_at_airport_fr24</span><span class="op">(</span><span class="st">"2017-09-01 10"</span>, <span class="st">"2017-09-02T11:00:00"</span>,</span></span>
+<span class="r-in"><span>            <span class="st">"SVG"</span>,</span></span>
+<span class="r-in"><span>            flow <span class="op">=</span> <span class="st">"ARR"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -139,7 +148,7 @@ the following environment variables:</p><ul><li><p><code>PRU_FR24_USR</code> for
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -65,7 +65,7 @@ SO6 format."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">export_allft_so6</span><span class="op">(</span><span class="va">wef</span>, <span class="va">til</span>, model <span class="op">=</span> <span class="st">"CTFM"</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">export_allft_so6</span><span class="op">(</span><span class="va">wef</span>, <span class="va">til</span>, model <span class="op">=</span> <span class="st">"CTFM"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -74,16 +74,28 @@ SO6 format."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs
 <dd><p>(UTC) timestamp of LOBT With Effect From (included).
 Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
 "2019-07-14T10:21:23Z"</p></dd>
+
+
 <dt>til</dt>
 <dd><p>(UTC) timestamp of LOBT TILl (excluded).</p></dd>
+
+
 <dt>model</dt>
 <dd><p>the trajectory model, one of FTFM, RTFM, CTFM, CPF</p></dd>
+
+
 <dt>...</dt>
-<dd><p>extra arguments passed to [export_model_trajectory].</p></dd>
+<dd><p>extra arguments passed to <a href="export_model_trajectory.html">export_model_trajectory</a>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a dataframe of trajectory segments in SO6 format, see <code><a href="read_so6.html">read_so6</a></code>        for a description of the SO6 format.</p>
+    
+
+<p>a dataframe of trajectory segments in SO6 format, see <code><a href="read_so6.html">read_so6</a></code></p>
+
+
+<p>for a description of the SO6 format.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -116,13 +128,13 @@ the following environment variables:</p><ul><li><p><code>PRU_TEST_USR</code> for
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># BEWARE: this can take some long-ish time</span></span>
-<span class="r-in"><span class="fu">export_allft_so6</span><span class="op">(</span><span class="st">"2010-06-16"</span>, <span class="st">"2010-06-17"</span>, model <span class="op">=</span> <span class="st">"FTFM"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># reduce the time scope to get the data quicker (and smaller)</span></span>
-<span class="r-in"><span class="fu">export_allft_so6</span><span class="op">(</span><span class="st">"2010-06-16 10:00"</span>, <span class="st">"2010-06-16T11:00:11"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># BEWARE: this can take some long-ish time</span></span></span>
+<span class="r-in"><span><span class="fu">export_allft_so6</span><span class="op">(</span><span class="st">"2010-06-16"</span>, <span class="st">"2010-06-17"</span>, model <span class="op">=</span> <span class="st">"FTFM"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># reduce the time scope to get the data quicker (and smaller)</span></span></span>
+<span class="r-in"><span><span class="fu">export_allft_so6</span><span class="op">(</span><span class="st">"2010-06-16 10:00"</span>, <span class="st">"2010-06-16T11:00:11"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -137,7 +149,7 @@ the following environment variables:</p><ul><li><p><code>PRU_TEST_USR</code> for
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

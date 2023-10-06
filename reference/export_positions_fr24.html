@@ -72,19 +72,24 @@ the following environment variables:</p><ul><li><p><code>PRU_FR24_USR</code> for
 </ul></div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">export_positions_fr24</span><span class="op">(</span><span class="va">wef</span>, <span class="va">til</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">export_positions_fr24</span><span class="op">(</span><span class="va">wef</span>, <span class="va">til</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>wef</dt>
 <dd><p>(UT) timestamp of With Effect From (included)</p></dd>
+
+
 <dt>til</dt>
 <dd><p>(UT) timestamp of TILl instant (excluded)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a dataframe of position reports</p>
+    
+
+<p>a dataframe of position reports</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -110,10 +115,10 @@ the following environment variables:</p><ul><li><p><code>PRU_FR24_USR</code> for
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">export_positions_fr24</span><span class="op">(</span><span class="st">"2017-09-01T00:00:00Z"</span>, <span class="st">"2017-09-01T06:00:00Z"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">export_positions_fr24</span><span class="op">(</span><span class="st">"2017-09-01 10:05:00Z"</span>, <span class="st">"2017-09-01T11:33:00"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">export_positions_fr24</span><span class="op">(</span><span class="st">"2017-09-01T00:00:00Z"</span>, <span class="st">"2017-09-01T06:00:00Z"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">export_positions_fr24</span><span class="op">(</span><span class="st">"2017-09-01 10:05:00Z"</span>, <span class="st">"2017-09-01T11:33:00"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -128,7 +133,7 @@ the following environment variables:</p><ul><li><p><code>PRU_FR24_USR</code> for
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

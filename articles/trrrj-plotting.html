@@ -75,13 +75,14 @@
 
       
 
-      </header><script src="trrrj-plotting_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Plotting trajectories</h1>
-                        <h4 data-toc-skip class="author">Enrico Spinielli</h4>
+                        <h4 data-toc-skip class="author">Enrico
+Spinielli</h4>
             
-            <h4 data-toc-skip class="date">2022-04-21</h4>
+            <h4 data-toc-skip class="date">2023-10-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/euctrl-pru/trrrj/blob/HEAD/vignettes/trrrj-plotting.Rmd" class="external-link"><code>vignettes/trrrj-plotting.Rmd</code></a></small>
       <div class="hidden name"><code>trrrj-plotting.Rmd</code></div>
@@ -90,24 +91,46 @@
 
     
     
-<p>It is sometimes usefult to visually inspect flight trajectories. This vignette provides some examples and code snippets that show how to plot trajectories from Flight Radar 24 feed. In fact the snippets here can be used with any dataframe of position reports containing at least <code>timestamp</code>, <code>longitude</code>, <code>latitude</code> and <code>altitude</code> fields.</p>
+<p>It is sometimes usefult to visually inspect flight trajectories. This
+vignette provides some examples and code snippets that show how to plot
+trajectories from Flight Radar 24 feed. In fact the snippets here can be
+used with any dataframe of position reports containing at least
+<code>timestamp</code>, <code>longitude</code>, <code>latitude</code>
+and <code>altitude</code> fields.</p>
 <div class="section level2">
 <h2 id="plotting">Plotting<a class="anchor" aria-label="anchor" href="#plotting"></a>
 </h2>
-<p>In order to get some sample trajectory data, you can use the <code>trrrj</code> package datasets:</p>
+<p>In order to get some sample trajectory data, you can use the
+<code>trrrj</code> package datasets:</p>
 <ul>
 <li>
-<code>flts</code>: 41 flights from FR24 for 2017-02-05 and 2017-02-05, check the documentation via <code><a href="../reference/flts.html">?flts</a></code>
+<code>flts</code>: 41 flights from FR24 for 2017-02-05 and
+2017-02-05, check the documentation via <code><a href="../reference/flts.html">?flts</a></code>
 </li>
 <li>
-<code>poss</code>: ADS-B positions reports for <code>flts</code>, check the documentation via <code><a href="../reference/poss.html">?poss</a></code>
+<code>poss</code>: ADS-B positions reports for <code>flts</code>,
+check the documentation via <code><a href="../reference/poss.html">?poss</a></code>
 </li>
 <li>
-<code>cprs</code>: CPR’s matching <code>flts</code>, check the documentation via <code><a href="../reference/cprs.html">?cprs</a></code>
+<code>cprs</code>: CPR’s matching <code>flts</code>, check the
+documentation via <code><a href="../reference/cprs.html">?cprs</a></code>
 </li>
 </ul>
-<p>We now plot the ADS-B positions just for one flight, flight <code>RYR19QK</code> from Comiso to Malpensa:</p>
-<table class="table">
+<p>We now plot the ADS-B positions just for one flight, flight
+<code>RYR19QK</code> from Comiso to Malpensa:</p>
+<table style="width:100%;" class="table">
+<colgroup>
+<col width="12%">
+<col width="7%">
+<col width="9%">
+<col width="6%">
+<col width="11%">
+<col width="7%">
+<col width="11%">
+<col width="11%">
+<col width="11%">
+<col width="11%">
+</colgroup>
 <thead><tr class="header">
 <th align="left">date</th>
 <th align="left">flight</th>
@@ -135,13 +158,13 @@
 </table>
 <p>We can now plot the ADS-B trajectory:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">europe</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>left <span class="op">=</span> <span class="fl">5</span>, bottom <span class="op">=</span> <span class="fl">35</span>, right <span class="op">=</span> <span class="fl">30</span>, top <span class="op">=</span> <span class="fl">52</span><span class="op">)</span>
-
-<span class="co"># let's just focus on 1 flight</span>
-<span class="va">trj_adsb</span> <span class="op">&lt;-</span> <span class="va">poss</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">flight_id</span> <span class="op">==</span> <span class="fl">207752905</span><span class="op">)</span>
-
-<span class="fu">trrrj</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_flight_horizontal.html">plot_flight_horizontal</a></span><span class="op">(</span><span class="va">trj_adsb</span>, bbox <span class="op">=</span> <span class="va">europe</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">europe</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>left <span class="op">=</span> <span class="fl">5</span>, bottom <span class="op">=</span> <span class="fl">35</span>, right <span class="op">=</span> <span class="fl">30</span>, top <span class="op">=</span> <span class="fl">52</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># let's just focus on 1 flight</span></span>
+<span><span class="va">trj_adsb</span> <span class="op">&lt;-</span> <span class="va">poss</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">flight_id</span> <span class="op">==</span> <span class="fl">207752905</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">trrrj</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_flight_horizontal.html">plot_flight_horizontal</a></span><span class="op">(</span><span class="va">trj_adsb</span>, bbox <span class="op">=</span> <span class="va">europe</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="trrrj-plotting_files/figure-html/trj-adsb-ggmap-1.png" alt="2D plot via ggmap" width="672"><p class="caption">
 2D plot via ggmap
@@ -149,19 +172,20 @@
 </div>
 <p>and the one from the CPRs:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">trj_cpr</span> <span class="op">&lt;-</span> <span class="va">cprs</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">callsign</span> <span class="op">==</span> <span class="st">"RYR19QK"</span><span class="op">)</span>
-
-<span class="va">trj_cpr</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu">trrrj</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_cpr_horizontal.html">plot_cpr_horizontal</a></span><span class="op">(</span><span class="va">europe</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">trj_cpr</span> <span class="op">&lt;-</span> <span class="va">cprs</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">callsign</span> <span class="op">==</span> <span class="st">"RYR19QK"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">trj_cpr</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">trrrj</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_cpr_horizontal.html">plot_cpr_horizontal</a></span><span class="op">(</span><span class="va">europe</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="trrrj-plotting_files/figure-html/trj-cpr-ggmap-1.png" alt="2D plot via ggmap" width="672"><p class="caption">
 2D plot via ggmap
 </p>
 </div>
-<p>We can also see the vertical profiles vs distance (for the ADS-B trajectory):</p>
+<p>We can also see the vertical profiles vs distance (for the ADS-B
+trajectory):</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_flight_vertical_distance.html">plot_flight_vertical_distance</a></span><span class="op">(</span><span class="va">trj_adsb</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/cumulative_distance.html">cumulative_distance</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_flight_vertical_distance.html">plot_flight_vertical_distance</a></span><span class="op">(</span><span class="va">trj_adsb</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/cumulative_distance.html">cumulative_distance</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="trrrj-plotting_files/figure-html/vert-distance-1.png" alt="Flight's vertical profile vs. distance" width="672"><p class="caption">
 Flight’s vertical profile vs. distance
@@ -169,16 +193,17 @@ Flight’s vertical profile vs. distance
 </div>
 <p>or time:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_flight_vertical_time.html">plot_flight_vertical_time</a></span><span class="op">(</span><span class="va">trj_adsb</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/cumulative_time.html">cumulative_time</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_flight_vertical_time.html">plot_flight_vertical_time</a></span><span class="op">(</span><span class="va">trj_adsb</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/cumulative_time.html">cumulative_time</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="trrrj-plotting_files/figure-html/vert-time-1.png" alt="Flight's vertical profile vs. time" width="672"><p class="caption">
 Flight’s vertical profile vs. time
 </p>
 </div>
-<p>Now let’s plot all CPR trajectories (with automatic bounding box):</p>
+<p>Now let’s plot all CPR trajectories (with automatic bounding
+box):</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">cprs</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/plot_cpr_horizontal.html">plot_cpr_horizontal</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">cprs</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/plot_cpr_horizontal.html">plot_cpr_horizontal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="trrrj-plotting_files/figure-html/all-cprs-2d-1.png" alt="A map of all sample CPR trajectories" width="672"><p class="caption">
 A map of all sample CPR trajectories
@@ -187,32 +212,52 @@ A map of all sample CPR trajectories
 <div class="section level3">
 <h3 id="base-map-europe">Base map: Europe<a class="anchor" aria-label="anchor" href="#base-map-europe"></a>
 </h3>
-<p>The <code>pruatlas</code> package provides a base map for Europe using a Lambert Azimuthal Equal-Area projection. It could be a useful package to further extend for plotting trajectories. It is on PRU’s github account, <a href="https://github.com/euctrl-pru/pruatlas" class="external-link">euctrl-pru/pruatlas</a>.</p>
+<p>The <code>pruatlas</code> package provides a base map for Europe
+using a Lambert Azimuthal Equal-Area projection. It could be a useful
+package to further extend for plotting trajectories. It is on PRU’s
+github account, <a href="https://github.com/euctrl-pru/pruatlas" class="external-link">euctrl-pru/pruatlas</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="retrive-fr24-ads-b-data-from-db">Retrive FR24 ADS-B data from DB<a class="anchor" aria-label="anchor" href="#retrive-fr24-ads-b-data-from-db"></a>
 </h3>
-<p>The <code>trrrj</code> package provides an API to retrieve FR24 data from the DB. The use case here is for flights around an airport.</p>
-<p>Before continuing <strong>BE CAREFUL</strong> about how to use it, you could get a lot of data back and il could take a lot of time.</p>
-<p>Let’s say you want to retrieve the <em>arrival</em> flow to <a href="https://en.wikipedia.org/wiki/Stavanger_Airport,_Sola" class="external-link">Stavanger airport</a> in Norway for the 6th Sep 2017, then you need to issue the following command (showing the first 10 ones only):</p>
+<p>The <code>trrrj</code> package provides an API to retrieve FR24 data
+from the DB. The use case here is for flights around an airport.</p>
+<p>Before continuing <strong>BE CAREFUL</strong> about how to use it,
+you could get a lot of data back and il could take a lot of time.</p>
+<p>Let’s say you want to retrieve the <em>arrival</em> flow to <a href="https://en.wikipedia.org/wiki/Stavanger_Airport,_Sola" class="external-link">Stavanger
+airport</a> in Norway for the 6th Sep 2017, then you need to issue the
+following command (showing the first 10 ones only):</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">svg20170906flt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/export_flights_at_airport_fr24.html">export_flights_at_airport_fr24</a></span><span class="op">(</span><span class="st">"2017-09-06T00:00:00Z"</span>,
-                                                 <span class="st">"2017-09-07T00:00:00Z"</span>,
-                                                 <span class="st">"SVG"</span>,
-                                                 flow <span class="op">=</span> <span class="st">"ARR"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">svg20170906flt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/export_flights_at_airport_fr24.html">export_flights_at_airport_fr24</a></span><span class="op">(</span><span class="st">"2017-09-06T00:00:00Z"</span>,</span>
+<span>                                                 <span class="st">"2017-09-07T00:00:00Z"</span>,</span>
+<span>                                                 <span class="st">"SVG"</span>,</span>
+<span>                                                 flow <span class="op">=</span> <span class="st">"ARR"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># fake the ROracle call</span>
-<span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span>file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"/data/flts.rda"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">svg20170906flt</span> <span class="op">&lt;-</span>  <span class="va">flts</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">real_to</span> <span class="op">==</span> <span class="st">"BRU"</span><span class="op">)</span>
-
-<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">svg20170906flt</span>, <span class="fl">10</span><span class="op">)</span>,
-  caption <span class="op">=</span> <span class="st">"Arrival flights at Stavanger airport, Norway, on Sep 6, 2017 (10 only)"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># fake the ROracle call</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span>file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"/data/flts.rda"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">svg20170906flt</span> <span class="op">&lt;-</span>  <span class="va">flts</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">real_to</span> <span class="op">==</span> <span class="st">"BRU"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">svg20170906flt</span>, <span class="fl">10</span><span class="op">)</span>,</span>
+<span>  caption <span class="op">=</span> <span class="st">"Arrival flights at Stavanger airport, Norway, on Sep 6, 2017 (10 only)"</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
-<caption>Arrival flights at Stavanger airport, Norway, on Sep 6, 2017 (10 only)</caption>
+<caption>Arrival flights at Stavanger airport, Norway, on Sep 6, 2017
+(10 only)</caption>
+<colgroup>
+<col width="11%">
+<col width="13%">
+<col width="6%">
+<col width="6%">
+<col width="10%">
+<col width="8%">
+<col width="11%">
+<col width="9%">
+<col width="9%">
+<col width="12%">
+</colgroup>
 <thead><tr class="header">
 <th align="right">flight_id</th>
 <th align="left">aircraft_id</th>
@@ -238,45 +283,48 @@ A map of all sample CPR trajectories
 <td align="left">2017-02-05</td>
 </tr></tbody>
 </table>
-<p>To get the position reports 40 NM around the airport for those flights (showing the first 10 ones):</p>
+<p>To get the position reports 40 NM around the airport for those
+flights (showing the first 10 ones):</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/euctrl-pru/trrrj" class="external-link">trrrj</a></span><span class="op">)</span>
-<span class="co"># TODO: handle the case when building w/ Oracle DB</span>
-<span class="va">svg20170906pos</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/export_flights_at_airport_fr24.html">export_flights_at_airport_fr24</a></span><span class="op">(</span>
-  <span class="st">"2017-09-06"</span>, <span class="st">"2017-09-07"</span>,
-  <span class="st">"SVG"</span>, <span class="fl">5.638</span>, <span class="fl">58.877</span>,
-  flow <span class="op">=</span> <span class="st">"ARR"</span>,
-  radius <span class="op">=</span> <span class="fl">40</span><span class="op">)</span>
-<span class="co"># knitr::kable(head(svg20170906pos, 10))</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/euctrl-pru/trrrj" class="external-link">trrrj</a></span><span class="op">)</span></span>
+<span><span class="co"># TODO: handle the case when building w/ Oracle DB</span></span>
+<span><span class="va">svg20170906pos</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/export_flights_at_airport_fr24.html">export_flights_at_airport_fr24</a></span><span class="op">(</span></span>
+<span>  <span class="st">"2017-09-06"</span>, <span class="st">"2017-09-07"</span>,</span>
+<span>  <span class="st">"SVG"</span>, <span class="fl">5.638</span>, <span class="fl">58.877</span>,</span>
+<span>  flow <span class="op">=</span> <span class="st">"ARR"</span>,</span>
+<span>  radius <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span>
+<span><span class="co"># knitr::kable(head(svg20170906pos, 10))</span></span></code></pre></div>
 <p>Then prepare the data and then plot:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">svg20170906pos</span> <span class="op">&lt;-</span> <span class="va">svg20170906pos</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>longitude <span class="op">=</span> <span class="va">LON</span>, latitude <span class="op">=</span> <span class="va">LAT</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>longitude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">longitude</span><span class="op">)</span>, latitude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">latitude</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">svg20170906flt</span> <span class="op">&lt;-</span> <span class="va">svg20170906flt</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>callsign <span class="op">=</span> <span class="va">CALLSIGN</span><span class="op">)</span>
-
-<span class="va">svg20170906pos</span> <span class="op">&lt;-</span> <span class="va">svg20170906pos</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">svg20170906flt</span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/plot_flight_horizontal.html">plot_flight_horizontal</a></span><span class="op">(</span><span class="va">svg20170906pos</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">svg20170906pos</span> <span class="op">&lt;-</span> <span class="va">svg20170906pos</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>longitude <span class="op">=</span> <span class="va">LON</span>, latitude <span class="op">=</span> <span class="va">LAT</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>longitude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">longitude</span><span class="op">)</span>, latitude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">latitude</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">svg20170906flt</span> <span class="op">&lt;-</span> <span class="va">svg20170906flt</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>callsign <span class="op">=</span> <span class="va">CALLSIGN</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">svg20170906pos</span> <span class="op">&lt;-</span> <span class="va">svg20170906pos</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">svg20170906flt</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/plot_flight_horizontal.html">plot_flight_horizontal</a></span><span class="op">(</span><span class="va">svg20170906pos</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="file-archived-trajectories">(File) Archived Trajectories<a class="anchor" aria-label="anchor" href="#file-archived-trajectories"></a>
 </h2>
-<p>FR24 archive files can be accessed with standard R tools like <code>readr</code> to retrieve the flight list for some of the companion sample files in this package:</p>
+<p>FR24 archive files can be accessed with standard R tools like
+<code>readr</code> to retrieve the flight list for some of the companion
+sample files in this package:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/euctrl-pru/trrrj" class="external-link">trrrj</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org" class="external-link">purrr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org" class="external-link">readr</a></span><span class="op">)</span>
-
-<span class="co">######## flights</span>
-<span class="va">flights_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"trrrj"</span><span class="op">)</span>
-<span class="va">flights_csvs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">dir</a></span><span class="op">(</span><span class="va">flights_dir</span>, pattern <span class="op">=</span> <span class="st">"201702.._flights\\.csv"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">flights</span> <span class="op">&lt;-</span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_df</a></span><span class="op">(</span><span class="va">flights_csvs</span>, <span class="va">read_csv</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/euctrl-pru/trrrj" class="external-link">trrrj</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/" class="external-link">purrr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org" class="external-link">readr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">######## flights</span></span>
+<span><span class="va">flights_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"trrrj"</span><span class="op">)</span></span>
+<span><span class="va">flights_csvs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">dir</a></span><span class="op">(</span><span class="va">flights_dir</span>, pattern <span class="op">=</span> <span class="st">"201702.._flights\\.csv"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">flights</span> <span class="op">&lt;-</span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html" class="external-link">map_df</a></span><span class="op">(</span><span class="va">flights_csvs</span>, <span class="va">read_csv</span><span class="op">)</span></span></code></pre></div>
 <p>Here are the first 10 entries (some variables omitted):</p>
 <table class="table">
 <thead><tr class="header">
@@ -322,27 +370,41 @@ A map of all sample CPR trajectories
 </tr>
 </tbody>
 </table>
-<p>A sample of FR24 flight data is available as <code>flts</code> dataset in the package. See also the relevant help page, <code><a href="../reference/flts.html">?flts</a></code>.</p>
+<p>A sample of FR24 flight data is available as <code>flts</code>
+dataset in the package. See also the relevant help page,
+<code><a href="../reference/flts.html">?flts</a></code>.</p>
 <div class="section level3">
 <h3 id="file-archived-positions">(File) Archived Positions<a class="anchor" aria-label="anchor" href="#file-archived-positions"></a>
 </h3>
 <div class="section level4">
 <h4 id="ads-b-positions">ADS-B Positions<a class="anchor" aria-label="anchor" href="#ads-b-positions"></a>
 </h4>
-<p>The <code>trrrj</code> package provides helpes to read position report files from FR24 archive data feed. In order to read the ADS-B position reports for the days from the previous section:</p>
+<p>The <code>trrrj</code> package provides helpes to read position
+report files from FR24 archive data feed. In order to read the ADS-B
+position reports for the days from the previous section:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">######## positions</span>
-<span class="va">poss_dirs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"20170206_positions"</span>, <span class="st">"20170205_positions"</span><span class="op">)</span>
-<span class="va">poss_dirs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="va">poss_dirs</span>, package <span class="op">=</span> <span class="st">"trrrj"</span><span class="op">)</span>
-<span class="va">poss_csvs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">dir</a></span><span class="op">(</span><span class="va">poss_dirs</span>, pattern <span class="op">=</span> <span class="st">"201702.._.*\\.csv"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">positions</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_dfr</a></span><span class="op">(</span><span class="va">poss_csvs</span>, <span class="va">read_positions_fr24</span><span class="op">)</span>
-
-<span class="co"># augment with flight info</span>
-<span class="va">positions</span> <span class="op">&lt;-</span> <span class="va">positions</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">flights</span>, by <span class="op">=</span> <span class="st">"flight_id"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">callsign</span><span class="op">)</span>, <span class="va">callsign</span> <span class="op">!=</span> <span class="st">"YELLOW6"</span><span class="op">)</span></code></pre></div>
-<p>The first 10 entries (some variables omitted) for flight “AIC175” (<code>flight_id</code> = <code>207507520</code>) are:</p>
+<code class="sourceCode R"><span><span class="co">######## positions</span></span>
+<span><span class="va">poss_dirs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"20170206_positions"</span>, <span class="st">"20170205_positions"</span><span class="op">)</span></span>
+<span><span class="va">poss_dirs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="va">poss_dirs</span>, package <span class="op">=</span> <span class="st">"trrrj"</span><span class="op">)</span></span>
+<span><span class="va">poss_csvs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">dir</a></span><span class="op">(</span><span class="va">poss_dirs</span>, pattern <span class="op">=</span> <span class="st">"201702.._.*\\.csv"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">positions</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html" class="external-link">map_dfr</a></span><span class="op">(</span><span class="va">poss_csvs</span>, <span class="va">read_positions_fr24</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># augment with flight info</span></span>
+<span><span class="va">positions</span> <span class="op">&lt;-</span> <span class="va">positions</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">flights</span>, by <span class="op">=</span> <span class="st">"flight_id"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">callsign</span><span class="op">)</span>, <span class="va">callsign</span> <span class="op">!=</span> <span class="st">"YELLOW6"</span><span class="op">)</span></span></code></pre></div>
+<p>The first 10 entries (some variables omitted) for flight “AIC175”
+(<code>flight_id</code> = <code>207507520</code>) are:</p>
 <table class="table">
+<colgroup>
+<col width="13%">
+<col width="27%">
+<col width="12%">
+<col width="11%">
+<col width="12%">
+<col width="13%">
+<col width="8%">
+</colgroup>
 <thead><tr class="header">
 <th align="right">flight_id</th>
 <th align="left">timestamp</th>
@@ -445,25 +507,29 @@ A map of all sample CPR trajectories
 </tr>
 </tbody>
 </table>
-<p>A sample of FR24 ADS-B position report data is available as <code>poss</code> dataset in the package. See also the relevant help page, <code><a href="../reference/poss.html">?poss</a></code>.</p>
+<p>A sample of FR24 ADS-B position report data is available as
+<code>poss</code> dataset in the package. See also the relevant help
+page, <code><a href="../reference/poss.html">?poss</a></code>.</p>
 </div>
 <div class="section level4">
 <h4 id="file-archived-correlated-position-reports-cprs">(File) Archived Correlated Position Reports (CPR’s)<a class="anchor" aria-label="anchor" href="#file-archived-correlated-position-reports-cprs"></a>
 </h4>
-<p>The <code>trrrj</code> package provides facilities to read NM’s archived CPR files. In order to import all cprs for the 2 demo days:</p>
+<p>The <code>trrrj</code> package provides facilities to read NM’s
+archived CPR files. In order to import all cprs for the 2 demo days:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># read all 5th and 6th February 2017 CPR's files</span>
-<span class="co"># cprs_dirs &lt;- system.file("extdata", package = "trrrj")</span>
-<span class="co"># cprs_delims &lt;- dir(</span>
-<span class="co">#    cprs_dirs,</span>
-<span class="co">#    pattern = "1.2017020.1001tacop304ARCHIVED_OPLOG_ALL_CPR\\.gz",</span>
-<span class="co">#    full.names = TRUE)</span>
-<span class="va">cprs_delims</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
-  <span class="fu"><a href="../reference/trrrj_example.html">trrrj_example</a></span><span class="op">(</span><span class="st">"1.201702051001tacop304ARCHIVED_OPLOG_ALL_CPR.gz"</span><span class="op">)</span>,
-  <span class="fu"><a href="../reference/trrrj_example.html">trrrj_example</a></span><span class="op">(</span><span class="st">"1.201702061001tacop304ARCHIVED_OPLOG_ALL_CPR.gz"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">poss_cpr</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_dfr</a></span><span class="op">(</span><span class="va">cprs_delims</span>, <span class="va">read_cpr</span><span class="op">)</span></code></pre></div>
-<p>and then show the first 10 entries (some variables omitted) for the same flight, “AIC175”, as for the ADS-B positions:</p>
+<code class="sourceCode R"><span><span class="co"># read all 5th and 6th February 2017 CPR's files</span></span>
+<span><span class="co"># cprs_dirs &lt;- system.file("extdata", package = "trrrj")</span></span>
+<span><span class="co"># cprs_delims &lt;- dir(</span></span>
+<span><span class="co">#    cprs_dirs,</span></span>
+<span><span class="co">#    pattern = "1.2017020.1001tacop304ARCHIVED_OPLOG_ALL_CPR\\.gz",</span></span>
+<span><span class="co">#    full.names = TRUE)</span></span>
+<span><span class="va">cprs_delims</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/trrrj_example.html">trrrj_example</a></span><span class="op">(</span><span class="st">"1.201702051001tacop304ARCHIVED_OPLOG_ALL_CPR.gz"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/trrrj_example.html">trrrj_example</a></span><span class="op">(</span><span class="st">"1.201702061001tacop304ARCHIVED_OPLOG_ALL_CPR.gz"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">poss_cpr</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html" class="external-link">map_dfr</a></span><span class="op">(</span><span class="va">cprs_delims</span>, <span class="va">read_cpr</span><span class="op">)</span></span></code></pre></div>
+<p>and then show the first 10 entries (some variables omitted) for the
+same flight, “AIC175”, as for the ADS-B positions:</p>
 <table class="table">
 <colgroup>
 <col width="8%">
@@ -588,7 +654,8 @@ A map of all sample CPR trajectories
 </tr>
 </tbody>
 </table>
-<p>A sample of NM’s CPR’s data is available as <code>cprs</code> dataset in the package. See also the relevant help page, <code><a href="../reference/cprs.html">?cprs</a></code>.</p>
+<p>A sample of NM’s CPR’s data is available as <code>cprs</code> dataset
+in the package. See also the relevant help page, <code><a href="../reference/cprs.html">?cprs</a></code>.</p>
 </div>
 </div>
 </div>
@@ -611,7 +678,7 @@ A map of all sample CPR trajectories
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

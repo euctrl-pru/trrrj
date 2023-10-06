@@ -63,14 +63,14 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">export_model_trajectory</span><span class="op">(</span>
-  <span class="va">wef</span>,
-  <span class="va">til</span>,
-  model <span class="op">=</span> <span class="st">"CTFM"</span>,
-  bbox <span class="op">=</span> <span class="cn">NULL</span>,
-  lobt_buffer <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>before <span class="op">=</span> <span class="fl">28</span>, after <span class="op">=</span> <span class="fl">24</span><span class="op">)</span>,
-  timeover_buffer <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">export_model_trajectory</span><span class="op">(</span></span>
+<span>  <span class="va">wef</span>,</span>
+<span>  <span class="va">til</span>,</span>
+<span>  model <span class="op">=</span> <span class="st">"CTFM"</span>,</span>
+<span>  bbox <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lobt_buffer <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>before <span class="op">=</span> <span class="fl">28</span>, after <span class="op">=</span> <span class="fl">24</span><span class="op">)</span>,</span>
+<span>  timeover_buffer <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -79,28 +79,42 @@
 <dd><p>(UTC) timestamp of LOBT With Effect From (included).
 Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
 "2019-07-14T10:21:23Z"</p></dd>
+
+
 <dt>til</dt>
 <dd><p>(UTC) timestamp of LOBT TILl instant (excluded)</p></dd>
+
+
 <dt>model</dt>
-<dd><p>the model of the profile: one of "FTFM", "CTFM", "RTFM", "CPF".
-[default: "CFTM"]</p></dd>
+<dd><p>the model of the profile: one of
+CPF, CTFM, DCT, FTFM, SCR, SRR, SUR
+default: "CFTM".</p></dd>
+
+
 <dt>bbox</dt>
 <dd><p>(Optional) axis aligned bounding box
 (xmin, ymin, xmax, ymax)</p></dd>
+
+
 <dt>lobt_buffer</dt>
 <dd><p>(Optional) number of (portion of) hours buffer for LOBT before/after
-`wef` and `til` (before, after). This is to cater for flights crossing `wef` and `til`.
-For example `c(before = 24, after = 2.25)` allows to retrieve flights with LOBT
-24H before `wef` and 1H15M after `til` and then potentially crossing the interval.</p></dd>
+<code>wef</code> and <code>til</code> (before, after). This is to cater for flights crossing <code>wef</code> and <code>til</code>.
+For example <code>c(before = 24, after = 2.25)</code> allows to retrieve flights with LOBT
+24H before <code>wef</code> and 1H15M after <code>til</code> and then potentially crossing the interval.</p></dd>
+
+
 <dt>timeover_buffer</dt>
-<dd><p>(Optional) number of (portion of) hours buffer for `time_over`
-before/after `wef` and `til` (before, after). This is to cater for flights crossing
-`wef` and `til`. For example `c(before = 2, after = 0.25)` allows to retrieve
-points 2H before `wef` and 15M after `til`.</p></dd>
+<dd><p>(Optional) number of (portion of) hours buffer for <code>time_over</code>
+before/after <code>wef</code> and <code>til</code> (before, after). This is to cater for flights crossing
+<code>wef</code> and <code>til</code>. For example <code>c(before = 2, after = 0.25)</code> allows to retrieve
+points 2H before <code>wef</code> and 15M after <code>til</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a dataframe with trajectory data</p>
+    
+
+<p>a dataframe with trajectory data</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -133,20 +147,20 @@ the following environment variables:</p><ul><li><p><code>PRU_DEV_USR</code> for 
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># export 1 day worth of NM (planned) trajectories</span></span>
-<span class="r-in"><span class="fu">export_model_trajectory</span><span class="op">(</span><span class="st">"2019-07-14"</span>, <span class="st">"2019-07-15"</span>, model <span class="op">=</span> <span class="st">"FTFM"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># export 2 hours of NM (flown) trajectories</span></span>
-<span class="r-in"><span class="fu">export_model_trajectory</span><span class="op">(</span><span class="st">"2019-07-14 22:00"</span>, <span class="st">"2019-07-15"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># export 1 day of NM (flown) trajectories</span></span>
-<span class="r-in"><span class="fu">export_model_trajectory</span><span class="op">(</span><span class="st">"2019-07-14"</span>, <span class="st">"2019-07-15"</span>, lobt_buffer <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>before <span class="op">=</span> <span class="fl">24</span>, after <span class="op">=</span> <span class="fl">1.25</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># export all CTFM trajectories within a bounding box 40 NM around EDDF</span></span>
-<span class="r-in"><span class="va">bb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="fl">7.536746</span>, xmax <span class="op">=</span> <span class="fl">9.604390</span>, ymin <span class="op">=</span> <span class="fl">49.36732</span>, ymax <span class="op">=</span> <span class="fl">50.69920</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">export_model_trajectory</span><span class="op">(</span><span class="st">"2019-01-01 00:00"</span>, <span class="st">"2019-01-02 00:00"</span>, bbox <span class="op">=</span> <span class="va">bb</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># export 1 day worth of NM (planned) trajectories</span></span></span>
+<span class="r-in"><span><span class="fu">export_model_trajectory</span><span class="op">(</span><span class="st">"2019-07-14"</span>, <span class="st">"2019-07-15"</span>, model <span class="op">=</span> <span class="st">"FTFM"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># export 2 hours of NM (flown) trajectories</span></span></span>
+<span class="r-in"><span><span class="fu">export_model_trajectory</span><span class="op">(</span><span class="st">"2019-07-14 22:00"</span>, <span class="st">"2019-07-15"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># export 1 day of NM (flown) trajectories</span></span></span>
+<span class="r-in"><span><span class="fu">export_model_trajectory</span><span class="op">(</span><span class="st">"2019-07-14"</span>, <span class="st">"2019-07-15"</span>, lobt_buffer <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>before <span class="op">=</span> <span class="fl">24</span>, after <span class="op">=</span> <span class="fl">1.25</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># export all CTFM trajectories within a bounding box 40 NM around EDDF</span></span></span>
+<span class="r-in"><span><span class="va">bb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="fl">7.536746</span>, xmax <span class="op">=</span> <span class="fl">9.604390</span>, ymin <span class="op">=</span> <span class="fl">49.36732</span>, ymax <span class="op">=</span> <span class="fl">50.69920</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">export_model_trajectory</span><span class="op">(</span><span class="st">"2019-01-01 00:00"</span>, <span class="st">"2019-01-02 00:00"</span>, bbox <span class="op">=</span> <span class="va">bb</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -161,7 +175,7 @@ the following environment variables:</p><ul><li><p><code>PRU_DEV_USR</code> for 
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
