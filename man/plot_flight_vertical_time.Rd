@@ -9,7 +9,7 @@ plot_flight_vertical_time(poss)
 }
 \arguments{
 \item{poss}{a dataframe of position reports with (at least)
-`timestamp` (a date-time) and `altitude` (in feet) columns}
+\code{timestamp} (a date-time) and \code{altitude} (in feet) columns}
 }
 \value{
 a \code{ggplot2} plot object.

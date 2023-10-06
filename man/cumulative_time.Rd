@@ -11,7 +11,7 @@ cumulative_time(positions, offblock = NULL, inblock = NULL)
 
 \item{offblock}{optional, the timestamp for offblock if
 different from the first timestamp in the dataset.
-It is either an `int`eger (UNIX timestamp) or a
+It is either an \code{int}eger (UNIX timestamp) or a
 date-time value}
 
 \item{inblock}{optional, the timestamp for inblock if

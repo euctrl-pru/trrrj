@@ -9,16 +9,18 @@ read_so6(filename, delim = " ")
 \arguments{
 \item{filename}{the file containing SO6 trajectories}
 
-\item{delim}{the field delimiter (default: " " [blank])}
+\item{delim}{the field delimiter (default: " " \link{blank})}
 }
 \value{
 a data frame where date and time are combined in a single
-        datetime and longitude and latitude are in decimal degrees.
+datetime and longitude and latitude are in decimal degrees.
 }
 \description{
 The SO6 file has variables of two types:
-* Segment-specific data (latitude/longitude, time/data information, ...)
-* Flight meta data (flight id, callsign, aircraft type, ...)
+\itemize{
+\item Segment-specific data (latitude/longitude, time/data information, ...)
+\item Flight meta data (flight id, callsign, aircraft type, ...)
+}
 
 They are marked S or F respectively in the table below.
 

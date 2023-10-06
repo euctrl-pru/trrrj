@@ -11,7 +11,7 @@ generate_so6(trajectory)
 }
 \value{
 A data frame for trajectories in SO6 format, see \code{\link{read_so6}}
-        for a description of the SO6 format.
+for a description of the SO6 format.
 }
 \description{
 The data frame for point trajectories needs to have the following columns:

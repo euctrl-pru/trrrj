@@ -15,7 +15,7 @@ considered level (default = 5 feet/s)}
 }
 \value{
 a dataset of level segments. A level segment is defined by
-        its beginning and end 4D position.
+its beginning and end 4D position.
 }
 \description{
 It is assumed that the dataset is grouped by flight id

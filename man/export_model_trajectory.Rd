@@ -22,20 +22,20 @@ Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
 
 \item{model}{the model of the profile: one of
 CPF, CTFM, DCT, FTFM, SCR, SRR, SUR
-[default: "CFTM"].}
+\link{default: "CFTM"}.}
 
 \item{bbox}{(Optional) axis aligned bounding box
 (xmin, ymin, xmax, ymax)}
 
 \item{lobt_buffer}{(Optional) number of (portion of) hours buffer for LOBT before/after
-`wef` and `til` (before, after). This is to cater for flights crossing `wef` and `til`.
-For example `c(before = 24, after = 2.25)` allows to retrieve flights with LOBT
-24H before `wef` and 1H15M after `til` and then potentially crossing the interval.}
+\code{wef} and \code{til} (before, after). This is to cater for flights crossing \code{wef} and \code{til}.
+For example \code{c(before = 24, after = 2.25)} allows to retrieve flights with LOBT
+24H before \code{wef} and 1H15M after \code{til} and then potentially crossing the interval.}
 
-\item{timeover_buffer}{(Optional) number of (portion of) hours buffer for `time_over`
-before/after `wef` and `til` (before, after). This is to cater for flights crossing
-`wef` and `til`. For example `c(before = 2, after = 0.25)` allows to retrieve
-points 2H before `wef` and 15M after `til`.}
+\item{timeover_buffer}{(Optional) number of (portion of) hours buffer for \code{time_over}
+before/after \code{wef} and \code{til} (before, after). This is to cater for flights crossing
+\code{wef} and \code{til}. For example \code{c(before = 2, after = 0.25)} allows to retrieve
+points 2H before \code{wef} and 15M after \code{til}.}
 }
 \value{
 a dataframe with trajectory data
@@ -47,9 +47,9 @@ Extract NM point profile trajectories from PRISME database
 You need to store your credentials to access the PRU tables in
 the following environment variables:
 \itemize{
-  \item \code{PRU_DEV_USR} for the user id
-  \item \code{PRU_DEV_PWD} for the password
-  \item \code{PRU_DEV_DBNAME} for the database name
+\item \code{PRU_DEV_USR} for the user id
+\item \code{PRU_DEV_PWD} for the password
+\item \code{PRU_DEV_DBNAME} for the database name
 }
 }
 \examples{

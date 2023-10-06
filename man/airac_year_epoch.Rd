@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-airac.R
 \name{airac_year_epoch}
 \alias{airac_year_epoch}
-\title{Return the effective date of the first AIRAC for year `year`}
+\title{Return the effective date of the first AIRAC for year \code{year}}
 \usage{
 airac_year_epoch(year)
 }
@@ -10,10 +10,10 @@ airac_year_epoch(year)
 \item{year}{a year (as integer)}
 }
 \value{
-the WEF date for the first AIRAC of the year `year`
+the WEF date for the first AIRAC of the year \code{year}
 }
 \description{
-Return the effective date of the first AIRAC for year `year`
+Return the effective date of the first AIRAC for year \code{year}
 }
 \examples{
 airac_year_epoch(2018)

@@ -22,9 +22,9 @@ in the specified period
 You need to store your credentials to access the FR24 tables in
 the following environment variables:
 \itemize{
-  \item \code{PRU_FR24_USR} for the user id
-  \item \code{PRU_FR24_PWD} for the password
-  \item \code{PRU_FR24_DBNAME} for the database name
+\item \code{PRU_FR24_USR} for the user id
+\item \code{PRU_FR24_PWD} for the password
+\item \code{PRU_FR24_DBNAME} for the database name
 }
 }
 \examples{

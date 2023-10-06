@@ -10,7 +10,7 @@ airac_interval(airac)
 \item{airac}{the ICAO AIRAC, i.e. "1603" for the 3rd AIRAC of 2016}
 }
 \value{
-an interval of (28) days coverad by the AIRAC `airac`
+an interval of (28) days coverad by the AIRAC \code{airac}
 }
 \description{
 The interval od dates for an (ICAO) AIRAC

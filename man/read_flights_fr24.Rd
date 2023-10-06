@@ -13,20 +13,20 @@ is extracted into the \code{date} field.}
 }
 \value{
 a data frame of the archived flights that have flown on \code{<yyyymmdd>}.
-  Each flight has the following attributes (all optional, i.e. eventually empty,
-  but  \code{flight_id}):
-  \itemize{
-    \item \code{date}         date of the flight
-    \item \code{flight_id}    unique decimal identifier for the flight leg
-    \item \code{aircraft_id}  mode-S address in hexadecimal
-    \item \code{reg unique}   aircraft text identifier
-    \item \code{equip}        equipment, e.g. \code{B733}
-    \item \code{callsign}     callsign, e.g. \code{NAX11S}
-    \item \code{flight}       flight number, e.g. \code{DY311}
-    \item \code{schd_from}    IATA code for scheduled departure airport, e.g. \code{KKN}
-    \item \code{schd_to}      IATA code for scheduled arrival airport
-    \item \code{real_to}      IATA code for actual arrival airport (when diverted)
-  }
+Each flight has the following attributes (all optional, i.e. eventually empty,
+but  \code{flight_id}):
+\itemize{
+\item \code{date}         date of the flight
+\item \code{flight_id}    unique decimal identifier for the flight leg
+\item \code{aircraft_id}  mode-S address in hexadecimal
+\item \code{reg unique}   aircraft text identifier
+\item \code{equip}        equipment, e.g. \code{B733}
+\item \code{callsign}     callsign, e.g. \code{NAX11S}
+\item \code{flight}       flight number, e.g. \code{DY311}
+\item \code{schd_from}    IATA code for scheduled departure airport, e.g. \code{KKN}
+\item \code{schd_to}      IATA code for scheduled arrival airport
+\item \code{real_to}      IATA code for actual arrival airport (when diverted)
+}
 }
 \description{
 \code{read_flights_fr24} returns all flights as archived by FR24

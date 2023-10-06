@@ -21,13 +21,13 @@ a polygon.
 \lifecycle{experimental}
 
 \code{polygon_at_distance} returns a polygon approximating a circonference
- at distance \code{d}, in Nautical Miles, from the location \code{geo}.
- You can control how many points per quadrant will be used via the
- \code{nQuadSegs} parameter (the default of 30 from \link[sf:st_buffer]{st_buffer} should
- suffice for most of the needs.)
+at distance \code{d}, in Nautical Miles, from the location \code{geo}.
+You can control how many points per quadrant will be used via the
+\code{nQuadSegs} parameter (the default of 30 from \link[sf:st_buffer]{st_buffer} should
+suffice for most of the needs.)
 
- WARNING: this is not tested to work across the date line or for polygons
- containing the poles or for polygons spanning more than half an emisphere.
+WARNING: this is not tested to work across the date line or for polygons
+containing the poles or for polygons spanning more than half an emisphere.
 }
 \examples{
 \dontrun{

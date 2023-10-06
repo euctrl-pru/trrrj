@@ -23,9 +23,9 @@ Extract "Event"-based trajectories from PRISME database
 You need to store your credentials to access the CPLX related tables in
 the following environment variables:
 \itemize{
-  \item \code{PRU_CPLX_USR} for the user id
-  \item \code{PRU_CPLX_PWD} for the password
-  \item \code{PRU_CPLX_DBNAME} for the database name
+\item \code{PRU_CPLX_USR} for the user id
+\item \code{PRU_CPLX_PWD} for the password
+\item \code{PRU_CPLX_DBNAME} for the database name
 }
 }
 \examples{

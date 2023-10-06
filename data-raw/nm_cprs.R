@@ -5,6 +5,7 @@ library(tidyr)
 library(lubridate)
 library(stringr)
 library(glue)
+library(fs)
 
 # PREREQUISITEs:
 # * have package loaded so that FR24 flights are available
@@ -77,8 +78,6 @@ m <- "02"
 d1 <- "05"
 d2 <- "06"
 
-cprs_dir <- "inst/extdata/"
-
 (css_d1 <- flts %>%
   filter(date == glue("{y}-{m}-{d1}"), equip != "GRND", equip != "GLID") %>%
   pull(callsign))
@@ -87,24 +86,16 @@ cprs_dir <- "inst/extdata/"
   filter(date == glue("{y}-{m}-{d2}"), equip != "GRND", equip != "GLID") %>%
   pull(callsign))
 
+cpr_dir <- here::here("inst", "extdata")
 
-fin_d1 <- glue("1\\.{y}{m}{d1}1001tacop304ARCHIVED_OPLOG_ALL_CPR\\.orig\\.gz")
-fout_d1 <- glue("{cprs_dir}/1.{y}{m}{d1}1001tacop304ARCHIVED_OPLOG_ALL_CPR.gz")
+fin_d1 <- glue("1.{y}{m}{d1}1001tacop304ARCHIVED_OPLOG_ALL_CPR.orig.gz")
+fout_d1 <- glue("1.{y}{m}{d1}1001tacop304ARCHIVED_OPLOG_ALL_CPR.gz")
 
-fin_d2 <- glue("1\\.{y}{m}{d2}1001tacop304ARCHIVED_OPLOG_ALL_CPR\\.orig\\.gz")
-fout_d2 <- glue("{cprs_dir}/1.{y}{m}{d2}1001tacop304ARCHIVED_OPLOG_ALL_CPR.gz")
+fin_d2 <- glue("1.{y}{m}{d2}1001tacop304ARCHIVED_OPLOG_ALL_CPR.orig.gz")
+fout_d2 <- glue("1.{y}{m}{d2}1001tacop304ARCHIVED_OPLOG_ALL_CPR.gz")
 
-cprs_d1_gz <- dir(
-  cprs_dir,
-  pattern = fin_d1,
-  full.names = TRUE
-)
-
-cprs_d2_gz <- dir(
-  cprs_dir,
-  pattern = fin_d2,
-  full.names = TRUE
-)
+cprs_d1_gz <- fs::path_abs(path = fin_d1, start = cpr_dir)
+cprs_d2_gz <- fs::path_abs(path = fin_d2, start = cpr_dir)
 
 
 f_d1 <- read_delim(
@@ -124,8 +115,8 @@ f_d2 <- read_delim(
   filter(callsign %in% css_d2)
 
 # write smaller sampler of NM data
-write_delim(f_d1, fout_d1, delim = ";", na = "", col_names = FALSE)
-write_delim(f_d2, fout_d2, delim = ";", na = "", col_names = FALSE)
+write_delim(f_d1, here::here("inst", "extdata", fout_d1), delim = ";", na = "", col_names = FALSE)
+write_delim(f_d2, here::here("inst", "extdata", fout_d2), delim = ";", na = "", col_names = FALSE)
 
 
 # combine and clean the dataset
@@ -157,4 +148,4 @@ cprs <- f_d1 %>%
   ) %>%
   select(-ending)
 
-devtools::use_data(cprs, overwrite = TRUE)
+usethis::use_data(cprs, overwrite = TRUE)

@@ -7,19 +7,19 @@
 \format{
 A data frame with xxyy rows and 11 variables:
 \describe{
-  \item{address}{mode-S address in hexadecimal, as supplied by the
-   Mode-S or ADS-B transponder}
-  \item{adep}{ICAO code for scheduled departure airport}
-  \item{ades}{ICAO code for scheduled arrival airport}
-  \item{callsign}{e.g. CSA190, as supplied by the Mode-S or
-   ADS-B transponder}
-  \item{flight_id}{unique identifier for the flight leg (integer)}
-  \item{reg}{unique aircraft identifier (text)}
-  \item{model}{aircraft type (e.g. B733, as per ICAO classification?),
-  `GLID` for gliders,
-  `GROUND` for ground vehicles}
-  \item{flight}{flight number, e.g. OK190}
-  \item{start_time}{date of the flight (what about the ones crssing midnight?)}
+\item{address}{mode-S address in hexadecimal, as supplied by the
+Mode-S or ADS-B transponder}
+\item{adep}{ICAO code for scheduled departure airport}
+\item{ades}{ICAO code for scheduled arrival airport}
+\item{callsign}{e.g. CSA190, as supplied by the Mode-S or
+ADS-B transponder}
+\item{flight_id}{unique identifier for the flight leg (integer)}
+\item{reg}{unique aircraft identifier (text)}
+\item{model}{aircraft type (e.g. B733, as per ICAO classification?),
+\code{GLID} for gliders,
+\code{GROUND} for ground vehicles}
+\item{flight}{flight number, e.g. OK190}
+\item{start_time}{date of the flight (what about the ones crssing midnight?)}
 }
 }
 \source{

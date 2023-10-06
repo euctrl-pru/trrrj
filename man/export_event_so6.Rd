@@ -15,7 +15,7 @@ Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
 }
 \value{
 a dataframe of trajectory segments in SO6 format, see \code{\link{read_so6}}
-        for a description of the SO6 format.
+for a description of the SO6 format.
 }
 \description{
 Extract event-based trajectories from PRISME database and convert to SO6 format
@@ -24,9 +24,9 @@ Extract event-based trajectories from PRISME database and convert to SO6 format
 You need to store your credentials to access the CPLX tables in
 the following environment variables:
 \itemize{
-  \item \code{PRU_CPLX_USR} for the user id
-  \item \code{PRU_CPLX_PWD} for the password
-  \item \code{PRU_CPLX_DBNAME} for the database name
+\item \code{PRU_CPLX_USR} for the user id
+\item \code{PRU_CPLX_PWD} for the password
+\item \code{PRU_CPLX_DBNAME} for the database name
 }
 }
 \examples{

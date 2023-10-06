@@ -7,20 +7,20 @@
 \format{
 A data frame with 43 rows and 11 variables:
 \describe{
-  \item{flight_id}{unique identifier for the flight leg (integer)}
-  \item{aircraft_id}{mode-S address in hexadecimal, as supplied by the
-   Mode-S or ADS-B transponder}
-  \item{reg}{unique aircraft identifier (text)}
-  \item{equip}{aircraft type (e.g. B733, as per ICAO classification?),
-  `GLID` for gliders,
-  `GROUND` for ground vehicles}
-  \item{callsign}{e.g. CSA190, as supplied by the Mode-S or
-   ADS-B transponder}
-  \item{flight}{flight number, e.g. OK190}
-  \item{schd_from}{IATA code for scheduled departure airport}
-  \item{schd_to}{IATA code for scheduled arrival airport}
-  \item{real_to}{IATA code for actual arrival airport (when diverted)}
-  \item{date}{date of the flight (what about the ones crssing midnight?)}
+\item{flight_id}{unique identifier for the flight leg (integer)}
+\item{aircraft_id}{mode-S address in hexadecimal, as supplied by the
+Mode-S or ADS-B transponder}
+\item{reg}{unique aircraft identifier (text)}
+\item{equip}{aircraft type (e.g. B733, as per ICAO classification?),
+\code{GLID} for gliders,
+\code{GROUND} for ground vehicles}
+\item{callsign}{e.g. CSA190, as supplied by the Mode-S or
+ADS-B transponder}
+\item{flight}{flight number, e.g. OK190}
+\item{schd_from}{IATA code for scheduled departure airport}
+\item{schd_to}{IATA code for scheduled arrival airport}
+\item{real_to}{IATA code for actual arrival airport (when diverted)}
+\item{date}{date of the flight (what about the ones crssing midnight?)}
 }
 }
 \source{

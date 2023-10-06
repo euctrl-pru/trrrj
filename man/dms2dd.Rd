@@ -8,9 +8,10 @@ dms2dd(value)
 }
 \arguments{
 \item{value}{a string representation of an angle (i.e. longitude) in
-             Degree Minute Second (DMS)), i.e. "51° 43' 34.00\" N"
+Degree Minute Second (DMS)), i.e. "51° 43' 34.00\" N"
 
-             \strong{Note} the escaping of double quote.}
+\if{html}{\out{<div class="sourceCode">}}\preformatted{         \\strong\{Note\} the escaping of double quote.
+}\if{html}{\out{</div>}}}
 }
 \value{
 a decimal degrees value

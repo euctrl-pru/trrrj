@@ -19,8 +19,8 @@ filter_outlier(df, col, ksize, fill, keep = FALSE)
 }
 \value{
 a data frame with corrected outliers (if \code{fill} is TRUE).
-        If \code{keep} is TRUE the intermediate columns \code{.<col>_median},
-        \code{.<col>_eps2}, \code{.<col>_sigma} and \code{.<col>_outlier} are included.
+If \code{keep} is TRUE the intermediate columns \code{.<col>_median},
+\code{.<col>_eps2}, \code{.<col>_sigma} and \code{.<col>_outlier} are included.
 }
 \description{
 The \code{col} values are processed through a median (i.e. low pass) filter

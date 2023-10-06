@@ -16,15 +16,15 @@ a dataframe of airport reported movements
 }
 \description{
 Extract APDS data from PRISME database.
-**Note**: there are 129 columns...
+\strong{Note}: there are 129 columns...
 }
 \details{
 You need to store your credentials to access the ATMAP tables in
 the following environment variables:
 \itemize{
-  \item \code{PRU_ATMAP_USR} for the user id
-  \item \code{PRU_ATMAP_PWD} for the password
-  \item \code{PRU_ATMAP_DBNAME} for the database name
+\item \code{PRU_ATMAP_USR} for the user id
+\item \code{PRU_ATMAP_PWD} for the password
+\item \code{PRU_ATMAP_DBNAME} for the database name
 }
 }
 \examples{

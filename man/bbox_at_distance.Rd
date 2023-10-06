@@ -7,7 +7,7 @@
 bbox_at_distance(geo, d, ...)
 }
 \arguments{
-\item{geo}{a geographical position [lon, lat]}
+\item{geo}{a geographical position \link{lon, lat}}
 
 \item{d}{a distance in Nautical Miles}
 
@@ -23,8 +23,8 @@ an \code{\link[sf:st_bbox]{st_bbox}} object
 the extent of an axis-aligned bounding box containing the (polygonal approximation of a)
 a circle at dithance \code{d}.
 
- WARNING: current implementation relies on \code{polygon_at_distance} which is
- not robust to cope with circles containing the Poles or crossing the date line.
+WARNING: current implementation relies on \code{polygon_at_distance} which is
+not robust to cope with circles containing the Poles or crossing the date line.
 }
 \examples{
 \dontrun{

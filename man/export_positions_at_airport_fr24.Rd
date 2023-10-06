@@ -28,7 +28,7 @@ export_positions_at_airport_fr24(
 \item{flow}{the flow of flights: "ARR" for arrivals, "DEP" for departures,
 "ALL" for both (default "ALL")}
 
-\item{radius}{radius around airport to keep position reports (nautical miles [NM])}
+\item{radius}{radius around airport to keep position reports (nautical miles \link{NM})}
 }
 \value{
 dataframe of ADS-B position reports
@@ -41,9 +41,9 @@ for qualified airport movements (arrivals or departures or all)
 You need to store your credentials to access the FR24 tables in
 the following environment variables:
 \itemize{
-  \item \code{PRU_FR24_USR} for the user id
-  \item \code{PRU_FR24_PWD} for the password
-  \item \code{PRU_FR24_DBNAME} for the database name
+\item \code{PRU_FR24_USR} for the user id
+\item \code{PRU_FR24_PWD} for the password
+\item \code{PRU_FR24_DBNAME} for the database name
 }
 }
 \examples{

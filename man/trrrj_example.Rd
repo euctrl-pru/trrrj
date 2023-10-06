@@ -7,10 +7,10 @@
 trrrj_example(path = NULL)
 }
 \arguments{
-\item{path}{Name of file. If `NULL`, the example files will be listed.}
+\item{path}{Name of file. If \code{NULL}, the example files will be listed.}
 }
 \description{
-trrrj comes bundled with a number of sample files in its `inst/extdata`
+trrrj comes bundled with a number of sample files in its \code{inst/extdata}
 directory. This function make them easy to access
 }
 \examples{

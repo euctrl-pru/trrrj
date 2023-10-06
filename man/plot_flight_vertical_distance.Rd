@@ -9,9 +9,9 @@ plot_flight_vertical_distance(poss)
 }
 \arguments{
 \item{poss}{a dataframe of position reports with (at least)
-`timestamp` (a date-time), `altitude` (in feet), `longitude`
-(in decimal degrees) and `latitude` (in decimal degrees) and
-`callsign` columns}
+\code{timestamp} (a date-time), \code{altitude} (in feet), \code{longitude}
+(in decimal degrees) and \code{latitude} (in decimal degrees) and
+\code{callsign} columns}
 }
 \value{
 a \code{ggplot2} plot object.

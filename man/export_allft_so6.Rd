@@ -15,11 +15,11 @@ Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
 
 \item{model}{the trajectory model, one of FTFM, RTFM, CTFM, CPF}
 
-\item{...}{extra arguments passed to [export_model_trajectory].}
+\item{...}{extra arguments passed to \link{export_model_trajectory}.}
 }
 \value{
 a dataframe of trajectory segments in SO6 format, see \code{\link{read_so6}}
-        for a description of the SO6 format.
+for a description of the SO6 format.
 }
 \description{
 Extract \code{ALL_FT+}-based trajectories from PRISME database and convert to
@@ -29,9 +29,9 @@ Extract \code{ALL_FT+}-based trajectories from PRISME database and convert to
 You need to store your credentials to access the PRU tables in
 the following environment variables:
 \itemize{
-  \item \code{PRU_TEST_USR} for the user id
-  \item \code{PRU_TEST_PWD} for the password
-  \item \code{PRU_TEST_DBNAME} for the database name
+\item \code{PRU_TEST_USR} for the user id
+\item \code{PRU_TEST_PWD} for the password
+\item \code{PRU_TEST_DBNAME} for the database name
 }
 }
 \examples{

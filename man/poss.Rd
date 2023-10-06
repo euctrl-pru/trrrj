@@ -6,44 +6,44 @@
 \title{Sample FlightRadar24's archived feed ADS-B position reports data.}
 \format{
 A data frame with 9290 rows and 19 variables.
-The variables are a joint of flight information from `flts` with
+The variables are a joint of flight information from \code{flts} with
 the following ones:
 \describe{
-  \item{flight_id}{unique identifier for the flight leg (integer)}
-  \item{timestamp}{datetime for the position report (convertion  of
-  `snapshot_id`)}
-  \item{snapshot_id}{time of sample as number of seconds that have elapsed
-   since 00:00:00 Coordinated Universal Time (UTC), Thursday, 1 January 1970}
-  \item{altitude}{altitude in feet (integer), as supplied by the Mode-S or
-   ADS-B transponder}
-  \item{heading}{degrees from North, 0-359, (integer), data supplied by
-   ADS-B but calculated for mode-S transponders and tracked using
-   multi-lateration (MLAT)}
-  \item{latitude}{latitude in decimal degrees, data supplied by
-   ADS-B but calculated for mode-S transponders and tracked using
-   multi-lateration (MLAT)}
-  \item{longitude}{longitude in decimal degrees, data supplied by
-   ADS-B but calculated for mode-S transponders and tracked using
-   multi-lateration (MLAT)}
-  \item{radar_id}{unique identifier of primary ground receiver}
-  \item{speed}{ground speed in knots (integer), data supplied by
-   ADS-B but calculated for mode-S transponders and tracked using
-   multi-lateration (MLAT)}
-  \item{squawk}{code broadcast by airplane represented as four octal digits,
-  data supplied directly from the mode-S or ADS-B transponder}
-  \item{aircraft_id}{mode-S address in hexadecimal, as supplied by the
-   Mode-S or ADS-B transponder}
-  \item{reg}{unique aircraft identifier (text)}
-  \item{equip}{aircraft type (e.g. B733, as per ICAO classification?),
-  `GLID` for gliders,
-  `GROUND` for ground vehicles}
-  \item{callsign}{e.g. CSA190, as supplied by the Mode-S or
-   ADS-B transponder}
-  \item{flight}{flight number, e.g. OK190}
-  \item{schd_from}{IATA code for scheduled departure airport}
-  \item{schd_to}{IATA code for scheduled arrival airport}
-  \item{real_to}{IATA code for actual arrival airport (when diverted)}
-  \item{date}{date of the flight (what about the ones crossing midnight?)}
+\item{flight_id}{unique identifier for the flight leg (integer)}
+\item{timestamp}{datetime for the position report (convertion  of
+\code{snapshot_id})}
+\item{snapshot_id}{time of sample as number of seconds that have elapsed
+since 00:00:00 Coordinated Universal Time (UTC), Thursday, 1 January 1970}
+\item{altitude}{altitude in feet (integer), as supplied by the Mode-S or
+ADS-B transponder}
+\item{heading}{degrees from North, 0-359, (integer), data supplied by
+ADS-B but calculated for mode-S transponders and tracked using
+multi-lateration (MLAT)}
+\item{latitude}{latitude in decimal degrees, data supplied by
+ADS-B but calculated for mode-S transponders and tracked using
+multi-lateration (MLAT)}
+\item{longitude}{longitude in decimal degrees, data supplied by
+ADS-B but calculated for mode-S transponders and tracked using
+multi-lateration (MLAT)}
+\item{radar_id}{unique identifier of primary ground receiver}
+\item{speed}{ground speed in knots (integer), data supplied by
+ADS-B but calculated for mode-S transponders and tracked using
+multi-lateration (MLAT)}
+\item{squawk}{code broadcast by airplane represented as four octal digits,
+data supplied directly from the mode-S or ADS-B transponder}
+\item{aircraft_id}{mode-S address in hexadecimal, as supplied by the
+Mode-S or ADS-B transponder}
+\item{reg}{unique aircraft identifier (text)}
+\item{equip}{aircraft type (e.g. B733, as per ICAO classification?),
+\code{GLID} for gliders,
+\code{GROUND} for ground vehicles}
+\item{callsign}{e.g. CSA190, as supplied by the Mode-S or
+ADS-B transponder}
+\item{flight}{flight number, e.g. OK190}
+\item{schd_from}{IATA code for scheduled departure airport}
+\item{schd_to}{IATA code for scheduled arrival airport}
+\item{real_to}{IATA code for actual arrival airport (when diverted)}
+\item{date}{date of the flight (what about the ones crossing midnight?)}
 }
 }
 \source{
@@ -54,7 +54,7 @@ poss
 }
 \description{
 A dataset containing FlightRadar24's archived ADS-B position reports
-(combined with flight information of `flts`) for 41 flights.
+(combined with flight information of \code{flts}) for 41 flights.
 There are 20 flights on 5th and 21 on 6th Feb 2017.
 }
 \keyword{datasets}

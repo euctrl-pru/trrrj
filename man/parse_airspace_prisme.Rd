@@ -15,21 +15,21 @@ a tibble of airspaces (CRS = 4326)
 \description{
 \lifecycle{experimental}
 
-`parse_airspace_prisme` reads the airspace PRISME format and returns a tibble
+\code{parse_airspace_prisme} reads the airspace PRISME format and returns a tibble
 where each row describes an airspace.
 
 Each airspace in PRISME format is described by:
 \enumerate{
-  \item Airspace description (one row):
-    \itemize{
-      \item an airspace Unit code
-      \item a Elementary Sector code
-      \item minimum flight level
-      \item maximum flight level
-      \item the number of vertices of the polygon of the Elementary Sector
-      \item the coordinates of vertices
-    }
-  \item vertex coordinates (as many rows as the number of vertices)
+\item Airspace description (one row):
+\itemize{
+\item an airspace Unit code
+\item a Elementary Sector code
+\item minimum flight level
+\item maximum flight level
+\item the number of vertices of the polygon of the Elementary Sector
+\item the coordinates of vertices
+}
+\item vertex coordinates (as many rows as the number of vertices)
 }
 }
 \examples{

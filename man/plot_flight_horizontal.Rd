@@ -14,9 +14,9 @@ plot_flight_horizontal(
 }
 \arguments{
 \item{poss}{a dataframe of position reports with (at least)
-`callsign`,
-`timestamp` (a date-time), `altitude` (in feet), `longitude`
-(in decimal degrees) and `latitude` (in decimal degrees) columns}
+\code{callsign},
+\code{timestamp} (a date-time), \code{altitude} (in feet), \code{longitude}
+(in decimal degrees) and \code{latitude} (in decimal degrees) columns}
 
 \item{bbox}{a bounding box in the format
 \code{c(lowerleftlon, lowerleftlat, upperrightlon, upperrightlat)}.}

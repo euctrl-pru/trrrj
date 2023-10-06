@@ -11,27 +11,27 @@ read_positions_fr24(path)
 }
 \value{
 a data frame of the archived flight's positions for date \code{<yyyymmdd>}.
-  Each position report has the following attributes (all mandatory, i.e. non empty,
-  but \code{speed}, \code{squawk} and \code{vert_speed}):
-  \itemize{
-    \item \code{flight_id}   FR24 unique (within a day?) flight leg identifier
-    \item \code{timestamp}   \code{snapshot_id} converted to a date/time
-    \item \code{snapshot_id} time of sample in Unix epoch seconds,
-          i.e. since 1st Jan 1970 00:00:00 UTC
-    \item \code{altitude}    altitude (feet). Barometric relative to ISO 1013 hPa
-          pressure in flight, always 0 on ground.
-    \item \code{heading}     0-359 degrees
-    \item \code{latitude}    latitude in decimal degrees
-    \item \code{longitude}   longitude in decimal degrees
-    \item \code{radar_id}    unique identifier of primary ground receiver
-    \item \code{speed}       ground speed (knots)
-    \item \code{squawk}      code broadcast by airplane, represented as four
-          octal digits
-    \item \code{vert_speed}  vertical speed (feet/min). Calculated from rate
-          of altitude changes, 0 for level flight or empty if unavailable
-    \item \code{on_ground}   1 for on ground, 0 for airborne.
-          Calculated from low altitude and ground speed
-  }
+Each position report has the following attributes (all mandatory, i.e. non empty,
+but \code{speed}, \code{squawk} and \code{vert_speed}):
+\itemize{
+\item \code{flight_id}   FR24 unique (within a day?) flight leg identifier
+\item \code{timestamp}   \code{snapshot_id} converted to a date/time
+\item \code{snapshot_id} time of sample in Unix epoch seconds,
+i.e. since 1st Jan 1970 00:00:00 UTC
+\item \code{altitude}    altitude (feet). Barometric relative to ISO 1013 hPa
+pressure in flight, always 0 on ground.
+\item \code{heading}     0-359 degrees
+\item \code{latitude}    latitude in decimal degrees
+\item \code{longitude}   longitude in decimal degrees
+\item \code{radar_id}    unique identifier of primary ground receiver
+\item \code{speed}       ground speed (knots)
+\item \code{squawk}      code broadcast by airplane, represented as four
+octal digits
+\item \code{vert_speed}  vertical speed (feet/min). Calculated from rate
+of altitude changes, 0 for level flight or empty if unavailable
+\item \code{on_ground}   1 for on ground, 0 for airborne.
+Calculated from low altitude and ground speed
+}
 }
 \description{
 \code{read_positions_fr24} returns all position reports as archived by FR24

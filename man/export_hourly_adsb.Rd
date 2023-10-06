@@ -14,7 +14,7 @@ Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
 \item{til}{(UTC) timestamp of LOBT TILl instant (excluded)}
 
 \item{model}{the model of the profile: one of "FTFM", "CTFM", "CPF".
-[default: "CFTM"]}
+\link{default: "CFTM"}}
 
 \item{bbox}{(Optional) axis aligned bounding box
 (xmin, ymin, xmax, ymax)}
@@ -30,9 +30,9 @@ as registration, aircraft operator and ICAO 24-bit address
 You need to store your credentials to access the PRU tables in
 the following environment variables:
 \itemize{
-  \item \code{PRU_DEV_USR} for the user id
-  \item \code{PRU_DEV_PWD} for the password
-  \item \code{PRU_DEV_DBNAME} for the database name
+\item \code{PRU_DEV_USR} for the user id
+\item \code{PRU_DEV_PWD} for the password
+\item \code{PRU_DEV_DBNAME} for the database name
 }
 }
 \examples{

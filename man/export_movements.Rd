@@ -22,10 +22,10 @@ Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
 \item{til}{(UTC) timestamp of LOBT TILl instant (excluded)}
 
 \item{type}{Type of movement; 'arr' for arrivals, 'dep' for departures
-'both' for arrivals and departures. [default 'both']}
+'both' for arrivals and departures. \link{default 'both'}}
 
 \item{lobt_buffer}{The number of hours before and after LOBT to query
-[default before = 28, after = 24]. This is related to how
+\link{default before = 28, after = 24}. This is related to how
 LOBT is stored in the underlying database table.}
 }
 \value{
