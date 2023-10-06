@@ -45,7 +45,6 @@ Suggests:
     here,
     knitr,
     purrr,
-    rgeos,
     rmarkdown,
     rnaturalearthdata,
     testthat (>= 3.0.0)
