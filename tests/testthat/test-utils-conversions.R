@@ -1,5 +1,3 @@
-context("Conversion utils: degrees")
-
 test_that("Conversion from Degree/Minute/Seconds (DMS) to Decimal Degree (DD)", {
   ins <- c(
     "1° 0'0\"N",

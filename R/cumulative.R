@@ -53,9 +53,10 @@ cumulative_distance <- function(positions) {
       cumulative_distance = cumsum(.data$seg_dist) / 1000
     ) %>%
     dplyr::select(
-      -.data$prev_longitude,
-      -.data$prev_latitude,
-      -.data$seg_dist
+      -c("prev_longitude",
+         "prev_latitude",
+         "seg_dist"
+       )
     )
 }
 

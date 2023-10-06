@@ -1,12 +1,7 @@
-library(lubridate)
-
-context("Conversion utils: AIRAC")
-
-
 test_that("Testing AIRAC schemes", {
   expect_equal(cfmu_airac(cfmu_airac_epoch()), 0)
-  expect_equal(cfmu_airac(cfmu_airac_epoch() + ddays(28)), 1)
-  expect_equal(cfmu_airac(cfmu_airac_epoch() + ddays(28 * 447 )), 447)
+  expect_equal(cfmu_airac(cfmu_airac_epoch() + lubridate::ddays(28)), 1)
+  expect_equal(cfmu_airac(cfmu_airac_epoch() + lubridate::ddays(28 * 447 )), 447)
   expect_equal(cfmu_airac("2019-01-03"), 447)
   expect_equal(cfmu_airac_interval(0),
                lubridate::interval(cfmu_airac_epoch(),

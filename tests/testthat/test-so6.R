@@ -1,8 +1,3 @@
-library(trrrj)
-library(dplyr)
-
-context("SO6")
-
 test_that("Generate so6", {
   three_point_trajectory <- dplyr::tribble(
     ~gid,       ~lon,  ~lat,   ~flight_level,  ~time_over, ~point_id,    ~air_route, ~aircraft_type,  ~adep, ~ades, ~callsign,
@@ -10,29 +5,35 @@ test_that("Generate so6", {
     228541457,  7.21,  50.8,    25, "2019-03-30 00:59:20",   "*DK34", "EDDKKUMIK1Q",         "B738", "EDDK", "ZZZZ",    "ABC",
     228541457,  7.24,  50.8,    30, "2019-03-30 00:59:44",   "*DK35", "EDDKKUMIK1Q",         "B738", "EDDK", "ZZZZ",    "ABC"
     ) %>%
-    mutate(time_over = lubridate::ymd_hms(time_over), gid = as.integer(gid)) %>%
-    rename(longitude = lon,
-           latitude = lat,
-           flight_id = gid)
+    dplyr::mutate(time_over = lubridate::ymd_hms(time_over), gid = as.integer(gid)) %>%
+    dplyr::rename(
+      longitude = lon,
+      latitude  = lat,
+      flight_id = gid
+    )
 
   two_point_trajectory <- dplyr::tribble(
     ~gid,       ~lon,  ~lat,   ~flight_level,  ~time_over, ~point_id,    ~air_route, ~aircraft_type,  ~adep, ~ades, ~callsign,
     228541457,  7.14,  50.9,     0, "2019-03-30 00:58:00",    "EDDK", "EDDKKUMIK1Q",         "B738", "EDDK", "ZZZZ",    "ABC",
     228541457,  7.21,  50.8,    25, "2019-03-30 00:59:20",   "*DK34", "EDDKKUMIK1Q",         "B738", "EDDK", "ZZZZ",    "ABC"
   ) %>%
-    mutate(time_over = lubridate::ymd_hms(time_over), gid = as.integer(gid)) %>%
-    rename(longitude = lon,
-           latitude = lat,
-           flight_id = gid)
+    dplyr::mutate(time_over = lubridate::ymd_hms(time_over), gid = as.integer(gid)) %>%
+    dplyr::rename(
+      longitude = lon,
+      latitude  = lat,
+      flight_id = gid
+    )
 
   one_point_trajectory <- dplyr::tribble(
     ~gid,       ~lon,  ~lat,   ~flight_level,  ~time_over, ~point_id,    ~air_route, ~aircraft_type,  ~adep, ~ades, ~callsign,
     228541457,  7.24,  50.8,    30, "2019-03-30 00:59:44",   "*DK35", "EDDKKUMIK1Q",         "B738", "EDDK", "ZZZZ",    "ABC"
   ) %>%
     dplyr::mutate(time_over = lubridate::ymd_hms(time_over), gid = as.integer(gid)) %>%
-    rename(longitude = lon,
-           latitude = lat,
-           flight_id = gid)
+    dplyr::rename(
+      longitude = lon,
+      latitude  = lat,
+      flight_id = gid
+    )
 
 
   # nolint start

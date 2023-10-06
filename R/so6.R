@@ -269,26 +269,26 @@ generate_so6 <- function(trajectory) {
     dplyr::select(dplyr::starts_with("XX")) %>%
     dplyr::arrange(.data$XX17, .data$XX18) %>%
     dplyr::rename(
-      segment_id              = .data$XX1,
-      adep                    = .data$XX2,
-      ades                    = .data$XX3,
-      aircraft_type           = .data$XX4,
-      segment_hhmm_begin      = .data$XX5,
-      segment_hhmm_end        = .data$XX6,
-      segment_fl_begin        = .data$XX7,
-      segment_fl_end          = .data$XX8,
-      status                  = .data$XX9,
-      callsign                = .data$XX10,
-      segment_date_begin      = .data$XX11,
-      segment_date_end        = .data$XX12,
-      segment_latitude_begin  = .data$XX13,
-      segment_longitude_begin = .data$XX14,
-      segment_latitude_end    = .data$XX15,
-      segment_longitude_end   = .data$XX16,
-      flight_id               = .data$XX17,
-      sequence                = .data$XX18,
-      segment_length          = .data$XX19,
-      segment_parity          = .data$XX20
+      segment_id              = "XX1",
+      adep                    = "XX2",
+      ades                    = "XX3",
+      aircraft_type           = "XX4",
+      segment_hhmm_begin      = "XX5",
+      segment_hhmm_end        = "XX6",
+      segment_fl_begin        = "XX7",
+      segment_fl_end          = "XX8",
+      status                  = "XX9",
+      callsign                = "XX10",
+      segment_date_begin      = "XX11",
+      segment_date_end        = "XX12",
+      segment_latitude_begin  = "XX13",
+      segment_longitude_begin = "XX14",
+      segment_latitude_end    = "XX15",
+      segment_longitude_end   = "XX16",
+      flight_id               = "XX17",
+      sequence                = "XX18",
+      segment_length          = "XX19",
+      segment_parity          = "XX20"
     )
 }
 

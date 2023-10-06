@@ -1,5 +1,3 @@
-context("Spatial utils")
-
 test_that("filter range", {
   g <- c(0, 0)
   pts <- dplyr::tribble(

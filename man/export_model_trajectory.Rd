@@ -20,8 +20,9 @@ Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
 
 \item{til}{(UTC) timestamp of LOBT TILl instant (excluded)}
 
-\item{model}{the model of the profile: one of "FTFM", "CTFM", "RTFM", "CPF".
-[default: "CFTM"]}
+\item{model}{the model of the profile: one of
+CPF, CTFM, DCT, FTFM, SCR, SRR, SUR
+[default: "CFTM"].}
 
 \item{bbox}{(Optional) axis aligned bounding box
 (xmin, ymin, xmax, ymax)}

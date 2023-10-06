@@ -167,7 +167,7 @@ filter_positions_at_range <- function(df, geo, dm, dM, lon, lat, .exclude = FALS
     dplyr::mutate(.distance = geosphere::distGeo(geo, cbind({{ lon }}, {{ lat }})) / 1852.0) %>%
     dplyr::filter(predicate((dm <= .data$.distance), (.data$.distance < dM)))
   if (.keep != TRUE) {
-    ddff <- ddff %>% dplyr::select(-.data$.distance)
+    ddff <- ddff %>% dplyr::select(-".distance")
   }
   ddff
 }
