@@ -38,7 +38,7 @@
 #' }
 #'
 #' @param filename the file containing SO6 trajectories
-#' @param delim    the field delimiter (default: " " [blank])
+#' @param delim    the field delimiter (default: " " \[blank\])
 #'
 #' @return a data frame where date and time are combined in a single
 #'         datetime and longitude and latitude are in decimal degrees.

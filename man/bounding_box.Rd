@@ -7,11 +7,11 @@
 bounding_box(lat, lon, d)
 }
 \arguments{
-\item{lat}{latitude of the center point  \link{decimal degrees}.}
+\item{lat}{latitude of the center point  [decimal degrees].}
 
-\item{lon}{longitude of the center point \link{decimal degrees}.}
+\item{lon}{longitude of the center point [decimal degrees].}
 
-\item{d}{distance from the center point in Nautical Miles.}
+\item{d}{distance from the center point [Nautical Miles].}
 }
 \value{
 Returns a matrix with max/min latitude/longitude values.

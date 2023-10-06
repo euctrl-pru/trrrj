@@ -287,12 +287,12 @@ export_flights_at_airport_fr24 <- function(wef, til, apt, flow = "ALL") {
 #'
 #' @param wef (UTC) timestamp of With Effect From (included)
 #' @param til (UTC) timestamp of TILl instant (excluded)
-#' @param radius radius around airport to keep position reports (nautical miles [NM])
+#' @param radius radius around airport to keep position reports (nautical miles \[NM\])
 #' @param apt IATA airport code, i.e. PSA for Pisa "Galileo Galilei"
 #' @param lon_apt airport longitude (decimal degrees, WGS84)
 #' @param lat_apt airport latitude (decimal degrees, WGS84)
 #' @param flow the flow of flights: "ARR" for arrivals, "DEP" for departures,
-#'                                  "ALL" for both (default "ALL")
+#'                                  "ALL" for both \[default "ALL"\]
 #'
 #' @return dataframe of ADS-B position reports
 #' @family read/export

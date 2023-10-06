@@ -22,7 +22,7 @@ Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
 
 \item{model}{the model of the profile: one of
 CPF, CTFM, DCT, FTFM, SCR, SRR, SUR
-\link{default: "CFTM"}.}
+[default: "CFTM"].}
 
 \item{bbox}{(Optional) axis aligned bounding box
 (xmin, ymin, xmax, ymax)}

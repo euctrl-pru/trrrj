@@ -28,10 +28,10 @@ filter_positions_at_range(
 
 \item{lat}{the column for latitude in \code{df}}
 
-\item{.exclude}{exclude the point in the [\code{dm}, \code{dM}) \link{default is FALSE}}
+\item{.exclude}{exclude the point in the (\code{dm}, \code{dM}) [default is FALSE]}
 
 \item{.keep}{keep the calculated distance (in Nautical Miles)
-in the \code{.distance} column \link{default is FALSE}}
+in the \code{.distance} column [default is FALSE]}
 }
 \value{
 a subset of \code{df}

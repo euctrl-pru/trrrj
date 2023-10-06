@@ -14,7 +14,7 @@ Liberal format, i.e. "2019-07-14", "2019-07-14 10:21"
 \item{til}{(UTC) timestamp of LOBT TILl instant (excluded)}
 
 \item{lobt_buffer}{The number of hours before and after LOBT to query
-\link{default before = 28, after = 24}. This is related to how
+[default before = 28, after = 24]. This is related to how
 LOBT is stored in the underlying database table.}
 }
 \value{

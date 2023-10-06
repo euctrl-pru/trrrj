@@ -7,11 +7,11 @@
 bbox_at_distance(geo, d, ...)
 }
 \arguments{
-\item{geo}{a geographical position \link{lon, lat}}
+\item{geo}{a geographical position [lon, lat]}
 
 \item{d}{a distance in Nautical Miles}
 
-\item{...}{other params}
+\item{...}{other parameters passed to \code{\link[=polygon_at_distance]{polygon_at_distance()}}}
 }
 \value{
 an \code{\link[sf:st_bbox]{st_bbox}} object

@@ -32,7 +32,7 @@
 #'             received and processed by the Network Manager.
 #'             Filenames are something like
 #'             \code{1.201702061001tacop304ARCHIVED_OPLOG_ALL_CPR.gz}
-#' @param delim the character delimiting the fields [default = ";"]
+#' @param delim the character delimiting the fields \[default = ";"\]
 #' @return A dataframe of correlated position reports (CPR's)
 #' @export
 #'

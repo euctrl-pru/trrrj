@@ -16,7 +16,7 @@
 #' @param til (UTC) timestamp of LOBT TILl instant (excluded)
 #' @param model the model of the profile: one of
 #'              CPF, CTFM, DCT, FTFM, SCR, SRR, SUR
-#'              [default: "CFTM"].
+#'              \[default: "CFTM"\].
 #' @param bbox (Optional) axis aligned bounding box
 #'             (xmin, ymin, xmax, ymax)
 #' @param lobt_buffer (Optional) number of (portion of) hours buffer for LOBT before/after
@@ -422,7 +422,7 @@ export_apds <- function(wef, til) {
 #'            "2019-07-14T10:21:23Z"
 #' @param til (UTC) timestamp of LOBT TILl instant (excluded)
 #' @param model the model of the profile: one of "FTFM", "CTFM", "CPF".
-#'              [default: "CFTM"]
+#'              \[default: "CFTM"\]
 #' @param bbox (Optional) axis aligned bounding box
 #'             (xmin, ymin, xmax, ymax)
 #'
@@ -527,9 +527,9 @@ export_hourly_adsb <- function(wef, til, model = 'CTFM', bbox = NULL) {
 #'             "2019-07-14T10:21:23Z"
 #' @param til  (UTC) timestamp of LOBT TILl instant (excluded)
 #' @param type Type of movement; 'arr' for arrivals, 'dep' for departures
-#'             'both' for arrivals and departures. [default 'both']
+#'             'both' for arrivals and departures. \[default 'both'\]
 #' @param lobt_buffer The number of hours before and after LOBT to query
-#'             [default before = 28, after = 24]. This is related to how
+#'             \[default before = 28, after = 24\]. This is related to how
 #'             LOBT is stored in the underlying database table.
 #'
 #' @return a data frame of flight movements
@@ -673,7 +673,7 @@ export_movements <- function(
 #'             "2019-07-14T10:21:23Z"
 #' @param til  (UTC) timestamp of LOBT TILl instant (excluded)
 #' @param lobt_buffer The number of hours before and after LOBT to query
-#'             [default before = 28, after = 24]. This is related to how
+#'             \[default before = 28, after = 24\]. This is related to how
 #'             LOBT is stored in the underlying database table.
 #'
 #' @return a data frame of flight info

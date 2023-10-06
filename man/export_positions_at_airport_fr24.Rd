@@ -26,9 +26,9 @@ export_positions_at_airport_fr24(
 \item{lat_apt}{airport latitude (decimal degrees, WGS84)}
 
 \item{flow}{the flow of flights: "ARR" for arrivals, "DEP" for departures,
-"ALL" for both (default "ALL")}
+"ALL" for both [default "ALL"]}
 
-\item{radius}{radius around airport to keep position reports (nautical miles \link{NM})}
+\item{radius}{radius around airport to keep position reports (nautical miles [NM])}
 }
 \value{
 dataframe of ADS-B position reports

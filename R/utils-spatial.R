@@ -11,9 +11,9 @@
 #'  WARNING: current implementation relies on \code{polygon_at_distance} which is
 #'  not robust to cope with circles containing the Poles or crossing the date line.
 #'
-#' @param geo a geographical position [lon, lat]
+#' @param geo a geographical position \[lon, lat\]
 #' @param d   a distance in Nautical Miles
-#' @param ... other params
+#' @param ... other parameters passed to [polygon_at_distance()]
 #'
 #' @return an \code{\link[sf:st_bbox]{st_bbox}} object
 #' @export
@@ -82,9 +82,9 @@ polygon_at_distance <- function(geo, d, ...) {
 #'
 #' Calculate a bounding box for a center point given a set of coordinates.
 #'
-#' @param lat latitude of the center point  [decimal degrees].
-#' @param lon longitude of the center point [decimal degrees].
-#' @param d   distance from the center point in Nautical Miles.
+#' @param lat latitude of the center point  \[decimal degrees\].
+#' @param lon longitude of the center point \[decimal degrees\].
+#' @param d   distance from the center point \[Nautical Miles\].
 #'
 #' @return Returns a matrix with max/min latitude/longitude values.
 #'
@@ -133,8 +133,8 @@ bounding_box <- function(lat, lon, d) {
 #' @param lon the column for longitude in \code{df}
 #' @param lat the column for latitude in \code{df}
 #' @param .keep keep the calculated distance (in Nautical Miles)
-#'              in the \code{.distance} column [default is FALSE]
-#' @param .exclude exclude the point in the [\code{dm}, \code{dM}) [default is FALSE]
+#'              in the \code{.distance} column \[default is FALSE\]
+#' @param .exclude exclude the point in the (\code{dm}, \code{dM}) \[default is FALSE\]
 #'
 #' @return a subset of \code{df}
 #' @export

@@ -18,13 +18,18 @@ is an NM system}
 \item{entry_node_sac}{Entry Node (EN) system area code (SAC).
 To avoid ambiguity in the exchange of Surveillance related data,
 each system using the ASTERIX data format gets assigned a unique
-identifier composed of two values called \verb{SAC/SIC'. See \url{https://www.eurocontrol.int/services/system-area-code-list}\} \\item\{entry_node_sic\}\{Entry Node (EN) system identifier code (SIC). To avoid ambiguity in the exchange of Surveillance related data, each system using the ASTERIX data format gets assigned a unique identifier composed of two values called }SAC/SIC'.
+identifier composed of two values called \code{SAC/SIC}.
+See \url{https://www.eurocontrol.int/services/system-area-code-list} }
+\item{entry_node_sic}{Entry Node (EN) system identifier code (SIC).
+To avoid ambiguity in the exchange of Surveillance related data,
+each system using the ASTERIX data format gets assigned a unique
+identifier composed of two values called \code{SAC/SIC}.
 The System Identification Code (SIC) is allocated nationally by
 the responsible Air Traffic Services Organisation.
 It identifies each individual system (surveillance sensor,
 surveillance data processing system, etc) within the respective
 area defined by the SAC.
-See \url{https://www.eurocontrol.int/services/system-area-code-list}}
+See \url{https://www.eurocontrol.int/services/system-area-code-list} }
 \item{callsign}{Callsign for the flight as provided in
 the FPL (Flight PLan). It may be the registration marking of the aircraft
 or the ICAO designator for the aircraft operating agency followed by

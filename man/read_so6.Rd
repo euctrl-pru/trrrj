@@ -9,7 +9,7 @@ read_so6(filename, delim = " ")
 \arguments{
 \item{filename}{the file containing SO6 trajectories}
 
-\item{delim}{the field delimiter (default: " " \link{blank})}
+\item{delim}{the field delimiter (default: " " [blank])}
 }
 \value{
 a data frame where date and time are combined in a single
