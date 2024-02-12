@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">trrrj</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -176,7 +176,7 @@ documentation via <code><a href="../reference/cprs.html">?cprs</a></code>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">callsign</span> <span class="op">==</span> <span class="st">"RYR19QK"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">trj_cpr</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">trrrj</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_cpr_horizontal.html">plot_cpr_horizontal</a></span><span class="op">(</span><span class="va">europe</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu">trrrj</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_cpr_horizontal.html">plot_cpr_horizontal</a></span><span class="op">(</span><span class="va">europe</span>, linewidth <span class="op">=</span> <span class="fl">1.3</span>, colour <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="trrrj-plotting_files/figure-html/trj-cpr-ggmap-1.png" alt="2D plot via ggmap" width="672"><p class="caption">
 2D plot via ggmap
@@ -203,7 +203,7 @@ Flight’s vertical profile vs. time
 box):</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cprs</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/plot_cpr_horizontal.html">plot_cpr_horizontal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/plot_cpr_horizontal.html">plot_cpr_horizontal</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1.3</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="trrrj-plotting_files/figure-html/all-cprs-2d-1.png" alt="A map of all sample CPR trajectories" width="672"><p class="caption">
 A map of all sample CPR trajectories

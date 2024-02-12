@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">trrrj</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -63,18 +63,24 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_cpr_horizontal</span><span class="op">(</span><span class="va">cprs</span>, bb <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_cpr_horizontal</span><span class="op">(</span><span class="va">poss</span>, bbox <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>cprs</dt>
-<dd><p>a dataframe of CPR position reports</p></dd>
+    <dl><dt>poss</dt>
+<dd><p>a dataframe of correlated position reports (CPRs) with (at least)
+<code>callsign</code>, <code>timestamp_track</code> (a date-time), <code>flight_level</code> (in flight levels),
+<code>longitude</code> (in decimal degrees) and <code>latitude</code> (in decimal degrees) columns</p></dd>
 
 
-<dt>bb</dt>
-<dd><p>an optional bounding box (a vector of left, bottom, right, top).
-If NULL, the default, it will be calculated from the data.</p></dd>
+<dt>bbox</dt>
+<dd><p>a bounding box in the format
+<code>c(lowerleftlon, lowerleftlat, upperrightlon, upperrightlat)</code>.</p></dd>
+
+
+<dt>...</dt>
+<dd><p>Extra parameters to pass further on.</p></dd>
 
 </dl></div>
     <div id="value">
