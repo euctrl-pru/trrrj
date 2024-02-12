@@ -4,13 +4,17 @@
 \alias{plot_cpr_horizontal}
 \title{Plot CPR trajectories on a map}
 \usage{
-plot_cpr_horizontal(cprs, bb = NULL)
+plot_cpr_horizontal(poss, bbox = NULL, ...)
 }
 \arguments{
-\item{cprs}{a dataframe of CPR position reports}
+\item{poss}{a dataframe of correlated position reports (CPRs) with (at least)
+\code{callsign}, \code{timestamp_track} (a date-time), \code{flight_level} (in flight levels),
+\code{longitude} (in decimal degrees) and \code{latitude} (in decimal degrees) columns}
 
-\item{bb}{an optional bounding box (a vector of left, bottom, right, top).
-If NULL, the default, it will be calculated from the data.}
+\item{bbox}{a bounding box in the format
+\code{c(lowerleftlon, lowerleftlat, upperrightlon, upperrightlat)}.}
+
+\item{...}{Extra parameters to pass further on.}
 }
 \value{
 a ggplot2 plot

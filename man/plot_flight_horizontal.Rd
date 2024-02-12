@@ -9,7 +9,8 @@ plot_flight_horizontal(
   bbox = NULL,
   buffer = 100,
   legend.position = "none",
-  shape = NULL
+  shape = NULL,
+  ...
 )
 }
 \arguments{
@@ -27,6 +28,8 @@ plot_flight_horizontal(
 
 \item{shape}{shape of point to plot (default \code{NULL}, i.e. do not plot positions, only paths).
 See \code{shape} in \code{\link[ggplot2]{geom_point}}.}
+
+\item{...}{Extra parameters to pass further on.}
 }
 \value{
 a \code{ggplot2} plot object.

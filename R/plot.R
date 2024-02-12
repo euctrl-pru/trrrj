@@ -10,6 +10,7 @@
 #' @param legend.position legend position as per ggplot2 (default "none", i.e. do not show it).
 #' @param shape shape of point to plot (default \code{NULL}, i.e. do not plot positions, only paths).
 #' See \code{shape} in \code{\link[ggplot2]{geom_point}}.
+#' @param ... Extra parameters to pass further on.
 #'
 #' @return a \code{ggplot2} plot object.
 #' @family plot
@@ -47,7 +48,8 @@ plot_flight_horizontal <- function(poss,
                                    bbox = NULL,
                                    buffer = 100,
                                    legend.position = "none",
-                                   shape = NULL) {
+                                   shape = NULL,
+                                   ...) {
   stopifnot(is.numeric(buffer))
 
   buffer <- units::set_units(buffer, units::as_units("nmile"), mode = "standard")
@@ -70,7 +72,7 @@ plot_flight_horizontal <- function(poss,
 
   p <- ggplot2::ggplot(poss) +
     ggplot2::geom_sf(data = world) +
-    geom_flight_horizontal(data = poss, shape = shape) +
+    geom_flight_horizontal(data = poss, shape = shape, ...) +
     ggplot2::coord_sf(xlim = c(bbox["left"], bbox["right"]),
                       ylim = c(bbox["bottom"], bbox["top"]),
                       expand = TRUE) +
@@ -83,9 +85,10 @@ plot_flight_horizontal <- function(poss,
 
 #' Plot CPR trajectories on a map
 #'
-#' @param cprs a dataframe of CPR position reports
-#' @param bb   an optional bounding box (a vector of left, bottom, right, top).
-#'   If NULL, the default, it will be calculated from the data.
+#' @param poss a dataframe of correlated position reports (CPRs) with (at least)
+#'  `callsign`, `timestamp_track` (a date-time), `flight_level` (in flight levels),
+#'  `longitude` (in decimal degrees) and `latitude` (in decimal degrees) columns
+#' @inheritParams plot_flight_horizontal
 #'
 #' @return a ggplot2 plot
 #' @family plot
@@ -97,14 +100,14 @@ plot_flight_horizontal <- function(poss,
 #' europe <- c(left = 5, bottom = 35, right = 30, top = 52)
 #' plot_cpr_horizontal(cprs, europe)
 #' }
-plot_cpr_horizontal <- function(cprs, bb = NULL) {
-  cprs %>%
+plot_cpr_horizontal <- function(poss, bbox = NULL, ...) {
+  poss %>%
     dplyr::mutate(
       altitude = .data$flight_level * 100,
       timestamp = .data$timestamp_track,
       callsign = .data$callsign
     ) %>%
-    plot_flight_horizontal(bb)
+    plot_flight_horizontal(bbox = bbox, ...)
 }
 
 
@@ -179,8 +182,8 @@ geom_flight_horizontal <- function(data, shape = NULL, ...) {
     ggplot2::geom_sf(
       data = t_l,
       mapping = ggplot2::aes_(
-        colour = "callsign",
-        group = "callsign"),
+        colour = quote(callsign),
+        group = quote(callsign)),
       size = 1.4, alpha = .3, lineend = "round",
       ...),
     if (!is.null(shape)) {
