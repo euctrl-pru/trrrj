@@ -70,10 +70,10 @@ plot_flight_horizontal <- function(poss,
 
   p <- ggplot2::ggplot(poss) +
     ggplot2::geom_sf(data = world) +
+    geom_flight_horizontal(data = poss, shape = shape) +
     ggplot2::coord_sf(xlim = c(bbox["left"], bbox["right"]),
                       ylim = c(bbox["bottom"], bbox["top"]),
-             expand = TRUE) +
-    geom_flight_horizontal(data = poss, shape = shape) +
+                      expand = TRUE) +
     ggplot2::theme_minimal() +
     ggplot2::theme(panel.background = ggplot2::element_rect(fill = "aliceblue"),
                    legend.position = legend.position)
@@ -164,17 +164,25 @@ plot_flight_vertical_distance <- function(poss) {
 }
 
 geom_flight_horizontal <- function(data, shape = NULL, ...) {
+  t_l <- data |>
+    sf::st_as_sf(coords=c("longitude", "latitude")) |>
+    sf::st_set_crs(4326) |>
+    dplyr::group_by(.data$callsign) |>
+    dplyr::summarise(do_union=FALSE) |>
+    sf::st_cast("LINESTRING") |>
+    # take care of crossing the dateline
+    sf::st_wrap_dateline(options = c("WRAPDATELINE=YES", "DATELINEOFFSET=180"))
+
+
   # compose a couple of geoms, see "Multiple components" in https://rpubs.com/hadley/97970
   list(
-    ggplot2::geom_path(
-      data = data,
+    ggplot2::geom_sf(
+      data = t_l,
       mapping = ggplot2::aes_(
-        x = quote(longitude),
-        y = quote(latitude),
-        colour = quote(callsign),
-        group = quote(callsign)
-      ),
-      size = 1.4, alpha = .3, lineend = "round"),
+        colour = "callsign",
+        group = "callsign"),
+      size = 1.4, alpha = .3, lineend = "round",
+      ...),
     if (!is.null(shape)) {
       ggplot2::geom_point(
         data = data,
@@ -184,7 +192,8 @@ geom_flight_horizontal <- function(data, shape = NULL, ...) {
           colour = quote(callsign),
           group = quote(callsign)
         ),
-        shape = shape)
+        shape = shape,
+        ...)
     }
   )
 }

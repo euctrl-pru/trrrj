@@ -1,7 +1,7 @@
 Type: Package
 Package: trrrj
 Title: Flight trajectories analysis
-Version: 0.2.9000
+Version: 0.2.1
 Authors@R: 
     c(person(given = "Enrico",
              family = "Spinielli",
