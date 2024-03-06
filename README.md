@@ -43,30 +43,28 @@ remotes::install_github("euctrl-pru/trrrj")
 
 There are functions that allow you to:
 
-  - Load trajectories from various providers/sources:
-      - [Flightradar24](https://www.flightradar24.com/ "Flightradar24")’s
-        archived/live feed files (ADS-B)
-      - [Flightradar24](https://www.flightradar24.com/ "Flightradar24")’s
-        live feed from EUROCONTROL’s DB (ADS-B)
-      - [Network
-        Manager](https://www.eurocontrol.int/network-manager "Network Manager - EUROCONTROL")’s
-        archived CPR files (see CPRs in the [Notes](#notes))
-      - [DDR2](https://www.eurocontrol.int/ddr "Demand Data Repository - EUROCONTROL")’s
-        SO6 trajectories from EUROCONTROL’s DB (Flight plan and CPR
-        based)
-      - [OpenSky
-        Network](https://opensky-network.org/ "OpenSky Network")’s
-        historical data, **removed** see [osn
-        package](https://github.com/espinielli/osn)
-  - Plot trajectories
-      - 2D plot
-      - vertical profiles (time or distance based)
-  - Analyse trajectories (Under work: more to come\!)
-      - extract level flight segments
-  - Read/transform/*save your day*
-      - parse Longitude/Latitude in various formats
-      - determine the AIRAC cyle for a date or its range (ICAO or CFMU
-        format); see AIRAC in the [Notes](#notes)
+- Load trajectories from various providers/sources:
+  - [Flightradar24](https://www.flightradar24.com/ "Flightradar24")’s
+    archived/live feed files (ADS-B)
+  - [Flightradar24](https://www.flightradar24.com/ "Flightradar24")’s
+    live feed from EUROCONTROL’s DB (ADS-B)
+  - [Network
+    Manager](https://www.eurocontrol.int/network-manager "Network Manager - EUROCONTROL")’s
+    archived CPR files (see CPRs in the [Notes](#notes))
+  - [DDR2](https://www.eurocontrol.int/ddr "Demand Data Repository - EUROCONTROL")’s
+    SO6 trajectories from EUROCONTROL’s DB (Flight plan and CPR based)
+  - [OpenSky Network](https://opensky-network.org/ "OpenSky Network")’s
+    historical data, **removed** see [osn
+    package](https://github.com/espinielli/osn)
+- Plot trajectories
+  - 2D plot
+  - vertical profiles (time or distance based)
+- Analyse trajectories (Under work: more to come!)
+  - extract level flight segments
+- Read/transform/*save your day*
+  - parse Longitude/Latitude in various formats
+  - determine the AIRAC cyle for a date or its range (ICAO or CFMU
+    format); see AIRAC in the [Notes](#notes)
 
 ## Data
 
@@ -95,3 +93,20 @@ information
 An AIRAC (Aeronautical Information Regulation And Control) cycle is the
 28-day period that regulates the [pubblication of aeronautical
 information](https://en.wikipedia.org/wiki/Aeronautical_Information_Publication "AIP - Aeronautical Information Publication")
+
+### Building the documentation
+
+# Development
+
+In order to build the relevant `pkgdown` web pages while developing,
+execute the following code:
+
+``` r
+
+# How to build the pakgdown from behind proxied Internet
+library(withr)
+library(pkgdown)
+
+with_options(list(pkgdown.internet = FALSE),
+             build_site())
+```

@@ -36,7 +36,15 @@ jobs:
           needs: website
 
       - name: Build site
-        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
+        run: |
+          pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
+          url_pkgdown <- '<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>'
+          url_new  <- '<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>'
+          for (file in list.files('docs/', pattern = "*.html", full.names = TRUE, recursive = TRUE)) {
+            readLines(file)  |>
+            sub(pattern = url_pkgdown, replacement = url_new, x = _, fixed = TRUE) |>
+            writeLines(file)
+          }
         shell: Rscript {0}
 
       - name: Deploy to GitHub pages 🚀
