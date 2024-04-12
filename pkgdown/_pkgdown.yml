@@ -1,12 +1,14 @@
 destination: docs
 url: https://trrrj.ansperformance.eu
+template:
+  bootstrap: 5
 
 authors:
   Enrico Spinielli:
     href: https://enrico.spinielli.net
   EUROCONTROL:
     href: https://www.eurocontrol.int
-    html: "<img src='https://ansperformance.eu/nvctr/reference/figures/euctrl-logo-wide.svg' height=24>"
+    html: "<img src='https://ansperformance.eu/nvctr/reference/figures/euctrl-logo-wide.svg' width=112 >"
 
 
 toc:

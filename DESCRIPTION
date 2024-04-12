@@ -16,7 +16,7 @@ Description: Functions to a) read FlightRadar24's live feed JSON
     Plot 2D trajectories, vertical profiles both in time and track
     distance; d) analyse trajectories.
 License: MIT + file LICENSE
-URL: https://github.com/euctrl-pru/trrrj
+URL: https://trrrj.ansperformance.eu, https://github.com/euctrl-pru/trrrj
 BugReports: https://github.com/euctrl-pru/trrrj/issues
 Depends: 
     R (>= 3.4.0)
