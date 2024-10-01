@@ -24,9 +24,9 @@ Other airac:
 \code{\link{airac_epoch}()},
 \code{\link{airac_interval}()},
 \code{\link{airac_year_epoch}()},
-\code{\link{cfmu_airac_epoch_number}()},
+\code{\link{cfmu_airac}()},
 \code{\link{cfmu_airac_epoch}()},
-\code{\link{cfmu_airac_interval}()},
-\code{\link{cfmu_airac}()}
+\code{\link{cfmu_airac_epoch_number}()},
+\code{\link{cfmu_airac_interval}()}
 }
 \concept{airac}

@@ -1,7 +1,7 @@
 Type: Package
 Package: trrrj
 Title: Flight trajectories analysis
-Version: 0.2.2
+Version: 0.2.3
 Authors@R: 
     c(person(given = "Enrico",
              family = "Spinielli",
@@ -54,6 +54,6 @@ RdMacros:
     lifecycle
 LazyData: true
 Encoding: UTF-8
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3

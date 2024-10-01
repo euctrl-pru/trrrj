@@ -11,6 +11,7 @@ Functions to a) read FlightRadar24's live feed JSON files, archived data; b) imp
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://trrrj.ansperformance.eu}
   \item \url{https://github.com/euctrl-pru/trrrj}
   \item Report bugs at \url{https://github.com/euctrl-pru/trrrj/issues}
 }

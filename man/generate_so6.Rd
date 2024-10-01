@@ -16,7 +16,7 @@ for a description of the SO6 format.
 \description{
 The data frame for point trajectories needs to have the following columns:
 
-\tabular{llll}{
+\tabular{lll}{
 \strong{Name}            \tab \strong{Description}            \tab \strong{Type} \cr
 \code{flight_id}         \tab Flight ID                       \tab int           \cr
 \code{time_over}         \tab Time over point                 \tab datetime      \cr
