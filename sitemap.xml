@@ -1,204 +1,70 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://trrrj.ansperformance.eu/404.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/articles/trrrj-plotting.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/index.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/airac.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/airac_epoch.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/airac_interval.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/airac_year_epoch.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/aircrafttype.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/bbox_at_distance.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/bounding_box.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/cfmu_airac.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/cfmu_airac_epoch.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/cfmu_airac_epoch_number.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/cfmu_airac_interval.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/cprs.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/crs_tc.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/cumulative_distance.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/cumulative_time.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/ddm2dd.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/dms2dd.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/egll_apt.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/egll_flights.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/egll_flights_fr24.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/egll_positions.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/egll_positions_fr24.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/egll_rw_sf.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/export_allft_so6.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/export_apds.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/export_event_so6.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/export_event_trajectory.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/export_flight_info.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/export_flights_at_airport_fr24.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/export_flights_fr24.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/export_hourly_adsb.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/export_model_trajectory.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/export_movements.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/export_positions_at_airport_fr24.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/export_positions_fr24.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/extract_segment.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/filter_outlier.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/filter_positions_at_range.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/flts.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/generate_so6.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/parse_airspace_prisme.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/parse_lat_icao.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/parse_lon_icao.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/plot_cpr_horizontal.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/plot_flight_horizontal.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/plot_flight_vertical_distance.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/plot_flight_vertical_time.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/polygon_at_distance.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/polygon_from_coords.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/poss.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/read_cpr.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/read_flights_fr24.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/read_positions_fr24.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/read_so6.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/smooth_positions.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/tidyeval.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/trrrj-package.html</loc>
-  </url>
-  <url>
-    <loc>https://trrrj.ansperformance.eu/reference/trrrj_example.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://trrrj.ansperformance.eu/404.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/LICENSE-text.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/articles/index.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/articles/trrrj-plotting.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/authors.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/index.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/news/index.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/airac.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/airac_epoch.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/airac_interval.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/airac_year_epoch.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/aircrafttype.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/bbox_at_distance.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/bounding_box.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/cfmu_airac.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/cfmu_airac_epoch.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/cfmu_airac_epoch_number.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/cfmu_airac_interval.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/cprs.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/crs_tc.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/cumulative_distance.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/cumulative_time.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/ddm2dd.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/dms2dd.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/egll_apt.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/egll_flights.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/egll_flights_fr24.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/egll_positions.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/egll_positions_fr24.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/egll_rw_sf.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/export_allft_so6.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/export_apds.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/export_event_so6.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/export_event_trajectory.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/export_flight_info.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/export_flights_at_airport_fr24.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/export_flights_fr24.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/export_hourly_adsb.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/export_model_trajectory.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/export_movements.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/export_positions_at_airport_fr24.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/export_positions_fr24.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/extract_segment.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/filter_outlier.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/filter_positions_at_range.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/flts.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/generate_so6.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/index.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/parse_airspace_prisme.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/parse_lat_icao.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/parse_lon_icao.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/pipe.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/plot_cpr_horizontal.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/plot_flight_horizontal.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/plot_flight_vertical_distance.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/plot_flight_vertical_time.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/polygon_at_distance.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/polygon_from_coords.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/poss.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/read_cpr.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/read_flights_fr24.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/read_positions_fr24.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/read_so6.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/smooth_positions.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/tidyeval.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/trrrj-package.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/trrrj_example.html</loc></url>
 </urlset>
+
