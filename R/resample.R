@@ -9,6 +9,7 @@
 #'
 #' @returns a data frame of interpolated 4D positions at `interval` seconds
 #' @export
+#' @family analysis
 #'
 #' @examples
 #' \dontrun{
@@ -30,6 +31,8 @@ resample <- function(df, interval = 1L) {
 #'
 #' @param df a data frame for a single flight trajectory
 #' @param interval amount of seconds to resample to
+#'
+#' @keywords internal
 #'
 #' @returns a data frame with interpolated 4D values at the requested `interval`
 #'

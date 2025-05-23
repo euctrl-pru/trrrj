@@ -17,3 +17,4 @@ a data frame with interpolated 4D values at the requested \code{interval}
 \description{
 resample 4D a single flight
 }
+\keyword{internal}

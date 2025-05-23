@@ -32,6 +32,7 @@ Other analysis:
 \code{\link{cumulative_time}()},
 \code{\link{extract_segment}()},
 \code{\link{filter_outlier}()},
+\code{\link{resample}()},
 \code{\link{smooth_positions}()}
 }
 \concept{analysis}
