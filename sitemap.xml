@@ -62,6 +62,8 @@
 <url><loc>https://trrrj.ansperformance.eu/reference/read_flights_fr24.html</loc></url>
 <url><loc>https://trrrj.ansperformance.eu/reference/read_positions_fr24.html</loc></url>
 <url><loc>https://trrrj.ansperformance.eu/reference/read_so6.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/resample.html</loc></url>
+<url><loc>https://trrrj.ansperformance.eu/reference/resample_4d.html</loc></url>
 <url><loc>https://trrrj.ansperformance.eu/reference/smooth_positions.html</loc></url>
 <url><loc>https://trrrj.ansperformance.eu/reference/tidyeval.html</loc></url>
 <url><loc>https://trrrj.ansperformance.eu/reference/trrrj-package.html</loc></url>
