@@ -14,7 +14,8 @@ several function arguments. \code{enquo()} returns a single quoted
 expression, which is like a blueprint for the delayed computation.
 \item \code{\link[rlang:nse-defuse]{expr}()} quotes a new expression \emph{locally}. It
 is mostly useful to build new expressions around arguments
-captured with \code{\link[=enquo]{enquo()}} or \code{\link[=enquos]{enquos()}}:
+captured with \code{\link[rlang:nse-defuse]{enquo}()} or
+\code{\link[rlang:nse-defuse]{enquo}()}:
 \code{expr(mean(!!enquo(arg), na.rm = TRUE))}.
 \item \code{\link[rlang]{as_name}()} transforms a quoted variable name
 into a string. Supplying something else than a quoted variable

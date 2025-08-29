@@ -44,15 +44,21 @@
 #' p1 <- p %>% left_join(f) %>% filter(!is.na(callsign))
 #' plot_flight_horizontal(p1)
 #' }
-plot_flight_horizontal <- function(poss,
-                                   bbox = NULL,
-                                   buffer = 100,
-                                   legend.position = "none",
-                                   shape = NULL,
-                                   ...) {
+plot_flight_horizontal <- function(
+  poss,
+  bbox = NULL,
+  buffer = 100,
+  legend.position = "none",
+  shape = NULL,
+  ...
+) {
   stopifnot(is.numeric(buffer))
 
-  buffer <- units::set_units(buffer, units::as_units("nmile"), mode = "standard")
+  buffer <- units::set_units(
+    buffer,
+    units::as_units("nmile"),
+    mode = "standard"
+  )
   if (is.null(bbox)) {
     bbox <- poss %>%
       sf::st_as_sf(coords = c("longitude", "latitude"), crs = 4326) %>%
@@ -73,12 +79,16 @@ plot_flight_horizontal <- function(poss,
   p <- ggplot2::ggplot(poss) +
     ggplot2::geom_sf(data = world) +
     geom_flight_horizontal(data = poss, shape = shape, ...) +
-    ggplot2::coord_sf(xlim = c(bbox["left"], bbox["right"]),
-                      ylim = c(bbox["bottom"], bbox["top"]),
-                      expand = TRUE) +
+    ggplot2::coord_sf(
+      xlim = c(bbox["left"], bbox["right"]),
+      ylim = c(bbox["bottom"], bbox["top"]),
+      expand = TRUE
+    ) +
     ggplot2::theme_minimal() +
-    ggplot2::theme(panel.background = ggplot2::element_rect(fill = "aliceblue"),
-                   legend.position = legend.position)
+    ggplot2::theme(
+      panel.background = ggplot2::element_rect(fill = "aliceblue"),
+      legend.position = legend.position
+    )
 
   p
 }
@@ -129,8 +139,10 @@ plot_flight_vertical_time <- function(poss) {
   ggplot2::ggplot(data = poss) +
     ggplot2::geom_point(
       ggplot2::aes_(
-        x = quote(cumulative_time), y = quote(altitude),
-        group = quote(callsign), colour = quote(callsign)
+        x = quote(cumulative_time),
+        y = quote(altitude),
+        group = quote(callsign),
+        colour = quote(callsign)
       )
     ) +
     ggplot2::xlab("Time (min)") +
@@ -158,8 +170,10 @@ plot_flight_vertical_time <- function(poss) {
 plot_flight_vertical_distance <- function(poss) {
   ggplot2::ggplot(data = poss) +
     ggplot2::geom_point(ggplot2::aes_(
-      x = quote(cumulative_distance), y = quote(altitude),
-      group = quote(callsign), colour = quote(callsign)
+      x = quote(cumulative_distance),
+      y = quote(altitude),
+      group = quote(callsign),
+      colour = quote(callsign)
     )) +
     ggplot2::xlab("Distance (km)") +
     ggplot2::ylab("Altitude (feet)") +
@@ -168,14 +182,16 @@ plot_flight_vertical_distance <- function(poss) {
 
 geom_flight_horizontal <- function(data, shape = NULL, ...) {
   t_l <- data |>
-    sf::st_as_sf(coords=c("longitude", "latitude")) |>
+    sf::st_as_sf(coords = c("longitude", "latitude")) |>
     sf::st_set_crs(4326) |>
     dplyr::group_by(.data$callsign) |>
-    dplyr::summarise(do_union=FALSE) |>
+    dplyr::summarise(do_union = FALSE) |>
     sf::st_cast("LINESTRING") |>
     # take care of crossing the dateline
-    sf::st_wrap_dateline(options = c("WRAPDATELINE=YES", "DATELINEOFFSET=180"))
-
+    sf::st_wrap_dateline(
+      options = c("WRAPDATELINE=YES", "DATELINEOFFSET=180")
+    ) %>%
+    sf::st_segmentize(100 * 10^3)
 
   # compose a couple of geoms, see "Multiple components" in https://rpubs.com/hadley/97970
   list(
@@ -183,9 +199,13 @@ geom_flight_horizontal <- function(data, shape = NULL, ...) {
       data = t_l,
       mapping = ggplot2::aes_(
         colour = quote(callsign),
-        group = quote(callsign)),
-      size = 1.4, alpha = .3, lineend = "round",
-      ...),
+        group = quote(callsign)
+      ),
+      size = 1.4,
+      alpha = .3,
+      lineend = "round",
+      ...
+    ),
     if (!is.null(shape)) {
       ggplot2::geom_point(
         data = data,
@@ -196,7 +216,8 @@ geom_flight_horizontal <- function(data, shape = NULL, ...) {
           group = quote(callsign)
         ),
         shape = shape,
-        ...)
+        ...
+      )
     }
   )
 }
