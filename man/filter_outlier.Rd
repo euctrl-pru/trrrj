@@ -57,6 +57,7 @@ Other analysis:
 \code{\link{cumulative_distance}()},
 \code{\link{cumulative_time}()},
 \code{\link{extract_segment}()},
+\code{\link{resample}()},
 \code{\link{smooth_positions}()}
 }
 \concept{analysis}

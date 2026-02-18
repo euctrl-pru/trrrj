@@ -8,7 +8,8 @@
 #'
 #' * \code{\link[rlang:nse-defuse]{expr}()} quotes a new expression _locally_. It
 #'   is mostly useful to build new expressions around arguments
-#'   captured with [enquo()] or [enquos()]:
+#'   captured with \code{\link[rlang:nse-defuse]{enquo}()} or
+#'   \code{\link[rlang:nse-defuse]{enquo}()}:
 #'   \code{expr(mean(!!enquo(arg), na.rm = TRUE))}.
 #'
 #' * \code{\link[rlang]{as_name}()} transforms a quoted variable name

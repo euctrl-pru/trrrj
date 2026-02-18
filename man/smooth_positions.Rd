@@ -29,6 +29,7 @@ Other analysis:
 \code{\link{cumulative_distance}()},
 \code{\link{cumulative_time}()},
 \code{\link{extract_segment}()},
-\code{\link{filter_outlier}()}
+\code{\link{filter_outlier}()},
+\code{\link{resample}()}
 }
 \concept{analysis}
