@@ -48,15 +48,13 @@
 #' export_model_trajectory("2019-01-01 00:00", "2019-01-02 00:00", bbox = bb)
 #' }
 export_model_trajectory <- function(
-  wef, til, model = "CTFM",
+  wef,
+  til,
+  model = "CTFM",
   bbox = NULL,
   lobt_buffer = c(before = 28, after = 24),
-  timeover_buffer = NULL) {
-
-  usr <- Sys.getenv("PRU_DEV_USR")
-  pwd <- Sys.getenv("PRU_DEV_PWD")
-  dbn <- Sys.getenv("PRU_DEV_DBNAME")
-
+  timeover_buffer = NULL
+) {
   wef <- parsedate::parse_date(wef)
   til <- parsedate::parse_date(til)
   wef <- format(wef, "%Y-%m-%dT%H:%M:%SZ")
@@ -65,7 +63,7 @@ export_model_trajectory <- function(
   where_bbox <- ""
   where_timeover_buffer <- ""
   lobt_before <- 0
-  lobt_after  <- 0
+  lobt_after <- 0
 
   stopifnot(model %in% c("CPF", "CTFM", "DCT", "FTFM", "SCR", "SRR", "SUR"))
 
@@ -78,7 +76,8 @@ export_model_trajectory <- function(
       lon_min = bbox["xmin"],
       lon_max = bbox["xmax"],
       lat_min = bbox["ymin"],
-      lat_max = bbox["ymax"])
+      lat_max = bbox["ymax"]
+    )
   }
 
   if (!is.null(lobt_buffer)) {
@@ -86,7 +85,7 @@ export_model_trajectory <- function(
     stopifnot(is.numeric(lobt_buffer))
 
     lobt_before <- lobt_buffer["before"]
-    lobt_after  <- lobt_buffer["after"]
+    lobt_after <- lobt_buffer["after"]
   }
 
   if (!is.null(timeover_buffer)) {
@@ -94,26 +93,17 @@ export_model_trajectory <- function(
     stopifnot(is.numeric(timeover_buffer))
 
     timeover_before <- timeover_buffer["before"]
-    timeover_after  <- timeover_buffer["after"]
+    timeover_after <- timeover_buffer["after"]
 
     where_timeover_buffer <- stringr::str_glue(
       "AND (((SELECT LOBT_WEF FROM ARGS) - ({before} / 24) <= p.TIME_OVER) AND (p.TIME_OVER < (SELECT LOBT_TIL FROM ARGS) + ({after} / 24)))",
       before = timeover_before,
-      after  = timeover_after)
+      after = timeover_after
+    )
   }
 
-  # NOTE: to be set before you create your ROracle connection!
-  # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
-  withr::local_envvar(c("TZ" = "UTC",
-                        "ORA_SDTZ" = "UTC"))
-  withr::local_namespace("ROracle")
-  con <- withr::local_db_connection(
-    DBI::dbConnect(
-      DBI::dbDriver("Oracle"),
-      usr, pwd,
-      dbname = dbn,
-      timezone = "UTC")
-  )
+  withr::local_envvar(c(TZ = "UTC", ORA_SDTZ = "UTC", NLS_LANG = ".AL32UTF8"))
+  con <- withr::local_db_connection(db_connection("PRU_DEV"))
 
   query <- "
     WITH
@@ -180,26 +170,40 @@ export_model_trajectory <- function(
         {WHERE_TIMEOVER_BUFFER}
   "
 
-  query <- stringr::str_glue(query,
-                             WHERE_BBOX   = where_bbox,
-                             WHERE_TIMEOVER_BUFFER = where_timeover_buffer,
-                             BEFORE       = lobt_before,
-                             AFTER        = lobt_after)
+  query <- stringr::str_glue(
+    query,
+    WHERE_BBOX = where_bbox,
+    WHERE_TIMEOVER_BUFFER = where_timeover_buffer,
+    BEFORE = lobt_before,
+    AFTER = lobt_after
+  )
   query <- DBI::sqlInterpolate(
-    con, query,
-    WEF = wef, TIL = til,
-    MODEL = model)
+    con,
+    query,
+    WEF = wef,
+    TIL = til,
+    MODEL = model
+  )
 
   fltq <- DBI::dbSendQuery(con, query)
   pnts <- DBI::fetch(fltq, n = -1) %>%
     dplyr::mutate(
       TIME_OVER = lubridate::as_datetime(.data$TIME_OVER, tz = "UTC"),
-      POINT_ID  = dplyr::if_else(is.na(.data$POINT_ID),  "NO_POINT", .data$POINT_ID),
-      AIR_ROUTE = dplyr::if_else(is.na(.data$AIR_ROUTE), "NO_ROUTE", .data$AIR_ROUTE)) %>%
+      POINT_ID = dplyr::if_else(
+        is.na(.data$POINT_ID),
+        "NO_POINT",
+        .data$POINT_ID
+      ),
+      AIR_ROUTE = dplyr::if_else(
+        is.na(.data$AIR_ROUTE),
+        "NO_ROUTE",
+        .data$AIR_ROUTE
+      )
+    ) %>%
     dplyr::as_tibble() %>%
     janitor::clean_names()
 
-    pnts
+  pnts
 }
 
 #' Export event-based NM trajectories
@@ -229,10 +233,6 @@ export_model_trajectory <- function(
 #' export_event_trajectory("2010-06-16 10:00", "2010-06-16T11:00:00Z")
 #' }
 export_event_trajectory <- function(wef, til) {
-  usr <- Sys.getenv("PRU_CPLX_USR")
-  pwd <- Sys.getenv("PRU_CPLX_PWD")
-  dbn <- Sys.getenv("PRU_CPLX_DBNAME")
-
   # interval of interest
   wef <- parsedate::parse_date(wef)
   til <- parsedate::parse_date(til)
@@ -240,18 +240,8 @@ export_event_trajectory <- function(wef, til) {
   wef <- format(wef, format = "%Y-%m-%dT%H:%M:%SZ")
   til <- format(til, format = "%Y-%m-%dT%H:%M:%SZ")
 
-  # NOTE: to be set before you create your ROracle connection!
-  # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
-  withr::local_envvar(c("TZ" = "UTC",
-                        "ORA_SDTZ" = "UTC"))
-  withr::local_namespace("ROracle")
-  con <- withr::local_db_connection(
-    DBI::dbConnect(
-      DBI::dbDriver("Oracle"),
-      usr, pwd,
-      dbname = dbn,
-      timezone = "UTC")
-  )
+  withr::local_envvar(c(TZ = "UTC", ORA_SDTZ = "UTC", NLS_LANG = ".AL32UTF8"))
+  con <- withr::local_db_connection(db_connection("PRU_CPLX"))
 
   query <- "WITH inp AS (SELECT
                            TO_DATE(?WEF, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') lobt_wef,
@@ -293,14 +283,26 @@ export_event_trajectory <- function(wef, til) {
               AND t.pos_lon IS NOT NULL"
 
   query <- DBI::sqlInterpolate(
-    con, query,
-    WEF = wef, TIL = til)
+    con,
+    query,
+    WEF = wef,
+    TIL = til
+  )
   fltq <- DBI::dbSendQuery(con, query)
   pnts <- DBI::fetch(fltq, n = -1) %>%
     dplyr::mutate(
       TIME_OVER = lubridate::as_datetime(.data$TIME_OVER, tz = "UTC"),
-      POINT_ID  = dplyr::if_else(is.na(.data$POINT_ID),  "NO_POINT", .data$POINT_ID),
-      AIR_ROUTE = dplyr::if_else(is.na(.data$AIR_ROUTE), "NO_ROUTE", .data$AIR_ROUTE)) %>%
+      POINT_ID = dplyr::if_else(
+        is.na(.data$POINT_ID),
+        "NO_POINT",
+        .data$POINT_ID
+      ),
+      AIR_ROUTE = dplyr::if_else(
+        is.na(.data$AIR_ROUTE),
+        "NO_ROUTE",
+        .data$AIR_ROUTE
+      )
+    ) %>%
     dplyr::as_tibble() %>%
     janitor::clean_names()
 
@@ -335,11 +337,6 @@ export_event_trajectory <- function(wef, til) {
 #' export_apds("2019-04-10", "2019-04-11")
 #' }
 export_apds <- function(wef, til) {
-
-  usr <- Sys.getenv("PRU_ATMAP_USR")
-  pwd <- Sys.getenv("PRU_ATMAP_PWD")
-  dbn <- Sys.getenv("PRU_ATMAP_DBNAME")
-
   wef <- parsedate::parse_date(wef)
   til <- parsedate::parse_date(til)
   # start of the month for wef date
@@ -349,19 +346,8 @@ export_apds <- function(wef, til) {
   til <- format(til, "%Y-%m-%dT%H:%M:%SZ")
   wms <- format(wms, "%Y-%m-%d")
 
-  # NOTE: to be set before you create your ROracle connection!
-  # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
-  withr::local_envvar(c("TZ" = "UTC",
-                        "ORA_SDTZ" = "UTC"))
-  withr::local_namespace("ROracle")
-  con <- withr::local_db_connection(
-    DBI::dbConnect(
-      DBI::dbDriver("Oracle"),
-      usr, pwd,
-      dbname = dbn,
-      timezone = "UTC")
-  )
-
+  withr::local_envvar(c(TZ = "UTC", ORA_SDTZ = "UTC", NLS_LANG = ".AL32UTF8"))
+  con <- withr::local_db_connection(db_connection("PRU_ATMAP"))
 
   query <- "
   SELECT
@@ -437,10 +423,6 @@ export_apds <- function(wef, til) {
 #' export_hourly_adsb("2019-01-01 00:00", "2019-01-02 00:00", bbox = bb)
 #' }
 export_hourly_adsb <- function(wef, til, model = 'CTFM', bbox = NULL) {
-  usr <- Sys.getenv("PRU_DEV_USR")
-  pwd <- Sys.getenv("PRU_DEV_PWD")
-  dbn <- Sys.getenv("PRU_DEV_DBNAME")
-
   wef <- parsedate::parse_date(wef)
   til <- parsedate::parse_date(til)
   wef <- format(wef, "%Y-%m-%dT%H:%M:%SZ")
@@ -452,23 +434,14 @@ export_hourly_adsb <- function(wef, til, model = 'CTFM', bbox = NULL) {
       lon_min = bbox["xmin"],
       lon_max = bbox["xmax"],
       lat_min = bbox["ymin"],
-      lat_max = bbox["ymax"])
+      lat_max = bbox["ymax"]
+    )
   } else {
     where_bbox <- ""
   }
 
-  # NOTE: to be set before you create your ROracle connection!
-  # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
-  withr::local_envvar(c("TZ" = "UTC",
-                        "ORA_SDTZ" = "UTC"))
-  withr::local_namespace("ROracle")
-  con <- withr::local_db_connection(
-    DBI::dbConnect(
-      DBI::dbDriver("Oracle"),
-      usr, pwd,
-      dbname = dbn,
-      timezone = "UTC")
-  )
+  withr::local_envvar(c(TZ = "UTC", ORA_SDTZ = "UTC", NLS_LANG = ".AL32UTF8"))
+  con <- withr::local_db_connection(db_connection("PRU_DEV"))
 
   query <- "
   WITH args AS (SELECT
@@ -505,9 +478,12 @@ export_hourly_adsb <- function(wef, til, model = 'CTFM', bbox = NULL) {
   query <- stringr::str_glue(query, WHERE_BBOX = where_bbox)
 
   query <- DBI::sqlInterpolate(
-    con, query,
-    WEF = wef, TIL = til,
-    MODEL = model)
+    con,
+    query,
+    WEF = wef,
+    TIL = til,
+    MODEL = model
+  )
 
   # message(query)
   fltq <- DBI::dbSendQuery(con, query)
@@ -545,17 +521,13 @@ export_movements <- function(
   wef,
   til,
   type = "both",
-  lobt_buffer = c(before = 28, after = 24)) {
-
+  lobt_buffer = c(before = 28, after = 24)
+) {
   stopifnot(type %in% c("arr", "dep", "both"))
   if (!is.null(lobt_buffer)) {
     stopifnot(names(lobt_buffer) %in% c("before", "after"))
     stopifnot(is.numeric(lobt_buffer))
   }
-
-  usr <- Sys.getenv("PRU_DEV_USR")
-  pwd <- Sys.getenv("PRU_DEV_PWD")
-  dbn <- Sys.getenv("PRU_DEV_DBNAME")
 
   # interval of interest
   wef <- parsedate::parse_date(wef)
@@ -567,62 +539,52 @@ export_movements <- function(
   where_lobt <- stringr::str_glue(
     "(((SELECT MOV_WEF FROM ARGS) - ({before} / 24) <= LOBT) AND (LOBT < (SELECT MOV_TIL FROM ARGS) + ({after} / 24)))",
     before = lobt_buffer["before"],
-    after  = lobt_buffer["after"])
+    after = lobt_buffer["after"]
+  )
 
   where_adep <- "(ADEP = ?APT AND ((SELECT MOV_WEF FROM ARGS) <= AOBT_3 AND AOBT_3 < (SELECT MOV_TIL FROM ARGS)))"
   where_ades <- "(ADES = ?APT AND ((SELECT MOV_WEF FROM ARGS) <= ARVT_3 AND ARVT_3 < (SELECT MOV_TIL FROM ARGS)))"
   if (type == "both") {
     where_apt <- paste0("AND (", where_adep, " OR ", where_ades, ")")
-  }
-  else if (type == "arr") {
+  } else if (type == "arr") {
     where_apt <- paste0("AND ", where_ades)
-  }
-  else if (type == "dep") {
+  } else if (type == "dep") {
     where_apt <- paste0("AND ", where_adep)
   }
 
+  withr::local_envvar(c(TZ = "UTC", ORA_SDTZ = "UTC", NLS_LANG = ".AL32UTF8"))
+  con <- withr::local_db_connection(db_connection("PRU_DEV"))
 
-  # NOTE: to be set before you create your ROracle connection!
-  # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
-  withr::local_envvar(c("TZ" = "UTC",
-                        "ORA_SDTZ" = "UTC"))
-  withr::local_namespace("ROracle")
-  con <- withr::local_db_connection(
-    DBI::dbConnect(
-      DBI::dbDriver("Oracle"),
-      usr, pwd,
-      dbname = dbn,
-      timezone = "UTC")
+  columns <- c(
+    "LOBT",
+    "IOBT",
+    "AIRCRAFT_ID",
+    "CRCO_FLT_ID",
+    "ACARS_CALLSIGN",
+    "REGISTRATION",
+    "CRCO_REGISTRATION",
+    "ACARS_REGISTRATION",
+    "AIRCRAFT_TYPE_ICAO_ID",
+    "FLT_RULES",
+    "ICAO_FLT_TYPE",
+    "CRCO_ICAO_AIRCRAFT_TYPE",
+    "WK_TBL_CAT",
+    "AIRCRAFT_OPERATOR",
+    "CRCO_USERNAME",
+    "AIRCRAFT_ADDRESS",
+    "CRCO_AIRCRAFT_ADDRESS",
+    "LAST_FPL_ARCADDR",
+    "ADEP",
+    "ADES",
+    "ID",
+    "SENSITIVE",
+    "EOBT_1",
+    "ARVT_1",
+    "TAXI_TIME_1",
+    "AOBT_3",
+    "ARVT_3",
+    "TAXI_TIME_3"
   )
-  columns <- c("LOBT",
-               "IOBT",
-               "AIRCRAFT_ID",
-               "CRCO_FLT_ID",
-               "ACARS_CALLSIGN",
-               "REGISTRATION",
-               "CRCO_REGISTRATION",
-               "ACARS_REGISTRATION",
-               "AIRCRAFT_TYPE_ICAO_ID",
-               "FLT_RULES",
-               "ICAO_FLT_TYPE",
-               "CRCO_ICAO_AIRCRAFT_TYPE",
-               "WK_TBL_CAT",
-               "AIRCRAFT_OPERATOR",
-               "CRCO_USERNAME",
-               "AIRCRAFT_ADDRESS",
-               "CRCO_AIRCRAFT_ADDRESS",
-               "LAST_FPL_ARCADDR",
-               "ADEP",
-               "ADES",
-               "ID",
-               "SENSITIVE",
-               "EOBT_1",
-               "ARVT_1",
-               "TAXI_TIME_1",
-               "AOBT_3",
-               "ARVT_3",
-               "TAXI_TIME_3")
-
 
   query <- "
     WITH
@@ -643,14 +605,20 @@ export_movements <- function(
         {WHERE_LOBT}
         {WHERE_APT}
   "
-  query <- stringr::str_glue(query,
-                             COLUMNS = paste(columns, collapse = ", "),
-                             WHERE_LOBT = where_lobt,
-                             WHERE_APT  = where_apt)
+  query <- stringr::str_glue(
+    query,
+    COLUMNS = paste(columns, collapse = ", "),
+    WHERE_LOBT = where_lobt,
+    WHERE_APT = where_apt
+  )
 
   query <- DBI::sqlInterpolate(
-    con, query,
-    WEF = wef, TIL = til, APT = apt)
+    con,
+    query,
+    WEF = wef,
+    TIL = til,
+    APT = apt
+  )
 
   movq <- DBI::dbSendQuery(con, query)
   movs <- DBI::fetch(movq, n = -1) %>%
@@ -687,16 +655,12 @@ export_movements <- function(
 export_flight_info <- function(
   wef,
   til,
-  lobt_buffer = c(before = 28, after = 24)) {
-
+  lobt_buffer = c(before = 28, after = 24)
+) {
   if (!is.null(lobt_buffer)) {
     stopifnot(names(lobt_buffer) %in% c("before", "after"))
     stopifnot(is.numeric(lobt_buffer))
   }
-
-  usr <- Sys.getenv("PRU_DEV_USR")
-  pwd <- Sys.getenv("PRU_DEV_PWD")
-  dbn <- Sys.getenv("PRU_DEV_DBNAME")
 
   # interval of interest
   wef <- parsedate::parse_date(wef)
@@ -708,52 +672,44 @@ export_flight_info <- function(
   where_lobt <- stringr::str_glue(
     "(((SELECT MOV_WEF FROM ARGS) - ({before} / 24) <= LOBT) AND (LOBT < (SELECT MOV_TIL FROM ARGS) + ({after} / 24)))",
     before = lobt_buffer["before"],
-    after  = lobt_buffer["after"])
+    after = lobt_buffer["after"]
+  )
 
   where_apt <- ""
 
+  withr::local_envvar(c(TZ = "UTC", ORA_SDTZ = "UTC", NLS_LANG = ".AL32UTF8"))
+  con <- withr::local_db_connection(db_connection("PRU_DEV"))
 
-  # NOTE: to be set before you create your ROracle connection!
-  # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
-  withr::local_envvar(c("TZ" = "UTC",
-                        "ORA_SDTZ" = "UTC"))
-  withr::local_namespace("ROracle")
-  con <- withr::local_db_connection(
-    DBI::dbConnect(
-      DBI::dbDriver("Oracle"),
-      usr, pwd,
-      dbname = dbn,
-      timezone = "UTC")
+  columns <- c(
+    "LOBT",
+    "IOBT",
+    "AIRCRAFT_ID",
+    "CRCO_FLT_ID",
+    "ACARS_CALLSIGN",
+    "REGISTRATION",
+    "CRCO_REGISTRATION",
+    "ACARS_REGISTRATION",
+    "AIRCRAFT_TYPE_ICAO_ID",
+    "FLT_RULES",
+    "ICAO_FLT_TYPE",
+    "CRCO_ICAO_AIRCRAFT_TYPE",
+    "WK_TBL_CAT",
+    "AIRCRAFT_OPERATOR",
+    "CRCO_USERNAME",
+    "AIRCRAFT_ADDRESS",
+    "CRCO_AIRCRAFT_ADDRESS",
+    "LAST_FPL_ARCADDR",
+    "ADEP",
+    "ADES",
+    "ID",
+    "SENSITIVE",
+    "EOBT_1",
+    "ARVT_1",
+    "TAXI_TIME_1",
+    "AOBT_3",
+    "ARVT_3",
+    "TAXI_TIME_3"
   )
-  columns <- c("LOBT",
-               "IOBT",
-               "AIRCRAFT_ID",
-               "CRCO_FLT_ID",
-               "ACARS_CALLSIGN",
-               "REGISTRATION",
-               "CRCO_REGISTRATION",
-               "ACARS_REGISTRATION",
-               "AIRCRAFT_TYPE_ICAO_ID",
-               "FLT_RULES",
-               "ICAO_FLT_TYPE",
-               "CRCO_ICAO_AIRCRAFT_TYPE",
-               "WK_TBL_CAT",
-               "AIRCRAFT_OPERATOR",
-               "CRCO_USERNAME",
-               "AIRCRAFT_ADDRESS",
-               "CRCO_AIRCRAFT_ADDRESS",
-               "LAST_FPL_ARCADDR",
-               "ADEP",
-               "ADES",
-               "ID",
-               "SENSITIVE",
-               "EOBT_1",
-               "ARVT_1",
-               "TAXI_TIME_1",
-               "AOBT_3",
-               "ARVT_3",
-               "TAXI_TIME_3")
-
 
   query <- "
     WITH
@@ -773,13 +729,18 @@ export_flight_info <- function(
     WHERE
         {WHERE_LOBT}
   "
-  query <- stringr::str_glue(query,
-                             COLUMNS = paste(columns, collapse = ", "),
-                             WHERE_LOBT = where_lobt)
+  query <- stringr::str_glue(
+    query,
+    COLUMNS = paste(columns, collapse = ", "),
+    WHERE_LOBT = where_lobt
+  )
 
   query <- DBI::sqlInterpolate(
-    con, query,
-    WEF = wef, TIL = til)
+    con,
+    query,
+    WEF = wef,
+    TIL = til
+  )
 
   movq <- DBI::dbSendQuery(con, query)
   movs <- DBI::fetch(movq, n = -1) %>%

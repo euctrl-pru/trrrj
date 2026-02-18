@@ -21,30 +21,14 @@
 #' export_positions_fr24("2017-09-01 10:05:00Z", "2017-09-01T11:33:00")
 #' }
 export_positions_fr24 <- function(wef, til) {
-  # DB params
-  usr <- Sys.getenv("PRU_FR24_USR")
-  pwd <- Sys.getenv("PRU_FR24_PWD")
-  dbn <- Sys.getenv("PRU_FR24_DBNAME")
-
   # interval of interest
   wef <- parsedate::parse_date(wef)
   til <- parsedate::parse_date(til)
   wef <- format(wef, format = "%Y-%m-%dT%H:%M:%SZ")
   til <- format(til, format = "%Y-%m-%dT%H:%M:%SZ")
 
-
-  # NOTE: to be set before you create your ROracle connection!
-  # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
-  withr::local_envvar(c("TZ" = "UTC",
-                        "ORA_SDTZ" = "UTC"))
-  withr::local_namespace("ROracle")
-  con <- withr::local_db_connection(
-    DBI::dbConnect(
-      DBI::dbDriver("Oracle"),
-      usr, pwd,
-      dbname = dbn,
-      timezone = "UTC")
-  )
+  withr::local_envvar(c(TZ = "UTC", ORA_SDTZ = "UTC", NLS_LANG = ".AL32UTF8"))
+  con <- withr::local_db_connection(db_connection("PRU_FR24"))
 
   sqlq_pnt <- "WITH
       flights AS (
@@ -118,35 +102,20 @@ export_positions_fr24 <- function(wef, til) {
 #' export_flights_fr24("2017-09-01T10:30:00", "2017-09-01 11")
 #' }
 export_flights_fr24 <- function(wef, til) {
-  # DB params
-  usr <- Sys.getenv("PRU_FR24_USR")
-  pwd <- Sys.getenv("PRU_FR24_PWD")
-  dbn <- Sys.getenv("PRU_FR24_DBNAME")
-
   # interval of interest
   wef <- parsedate::parse_iso_8601(wef)
   til <- parsedate::parse_iso_8601(til)
   wef <- format(wef, format = "%Y-%m-%dT%H:%M:%SZ")
   til <- format(til, format = "%Y-%m-%dT%H:%M:%SZ")
 
-
-  # NOTE: to be set before you create your ROracle connection!
-  # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
-  withr::local_envvar(c("TZ" = "UTC",
-                        "ORA_SDTZ" = "UTC"))
-  withr::local_namespace("ROracle")
-  con <- withr::local_db_connection(
-    DBI::dbConnect(
-      DBI::dbDriver("Oracle"),
-      usr, pwd,
-      dbname = dbn,
-      timezone = "UTC")
-  )
+  withr::local_envvar(c(TZ = "UTC", ORA_SDTZ = "UTC", NLS_LANG = ".AL32UTF8"))
+  con <- withr::local_db_connection(db_connection("PRU_FR24"))
 
   # TODO: add list of flight IDs in WHERE from function args
   sql_where <- ""
 
-  sqlq_flt <- paste0("
+  sqlq_flt <- paste0(
+    "
     SELECT
       FLIGHT_ID,
       START_TIME,
@@ -162,7 +131,9 @@ export_flights_fr24 <- function(wef, til) {
     WHERE
       START_TIME >= TO_DATE(?WEF, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
       AND START_TIME < TO_DATE(?TIL, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
-      ", sql_where)
+      ",
+    sql_where
+  )
 
   query_flt <- DBI::sqlInterpolate(con, sqlq_flt, WEF = wef, TIL = til)
 
@@ -210,42 +181,25 @@ export_flights_fr24 <- function(wef, til) {
 export_flights_at_airport_fr24 <- function(wef, til, apt, flow = "ALL") {
   stopifnot(flow %in% c("ALL", "ARR", "DEP"))
 
-  # DB params
-  usr <- Sys.getenv("PRU_FR24_USR")
-  pwd <- Sys.getenv("PRU_FR24_PWD")
-  dbn <- Sys.getenv("PRU_FR24_DBNAME")
-
   # interval of interest
   wef <- parsedate::parse_iso_8601(wef)
   til <- parsedate::parse_iso_8601(til)
   wef <- format(wef, format = "%Y-%m-%dT%H:%M:%SZ")
   til <- format(til, format = "%Y-%m-%dT%H:%M:%SZ")
 
-
-  # NOTE: to be set before you create your ROracle connection!
-  # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
-  withr::local_envvar(c("TZ" = "UTC",
-                        "ORA_SDTZ" = "UTC"))
-  withr::local_namespace("ROracle")
-  con <- withr::local_db_connection(
-    DBI::dbConnect(
-      DBI::dbDriver("Oracle"),
-      usr, pwd,
-      dbname = dbn,
-      timezone = "UTC")
-  )
+  withr::local_envvar(c(TZ = "UTC", ORA_SDTZ = "UTC", NLS_LANG = ".AL32UTF8"))
+  con <- withr::local_db_connection(db_connection("PRU_FR24"))
 
   if (flow == "ALL") {
     sql_where <- " AND (ADEP = ?APT OR ADES = ?APT)"
-  }
-  else if (flow == "ARR") {
+  } else if (flow == "ARR") {
     sql_where <- "AND (ADES = ?APT)"
-  }
-  else if (flow == "DEP") {
+  } else if (flow == "DEP") {
     sql_where <- " AND (ADEP = ?APT)"
   }
 
-  sqlq_flt <- paste0("
+  sqlq_flt <- paste0(
+    "
     SELECT
       FLIGHT_ID,
       START_TIME,
@@ -261,9 +215,17 @@ export_flights_at_airport_fr24 <- function(wef, til, apt, flow = "ALL") {
     WHERE
           START_TIME >= TO_DATE(?WEF, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
       AND START_TIME <  TO_DATE(?TIL, 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')
-      ", sql_where)
+      ",
+    sql_where
+  )
 
-  query_flt <- DBI::sqlInterpolate(con, sqlq_flt, WEF = wef, TIL = til, APT = apt)
+  query_flt <- DBI::sqlInterpolate(
+    con,
+    sqlq_flt,
+    WEF = wef,
+    TIL = til,
+    APT = apt
+  )
 
   fltq <- DBI::dbSendQuery(con, query_flt)
   flts <- DBI::fetch(fltq, n = -1)
@@ -314,17 +276,16 @@ export_flights_at_airport_fr24 <- function(wef, til, apt, flow = "ALL") {
 #'                                  flow = "ARR",
 #'                                  radius = 50)
 #' }
-export_positions_at_airport_fr24 <- function(wef, til,
-                                             apt, lon_apt, lat_apt,
-                                             flow = "ALL",
-                                             radius = 40) {
+export_positions_at_airport_fr24 <- function(
+  wef,
+  til,
+  apt,
+  lon_apt,
+  lat_apt,
+  flow = "ALL",
+  radius = 40
+) {
   stopifnot(flow %in% c("ALL", "ARR", "DEP"), is.numeric(radius))
-
-
-  # DB params
-  usr <- Sys.getenv("PRU_FR24_USR")
-  pwd <- Sys.getenv("PRU_FR24_PWD")
-  dbn <- Sys.getenv("PRU_FR24_DBNAME")
 
   # interval of interest
   wef <- parsedate::parse_iso_8601(wef)
@@ -347,31 +308,19 @@ export_positions_at_airport_fr24 <- function(wef, til,
   # find the bounding box
   bb <- sf::st_bbox(crcl)
 
-  # NOTE: to be set before you create your ROracle connection!
-  # See http://www.oralytics.com/2015/05/r-roracle-and-oracle-date-formats_27.html
-  withr::local_envvar(c("TZ" = "UTC",
-                        "ORA_SDTZ" = "UTC"))
-  withr::local_namespace("ROracle")
-  con <- withr::local_db_connection(
-    DBI::dbConnect(
-      DBI::dbDriver("Oracle"),
-      usr, pwd,
-      dbname = dbn,
-      timezone = "UTC")
-  )
+  withr::local_envvar(c(TZ = "UTC", ORA_SDTZ = "UTC", NLS_LANG = ".AL32UTF8"))
+  con <- withr::local_db_connection(db_connection("PRU_FR24"))
 
   if (flow == "ALL") {
     sql_where <- " AND (ADEP = ?APT OR ADES = ?APT)"
-  }
-  else if (flow == "ARR") {
+  } else if (flow == "ARR") {
     sql_where <- "AND (ADES = ?APT)"
-  }
-  else if (flow == "DEP") {
+  } else if (flow == "DEP") {
     sql_where <- " AND (ADEP = ?APT)"
   }
 
-
-  sqlq_pnt <- stringr::str_glue("
+  sqlq_pnt <- stringr::str_glue(
+    "
   WITH
   flights AS (
   SELECT
@@ -414,18 +363,25 @@ export_positions_at_airport_fr24 <- function(wef, til,
   ((PNT.LON >= ?LON_WEST) AND (PNT.LON <= ?LON_EAST))
   AND ((PNT.LAT >= ?LAT_SOUTH) AND (PNT.LAT <= ?LAT_NORTH))
   )
-  ", where = sql_where)
+  ",
+    where = sql_where
+  )
 
   lone <- bb$xmax
   lonw <- bb$xmin
   lats <- bb$ymin
   latn <- bb$ymax
 
-  query_pnt <- DBI::sqlInterpolate(con, sqlq_pnt,
-    WEF = wef, TIL = til,
+  query_pnt <- DBI::sqlInterpolate(
+    con,
+    sqlq_pnt,
+    WEF = wef,
+    TIL = til,
     APT = apt,
-    LON_EAST = lone, LON_WEST = lonw,
-    LAT_SOUTH = lats, LAT_NORTH = latn
+    LON_EAST = lone,
+    LON_WEST = lonw,
+    LAT_SOUTH = lats,
+    LAT_NORTH = latn
   )
 
   fltq <- DBI::dbSendQuery(con, query_pnt)
@@ -510,7 +466,6 @@ read_flights_fr24 <- function(path) {
   flts <- flts %>%
     dplyr::mutate(date = lubridate::ymd(dt))
 
-
   # transparently cascade problems information
   attr(flts, "problems") <- pbs
 
@@ -576,8 +531,8 @@ read_positions_fr24 <- function(path) {
     speed = readr::col_integer(),
     squawk = readr::col_integer()
   )
-  fltid <- as.integer( (basename(path) %>%
-                          stringr::str_match(".*_(.*)\\.csv"))[1, 2])
+  fltid <- as.integer((basename(path) %>%
+    stringr::str_match(".*_(.*)\\.csv"))[1, 2])
 
   poss <- readr::read_csv(path, col_types = col_types) %>%
     dplyr::mutate(
@@ -585,7 +540,8 @@ read_positions_fr24 <- function(path) {
       timestamp = lubridate::ymd_hms(
         as.POSIXlt(
           as.numeric(.data$snapshot_id),
-          origin = "1970-01-01", tz = "GMT"
+          origin = "1970-01-01",
+          tz = "GMT"
         )
       )
     ) %>%
